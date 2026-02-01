@@ -1,10 +1,10 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.1.30",
-    "lastTouchedAt": "2026-02-01T06:08:24.446Z"
+    "lastTouchedAt": "2026-02-01T10:50:16.682Z"
   },
   "wizard": {
-    "lastRunAt": "2026-02-01T04:59:12.246Z",
+    "lastRunAt": "2026-02-01T06:08:23.369Z",
     "lastRunVersion": "2026.1.30",
     "lastRunCommand": "onboard",
     "lastRunMode": "local"
@@ -113,6 +113,12 @@
       }
     }
   },
+  "channels": {
+    "feishu": {
+      "appId": "cli_a9f20e2b2cb99bb6",
+      "appSecret": "mHJx508IWhMPN1utYW6hSfiiWtVexvkz"
+    }
+  },
   "gateway": {
     "port": 18789,
     "mode": "local",
@@ -135,6 +141,18 @@
     "entries": {
       "qwen-portal-auth": {
         "enabled": true
+      },
+      "feishu": {
+        "enabled": true
+      }
+    },
+    "installs": {
+      "feishu": {
+        "source": "npm",
+        "spec": "@m1heng-clawd/feishu",
+        "installPath": "/home/tauora/.openclaw/extensions/feishu",
+        "version": "0.1.4",
+        "installedAt": "2026-02-01T10:47:48.104Z"
       }
     }
   }

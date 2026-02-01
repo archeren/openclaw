@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
-    "updatedAt": 1769940031918,
+    "updatedAt": 1769943600298,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -12,7 +12,7 @@
     "lastChannel": "webchat",
     "origin": {
       "label": "heartbeat",
-      "provider": "webchat",
+      "provider": "heartbeat",
       "surface": "webchat",
       "chatType": "direct",
       "from": "heartbeat",
@@ -75,15 +75,15 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 33480,
-    "outputTokens": 52,
-    "totalTokens": 42731,
+    "inputTokens": 3818,
+    "outputTokens": 463,
+    "totalTokens": 9854,
     "modelProvider": "opencode",
     "model": "kimi-k2.5-free",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1769940013011,
+      "generatedAt": 1769942752364,
       "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
