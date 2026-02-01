@@ -1,22 +1,24 @@
 {
   "agent:main:main": {
     "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
-    "updatedAt": 1769943600298,
+    "updatedAt": 1769947280131,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "webchat",
-      "to": "heartbeat"
+      "channel": "feishu",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "accountId": "default"
     },
-    "lastChannel": "webchat",
+    "lastChannel": "feishu",
     "origin": {
-      "label": "heartbeat",
-      "provider": "heartbeat",
-      "surface": "webchat",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "feishu",
+      "surface": "feishu",
       "chatType": "direct",
-      "from": "heartbeat",
-      "to": "heartbeat"
+      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/573753df-e0f6-49e2-a086-8d172c2e4099.jsonl",
     "compactionCount": 0,
@@ -75,15 +77,15 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 3818,
-    "outputTokens": 463,
-    "totalTokens": 9854,
+    "inputTokens": 29045,
+    "outputTokens": 734,
+    "totalTokens": 39165,
     "modelProvider": "opencode",
     "model": "kimi-k2.5-free",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1769942752364,
+      "generatedAt": 1769947027051,
       "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -95,9 +97,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 20911,
+        "chars": 22194,
         "projectContextChars": 11881,
-        "nonProjectContextChars": 9030
+        "nonProjectContextChars": 10313
       },
       "injectedWorkspaceFiles": [
         {
@@ -179,8 +181,8 @@
         ]
       },
       "tools": {
-        "listChars": 1963,
-        "schemaChars": 13876,
+        "listChars": 3053,
+        "schemaChars": 15628,
         "entries": [
           {
             "name": "read",
@@ -303,6 +305,66 @@
             "propertiesCount": 3
           },
           {
+            "name": "feishu_doc_read",
+            "summaryChars": 59,
+            "schemaChars": 147,
+            "propertiesCount": 1
+          },
+          {
+            "name": "feishu_doc_create",
+            "summaryChars": 34,
+            "schemaChars": 190,
+            "propertiesCount": 2
+          },
+          {
+            "name": "feishu_doc_write",
+            "summaryChars": 179,
+            "schemaChars": 233,
+            "propertiesCount": 2
+          },
+          {
+            "name": "feishu_doc_append",
+            "summaryChars": 96,
+            "schemaChars": 218,
+            "propertiesCount": 2
+          },
+          {
+            "name": "feishu_doc_update_block",
+            "summaryChars": 64,
+            "schemaChars": 277,
+            "propertiesCount": 3
+          },
+          {
+            "name": "feishu_doc_delete_block",
+            "summaryChars": 46,
+            "schemaChars": 183,
+            "propertiesCount": 2
+          },
+          {
+            "name": "feishu_doc_list_blocks",
+            "summaryChars": 159,
+            "schemaChars": 147,
+            "propertiesCount": 1
+          },
+          {
+            "name": "feishu_doc_get_block",
+            "summaryChars": 65,
+            "schemaChars": 202,
+            "propertiesCount": 2
+          },
+          {
+            "name": "feishu_folder_list",
+            "summaryChars": 48,
+            "schemaChars": 122,
+            "propertiesCount": 1
+          },
+          {
+            "name": "feishu_app_scopes",
+            "summaryChars": 102,
+            "schemaChars": 33,
+            "propertiesCount": 0
+          },
+          {
             "name": "memory_search",
             "summaryChars": 235,
             "schemaChars": 139,
@@ -317,6 +379,9 @@
         ]
       }
     },
-    "lastTo": "heartbeat"
+    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastAccountId": "default",
+    "lastHeartbeatText": "现在让我查看一下我的完整资料：",
+    "lastHeartbeatSentAt": 1769945400269
   }
 }
