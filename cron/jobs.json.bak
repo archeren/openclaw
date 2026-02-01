@@ -1,29 +1,4 @@
 {
   "version": 1,
-  "jobs": [
-    {
-      "id": "b4fa5e82-e63e-459b-afa5-5c38d7778912",
-      "name": "alpha-auto-backup",
-      "enabled": true,
-      "deleteAfterRun": false,
-      "createdAtMs": 1769939139164,
-      "updatedAtMs": 1769965200001,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 * * * *"
-      },
-      "sessionTarget": "main",
-      "wakeMode": "next-heartbeat",
-      "payload": {
-        "kind": "systemEvent",
-        "text": "Hourly auto-backup: Check for changes in /home/tauora/.openclaw and commit/push if needed"
-      },
-      "state": {
-        "nextRunAtMs": 1769968800000,
-        "lastRunAtMs": 1769965200001,
-        "lastStatus": "ok",
-        "lastDurationMs": 7
-      }
-    }
-  ]
+  "jobs": []
 }

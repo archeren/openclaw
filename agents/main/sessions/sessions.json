@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
-    "updatedAt": 1769965200266,
+    "updatedAt": 1769967952357,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -12,11 +12,11 @@
     },
     "lastChannel": "feishu",
     "origin": {
-      "label": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "feishu",
       "surface": "feishu",
       "chatType": "direct",
-      "from": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
@@ -77,15 +77,15 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 79629,
-    "outputTokens": 111,
-    "totalTokens": 83740,
+    "inputTokens": 79698,
+    "outputTokens": 154,
+    "totalTokens": 89825,
     "modelProvider": "opencode",
     "model": "kimi-k2.5-free",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1769963815485,
+      "generatedAt": 1769967650956,
       "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -97,8 +97,8 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 22194,
-        "projectContextChars": 11881,
+        "chars": 22223,
+        "projectContextChars": 11910,
         "nonProjectContextChars": 10313
       },
       "injectedWorkspaceFiles": [
@@ -130,8 +130,8 @@
           "name": "IDENTITY.md",
           "path": "/home/tauora/.openclaw/workspace/IDENTITY.md",
           "missing": false,
-          "rawChars": 318,
-          "injectedChars": 318,
+          "rawChars": 467,
+          "injectedChars": 467,
           "truncated": false
         },
         {
@@ -146,8 +146,8 @@
           "name": "HEARTBEAT.md",
           "path": "/home/tauora/.openclaw/workspace/HEARTBEAT.md",
           "missing": false,
-          "rawChars": 433,
-          "injectedChars": 433,
+          "rawChars": 313,
+          "injectedChars": 313,
           "truncated": false
         },
         {
