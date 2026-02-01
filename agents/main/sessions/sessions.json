@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
-    "updatedAt": 1769955143063,
+    "updatedAt": 1769956213117,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -12,11 +12,11 @@
     },
     "lastChannel": "feishu",
     "origin": {
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "feishu",
+      "label": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
       "surface": "feishu",
       "chatType": "direct",
-      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "from": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
@@ -77,15 +77,15 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 54271,
-    "outputTokens": 328,
-    "totalTokens": 60208,
+    "inputTokens": 56638,
+    "outputTokens": 97,
+    "totalTokens": 60749,
     "modelProvider": "opencode",
     "model": "kimi-k2.5-free",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1769955010670,
+      "generatedAt": 1769955517278,
       "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
