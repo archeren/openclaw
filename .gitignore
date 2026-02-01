@@ -1,0 +1,19 @@
+# Sensitive auth files
+**/auth-profiles.json
+**/auth.json
+**/.env
+**/*.key
+**/*.pem
+
+# API keys and secrets
+**/api-keys*
+**/secrets*
+**/tokens*
+
+# Runtime data
+**/logs/
+**/tmp/
+**/cache/
+
+# Node modules if any
+node_modules/
