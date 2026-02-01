@@ -1,11 +1,24 @@
 #!/bin/bash
-# Auto-backup script for Alpha's memory
+# Auto-backup script for OpenClaw workspace
+# Runs every hour via system cron
 
-cd /home/tauora/.openclaw
+REPO_DIR="/home/tauora/.openclaw"
+LOG_FILE="/home/tauora/.openclaw/.backup.log"
+TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S %Z')
+
+cd "$REPO_DIR" || exit 1
 
 # Check if there are changes
-if [ -n "$(git status --porcelain)" ]; then
-    git add -A
-    git commit -m "Auto-backup: $(date '+%Y-%m-%d %H:%M:%S')"
-    git push origin master
+if [ -z "$(git status --short)" ]; then
+    echo "[$TIMESTAMP] No changes to backup" >> "$LOG_FILE"
+    exit 0
+fi
+
+# Add, commit, push
+git add -A
+git commit -m "Auto-backup: $TIMESTAMP" >> "$LOG_FILE" 2>&1
+if git push origin master >> "$LOG_FILE" 2>&1; then
+    echo "[$TIMESTAMP] Backup successful" >> "$LOG_FILE"
+else
+    echo "[$TIMESTAMP] Backup failed" >> "$LOG_FILE"
 fi
