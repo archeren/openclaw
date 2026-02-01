@@ -1,19 +1,22 @@
 {
   "agent:main:main": {
     "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
-    "updatedAt": 1769934634634,
+    "updatedAt": 1769940031918,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "webchat"
+      "channel": "webchat",
+      "to": "heartbeat"
     },
     "lastChannel": "webchat",
     "origin": {
-      "label": "openclaw-tui",
+      "label": "heartbeat",
       "provider": "webchat",
       "surface": "webchat",
-      "chatType": "direct"
+      "chatType": "direct",
+      "from": "heartbeat",
+      "to": "heartbeat"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/573753df-e0f6-49e2-a086-8d172c2e4099.jsonl",
     "compactionCount": 0,
@@ -72,15 +75,15 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 17339,
-    "outputTokens": 226,
-    "totalTokens": 26403,
+    "inputTokens": 33480,
+    "outputTokens": 52,
+    "totalTokens": 42731,
     "modelProvider": "opencode",
     "model": "kimi-k2.5-free",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1769934488171,
+      "generatedAt": 1769940013011,
       "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -92,9 +95,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 20639,
-        "projectContextChars": 11615,
-        "nonProjectContextChars": 9024
+        "chars": 20911,
+        "projectContextChars": 11881,
+        "nonProjectContextChars": 9030
       },
       "injectedWorkspaceFiles": [
         {
@@ -141,8 +144,8 @@
           "name": "HEARTBEAT.md",
           "path": "/home/tauora/.openclaw/workspace/HEARTBEAT.md",
           "missing": false,
-          "rawChars": 167,
-          "injectedChars": 167,
+          "rawChars": 433,
+          "injectedChars": 433,
           "truncated": false
         },
         {
@@ -313,6 +316,7 @@
           }
         ]
       }
-    }
+    },
+    "lastTo": "heartbeat"
   }
 }

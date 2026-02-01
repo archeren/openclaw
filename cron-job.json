@@ -1,0 +1,12 @@
+{
+  "name": "alpha-auto-backup",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 * * * *"
+  },
+  "sessionTarget": "main",
+  "payload": {
+    "kind": "systemEvent",
+    "text": "Hourly auto-backup: Check for changes in /home/tauora/.openclaw and commit/push if needed. Run: cd /home/tauora/.openclaw && git add -A && git commit -m \"Auto-backup: $(date)\" && git push"
+  }
+}
