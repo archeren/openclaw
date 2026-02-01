@@ -61,3 +61,17 @@ Everything up-to-date
 To github.com:auroradanier/claw-alpha.git
    981d07f..9173391  master -> master
 [2026-02-02 02:00:15 CST] Backup successful
+fatal: Unable to create '/home/tauora/.openclaw/.git/index.lock': File exists.
+
+Another git process seems to be running in this repository, e.g.
+an editor opened by 'git commit'. Please make sure all processes
+are terminated then try again. If it still fails, a git process
+may have crashed in this repository earlier:
+remove the file manually to continue.
+[master e68f59d] Auto-backup: 2026-02-02 03:00:01 CST
+ 1 file changed, 15 insertions(+)
+Everything up-to-date
+[2026-02-02 03:00:01 CST] Backup successful
+To github.com:auroradanier/claw-alpha.git
+   9173391..e68f59d  master -> master
+[2026-02-02 03:00:01 CST] Backup successful
