@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
-    "updatedAt": 1769956213117,
+    "updatedAt": 1769958000267,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -77,15 +77,15 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 56638,
-    "outputTokens": 97,
-    "totalTokens": 60749,
+    "inputTokens": 55009,
+    "outputTokens": 132,
+    "totalTokens": 61863,
     "modelProvider": "opencode",
     "model": "kimi-k2.5-free",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1769955517278,
+      "generatedAt": 1769957521285,
       "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -381,7 +381,7 @@
     },
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastAccountId": "default",
-    "lastHeartbeatText": "✅ **Auto-backup complete** - 8 files changed, 87 insertions(+) - Committed: `Auto-backup: 2026-02-01 22:01:47 CST` - Pushed to `master` branch --- **To install whois:** ```bash sudo apt-get update && sudo apt-get install -y whois ``` **After installation, check domain availability:** ```bash whois snapora.com | grep -i \"no match\\|not found\" ``` If it returns \"No match\" or \"NOT FOUND\", the domain is available!",
-    "lastHeartbeatSentAt": 1769954400271
+    "lastHeartbeatText": "HTTP 429: Rate limit exceeded. Please try again later.",
+    "lastHeartbeatSentAt": 1769957053392
   }
 }
