@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
-    "updatedAt": 1769934292494,
+    "updatedAt": 1769934634634,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -72,15 +72,15 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 16957,
-    "outputTokens": 134,
-    "totalTokens": 26132,
+    "inputTokens": 17339,
+    "outputTokens": 226,
+    "totalTokens": 26403,
     "modelProvider": "opencode",
     "model": "kimi-k2.5-free",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1769934208465,
+      "generatedAt": 1769934488171,
       "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -92,9 +92,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 20649,
+        "chars": 20639,
         "projectContextChars": 11615,
-        "nonProjectContextChars": 9034
+        "nonProjectContextChars": 9024
       },
       "injectedWorkspaceFiles": [
         {
