@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
-    "updatedAt": 1769949130735,
+    "updatedAt": 1769950800276,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -77,15 +77,15 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 40993,
-    "outputTokens": 1389,
-    "totalTokens": 45104,
+    "inputTokens": 42628,
+    "outputTokens": 1258,
+    "totalTokens": 48299,
     "modelProvider": "opencode",
     "model": "kimi-k2.5-free",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1769948993106,
+      "generatedAt": 1769950709264,
       "sessionId": "573753df-e0f6-49e2-a086-8d172c2e4099",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
