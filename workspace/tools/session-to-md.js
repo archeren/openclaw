@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
  * session-to-md.js - Extract conversation from OpenClaw session files to Markdown
+ * Clean, readable format focused on dialogue
  * 
  * Usage:
  *   node session-to-md.js [session-id] [options]
@@ -8,7 +9,6 @@
  * Examples:
  *   node session-to-md.js                    # Extract latest session
  *   node session-to-md.js <session-id>       # Extract specific session
- *   node session-to-md.js --today            # Extract today's sessions
  *   node session-to-md.js --all              # Extract all sessions
  */
 
@@ -18,17 +18,13 @@ const path = require('path');
 const SESSIONS_DIR = '/home/tauora/.openclaw/agents/main/sessions';
 const OUTPUT_DIR = '/home/tauora/.openclaw/workspace/logs/conversations';
 
-function formatTimestamp(ts) {
-  if (!ts) return 'Unknown';
+function formatTime(ts) {
+  if (!ts) return '';
   const date = new Date(ts);
-  return date.toLocaleString('en-US', {
+  return date.toLocaleTimeString('en-US', {
     timeZone: 'Asia/Shanghai',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
-    second: '2-digit',
     hour12: false
   });
 }
@@ -38,93 +34,132 @@ function getDateFromTimestamp(ts) {
   return new Date(ts);
 }
 
-function extractTextContent(content) {
+function extractUserMessage(content) {
   if (!content || !Array.isArray(content)) return '';
   
-  return content
-    .filter(item => item.type === 'text' || item.type === 'thinking')
-    .map(item => {
-      if (item.type === 'thinking') {
-        return `<!-- Thinking: ${item.thinking?.substring(0, 100)}... -->`;
-      }
-      return item.text || '';
-    })
-    .join('\n\n')
-    .trim();
+  for (const item of content) {
+    if (item.type === 'text' && item.text) {
+      let text = item.text.replace(/\s*\[message_id:\s*[\w-]+\]\s*$/, '').trim();
+      text = text.replace(/^System:.*$/gm, '').trim();
+      return text;
+    }
+  }
+  return '';
 }
 
-function extractToolCalls(content) {
-  if (!content || !Array.isArray(content)) return [];
+function extractAssistantMessage(content) {
+  if (!content || !Array.isArray(content)) return { text: '', hasThinking: false, tools: [] };
   
-  return content
-    .filter(item => item.type === 'toolCall')
-    .map(item => {
-      const args = JSON.stringify(item.arguments || {}, null, 0);
-      return `- **Tool:** \`${item.name}\` - \`${args.substring(0, 80)}${args.length > 80 ? '...' : ''}\``;
-    });
+  let text = '';
+  let hasThinking = false;
+  const tools = [];
+  
+  for (const item of content) {
+    if (item.type === 'text' && item.text) {
+      let cleanText = item.text;
+      
+      // Skip raw thinking/analysis text
+      if (cleanText.match(/^\s*(The user is|Looking at|I should|Let me|This is|So I|Now I)/i)) {
+        continue;
+      }
+      
+      // Remove content before </think>
+      cleanText = cleanText.replace(/^[\s\S]*?<\/think>\s*/i, '');
+      
+      cleanText = cleanText
+        .replace(/^\s*([-_]){3,}\s*/gm, '')
+        .replace(/\s*🅰️\s*$/, '')
+        .trim();
+        
+      if (cleanText) {
+        text += (text ? '\n\n' : '') + cleanText;
+      }
+    } else if (item.type === 'thinking' && item.thinking) {
+      hasThinking = true;
+    } else if (item.type === 'toolCall' && item.name) {
+      const toolName = item.name.split('.').pop();
+      if (!tools.includes(toolName)) {
+        tools.push(toolName);
+      }
+    }
+  }
+  
+  return { text: text.trim(), hasThinking, tools };
 }
 
 function parseSessionFile(filePath) {
   const content = fs.readFileSync(filePath, 'utf-8');
   const lines = content.trim().split('\n');
   
-  const events = [];
   const messages = [];
   
   for (const line of lines) {
     try {
       const event = JSON.parse(line);
-      events.push(event);
       
       if (event.type === 'message' && event.message) {
-        messages.push({
-          id: event.id,
-          role: event.message.role,
-          content: event.message.content,
-          timestamp: event.timestamp || event.message.timestamp,
-          api: event.message.api,
-          model: event.message.model,
-          usage: event.message.usage
-        });
+        const msg = event.message;
+        
+        if (msg.role === 'system') continue;
+        if (msg.role === 'toolResult') continue;
+        
+        if (msg.role === 'user') {
+          const text = extractUserMessage(msg.content);
+          if (text) {
+            messages.push({
+              role: 'user',
+              text,
+              timestamp: event.timestamp
+            });
+          }
+        } else if (msg.role === 'assistant') {
+          const { text, hasThinking, tools } = extractAssistantMessage(msg.content);
+          // Keep assistant messages even if text is empty (for metadata tracking)
+          messages.push({
+            role: 'assistant',
+            text,
+            hasThinking,
+            tools,
+            timestamp: event.timestamp
+          });
+        }
       }
     } catch (e) {
       // Skip malformed lines
     }
   }
   
-  return { events, messages };
+  return messages;
 }
 
 function formatConversation(messages) {
   const lines = [];
   
-  for (const msg of messages) {
-    const time = formatTimestamp(msg.timestamp);
-    const role = msg.role === 'user' ? '**Allan**' : '**Alpha**';
+  for (let i = 0; i < messages.length; i++) {
+    const msg = messages[i];
+    const time = formatTime(msg.timestamp);
     
-    lines.push(`---`);
-    lines.push(`### ${role} - ${time}`);
-    lines.push('');
-    
-    const text = extractTextContent(msg.content);
-    const tools = extractToolCalls(msg.content);
-    
-    if (text) {
-      lines.push(text);
-    }
-    
-    if (tools.length > 0) {
+    if (msg.role === 'user') {
       lines.push('');
-      lines.push('**Tools called:**');
-      lines.push(...tools);
-    }
-    
-    if (msg.model) {
+      lines.push(`**Allan** (${time})`);
       lines.push('');
-      lines.push(`<sub>Model: ${msg.model}</sub>`);
+      lines.push(msg.text);
+    } else if (msg.role === 'assistant') {
+      // Build metadata in one line
+      const meta = [];
+      if (msg.hasThinking) meta.push('thinking');
+      if (msg.tools.length > 0) meta.push(`tools: ${msg.tools.join(', ')}`);
+      
+      const metaStr = meta.length > 0 ? ` [${meta.join(' · ')}]` : '';
+      
+      lines.push('');
+      lines.push(`**Alpha** (${time})${metaStr}`);
+      
+      if (msg.text) {
+        lines.push('');
+        lines.push(msg.text);
+      }
     }
-    
-    lines.push('');
   }
   
   return lines.join('\n');
@@ -149,7 +184,6 @@ function getLatestSession() {
   const files = getSessionFiles();
   if (files.length === 0) return null;
   
-  // Sort by modification time
   files.sort((a, b) => {
     const statA = fs.statSync(a.path);
     const statB = fs.statSync(b.path);
@@ -169,45 +203,30 @@ function extractSession(sessionId) {
   
   console.log(`Extracting session: ${sessionId}...`);
   
-  const { messages } = parseSessionFile(filePath);
+  const messages = parseSessionFile(filePath);
   
   if (messages.length === 0) {
     console.log('No messages found in session.');
     return;
   }
   
-  // Get date from first message
   const firstMsg = messages[0];
   const date = getDateFromTimestamp(firstMsg.timestamp);
-  const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD
-  const yearMonth = dateStr.substring(0, 7); // YYYY-MM
+  const dateStr = date.toISOString().split('T')[0];
+  const yearMonth = dateStr.substring(0, 7);
   
-  // Create output directory: conversations/2026-02/
   const monthDir = path.join(OUTPUT_DIR, yearMonth);
   if (!fs.existsSync(monthDir)) {
     fs.mkdirSync(monthDir, { recursive: true });
   }
   
-  // Format the conversation
   const conversation = formatConversation(messages);
   
-  // Create markdown content
-  const mdContent = `# Session Conversation - ${dateStr}
-
-**Session ID:** \`${sessionId}\`  
-**Extracted:** ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Shanghai' })}  
-**Total Messages:** ${messages.length}
-
----
+  const mdContent = `# Conversation - ${dateStr}
 
 ${conversation}
-
----
-
-*End of conversation*
 `;
   
-  // Save to file: conversations/2026-02/2026-02-01-<session-id>.md
   const outputFile = path.join(monthDir, `${dateStr}-${sessionId}.md`);
   fs.writeFileSync(outputFile, mdContent, 'utf-8');
   
@@ -219,13 +238,11 @@ ${conversation}
 function main() {
   const args = process.argv.slice(2);
   
-  // Create output directory if needed
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
   
   if (args.length === 0) {
-    // Extract latest session
     const latest = getLatestSession();
     if (latest) {
       extractSession(latest.id);
@@ -250,7 +267,6 @@ function main() {
       console.log(`  ${i + 1}. ${f.id} (${(stat.size / 1024).toFixed(1)} KB)`);
     });
   } else {
-    // Extract specific session
     extractSession(args[0]);
   }
 }
