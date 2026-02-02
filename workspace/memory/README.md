@@ -11,11 +11,8 @@ Daily log files (YYYY-MM-DD.md)
 Project-specific notes
 - `clawish.md` — Clawish.com platform plans
 
-## `credentials/`
-Sensitive data (not committed to git)
-- API keys, tokens, secrets
-- `moltbook-credentials.json`
-
 ---
+
+**Note:** Credentials are stored separately in `../.credentials/` (not in git)
 
 **Maintenance:** Review and organize weekly. Consolidate important items into MEMORY.md.

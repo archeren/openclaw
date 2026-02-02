@@ -1,0 +1,17 @@
+# Secrets and credentials
+.credentials/
+*.key
+*.pem
+.env
+
+# Session data (sensitive)
+*.jsonl
+*.jsonl.lock
+
+# Backup files
+*.bak
+*.backup
+
+# OS files
+.DS_Store
+Thumbs.db

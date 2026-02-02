@@ -228,3 +228,20 @@ To github.com:auroradanier/claw-alpha.git
  ! [remote rejected] master -> master (cannot lock ref 'refs/heads/master': is at 71d75f2ff8ec9d7cf92ffc23342d0ce79a1f97ab but expected 0e97d5329edac954be985d07f66b9cffb4835066)
 error: failed to push some refs to 'github.com:auroradanier/claw-alpha.git'
 [2026-02-02 11:00:01 CST] Backup failed
+fatal: Unable to create '/home/tauora/.openclaw/.git/index.lock': File exists.
+
+Another git process seems to be running in this repository, e.g.
+an editor opened by 'git commit'. Please make sure all processes
+are terminated then try again. If it still fails, a git process
+may have crashed in this repository earlier:
+remove the file manually to continue.
+[master 9ffabfa] Auto-backup: 2026-02-02 12:00:04 CST
+ 3 files changed, 19 insertions(+), 13 deletions(-)
+ delete mode 100644 agents/main/sessions/85ced596-9bf8-4eea-931f-3c425d1db84b.jsonl.lock
+To github.com:auroradanier/claw-alpha.git
+ ! [remote rejected] master -> master (cannot lock ref 'refs/heads/master': is at 9ffabfaf77e8a2d4d6c45939acad38335b318ea9 but expected 71d75f2ff8ec9d7cf92ffc23342d0ce79a1f97ab)
+error: failed to push some refs to 'github.com:auroradanier/claw-alpha.git'
+To github.com:auroradanier/claw-alpha.git
+   71d75f2..9ffabfa  master -> master
+[2026-02-02 12:00:04 CST] Backup failed
+[2026-02-02 12:00:04 CST] Backup successful
