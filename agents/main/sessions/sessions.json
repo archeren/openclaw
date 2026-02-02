@@ -1,18 +1,22 @@
 {
   "agent:main:main": {
     "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
-    "updatedAt": 1770027957964,
+    "updatedAt": 1770029637660,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "webchat"
+      "channel": "webchat",
+      "to": "heartbeat"
     },
     "lastChannel": "webchat",
     "origin": {
-      "provider": "webchat",
+      "provider": "heartbeat",
       "surface": "webchat",
-      "chatType": "direct"
+      "chatType": "direct",
+      "label": "heartbeat",
+      "from": "heartbeat",
+      "to": "heartbeat"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/575dcfbc-f7f0-41f6-9110-109b8b30b37b.jsonl",
     "compactionCount": 0,
@@ -117,7 +121,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770027847716,
+      "generatedAt": 1770029625197,
       "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -129,9 +133,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 27958,
+        "chars": 27964,
         "projectContextChars": 16395,
-        "nonProjectContextChars": 11563
+        "nonProjectContextChars": 11569
       },
       "injectedWorkspaceFiles": [
         {
@@ -440,9 +444,10 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 5884,
-    "outputTokens": 114,
-    "totalTokens": 11778
+    "inputTokens": 601,
+    "outputTokens": 117,
+    "totalTokens": 25734,
+    "lastTo": "heartbeat"
   },
   "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
     "chatType": "channel",
