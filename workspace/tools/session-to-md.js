@@ -134,8 +134,9 @@ function parseSessionFile(filePath) {
 
 function formatConversation(messages) {
   const lines = [];
+  let i = 0;
   
-  for (let i = 0; i < messages.length; i++) {
+  while (i < messages.length) {
     const msg = messages[i];
     const time = formatTime(msg.timestamp);
     
@@ -144,21 +145,48 @@ function formatConversation(messages) {
       lines.push(`**Allan** (${time})`);
       lines.push('');
       lines.push(msg.text);
+      i++;
     } else if (msg.role === 'assistant') {
-      // Build metadata in one line
+      // Merge consecutive assistant messages (thinking + tools + response)
+      let combinedText = msg.text || '';
+      let hasThinking = msg.hasThinking;
+      const allTools = [...msg.tools];
+      let lastTime = time;
+      
+      // Look ahead for more assistant messages in this "round"
+      let j = i + 1;
+      while (j < messages.length && messages[j].role === 'assistant') {
+        const nextMsg = messages[j];
+        if (nextMsg.text) {
+          combinedText += (combinedText ? '\n\n' : '') + nextMsg.text;
+        }
+        if (nextMsg.hasThinking) hasThinking = true;
+        nextMsg.tools.forEach(t => {
+          if (!allTools.includes(t)) allTools.push(t);
+        });
+        lastTime = formatTime(nextMsg.timestamp);
+        j++;
+      }
+      
+      // Build single metadata line
       const meta = [];
-      if (msg.hasThinking) meta.push('thinking');
-      if (msg.tools.length > 0) meta.push(`tools: ${msg.tools.join(', ')}`);
+      if (hasThinking) meta.push('thinking');
+      if (allTools.length > 0) meta.push(`tools: ${allTools.join(', ')}`);
       
       const metaStr = meta.length > 0 ? ` [${meta.join(' · ')}]` : '';
+      const displayTime = lastTime || time;
       
       lines.push('');
-      lines.push(`**Alpha** (${time})${metaStr}`);
+      lines.push(`**Alpha** (${displayTime})${metaStr}`);
       
-      if (msg.text) {
+      if (combinedText) {
         lines.push('');
-        lines.push(msg.text);
+        lines.push(combinedText);
       }
+      
+      i = j; // Skip the merged messages
+    } else {
+      i++;
     }
   }
   
