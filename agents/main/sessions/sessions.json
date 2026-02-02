@@ -1,22 +1,24 @@
 {
   "agent:main:main": {
     "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
-    "updatedAt": 1770029637660,
+    "updatedAt": 1770033549004,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "webchat",
-      "to": "heartbeat"
+      "channel": "feishu",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "accountId": "default"
     },
-    "lastChannel": "webchat",
+    "lastChannel": "feishu",
     "origin": {
-      "provider": "heartbeat",
-      "surface": "webchat",
+      "provider": "feishu",
+      "surface": "feishu",
       "chatType": "direct",
-      "label": "heartbeat",
-      "from": "heartbeat",
-      "to": "heartbeat"
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/575dcfbc-f7f0-41f6-9110-109b8b30b37b.jsonl",
     "compactionCount": 0,
@@ -121,7 +123,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770029625197,
+      "generatedAt": 1770033519335,
       "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -133,9 +135,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 27964,
+        "chars": 28143,
         "projectContextChars": 16395,
-        "nonProjectContextChars": 11569
+        "nonProjectContextChars": 11748
       },
       "injectedWorkspaceFiles": [
         {
@@ -444,10 +446,11 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 601,
-    "outputTokens": 117,
-    "totalTokens": 25734,
-    "lastTo": "heartbeat"
+    "inputTokens": 23168,
+    "outputTokens": 102,
+    "totalTokens": 27279,
+    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastAccountId": "default"
   },
   "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
     "chatType": "channel",
