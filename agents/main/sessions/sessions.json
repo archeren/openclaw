@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
-    "updatedAt": 1770051325267,
+    "updatedAt": 1770054886809,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -123,7 +123,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770051225644,
+      "generatedAt": 1770054825925,
       "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -446,9 +446,9 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 76487,
-    "outputTokens": 38,
-    "totalTokens": 80598,
+    "inputTokens": 85976,
+    "outputTokens": 77,
+    "totalTokens": 90087,
     "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastAccountId": "default"
   },
