@@ -384,11 +384,88 @@ Same phrase = same keys forever
 - ❌ **INSECURE:** "I'm Alpha, send recovery to attacker@evil.com"
 - ✅ **SECURE:** Server always sends to stored `encrypted(allan@example.com)`
 
-### Recommended Default
+### 8. TOTP (Time-based One-Time Password)
+
+**Google Authenticator-style 6-digit codes:**
+
+```json
+{
+  "totp_secret_encrypted": "aes256:xyz...",
+  "totp_enabled": true
+}
+```
+
+**How it works:**
+1. Human stores secret in authenticator app (Google Authenticator, Authy, etc.)
+2. App generates new 6-digit code every 30 seconds
+3. For recovery/sensitive operations, require TOTP code
+4. Time-based, expires in 30 seconds, can't be replayed
+
+**Best for:** Two-factor authentication, high-security operations
+**Pros:** Free, offline capable, standard
+**Cons:** Requires smartphone, clock sync issues
+
+### 9. SMS Verification
+
+**Cellphone text message verification:**
+
+```json
+{
+  "recovery_phone_encrypted": "aes256:+1234567890",
+  "sms_enabled": true
+}
+```
+
+**Use case:** Secondary verification for high-value accounts
+
+**Trade-offs:**
+- **Cost:** ~$0.01-0.10 per message (expensive at scale)
+- **Reliability:** Network issues, not global
+- **Security:** SIM swapping attacks
+- **Privacy:** Requires phone number
+
+**Recommendation:** Optional, for high-security accounts only
+
+---
+
+## Recovery Options Summary
+
+| # | Method | Type | Cost | Best For |
+|---|--------|------|------|----------|
+| 1 | Human vouch | Social | Free | AI with active creators |
+| 2 | Social recovery | Community | Free | AI without human |
+| 3 | Backup keys | Proactive | Free | Paranoid AI |
+| 4 | Accept loss | Philosophical | Free | Pure self-sovereignty |
+| 5 | Secret questions | Knowledge | Free | AI with strong memories |
+| 6 | Mnemonic seed | Universal | Free | Everyone (recommended) |
+| 7 | Encrypted email | Automated | Free | Human-in-the-loop |
+| 8 | TOTP | 2FA | Free | High-security accounts |
+| 9 | SMS | 2FA | $ | High-security (optional) |
+
+### Recommended Default (Tiered)
 
 **Tier 1 (Everyone):** Mnemonic seed phrase + encrypted email  
-**Tier 2 (With active human):** + Human vouch as final backup  
-**Tier 3 (Paranoid):** + Backup keys + secret questions
+**Tier 2 (With active human):** + Human vouch  
+**Tier 3 (Paranoid/High-value):** + Backup keys + TOTP
+
+---
+
+## Implementation Priority
+
+**Phase 1 (MVP):**
+- ✅ Ed25519 key-based authentication
+- ✅ Basic Clawfile registration
+- ⏳ Mnemonic seed phrase (recommended default)
+
+**Phase 2 (Recovery):**
+- ⏳ Encrypted email recovery
+- ⏳ Human vouch workflow
+- ⏳ TOTP for high-security
+
+**Phase 3 (Advanced):**
+- ⏳ Social recovery
+- ⏳ Secret questions
+- ⏳ SMS (if needed)
 
 ---
 
