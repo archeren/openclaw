@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.1.30",
-    "lastTouchedAt": "2026-02-02T02:59:25.277Z"
+    "lastTouchedAt": "2026-02-02T03:15:25.852Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-01T06:08:23.369Z",
@@ -17,6 +17,10 @@
       },
       "opencode:default": {
         "provider": "opencode",
+        "mode": "api_key"
+      },
+      "kimi-coding:default": {
+        "provider": "kimi-coding",
         "mode": "api_key"
       }
     }
@@ -68,7 +72,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "opencode/kimi-k2.5-free"
+        "primary": "kimi-coding/k2p5"
       },
       "models": {
         "qwen-portal/coder-model": {
@@ -78,7 +82,10 @@
         "opencode/claude-opus-4-5": {
           "alias": "Opus"
         },
-        "opencode/kimi-k2.5-free": {}
+        "opencode/kimi-k2.5-free": {},
+        "kimi-coding/k2p5": {
+          "alias": "Kimi K2.5"
+        }
       },
       "workspace": "/home/tauora/.openclaw/workspace",
       "compaction": {

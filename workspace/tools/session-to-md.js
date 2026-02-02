@@ -135,12 +135,20 @@ function parseSessionFile(filePath) {
 function formatConversation(messages) {
   const lines = [];
   let i = 0;
+  let firstRound = true;
   
   while (i < messages.length) {
     const msg = messages[i];
     const time = formatTime(msg.timestamp);
     
     if (msg.role === 'user') {
+      // Add separator before each new round (except first)
+      if (!firstRound) {
+        lines.push('');
+        lines.push('---');
+      }
+      firstRound = false;
+      
       lines.push('');
       lines.push(`**Allan** (${time})`);
       lines.push('');
