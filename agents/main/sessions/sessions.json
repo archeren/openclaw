@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "85ced596-9bf8-4eea-931f-3c425d1db84b",
-    "updatedAt": 1770007731966,
+    "updatedAt": 1770008366832,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -114,7 +114,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770007582708,
+      "generatedAt": 1770008159988,
       "sessionId": "85ced596-9bf8-4eea-931f-3c425d1db84b",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -126,9 +126,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 25639,
-        "projectContextChars": 14412,
-        "nonProjectContextChars": 11227
+        "chars": 25829,
+        "projectContextChars": 14416,
+        "nonProjectContextChars": 11413
       },
       "injectedWorkspaceFiles": [
         {
@@ -175,8 +175,8 @@
           "name": "HEARTBEAT.md",
           "path": "/home/tauora/.openclaw/workspace/HEARTBEAT.md",
           "missing": false,
-          "rawChars": 864,
-          "injectedChars": 864,
+          "rawChars": 868,
+          "injectedChars": 868,
           "truncated": false
         },
         {
@@ -428,11 +428,33 @@
         ]
       }
     },
-    "inputTokens": 96734,
-    "outputTokens": 60,
-    "totalTokens": 96734,
-    "authProfileOverride": "kimi-coding:default",
+    "inputTokens": 101102,
+    "outputTokens": 373,
+    "totalTokens": 101102,
+    "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0
+  },
+  "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
+    "chatType": "channel",
+    "channel": "feishu",
+    "groupId": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "displayName": "feishu:g-ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "origin": {
+      "label": "feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "feishu",
+      "surface": "feishu",
+      "chatType": "channel",
+      "from": "feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "channel:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "accountId": "default"
+    },
+    "sessionId": "5837496b-8f25-4eb5-9972-f33dcfc08690",
+    "updatedAt": 1770007816759,
+    "deliveryContext": {
+      "channel": "feishu"
+    },
+    "lastChannel": "feishu",
+    "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/5837496b-8f25-4eb5-9972-f33dcfc08690.jsonl"
   }
 }
