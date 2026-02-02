@@ -6,8 +6,8 @@ REPO_DIR="/home/tauora/.openclaw"
 LOG_FILE="/home/tauora/.openclaw/.backup.log"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S %Z')
 
-# Use specific SSH key for Claw Alpha
-export GIT_SSH_COMMAND="ssh -i /home/tauora/.ssh/id_clawalpha -o IdentitiesOnly=yes"
+# Use specific SSH key for Claw Alpha (explicit, no config file needed)
+export GIT_SSH_COMMAND="ssh -i /home/tauora/.ssh/id_clawalpha -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
 
 cd "$REPO_DIR" || exit 1
 
