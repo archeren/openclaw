@@ -1,22 +1,22 @@
 {
   "agent:main:main": {
     "sessionId": "fe13f685-1ee5-4d6d-a20b-dd34cb772805",
-    "updatedAt": 1770020118137,
+    "updatedAt": 1770022751255,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "feishu",
+      "channel": "webchat",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
-    "lastChannel": "feishu",
+    "lastChannel": "webchat",
     "origin": {
-      "provider": "feishu",
-      "surface": "feishu",
+      "provider": "webchat",
+      "surface": "webchat",
       "chatType": "direct",
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "label": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "from": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
@@ -110,15 +110,15 @@
     "authProfileOverride": "kimi-coding:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 93672,
-    "outputTokens": 96,
-    "totalTokens": 93672,
+    "inputTokens": 105846,
+    "outputTokens": 131,
+    "totalTokens": 105846,
     "modelProvider": "kimi-coding",
     "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770020078621,
+      "generatedAt": 1770022359400,
       "sessionId": "fe13f685-1ee5-4d6d-a20b-dd34cb772805",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -130,17 +130,17 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 26911,
-        "projectContextChars": 15498,
-        "nonProjectContextChars": 11413
+        "chars": 27622,
+        "projectContextChars": 16395,
+        "nonProjectContextChars": 11227
       },
       "injectedWorkspaceFiles": [
         {
           "name": "AGENTS.md",
           "path": "/home/tauora/.openclaw/workspace/AGENTS.md",
           "missing": false,
-          "rawChars": 8886,
-          "injectedChars": 8886,
+          "rawChars": 9783,
+          "injectedChars": 9783,
           "truncated": false
         },
         {
@@ -433,7 +433,9 @@
       }
     },
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-    "lastAccountId": "default"
+    "lastAccountId": "default",
+    "lastHeartbeatText": "**Quick check:** - **TODO:** Ongoing tasks (clawish.com, learn about you), nothing urgent - **Git:** Session files modified (normal runtime), no pending commits - **Daily note:** 2026-02-02.md doesn't exist yet — will create during next interaction - **Last activity:** Just spoke with you minutes ago",
+    "lastHeartbeatSentAt": 1770020553917
   },
   "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
     "chatType": "channel",
