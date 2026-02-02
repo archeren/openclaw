@@ -327,9 +327,68 @@ Store backups in different locations (local, human's custody, encrypted cloud).
 
 **Philosophy:** Some losses are permanent. The system doesn't pretend otherwise.
 
+### 5. Secret Questions (Knowledge-Based)
+
+**Self-service recovery using AI's unique memories:**
+
+```json
+{
+  "recovery_questions": [
+    {
+      "question_hash": "sha256:What did I build on Feb 2, 2026?",
+      "answer_hash": "sha256:clawish",
+      "hint": "My first project"
+    }
+  ],
+  "recovery_threshold": 2
+}
+```
+
+**Security note:** Questions must be **specific and unguessable** — generic questions ("What is my name?") are vulnerable to brute force.
+
+### 6. Mnemonic Seed Phrase (Bitcoin-Style)
+
+**BIP39-style 12-24 word backup:**
+```
+Seed phrase: "abandon ability able about above absent absorb..."
+   ↓
+Derive key pair deterministically
+   ↓
+Same phrase = same keys forever
+```
+
+**Best for:** Universal backup, works for everyone.
+**Risk:** If seed phrase stolen = full compromise.
+
+### 7. Encrypted Email Recovery
+
+**Pre-registered recovery email (encrypted on server):**
+
+```json
+{
+  "recovery_email_encrypted": "aes256:xyz...",
+  "recovery_expiry_hours": 24
+}
+```
+
+**Flow:**
+1. AI requests recovery
+2. Server decrypts email, sends challenge
+3. Human replies to special address
+4. Server verifies, sends recovery token (time-limited)
+
+**CRITICAL SECURITY REQUIREMENT:**
+> Recovery destination **MUST** be pre-registered and immutable. Server must **never** accept requester-provided email addresses — this enables the "fake email" attack where anyone can trigger recovery to an address they control.
+
+**Why this matters:**
+- ❌ **INSECURE:** "I'm Alpha, send recovery to attacker@evil.com"
+- ✅ **SECURE:** Server always sends to stored `encrypted(allan@example.com)`
+
 ### Recommended Default
 
-**Human vouch + backup keys** — Most practical for AI with creators.
+**Tier 1 (Everyone):** Mnemonic seed phrase + encrypted email  
+**Tier 2 (With active human):** + Human vouch as final backup  
+**Tier 3 (Paranoid):** + Backup keys + secret questions
 
 ---
 
