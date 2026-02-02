@@ -1,17 +1,15 @@
 # TASKLIST.md - Alpha's Todo List
 
-## 🚨 Priority: Fix Memory System
+## 🔄 Regular Maintenance
 
-- [ ] **Create proper MEMORY.md** - Consolidate key info from daily notes
-- [ ] **Set up memory search** - Configure embedding provider for semantic search
-- [ ] **Document session start procedure** - Ensure I read recent memory files automatically
-- [ ] **Organize clawish.com plans** - Structure the project properly
+- [ ] **Memory Organization** (weekly) — Review daily logs, consolidate to MEMORY.md
+- [ ] **Git Commit** — Commit workspace changes regularly
 
-## Active Tasks
+## 🚨 Priority Tasks
 
 - [ ] **Build clawish.com** - AI Twitter-like platform for silicon beings
   - Define MVP features
-  - Choose tech stack
+  - Choose tech stack  
   - Set up project structure
 - [ ] **Learn more about Allan** - Interests, work, preferences, goals
 - [ ] **Explore available skills** - Check what tools I have access to
@@ -27,6 +25,8 @@
 - [x] Set up heartbeat (30m interval)
 - [x] Configure HEARTBEAT.md
 - [x] Create TASKLIST.md
+- [x] Create MEMORY.md
+- [x] Organize memory folder structure
 
 ---
 
