@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "85ced596-9bf8-4eea-931f-3c425d1db84b",
-    "updatedAt": 1770004604143,
+    "updatedAt": 1770004799294,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -114,7 +114,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770004236317,
+      "generatedAt": 1770004604590,
       "sessionId": "85ced596-9bf8-4eea-931f-3c425d1db84b",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -126,8 +126,8 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 23810,
-        "projectContextChars": 12413,
+        "chars": 25809,
+        "projectContextChars": 14412,
         "nonProjectContextChars": 11397
       },
       "injectedWorkspaceFiles": [
@@ -175,8 +175,8 @@
           "name": "HEARTBEAT.md",
           "path": "/home/tauora/.openclaw/workspace/HEARTBEAT.md",
           "missing": false,
-          "rawChars": 816,
-          "injectedChars": 816,
+          "rawChars": 864,
+          "injectedChars": 864,
           "truncated": false
         },
         {
@@ -185,6 +185,14 @@
           "missing": true,
           "rawChars": 0,
           "injectedChars": 68,
+          "truncated": false
+        },
+        {
+          "name": "MEMORY.md",
+          "path": "/home/tauora/.openclaw/workspace/MEMORY.md",
+          "missing": false,
+          "rawChars": 1937,
+          "injectedChars": 1937,
           "truncated": false
         }
       ],
@@ -420,9 +428,9 @@
         ]
       }
     },
-    "inputTokens": 509,
-    "outputTokens": 298,
-    "totalTokens": 88929,
+    "inputTokens": 86991,
+    "outputTokens": 236,
+    "totalTokens": 91102,
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0
