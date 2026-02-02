@@ -1,23 +1,23 @@
 {
   "agent:main:main": {
     "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
-    "updatedAt": 1770047702977,
+    "updatedAt": 1770051325267,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "lastChannel": "feishu",
     "origin": {
-      "provider": "feishu",
+      "provider": "heartbeat",
       "surface": "feishu",
       "chatType": "direct",
       "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/575dcfbc-f7f0-41f6-9110-109b8b30b37b.jsonl",
@@ -123,7 +123,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770047682284,
+      "generatedAt": 1770051225644,
       "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -135,9 +135,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 30368,
+        "chars": 30189,
         "projectContextChars": 18620,
-        "nonProjectContextChars": 11748
+        "nonProjectContextChars": 11569
       },
       "injectedWorkspaceFiles": [
         {
@@ -446,10 +446,10 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 58172,
-    "outputTokens": 451,
-    "totalTokens": 70334,
-    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "inputTokens": 76487,
+    "outputTokens": 38,
+    "totalTokens": 80598,
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastAccountId": "default"
   },
   "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
