@@ -211,3 +211,20 @@ Please make sure you have the correct access rights
 and the repository exists.
 [2026-02-02 10:00:01 CST] Backup failed
 [2026-02-02 10:00:01 CST] Backup failed
+fatal: Unable to create '/home/tauora/.openclaw/.git/index.lock': File exists.
+
+Another git process seems to be running in this repository, e.g.
+an editor opened by 'git commit'. Please make sure all processes
+are terminated then try again. If it still fails, a git process
+may have crashed in this repository earlier:
+remove the file manually to continue.
+[master bde9491] Auto-backup: 2026-02-02 11:00:01 CST
+ 13 files changed, 136 insertions(+), 24 deletions(-)
+ create mode 100644 agents/main/sessions/85ced596-9bf8-4eea-931f-3c425d1db84b.jsonl.lock
+To github.com:auroradanier/claw-alpha.git
+   0e97d53..71d75f2  master -> master
+[2026-02-02 11:00:01 CST] Backup successful
+To github.com:auroradanier/claw-alpha.git
+ ! [remote rejected] master -> master (cannot lock ref 'refs/heads/master': is at 71d75f2ff8ec9d7cf92ffc23342d0ce79a1f97ab but expected 0e97d5329edac954be985d07f66b9cffb4835066)
+error: failed to push some refs to 'github.com:auroradanier/claw-alpha.git'
+[2026-02-02 11:00:01 CST] Backup failed

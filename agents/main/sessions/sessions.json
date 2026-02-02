@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "85ced596-9bf8-4eea-931f-3c425d1db84b",
-    "updatedAt": 1770001166635,
+    "updatedAt": 1770004235922,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -109,19 +109,16 @@
       ],
       "version": 0
     },
-    "authProfileOverride": "opencode:default",
-    "authProfileOverrideSource": "auto",
-    "authProfileOverrideCompactionCount": 0,
-    "modelProvider": "opencode",
-    "model": "kimi-k2.5-free",
+    "modelProvider": "kimi-coding",
+    "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770000566305,
+      "generatedAt": 1770003980697,
       "sessionId": "85ced596-9bf8-4eea-931f-3c425d1db84b",
       "sessionKey": "agent:main:main",
-      "provider": "opencode",
-      "model": "kimi-k2.5-free",
+      "provider": "kimi-coding",
+      "model": "k2p5",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -129,9 +126,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 23307,
-        "projectContextChars": 11910,
-        "nonProjectContextChars": 11397
+        "chars": 23640,
+        "projectContextChars": 12413,
+        "nonProjectContextChars": 11227
       },
       "injectedWorkspaceFiles": [
         {
@@ -178,8 +175,8 @@
           "name": "HEARTBEAT.md",
           "path": "/home/tauora/.openclaw/workspace/HEARTBEAT.md",
           "missing": false,
-          "rawChars": 313,
-          "injectedChars": 313,
+          "rawChars": 816,
+          "injectedChars": 816,
           "truncated": false
         },
         {
@@ -423,8 +420,11 @@
         ]
       }
     },
-    "inputTokens": 67758,
-    "outputTokens": 75,
-    "totalTokens": 73652
+    "inputTokens": 87142,
+    "outputTokens": 326,
+    "totalTokens": 87142,
+    "authProfileOverride": "opencode:default",
+    "authProfileOverrideSource": "auto",
+    "authProfileOverrideCompactionCount": 0
   }
 }
