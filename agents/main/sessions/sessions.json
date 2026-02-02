@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
-    "updatedAt": 1770033549004,
+    "updatedAt": 1770037107373,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -123,7 +123,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770033519335,
+      "generatedAt": 1770037095260,
       "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -135,8 +135,8 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 28143,
-        "projectContextChars": 16395,
+        "chars": 28876,
+        "projectContextChars": 17128,
         "nonProjectContextChars": 11748
       },
       "injectedWorkspaceFiles": [
@@ -200,8 +200,8 @@
           "name": "MEMORY.md",
           "path": "/home/tauora/.openclaw/workspace/MEMORY.md",
           "missing": false,
-          "rawChars": 1937,
-          "injectedChars": 1937,
+          "rawChars": 2670,
+          "injectedChars": 2670,
           "truncated": false
         }
       ],
@@ -446,9 +446,9 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 23168,
-    "outputTokens": 102,
-    "totalTokens": 27279,
+    "inputTokens": 29745,
+    "outputTokens": 322,
+    "totalTokens": 33856,
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastAccountId": "default"
   },
