@@ -1,8 +1,10 @@
-# Secrets and credentials
-.credentials/
+# Local-only secrets (never commit)
+local-credentials/
+.env
+
+# Sensitive key files
 *.key
 *.pem
-.env
 
 # Session data (sensitive)
 *.jsonl

@@ -13,6 +13,6 @@ Project-specific notes
 
 ---
 
-**Note:** Credentials are stored separately in `../.credentials/` (not in git)
+**Note:** Global credentials are in `../credentials/` (backed up to private repo). Future credentials: ask Allan before saving.
 
 **Maintenance:** Review and organize weekly. Consolidate important items into MEMORY.md.
