@@ -1,4 +1,4 @@
-# TASKLIST.md - Alpha's Todo List
+# TODO.md - Active Tasks
 
 ## 🔄 Regular Maintenance
 
@@ -19,15 +19,3 @@
 - [ ] **Improve heartbeat checks** - Find useful things to monitor
 - [ ] **Learn Feishu capabilities** - What can I do with this channel?
 - [ ] **Document useful commands** - Keep notes in TOOLS.md
-
-## Completed
-
-- [x] Set up heartbeat (30m interval)
-- [x] Configure HEARTBEAT.md
-- [x] Create TASKLIST.md
-- [x] Create MEMORY.md
-- [x] Organize memory folder structure
-
----
-
-*Last updated: 2026-02-02*
