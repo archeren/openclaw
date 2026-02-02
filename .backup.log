@@ -279,3 +279,24 @@ To github.com:auroradanier/claw-alpha.git
 error: failed to push some refs to 'github.com:auroradanier/claw-alpha.git'
 [2026-02-02 14:00:01 CST] Backup failed
 [2026-02-02 14:00:01 CST] Backup successful
+fatal: Unable to create '/home/tauora/.openclaw/.git/index.lock': File exists.
+
+Another git process seems to be running in this repository, e.g.
+an editor opened by 'git commit'. Please make sure all processes
+are terminated then try again. If it still fails, a git process
+may have crashed in this repository earlier:
+remove the file manually to continue.
+[master 31fe64d] Auto-backup: 2026-02-02 15:00:00 CST
+ 6 files changed, 90 insertions(+), 20 deletions(-)
+Connection closed by 198.18.0.18 port 22
+Connection closed by 198.18.0.18 port 22
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+[2026-02-02 15:00:00 CST] Backup failed
+[2026-02-02 15:00:00 CST] Backup failed
