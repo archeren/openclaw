@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
-    "updatedAt": 1770058434926,
+    "updatedAt": 1770062060300,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -123,7 +123,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770058425994,
+      "generatedAt": 1770062026123,
       "sessionId": "575dcfbc-f7f0-41f6-9110-109b8b30b37b",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -446,11 +446,13 @@
     "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 85969,
-    "outputTokens": 164,
-    "totalTokens": 90080,
+    "inputTokens": 84242,
+    "outputTokens": 177,
+    "totalTokens": 90136,
     "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-    "lastAccountId": "default"
+    "lastAccountId": "default",
+    "lastHeartbeatText": "HTTP 429: Rate limit exceeded. Please try again later.",
+    "lastHeartbeatSentAt": 1770062026021
   },
   "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
     "chatType": "channel",
