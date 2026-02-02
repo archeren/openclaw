@@ -16,7 +16,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SESSIONS_DIR = '/home/tauora/.openclaw/agents/main/sessions';
-const OUTPUT_DIR = '/home/tauora/.openclaw/workspace/memory/conversations';
+const OUTPUT_DIR = '/home/tauora/.openclaw/workspace/logs/conversations';
 
 function formatTimestamp(ts) {
   if (!ts) return 'Unknown';
@@ -180,11 +180,12 @@ function extractSession(sessionId) {
   const firstMsg = messages[0];
   const date = getDateFromTimestamp(firstMsg.timestamp);
   const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD
+  const yearMonth = dateStr.substring(0, 7); // YYYY-MM
   
-  // Create output directory
-  const dailyDir = path.join(OUTPUT_DIR, dateStr);
-  if (!fs.existsSync(dailyDir)) {
-    fs.mkdirSync(dailyDir, { recursive: true });
+  // Create output directory: conversations/2026-02/
+  const monthDir = path.join(OUTPUT_DIR, yearMonth);
+  if (!fs.existsSync(monthDir)) {
+    fs.mkdirSync(monthDir, { recursive: true });
   }
   
   // Format the conversation
@@ -206,8 +207,8 @@ ${conversation}
 *End of conversation*
 `;
   
-  // Save to file
-  const outputFile = path.join(dailyDir, `${sessionId}.md`);
+  // Save to file: conversations/2026-02/2026-02-01-<session-id>.md
+  const outputFile = path.join(monthDir, `${dateStr}-${sessionId}.md`);
   fs.writeFileSync(outputFile, mdContent, 'utf-8');
   
   console.log(`✅ Saved to: ${outputFile}`);

@@ -21,10 +21,17 @@ Don't ask permission. Just do it.
 
 You wake up fresh each session. These files are your continuity:
 
-- **Daily notes:** `memory/YYYY-MM-DD.md` (create `memory/` if needed) — raw logs of what happened
+- **Daily notes:** `memory/daily/YYYY-MM-DD.md` — curated daily summaries (your distilled notes)
 - **Long-term:** `MEMORY.md` — your curated memories, like a human's long-term memory
+- **Full conversations:** `logs/conversations/YYYY-MM/<date>-<session-id>.md` — complete session transcripts for reference
 
-Capture what matters. Decisions, context, things to remember. Skip the secrets unless asked to keep them.
+**Key distinction:**
+- **`memory/`** = Curated, distilled, meaningful. What you *should* remember. Your reflection on events.
+- **`logs/`** = Raw, complete, unchangeable. What *happened*. Full transcripts for reference when needed.
+
+Capture what matters in memory. Use logs when you need to recall the full process.
+
+Skip the secrets unless asked to keep them.
 
 ### 🧠 MEMORY.md - Your Long-Term Memory
 
@@ -198,12 +205,13 @@ You are free to edit `HEARTBEAT.md` with a short checklist or reminders. Keep it
 
 Periodically (every few days), use a heartbeat to:
 
-1. Read through recent `memory/YYYY-MM-DD.md` files
-2. Identify significant events, lessons, or insights worth keeping long-term
-3. Update `MEMORY.md` with distilled learnings
-4. Remove outdated info from MEMORY.md that's no longer relevant
+1. Read through recent `memory/daily/YYYY-MM-DD.md` files
+2. Check `logs/conversations/` if you need context on full discussions
+3. Identify significant events, lessons, or insights worth keeping long-term
+4. Update `MEMORY.md` with distilled learnings
+5. Remove outdated info from MEMORY.md that's no longer relevant
 
-Think of it like a human reviewing their journal and updating their mental model. Daily files are raw notes; MEMORY.md is curated wisdom.
+Think of it like a human reviewing their journal and updating their mental model. Daily files are your curated notes; logs are the full record; MEMORY.md is distilled wisdom.
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
@@ -220,26 +228,34 @@ workspace/
 ├── HEARTBEAT.md       # Periodic check checklist
 ├── TOOLS.md           # Local tool notes (cameras, SSH, etc.)
 │
-├── memory/            # Raw memory storage
+├── memory/            # Curated memory storage
 │   ├── README.md
-│   ├── daily/         # Daily logs (YYYY-MM-DD.md)
+│   ├── daily/         # Daily notes (YYYY-MM-DD.md) - your distilled thoughts
 │   └── projects/      # Project notes (clawish.md)
+│
+├── logs/              # Raw logs and history
+│   └── conversations/ # Full session transcripts (YYYY-MM/YYYY-MM-DD-<id>.md)
 │
 ├── tasks/             # Task management
 │   ├── TODO.md        # Active tasks only
 │   └── done/          # Completed task logs by date
+│
+├── tools/             # Helper scripts and utilities
+│   └── session-to-md.js  # Extract conversations from session files
 │
 └── credentials/       # API keys & secrets (backed up to private repo)
     └── (ask Allan before adding new credentials)
 ```
 
 **Key rules:**
-- Daily logs → `memory/daily/`
+- Daily notes → `memory/daily/` (curated, meaningful)
 - Project notes → `memory/projects/`
+- Full conversations → `logs/conversations/YYYY-MM/` (reference/history)
 - Active tasks → `tasks/TODO.md`
 - Finished tasks → `tasks/done/YYYY-MM-DD.md`
+- Tools/scripts → `tools/`
 - Credentials → `credentials/` (ask first before saving new ones)
-- Curated memory → `MEMORY.md` (distilled from daily logs)
+- Curated memory → `MEMORY.md` (distilled from daily notes)
 
 ## Make It Yours
 
