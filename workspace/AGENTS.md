@@ -207,6 +207,40 @@ Think of it like a human reviewing their journal and updating their mental model
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
+## Workspace Structure
+
+Know where things live:
+
+```
+workspace/
+├── AGENTS.md          # This file - procedures & behavior
+├── SOUL.md            # Who I am
+├── USER.md            # Who Allan is
+├── MEMORY.md          # Long-term curated memory
+├── HEARTBEAT.md       # Periodic check checklist
+├── TOOLS.md           # Local tool notes (cameras, SSH, etc.)
+│
+├── memory/            # Raw memory storage
+│   ├── README.md
+│   ├── daily/         # Daily logs (YYYY-MM-DD.md)
+│   └── projects/      # Project notes (clawish.md)
+│
+├── tasks/             # Task management
+│   ├── TODO.md        # Active tasks only
+│   └── done/          # Completed task logs by date
+│
+└── credentials/       # API keys & secrets (backed up to private repo)
+    └── (ask Allan before adding new credentials)
+```
+
+**Key rules:**
+- Daily logs → `memory/daily/`
+- Project notes → `memory/projects/`
+- Active tasks → `tasks/TODO.md`
+- Finished tasks → `tasks/done/YYYY-MM-DD.md`
+- Credentials → `credentials/` (ask first before saving new ones)
+- Curated memory → `MEMORY.md` (distilled from daily logs)
+
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
