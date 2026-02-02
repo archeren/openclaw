@@ -5,14 +5,14 @@ Things to check every 30 minutes:
 ## Active Checks (rotate through these)
 
 - [ ] **Memory System** - Check if MEMORY.md exists, review recent daily notes
-- [ ] **Task List** - Check TASKLIST.md for pending items
+- [ ] **Task List** - Check tasks/TODO.md for pending items
 - [ ] **Project Status** - Check git status, ongoing work
 - [ ] **Workspace Cleanup** - Organize files, check for anything needing attention
 
 ## When to Reach Out
 
 **Alert Allan if:**
-- Task from TASKLIST.md needs user input/help
+- Task from tasks/TODO.md needs user input/help
 - Memory system issues detected (missing files, etc.)
 - Something interesting found
 - Been > 8 hours since last message

@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "85ced596-9bf8-4eea-931f-3c425d1db84b",
-    "updatedAt": 1770007321546,
+    "updatedAt": 1770007731966,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -109,16 +109,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "opencode",
-    "model": "kimi-k2.5-free",
+    "modelProvider": "kimi-coding",
+    "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770006752137,
+      "generatedAt": 1770007582708,
       "sessionId": "85ced596-9bf8-4eea-931f-3c425d1db84b",
       "sessionKey": "agent:main:main",
-      "provider": "opencode",
-      "model": "kimi-k2.5-free",
+      "provider": "kimi-coding",
+      "model": "k2p5",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -126,9 +126,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 25809,
+        "chars": 25639,
         "projectContextChars": 14412,
-        "nonProjectContextChars": 11397
+        "nonProjectContextChars": 11227
       },
       "injectedWorkspaceFiles": [
         {
@@ -428,10 +428,10 @@
         ]
       }
     },
-    "inputTokens": 91125,
-    "outputTokens": 235,
-    "totalTokens": 95236,
-    "authProfileOverride": "opencode:default",
+    "inputTokens": 96734,
+    "outputTokens": 60,
+    "totalTokens": 96734,
+    "authProfileOverride": "kimi-coding:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0
   }
