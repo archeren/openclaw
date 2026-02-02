@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.1.30",
-    "lastTouchedAt": "2026-02-01T10:50:24.446Z"
+    "lastTouchedAt": "2026-02-02T02:59:25.277Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-01T06:08:23.369Z",
@@ -83,6 +83,12 @@
       "workspace": "/home/tauora/.openclaw/workspace",
       "compaction": {
         "mode": "safeguard"
+      },
+      "heartbeat": {
+        "every": "30m",
+        "target": "last",
+        "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+        "prompt": "Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK."
       },
       "maxConcurrent": 4,
       "subagents": {

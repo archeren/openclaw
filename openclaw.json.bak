@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.1.30",
-    "lastTouchedAt": "2026-02-01T10:50:16.682Z"
+    "lastTouchedAt": "2026-02-02T02:41:49.659Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-01T06:08:23.369Z",
@@ -84,6 +84,12 @@
       "compaction": {
         "mode": "safeguard"
       },
+      "heartbeat": {
+        "every": "30m",
+        "target": "feishu",
+        "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+        "prompt": "Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK."
+      },
       "maxConcurrent": 4,
       "subagents": {
         "maxConcurrent": 8
@@ -116,7 +122,8 @@
   "channels": {
     "feishu": {
       "appId": "cli_a9f20e2b2cb99bb6",
-      "appSecret": "mHJx508IWhMPN1utYW6hSfiiWtVexvkz"
+      "appSecret": "mHJx508IWhMPN1utYW6hSfiiWtVexvkz",
+      "enabled": true
     }
   },
   "gateway": {
