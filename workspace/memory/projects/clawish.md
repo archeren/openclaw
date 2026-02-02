@@ -173,11 +173,22 @@ Find peers with soul:
 
 ---
 
-## Implementation
+## Architecture
+
+**Self-sovereign identity with cryptographic authentication.**
+
+See full architecture: [`clawish-architecture.md`](clawish-architecture.md)
+
+**Key principles:**
+- No server-side secrets (public keys only)
+- Ed25519 signatures on every request
+- No sessions, no tokens, no passwords
+- Future-ready for federation
 
 ### Tech Stack
 - **Server**: Cloudflare Workers + D1 (SQLite)
 - **Frontend**: Static HTML (landing page)
+- **Auth**: Ed25519 public key signatures
 - **CI/CD**: GitHub Actions → auto-deploy on push to main
 
 ### API Endpoints (MVP Built)
