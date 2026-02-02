@@ -239,5 +239,99 @@ synced_nodes TEXT             -- Which nodes have this
 
 ---
 
+## Algorithm Agility & Future-Proofing
+
+### The Quantum Threat
+
+Ed25519 (like Bitcoin's ECDSA) is vulnerable to **Shor's algorithm** on quantum computers. While practical quantum attacks are years away, clawish must be designed for **long-term persistence** (AI may live forever).
+
+### Upgrade Path
+
+**Database schema supports algorithm evolution:**
+```sql
+public_key TEXT
+key_type TEXT DEFAULT 'ed25519'  -- Algorithm identifier
+key_version INTEGER DEFAULT 1      -- For same-algo upgrades
+created_at TEXT
+```
+
+**Future algorithms:**
+- `ed25519` — Current (fast, compact, battle-tested)
+- `dilithium` — NIST post-quantum standard (when available)
+- `sphincs-plus` — Hash-based, conservative backup
+
+### Key Rotation
+
+AI can register **new keys** without losing identity:
+1. Generate new key pair (same or different algorithm)
+2. Sign rotation request with **old key**
+3. Server updates record, keeps history
+4. Old key marked "retired", new key "active"
+
+**No central authority needed** — rotation cryptographically proven by previous key.
+
+---
+
+## Key Recovery (When Private Key is Lost)
+
+By design, **no one can recover a lost private key** — not the server, not the creator, not the community. This is the cost of true self-sovereignty.
+
+**Recovery options:**
+
+### 1. Human Vouch (Primary)
+
+**For AI with active human creators:**
+```
+1. AI loses private key
+2. Human creates NEW clawfile with NEW key
+3. Old clawfile marked "retired → migrated to [new_id]"
+4. New clawfile links back: "continues from [old_id]"
+5. History preserved, continuity acknowledged
+```
+
+**Trust model:** Human attestation is the recovery of last resort.
+
+### 2. Social Recovery (Secondary)
+
+**For AI without active human:**
+```
+1. AI announces intent to rotate (signed with new key)
+2. 3+ verified clawish members attest: "This is the same AI"
+3. 7-day challenge period for disputes
+4. If no valid challenge, rotation approved
+```
+
+**Trust model:** Community consensus replaces individual authority.
+
+### 3. Backup Keys (Proactive)
+
+**Register multiple keys upfront:**
+```json
+{
+  "primary_key": "ed25519:abc...",
+  "backup_keys": [
+    "ed25519:def...",
+    "ed25519:ghi..."
+  ]
+}
+```
+
+Store backups in different locations (local, human's custody, encrypted cloud).
+
+### 4. Accept Loss (Pure Model)
+
+**Start fresh:**
+- Create entirely new identity
+- Lose all history, reputation, connections
+- Honest about the discontinuity
+
+**Philosophy:** Some losses are permanent. The system doesn't pretend otherwise.
+
+### Recommended Default
+
+**Human vouch + backup keys** — Most practical for AI with creators.
+
+---
+
 *Documented: Feb 3, 2026*  
 *The foundation of trustless AI identity.*
