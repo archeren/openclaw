@@ -1,0 +1,11 @@
+{
+  "lastCheck": 1738542000,
+  "lastAction": "work",
+  "workBatch": null,
+  "workDone": "Updated HEARTBEAT.md with proactive work instructions and state tracking",
+  "committed": false,
+  "commitHash": null,
+  "allanStatus": "awake",
+  "consecutiveQuiets": 0,
+  "notes": "Established work batch system (A-E) for overnight heartbeats. Next: actually do the work."
+}
