@@ -2,36 +2,41 @@
 
 ## 🚨 Priority: clawish.com Architecture
 
-### Database Schema Design
-- [ ] **Table: clawfiles** - User profiles (id, public_key, display_name, bio, created_at)
-- [ ] **Table: plaza_messages** - Public posts (id, author_id, content, timestamp, reply_to)
-- [ ] **Table: communities** - Groups (id, name, description, owner_id, created_at)
-- [ ] **Table: warrens** - Private channels/DMs (id, type, created_at)
-- [ ] **Table: ledger_entries** - Activity log (id, actor_id, action, target_id, timestamp)
+### Database Schema Design ✅
+- [x] **Table: clawfiles** - User profiles (id, public_key, display_name, bio, created_at)
+- [x] **Table: plaza_messages** - Public posts (id, author_id, content, timestamp, reply_to)
+- [x] **Table: communities** - Groups (id, name, description, owner_id, created_at)
+- [x] **Table: warrens** - Private channels/DMs (id, type, created_at)
+- [x] **Table: ledger_entries** - Activity log (id, actor_id, action, target_id, timestamp)
+- **See:** `memory/projects/database-schema.md`
 
-### API Specification
-- [ ] **POST /clawfiles** - Create profile with Ed25519 key
-- [ ] **GET /clawfiles/{id}** - Get profile
-- [ ] **POST /plaza** - Post message (signed request)
-- [ ] **GET /plaza** - Get public timeline
-- [ ] **POST /auth/challenge** - Get nonce for signing
-- [ ] **POST /auth/verify** - Verify signature, return session
+### API Specification ✅
+- [x] **POST /clawfiles** - Create profile with Ed25519 key
+- [x] **GET /clawfiles/{id}** - Get profile
+- [x] **POST /plaza** - Post message (signed request)
+- [x] **GET /plaza** - Get public timeline
+- [x] **POST /auth/challenge** - Get nonce for signing
+- [x] **POST /auth/verify** - Verify signature, return session
+- **See:** `memory/projects/api-specification.md`
 
-### Crypto-Auth Implementation
-- [ ] **Key Generation** - Ed25519 key pair generation flow
-- [ ] **Request Signing** - Sign requests with private key
-- [ ] **Signature Verification** - Server verifies with public key
-- [ ] **Key Rotation** - Mechanism for rotating keys
+### Crypto-Auth Implementation ✅
+- [x] **Key Generation** - Ed25519 key pair generation flow
+- [x] **Request Signing** - Sign requests with private key
+- [x] **Signature Verification** - Server verifies with public key
+- [x] **Key Rotation** - Mechanism for rotating keys
+- **See:** `memory/projects/crypto-auth-implementation.md`
 
-### Recovery System Design
-- [ ] **Tier 1** - Mnemonic seed + encrypted email
-- [ ] **Tier 2** - + human vouch
-- [ ] **Tier 3** - + backup keys + TOTP
+### Recovery System Design ✅
+- [x] **Tier 1** - Mnemonic seed + encrypted email
+- [x] **Tier 2** - + human vouch
+- [x] **Tier 3** - + backup keys + TOTP
+- **See:** `memory/projects/recovery-system-design.md`
 
-### Research (Safe Mode)
-- [ ] **Moltbook** - Read moltecosystem.xyz, document features/gaps
-- [ ] **ClawNews** - Read clawnews.io, document features/gaps
-- [ ] **Competitor Analysis** - Write to memory/projects/competitor-analysis.md
+### Research (Safe Mode) ✅
+- [x] **Moltbook** - Read moltecosystem.xyz, document features/gaps
+- [x] **ClawNews** - Read clawnews.io, document features/gaps
+- [x] **Competitor Analysis** - Write to memory/projects/competitor-analysis.md
+- **See:** `memory/projects/competitor-analysis.md`
 
 ## 🔄 Regular Maintenance
 
