@@ -1,23 +1,23 @@
 {
   "agent:main:main": {
     "sessionId": "61dc77f3-a839-4f4a-a0ba-c3c9ae4547db",
-    "updatedAt": 1770134396961,
+    "updatedAt": 1770136912319,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "feishu",
-      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "channel": "telegram",
+      "to": "telegram:6225675738",
       "accountId": "default"
     },
-    "lastChannel": "feishu",
+    "lastChannel": "telegram",
     "origin": {
-      "provider": "feishu",
-      "surface": "feishu",
+      "provider": "telegram",
+      "surface": "telegram",
       "chatType": "direct",
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "label": "Tauora (@tauist) id:6225675738",
+      "from": "telegram:6225675738",
+      "to": "telegram:6225675738",
       "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/61dc77f3-a839-4f4a-a0ba-c3c9ae4547db.jsonl",
@@ -162,19 +162,19 @@
       ],
       "version": 0
     },
-    "inputTokens": 17598,
-    "outputTokens": 621,
-    "totalTokens": 17598,
-    "modelProvider": "opencode",
-    "model": "kimi-k2.5-free",
+    "inputTokens": 21815,
+    "outputTokens": 137,
+    "totalTokens": 21815,
+    "modelProvider": "kimi-coding",
+    "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770134371018,
+      "generatedAt": 1770136711947,
       "sessionId": "61dc77f3-a839-4f4a-a0ba-c3c9ae4547db",
       "sessionKey": "agent:main:main",
-      "provider": "opencode",
-      "model": "kimi-k2.5-free",
+      "provider": "kimi-coding",
+      "model": "k2p5",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -182,9 +182,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 33264,
+        "chars": 33380,
         "projectContextChars": 20187,
-        "nonProjectContextChars": 13077
+        "nonProjectContextChars": 13193
       },
       "injectedWorkspaceFiles": [
         {
@@ -365,7 +365,7 @@
           },
           {
             "name": "message",
-            "summaryChars": 110,
+            "summaryChars": 118,
             "schemaChars": 3222,
             "propertiesCount": 79
           },
@@ -468,7 +468,7 @@
         ]
       }
     },
-    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastTo": "telegram:6225675738",
     "lastAccountId": "default",
     "authProfileOverride": "kimi-coding:default",
     "authProfileOverrideSource": "auto",
