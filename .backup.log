@@ -405,3 +405,21 @@ To https://github.com/auroradanier/claw-alpha.git
 To https://github.com/auroradanier/claw-alpha.git
    1dd3abb..44897cc  master -> master
 [2026-02-03 10:00:01 CST] Backup successful
+[master 54dbd4c] Auto-backup: 2026-02-03 11:00:01 CST
+ 33 files changed, 1983 insertions(+), 524 deletions(-)
+ create mode 100644 extensions/feishu/skills/feishu-doc/SKILL.md
+ create mode 100644 extensions/feishu/skills/feishu-doc/references/block-types.md
+ create mode 100644 extensions/feishu/skills/feishu-drive/SKILL.md
+ create mode 100644 extensions/feishu/skills/feishu-perm/SKILL.md
+ create mode 100644 extensions/feishu/skills/feishu-wiki/SKILL.md
+ create mode 100644 extensions/feishu/src/doc-schema.ts
+ create mode 100644 extensions/feishu/src/drive-schema.ts
+ create mode 100644 extensions/feishu/src/drive.ts
+ create mode 100644 extensions/feishu/src/perm-schema.ts
+ create mode 100644 extensions/feishu/src/perm.ts
+ create mode 100644 extensions/feishu/src/tools-config.ts
+ create mode 100644 extensions/feishu/src/wiki-schema.ts
+ create mode 100644 extensions/feishu/src/wiki.ts
+To https://github.com/auroradanier/claw-alpha.git
+   44897cc..54dbd4c  master -> master
+[2026-02-03 11:00:01 CST] Backup successful
