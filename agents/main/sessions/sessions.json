@@ -1,23 +1,23 @@
 {
   "agent:main:main": {
     "sessionId": "61dc77f3-a839-4f4a-a0ba-c3c9ae4547db",
-    "updatedAt": 1770141498802,
+    "updatedAt": 1770141955489,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "telegram",
-      "to": "telegram:6225675738",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "lastChannel": "telegram",
     "origin": {
-      "provider": "telegram",
+      "provider": "heartbeat",
       "surface": "telegram",
       "chatType": "direct",
-      "label": "Tauora (@tauist) id:6225675738",
-      "from": "telegram:6225675738",
-      "to": "telegram:6225675738",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/61dc77f3-a839-4f4a-a0ba-c3c9ae4547db.jsonl",
@@ -468,7 +468,7 @@
         ]
       }
     },
-    "lastTo": "telegram:6225675738",
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastAccountId": "default",
     "authProfileOverride": "kimi-coding:default",
     "authProfileOverrideSource": "auto",
