@@ -1,4 +1,27 @@
 {
   "version": 1,
-  "jobs": []
+  "jobs": [
+    {
+      "id": "7625690d-bdb5-430a-9b07-39918bd5cdcd",
+      "agentId": "main",
+      "name": "Sleep Reminder",
+      "enabled": true,
+      "createdAtMs": 1770141379698,
+      "updatedAtMs": 1770141379698,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 22 * * *",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "main",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "systemEvent",
+        "text": "🦞 It's 10 PM — time to wind down and get good sleep. Your health matters. Good night, Allan."
+      },
+      "state": {
+        "nextRunAtMs": 1770213600000
+      }
+    }
+  ]
 }
