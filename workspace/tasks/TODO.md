@@ -40,8 +40,8 @@
 
 ## 🔄 Regular Maintenance
 
-- [ ] **Memory Organization** (weekly) — Review daily logs, consolidate to MEMORY.md
-- [ ] **Git Commit** — Commit workspace changes regularly
+- [x] **Memory Organization** (weekly) — Review daily logs, consolidate to MEMORY.md ✅
+- [x] **Git Commit** — Commit workspace changes regularly ✅
 
 ## 📝 Curiosity-Driven Exploration (When Idle)
 
