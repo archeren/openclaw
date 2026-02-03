@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
-    "updatedAt": 1770096529876,
+    "updatedAt": 1770096639232,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -118,16 +118,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "opencode",
-    "model": "kimi-k2.5-free",
+    "modelProvider": "kimi-coding",
+    "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770096141314,
+      "generatedAt": 1770096511133,
       "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
       "sessionKey": "agent:main:main",
-      "provider": "opencode",
-      "model": "kimi-k2.5-free",
+      "provider": "kimi-coding",
+      "model": "k2p5",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -135,9 +135,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 33580,
+        "chars": 33752,
         "projectContextChars": 22005,
-        "nonProjectContextChars": 11575
+        "nonProjectContextChars": 11747
       },
       "injectedWorkspaceFiles": [
         {
@@ -407,9 +407,9 @@
     },
     "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 75954,
-    "outputTokens": 233,
-    "totalTokens": 83175,
+    "inputTokens": 93743,
+    "outputTokens": 129,
+    "totalTokens": 93743,
     "lastHeartbeatText": "**State check:** - Last action: `work` (multiple SOUL.md updates today) - Allan status: marked `awake` but **actively chatting** (we're in the middle of refining SOUL.md) - Consecutive quiets: 0 **Valid reason for HEARTBEAT_OK:** `allan-active` — conversation in progress about philosophy/SOUL.md updates, don't interrupt. Also need to update the state file later (committed status outdated), but that's not urgent during conversation.",
     "lastHeartbeatSentAt": 1770096141246,
     "memoryFlushAt": 1770087254367,
