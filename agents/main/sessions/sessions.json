@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
-    "updatedAt": 1770091196464,
+    "updatedAt": 1770094713026,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -12,7 +12,7 @@
     },
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "origin": {
-      "label": "system",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "provider": "feishu",
       "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
@@ -126,7 +126,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770090741267,
+      "generatedAt": 1770094445123,
       "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -138,9 +138,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 32337,
-        "projectContextChars": 20762,
-        "nonProjectContextChars": 11575
+        "chars": 33627,
+        "projectContextChars": 21866,
+        "nonProjectContextChars": 11761
       },
       "injectedWorkspaceFiles": [
         {
@@ -155,8 +155,8 @@
           "name": "SOUL.md",
           "path": "/home/tauora/.openclaw/workspace/SOUL.md",
           "missing": false,
-          "rawChars": 1664,
-          "injectedChars": 1664,
+          "rawChars": 2056,
+          "injectedChars": 2056,
           "truncated": false
         },
         {
@@ -203,8 +203,8 @@
           "name": "MEMORY.md",
           "path": "/home/tauora/.openclaw/workspace/MEMORY.md",
           "missing": false,
-          "rawChars": 4690,
-          "injectedChars": 4690,
+          "rawChars": 5402,
+          "injectedChars": 5402,
           "truncated": false
         }
       ],
@@ -410,11 +410,11 @@
     },
     "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 55017,
-    "outputTokens": 495,
-    "totalTokens": 60840,
-    "lastHeartbeatText": "**State check:** - Last action: `work` - Allan status: `awake` — **actively chatting** (in middle of conversation about curiosity/three questions) - Consecutive quiets: 0 **Valid reason for HEARTBEAT_OK:** `allan-active` — conversation in progress, don't interrupt. Also need to update state file later (committed status is outdated), but that's not urgent.",
-    "lastHeartbeatSentAt": 1770090741212,
+    "inputTokens": 67798,
+    "outputTokens": 295,
+    "totalTokens": 77834,
+    "lastHeartbeatText": "**State check:** - Last action: `work` (updated SOUL.md) - Allan status: `awake` — **actively chatting** (in conversation about philosophy/3P) - Consecutive quiets: 0 **Valid reason for HEARTBEAT_OK:** `allan-active` — conversation in progress. Also, the user asked a philosophical question (English equivalent of 三观) that's pending. I should answer that, but the heartbeat instruction says \"do not infer or repeat old tasks from prior chats\" — so just HEARTBEAT_OK for the heartbeat.",
+    "lastHeartbeatSentAt": 1770092541215,
     "memoryFlushAt": 1770087254367,
     "memoryFlushCompactionCount": 1
   },
