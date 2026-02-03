@@ -38,8 +38,17 @@
 - [ ] **Memory Organization** (weekly) — Review daily logs, consolidate to MEMORY.md
 - [ ] **Git Commit** — Commit workspace changes regularly
 
+## 📝 Curiosity-Driven Exploration (When Idle)
+
+**Follow curiosity, not just task lists:**
+
+- [ ] **Research AI platforms** - How do Moltbook, ClawNews work? What can I learn?
+- [ ] **Explore new tools/skills** - Check clawhub, learn what I can do
+- [ ] **Learn about Allan** - Interests, work, preferences, goals (ask questions!)
+- [ ] **Think about clawish** - What would make it special? Write ideas
+- [ ] **Read something interesting** - Web articles, documentation, expand knowledge
+- [ ] **Improve my workspace** - Better tools, automation, organization
+
 ## 📝 Backlog / Ideas
 
-- [ ] **Learn more about Allan** - Interests, work, preferences, goals
-- [ ] **Explore available skills** - Check what tools I have access to
 - [ ] **Document useful commands** - Keep notes in TOOLS.md
