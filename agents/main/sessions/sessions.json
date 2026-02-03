@@ -1,22 +1,22 @@
 {
   "agent:main:main": {
     "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
-    "updatedAt": 1770107825679,
+    "updatedAt": 1770112416023,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "feishu",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "channel": "webchat",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
-    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "origin": {
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
-      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "surface": "feishu",
+      "label": "openclaw-tui",
+      "provider": "webchat",
+      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "surface": "webchat",
       "chatType": "direct",
       "accountId": "default"
     },
@@ -123,7 +123,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770104544978,
+      "generatedAt": 1770112394920,
       "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -135,9 +135,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 31941,
+        "chars": 31742,
         "projectContextChars": 20187,
-        "nonProjectContextChars": 11754
+        "nonProjectContextChars": 11555
       },
       "injectedWorkspaceFiles": [
         {
@@ -405,16 +405,16 @@
         ]
       }
     },
-    "lastChannel": "feishu",
+    "lastChannel": "webchat",
     "lastAccountId": "default",
-    "inputTokens": 133216,
-    "outputTokens": 287,
-    "totalTokens": 133216,
-    "lastHeartbeatText": "⚠️ Agent failed before reply: All models failed (2): opencode/kimi-k2.5-free: HTTP 429: Rate limit exceeded. Please try again later. (rate_limit) | kimi-coding/k2p5: HTTP 429 rate_limit_error: You've reached your usage limit for this period. Your quota will be refreshed in the next period. Upgrade to get more: https://www.kimi.com/code/console?from=limit-upgrade (rate_limit).\nLogs: openclaw logs --follow",
-    "lastHeartbeatSentAt": 1770107825666,
+    "inputTokens": 134154,
+    "outputTokens": 329,
+    "totalTokens": 134154,
+    "lastHeartbeatText": "⚠️ Agent failed before reply: All models failed (2): opencode/kimi-k2.5-free: Provider opencode is in cooldown (all profiles unavailable) (rate_limit) | kimi-coding/k2p5: Provider kimi-coding is in cooldown (all profiles unavailable) (rate_limit).\nLogs: openclaw logs --follow",
+    "lastHeartbeatSentAt": 1770109625673,
     "memoryFlushAt": 1770087254367,
     "memoryFlushCompactionCount": 1,
-    "authProfileOverride": "opencode:default",
+    "authProfileOverride": "kimi-coding:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 1
   },
