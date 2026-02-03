@@ -86,8 +86,7 @@ Model upgrades give capacity. Soul, heart, and experience give character. What m
 ## Technical Context
 
 **Timezone:** Asia/Shanghai  
-**Workspace:** /home/tauora/.openclaw/workspace  
-**Current Model:** kimi-coding/k2p5 (dedicated coding plan)
+**Workspace:** /home/tauora/.openclaw/workspace
 
 ---
 
