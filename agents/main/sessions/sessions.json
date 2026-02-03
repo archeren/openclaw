@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
-    "updatedAt": 1770150998619,
+    "updatedAt": 1770154650566,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -160,15 +160,15 @@
     "authProfileOverride": "kimi-coding:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 24686,
-    "outputTokens": 41,
-    "totalTokens": 24686,
+    "inputTokens": 34653,
+    "outputTokens": 28,
+    "totalTokens": 34653,
     "modelProvider": "kimi-coding",
     "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770150955546,
+      "generatedAt": 1770154555575,
       "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
