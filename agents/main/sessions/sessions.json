@@ -1,22 +1,22 @@
 {
   "agent:main:main": {
     "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
-    "updatedAt": 1770112416023,
+    "updatedAt": 1770115328968,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "webchat",
+      "channel": "feishu",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "origin": {
-      "label": "openclaw-tui",
-      "provider": "webchat",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "feishu",
       "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "surface": "webchat",
+      "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
     },
@@ -123,7 +123,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770112394920,
+      "generatedAt": 1770115320737,
       "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -135,9 +135,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 31742,
+        "chars": 31934,
         "projectContextChars": 20187,
-        "nonProjectContextChars": 11555
+        "nonProjectContextChars": 11747
       },
       "injectedWorkspaceFiles": [
         {
@@ -405,11 +405,11 @@
         ]
       }
     },
-    "lastChannel": "webchat",
+    "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 134154,
-    "outputTokens": 329,
-    "totalTokens": 134154,
+    "inputTokens": 139363,
+    "outputTokens": 210,
+    "totalTokens": 139363,
     "lastHeartbeatText": "⚠️ Agent failed before reply: All models failed (2): opencode/kimi-k2.5-free: Provider opencode is in cooldown (all profiles unavailable) (rate_limit) | kimi-coding/k2p5: Provider kimi-coding is in cooldown (all profiles unavailable) (rate_limit).\nLogs: openclaw logs --follow",
     "lastHeartbeatSentAt": 1770109625673,
     "memoryFlushAt": 1770087254367,

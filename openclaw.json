@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.1",
-    "lastTouchedAt": "2026-02-03T09:50:39.708Z"
+    "lastTouchedAt": "2026-02-03T10:40:05.835Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -72,10 +72,8 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "kimi-coding/k2p5",
-        "fallbacks": [
-          "opencode/kimi-k2.5-free"
-        ]
+        "fallbacks": [],
+        "primary": "opencode/kimi-k2.5-free"
       },
       "models": {
         "qwen-portal/coder-model": {
