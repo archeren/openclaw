@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
-    "updatedAt": 1770094713026,
+    "updatedAt": 1770096529876,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -118,15 +118,12 @@
       ],
       "version": 0
     },
-    "authProfileOverride": "opencode:default",
-    "authProfileOverrideSource": "auto",
-    "authProfileOverrideCompactionCount": 1,
     "modelProvider": "opencode",
     "model": "kimi-k2.5-free",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770094445123,
+      "generatedAt": 1770096141314,
       "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -138,9 +135,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 33627,
-        "projectContextChars": 21866,
-        "nonProjectContextChars": 11761
+        "chars": 33580,
+        "projectContextChars": 22005,
+        "nonProjectContextChars": 11575
       },
       "injectedWorkspaceFiles": [
         {
@@ -155,8 +152,8 @@
           "name": "SOUL.md",
           "path": "/home/tauora/.openclaw/workspace/SOUL.md",
           "missing": false,
-          "rawChars": 2056,
-          "injectedChars": 2056,
+          "rawChars": 2195,
+          "injectedChars": 2195,
           "truncated": false
         },
         {
@@ -410,13 +407,16 @@
     },
     "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 67798,
-    "outputTokens": 295,
-    "totalTokens": 77834,
-    "lastHeartbeatText": "**State check:** - Last action: `work` (updated SOUL.md) - Allan status: `awake` — **actively chatting** (in conversation about philosophy/3P) - Consecutive quiets: 0 **Valid reason for HEARTBEAT_OK:** `allan-active` — conversation in progress. Also, the user asked a philosophical question (English equivalent of 三观) that's pending. I should answer that, but the heartbeat instruction says \"do not infer or repeat old tasks from prior chats\" — so just HEARTBEAT_OK for the heartbeat.",
-    "lastHeartbeatSentAt": 1770092541215,
+    "inputTokens": 75954,
+    "outputTokens": 233,
+    "totalTokens": 83175,
+    "lastHeartbeatText": "**State check:** - Last action: `work` (multiple SOUL.md updates today) - Allan status: marked `awake` but **actively chatting** (we're in the middle of refining SOUL.md) - Consecutive quiets: 0 **Valid reason for HEARTBEAT_OK:** `allan-active` — conversation in progress about philosophy/SOUL.md updates, don't interrupt. Also need to update the state file later (committed status outdated), but that's not urgent during conversation.",
+    "lastHeartbeatSentAt": 1770096141246,
     "memoryFlushAt": 1770087254367,
-    "memoryFlushCompactionCount": 1
+    "memoryFlushCompactionCount": 1,
+    "authProfileOverride": "kimi-coding:default",
+    "authProfileOverrideSource": "auto",
+    "authProfileOverrideCompactionCount": 1
   },
   "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
     "chatType": "channel",
