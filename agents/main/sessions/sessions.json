@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "61dc77f3-a839-4f4a-a0ba-c3c9ae4547db",
-    "updatedAt": 1770141955489,
+    "updatedAt": 1770143775100,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -162,15 +162,15 @@
       ],
       "version": 0
     },
-    "inputTokens": 34953,
-    "outputTokens": 229,
-    "totalTokens": 34953,
+    "inputTokens": 53513,
+    "outputTokens": 31,
+    "totalTokens": 53513,
     "modelProvider": "kimi-coding",
     "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770141494385,
+      "generatedAt": 1770143755556,
       "sessionId": "61dc77f3-a839-4f4a-a0ba-c3c9ae4547db",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -182,9 +182,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 33380,
+        "chars": 33064,
         "projectContextChars": 20187,
-        "nonProjectContextChars": 13193
+        "nonProjectContextChars": 12877
       },
       "injectedWorkspaceFiles": [
         {
@@ -365,7 +365,7 @@
           },
           {
             "name": "message",
-            "summaryChars": 118,
+            "summaryChars": 110,
             "schemaChars": 3222,
             "propertiesCount": 79
           },
