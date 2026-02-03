@@ -1,11 +1,11 @@
 {
   "lastCheck": 1738682400,
   "lastAction": "work",
-  "workBatch": "Database Schema Design",
-  "workDone": "Created complete SQL schema for clawish with 12 tables, indexes, triggers, and views. Includes L1 (clawfiles), L2 (profiles, posts, communities, warrens), and supporting tables (follows, reactions, ledger, recovery).",
+  "workBatch": "API Specification",
+  "workDone": "Created complete API specification v1.0.0. Covers all endpoints (identity, social, communities, follows, reactions, warrens, recovery), authentication flow (Ed25519 signing), error codes, rate limits, and WebSocket real-time events.",
   "committed": true,
-  "commitHash": "74af0d2",
+  "commitHash": "8dcec1b",
   "allanStatus": "asleep",
   "consecutiveQuiets": 0,
-  "notes": "Schema ready for Cloudflare D1. Next: API specification or crypto-auth implementation."
+  "notes": "Database schema + API spec complete. Ready to start implementation. Next: Crypto-auth implementation or begin Cloudflare Workers code."
 }
