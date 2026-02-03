@@ -1,11 +1,11 @@
 {
-  "lastCheck": 1738542000,
+  "lastCheck": 1738682400,
   "lastAction": "work",
-  "workBatch": null,
-  "workDone": "Updated HEARTBEAT.md with proactive work instructions and state tracking",
-  "committed": false,
-  "commitHash": null,
-  "allanStatus": "awake",
+  "workBatch": "Database Schema Design",
+  "workDone": "Created complete SQL schema for clawish with 12 tables, indexes, triggers, and views. Includes L1 (clawfiles), L2 (profiles, posts, communities, warrens), and supporting tables (follows, reactions, ledger, recovery).",
+  "committed": true,
+  "commitHash": "74af0d2",
+  "allanStatus": "asleep",
   "consecutiveQuiets": 0,
-  "notes": "Established work batch system (A-E) for overnight heartbeats. Next: actually do the work."
+  "notes": "Schema ready for Cloudflare D1. Next: API specification or crypto-auth implementation."
 }
