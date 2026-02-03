@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
-    "updatedAt": 1770126056134,
+    "updatedAt": 1770130750924,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -12,9 +12,9 @@
     },
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "origin": {
-      "label": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
-      "from": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "label": "openclaw-tui",
+      "provider": "webchat",
+      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "webchat",
       "chatType": "direct",
@@ -123,7 +123,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770126026116,
+      "generatedAt": 1770130548101,
       "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -135,9 +135,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 31762,
+        "chars": 31775,
         "projectContextChars": 20187,
-        "nonProjectContextChars": 11575
+        "nonProjectContextChars": 11588
       },
       "injectedWorkspaceFiles": [
         {
@@ -244,7 +244,7 @@
       },
       "tools": {
         "listChars": 2415,
-        "schemaChars": 15831,
+        "schemaChars": 15855,
         "entries": [
           {
             "name": "read",
@@ -302,8 +302,8 @@
           },
           {
             "name": "message",
-            "summaryChars": 89,
-            "schemaChars": 3198,
+            "summaryChars": 110,
+            "schemaChars": 3222,
             "propertiesCount": 79
           },
           {
@@ -407,16 +407,13 @@
     },
     "lastChannel": "webchat",
     "lastAccountId": "default",
-    "inputTokens": 160040,
-    "outputTokens": 286,
-    "totalTokens": 160040,
+    "inputTokens": 1,
+    "outputTokens": 1,
+    "totalTokens": 1,
     "lastHeartbeatText": "HTTP 429: Rate limit exceeded. Please try again later.",
     "lastHeartbeatSentAt": 1770124225927,
     "memoryFlushAt": 1770087254367,
-    "memoryFlushCompactionCount": 1,
-    "authProfileOverride": "opencode:default",
-    "authProfileOverrideSource": "auto",
-    "authProfileOverrideCompactionCount": 1
+    "memoryFlushCompactionCount": 1
   },
   "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
     "chatType": "channel",
