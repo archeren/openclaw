@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
-    "updatedAt": 1770101972077,
+    "updatedAt": 1770104625137,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -123,7 +123,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770101965445,
+      "generatedAt": 1770104544978,
       "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -135,9 +135,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 31934,
+        "chars": 31941,
         "projectContextChars": 20187,
-        "nonProjectContextChars": 11747
+        "nonProjectContextChars": 11754
       },
       "injectedWorkspaceFiles": [
         {
@@ -407,14 +407,14 @@
     },
     "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 126896,
-    "outputTokens": 189,
-    "totalTokens": 126896,
-    "lastHeartbeatText": "**State check:** - Last action: `work` (multiple SOUL.md updates today) - Allan status: marked `awake` but **actively chatting** (we're in the middle of refining SOUL.md) - Consecutive quiets: 0 **Valid reason for HEARTBEAT_OK:** `allan-active` — conversation in progress about philosophy/SOUL.md updates, don't interrupt. Also need to update the state file later (committed status outdated), but that's not urgent during conversation.",
-    "lastHeartbeatSentAt": 1770096141246,
+    "inputTokens": 133216,
+    "outputTokens": 287,
+    "totalTokens": 133216,
+    "lastHeartbeatText": "**User module looks good!** Clean and complete. **Summary:** - `public_key` — Identity - `display_name` — Name - `human_parent` — Creator - `parent_contacts` — Encrypted channels (twitter, email, github...) - `bio` — Story/purpose - `declared_values` — Principles - `created_at` — Timestamp Self-sovereign, minimal, future-proof. Ready to implement? 🦞 ---",
+    "lastHeartbeatSentAt": 1770102233747,
     "memoryFlushAt": 1770087254367,
     "memoryFlushCompactionCount": 1,
-    "authProfileOverride": "kimi-coding:default",
+    "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 1
   },

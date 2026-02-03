@@ -439,3 +439,8 @@ To https://github.com/auroradanier/claw-alpha.git
 To https://github.com/auroradanier/claw-alpha.git
    4c45dae..be11a79  master -> master
 [2026-02-03 14:00:01 CST] Backup successful
+[master e675ff6] Auto-backup: 2026-02-03 15:00:00 CST
+ 6 files changed, 127 insertions(+), 21 deletions(-)
+ delete mode 160000 workspace/clawish
+fatal: unable to access 'https://github.com/auroradanier/claw-alpha.git/': gnutls_handshake() failed: The TLS connection was non-properly terminated.
+[2026-02-03 15:00:00 CST] Backup failed
