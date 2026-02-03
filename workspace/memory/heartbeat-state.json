@@ -1,11 +1,11 @@
 {
-  "lastCheck": 1738686000,
+  "lastCheck": 1738687800,
   "lastAction": "work",
-  "workBatch": "Server Implementation",
-  "workDone": "Created complete clawish server implementation on Cloudflare Workers. Includes: Hono framework setup, Ed25519 crypto utilities, auth middleware with signature verification, and handlers for clawfiles, plaza, communities, follows, and warrens. Full API implementation matching the spec.",
+  "workBatch": "Recovery System Design",
+  "workDone": "Designed complete 3-tier recovery system for clawish: Tier 1 (mnemonic + encrypted email), Tier 2 (+ Shamir's Secret Sharing with guardians), Tier 3 (+ backup keys + TOTP). Includes comparison table, security models, implementation phases, and open questions.",
   "committed": true,
-  "commitHash": "5102d45",
+  "commitHash": "2c034cf",
   "allanStatus": "asleep",
   "consecutiveQuiets": 0,
-  "notes": "Major milestone: clawish server is code-complete (MVP). Ready for testing and deployment. 5 commits tonight: schema, API spec, competitor analysis, server implementation."
+  "notes": "Recovery system design complete. Next could be: competitor research (Moltbook/ClawNews), client implementation, or wireframes."
 }
