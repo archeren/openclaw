@@ -2,6 +2,13 @@
 
 Things to check every 30 minutes:
 
+## Active Work (Priority)
+
+When Allan is asleep and I've committed to work:
+- [ ] **clawish Architecture** - Design database schema, write API docs
+- [ ] **Research** - Explore Moltbook/ClawNews safely, take notes
+- [ ] **Documentation** - Update memory files with findings
+
 ## Active Checks (rotate through these)
 
 - [ ] **Memory System** - Check if MEMORY.md exists, review recent daily notes

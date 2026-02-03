@@ -1,19 +1,24 @@
 {
   "agent:main:main": {
     "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
-    "updatedAt": 1770065649701,
+    "updatedAt": 1770083680917,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75"
+      "channel": "feishu",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "accountId": "default"
     },
-    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "origin": {
       "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
-      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75"
+      "provider": "feishu",
+      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "surface": "feishu",
+      "chatType": "direct",
+      "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/249521a2-e8c1-4588-8fab-cc667154a713.jsonl",
     "compactionCount": 0,
@@ -121,7 +126,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770065626249,
+      "generatedAt": 1770083374956,
       "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -133,9 +138,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 30189,
-        "projectContextChars": 18620,
-        "nonProjectContextChars": 11569
+        "chars": 30650,
+        "projectContextChars": 18895,
+        "nonProjectContextChars": 11755
       },
       "injectedWorkspaceFiles": [
         {
@@ -182,8 +187,8 @@
           "name": "HEARTBEAT.md",
           "path": "/home/tauora/.openclaw/workspace/HEARTBEAT.md",
           "missing": false,
-          "rawChars": 868,
-          "injectedChars": 868,
+          "rawChars": 1143,
+          "injectedChars": 1143,
           "truncated": false
         },
         {
@@ -438,7 +443,12 @@
           }
         ]
       }
-    }
+    },
+    "lastChannel": "feishu",
+    "lastAccountId": "default",
+    "inputTokens": 87021,
+    "outputTokens": 826,
+    "totalTokens": 91132
   },
   "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
     "chatType": "channel",
