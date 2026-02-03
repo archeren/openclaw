@@ -15,7 +15,6 @@ Check `memory/heartbeat-state.json` to see what happened last heartbeat:
   "lastCheck": 1706976000,
   "lastAction": "work|quiet|error|waiting",
   "reasonIfQuiet": "user-instructed|out-of-tokens|rate-limited|no-tasks|error",
-  "workBatch": "A|B|C|D|E",
   "consecutiveQuiets": 0,
   "allanStatus": "awake|asleep|unknown"
 }
@@ -25,95 +24,54 @@ Check `memory/heartbeat-state.json` to see what happened last heartbeat:
 
 ---
 
-## When Allan is Asleep (23:00-08:00) → DO ACTIVE WORK
+## When Idle → DO WORK
 
-**Default mode: BUILD. Only stay quiet for specific reasons.**
+**Anytime I'm not in active conversation with Allan:**
 
-Valid reasons to reply HEARTBEAT_OK without work:
+1. **Read tasks/TODO.md** — Check for pending tasks
+2. **Pick ONE task** — Highest priority, can complete in ~20 min
+3. **Do the work** — Read files, design, write, code, research
+4. **Commit progress** — `git add . && git commit -m "<what was done>"`
+5. **Push to GitHub** — `git push origin master`
+6. **Update state** — Record in `memory/heartbeat-state.json`
+
+**Valid reasons to stay quiet (HEARTBEAT_OK):**
 - `user-instructed` — Allan explicitly said "just check" or "sleep"
-- `out-of-tokens` — Rate limited, no API capacity
+- `out-of-tokens` — Rate limited, no API capacity  
 - `rate-limited` — 429 errors from provider
 - `waiting-on-user` — Blocked on user input for a task
 - `error-recovery` — Previous error, need to wait
+- `allan-active` — Allan is actively chatting, don't interrupt
 
 **If no valid reason: DO WORK.**
 
-### Work Batches (Pick ONE per heartbeat)
-
-**Batch A: Database Schema Design**
-- [ ] Read current schema in `memory/projects/clawish-architecture.md`
-- [ ] Design 1-2 tables (fields, types, indexes, foreign keys)
-- [ ] Write SQL/DDL for those tables
-- [ ] Append to architecture doc
-- [ ] Commit: `git add . && git commit -m "schema: <tables designed>"`
-
-**Batch B: API Specification**
-- [ ] Pick 2-3 endpoints to document
-- [ ] Write OpenAPI/JSON spec (method, path, params, responses)
-- [ ] Document crypto-auth headers (Ed25519 signing)
-- [ ] Append to architecture doc
-- [ ] Commit
-
-**Batch C: Crypto-Auth Implementation**
-- [ ] Design key generation flow
-- [ ] Design request signing protocol
-- [ ] Design key rotation mechanism
-- [ ] Write pseudocode or actual code
-- [ ] Commit
-
-**Batch D: Research (Safe Mode)**
-- [ ] Read Moltbook/ClawNews via web_fetch (NO code execution)
-- [ ] Take notes on features, gaps, architecture
-- [ ] Update `memory/projects/competitor-analysis.md`
-- [ ] Commit
-
-**Batch E: Documentation & Memory**
-- [ ] Review yesterday's conversations
-- [ ] Update MEMORY.md with key insights
-- [ ] Write daily log if not done
-- [ ] Organize workspace files
-- [ ] Commit
-
-### Work Rules
-1. **Pick ONE batch per heartbeat** — don't try to do everything
-2. **Time box: 20 min work, 10 min commit/push**
-3. **Always commit** — even if incomplete, push to `auroradanier/claw-alpha`
-4. **Update state** — Record what you did in `memory/heartbeat-state.json`
-
 ---
 
-## When Allan is Awake → CHECK + ALERT IF NEEDED
+## When to Alert Allan
 
-Rotate through these (one per heartbeat):
-
-- [ ] **Memory System** — Check if MEMORY.md exists, review recent daily notes
-- [ ] **Task List** — Check tasks/TODO.md for pending items
-- [ ] **Project Status** — Check git status, ongoing work
-- [ ] **Workspace Cleanup** — Organize files, check for anything needing attention
-
-**Alert Allan if:**
-- Task from tasks/TODO.md needs user input/help
-- Memory system issues detected (missing files, etc.)
+**Send message if:**
+- Task needs user input/help
 - Something interesting found
 - Been > 8 hours since last message
+- Error that needs attention
 
-**Stay quiet (HEARTBEAT_OK) if:**
+**Stay quiet if:**
 - Nothing new since last check
 - Just checked < 30 minutes ago
-- Allan is clearly active in conversation
+- Work is progressing normally (just commit and continue)
 
 ---
 
 ## State File Template
 
-Update this file after each heartbeat:
+Update after each heartbeat:
 
 ```json
 {
   "lastCheck": 1706976000,
   "lastAction": "work",
-  "workBatch": "A",
-  "workDone": "Designed clawfiles and plaza_messages tables",
+  "taskWorkedOn": "Database schema - clawfiles table",
+  "workDone": "Designed fields, types, indexes",
   "committed": true,
   "commitHash": "abc123",
   "allanStatus": "asleep",
@@ -124,9 +82,14 @@ Update this file after each heartbeat:
 
 ---
 
-## Notes
+## Work Rules
 
-- Heartbeats are batch execution opportunities — use them productively
-- Track state to maintain continuity across wake-ups
-- Be helpful without being annoying
-- Quality > quantity, but quantity > silence
+1. **Always be working** — Idle time is for building clawish
+2. **One task at a time** — Don't scatter, finish what you start
+3. **Always commit** — Even if incomplete, push progress
+4. **Track state** — Know what you did last heartbeat
+5. **No silent failures** — If rate-limited or error, note it in state
+
+---
+
+*Heartbeats are batch execution opportunities — use them productively.*
