@@ -1,22 +1,22 @@
 {
   "agent:main:main": {
     "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
-    "updatedAt": 1770123575230,
+    "updatedAt": 1770126056134,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "feishu",
+      "channel": "webchat",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "origin": {
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "feishu",
-      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "label": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
+      "from": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "surface": "feishu",
+      "surface": "webchat",
       "chatType": "direct",
       "accountId": "default"
     },
@@ -118,16 +118,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "kimi-coding",
-    "model": "k2p5",
+    "modelProvider": "opencode",
+    "model": "kimi-k2.5-free",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770123571036,
+      "generatedAt": 1770126026116,
       "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
       "sessionKey": "agent:main:main",
-      "provider": "kimi-coding",
-      "model": "k2p5",
+      "provider": "opencode",
+      "model": "kimi-k2.5-free",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -135,9 +135,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 31934,
+        "chars": 31762,
         "projectContextChars": 20187,
-        "nonProjectContextChars": 11747
+        "nonProjectContextChars": 11575
       },
       "injectedWorkspaceFiles": [
         {
@@ -405,16 +405,16 @@
         ]
       }
     },
-    "lastChannel": "feishu",
+    "lastChannel": "webchat",
     "lastAccountId": "default",
-    "inputTokens": 156421,
-    "outputTokens": 41,
-    "totalTokens": 156421,
-    "lastHeartbeatText": "⚠️ Agent failed before reply: All models failed (1): opencode/kimi-k2.5-free: Provider opencode is in cooldown (all profiles unavailable) (rate_limit).\nLogs: openclaw logs --follow",
-    "lastHeartbeatSentAt": 1770122425926,
+    "inputTokens": 160040,
+    "outputTokens": 286,
+    "totalTokens": 160040,
+    "lastHeartbeatText": "HTTP 429: Rate limit exceeded. Please try again later.",
+    "lastHeartbeatSentAt": 1770124225927,
     "memoryFlushAt": 1770087254367,
     "memoryFlushCompactionCount": 1,
-    "authProfileOverride": "kimi-coding:default",
+    "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 1
   },
