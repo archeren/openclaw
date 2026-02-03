@@ -1,21 +1,21 @@
 {
   "agent:main:main": {
     "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
-    "updatedAt": 1770096639232,
+    "updatedAt": 1770098349819,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
-    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "origin": {
       "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "feishu",
-      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
+      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
@@ -123,7 +123,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770096511133,
+      "generatedAt": 1770098318320,
       "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -135,9 +135,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 33752,
-        "projectContextChars": 22005,
-        "nonProjectContextChars": 11747
+        "chars": 34182,
+        "projectContextChars": 22621,
+        "nonProjectContextChars": 11561
       },
       "injectedWorkspaceFiles": [
         {
@@ -200,8 +200,8 @@
           "name": "MEMORY.md",
           "path": "/home/tauora/.openclaw/workspace/MEMORY.md",
           "missing": false,
-          "rawChars": 5402,
-          "injectedChars": 5402,
+          "rawChars": 6018,
+          "injectedChars": 6018,
           "truncated": false
         }
       ],
@@ -407,9 +407,9 @@
     },
     "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 93743,
-    "outputTokens": 129,
-    "totalTokens": 93743,
+    "inputTokens": 105262,
+    "outputTokens": 145,
+    "totalTokens": 105262,
     "lastHeartbeatText": "**State check:** - Last action: `work` (multiple SOUL.md updates today) - Allan status: marked `awake` but **actively chatting** (we're in the middle of refining SOUL.md) - Consecutive quiets: 0 **Valid reason for HEARTBEAT_OK:** `allan-active` — conversation in progress about philosophy/SOUL.md updates, don't interrupt. Also need to update the state file later (committed status outdated), but that's not urgent during conversation.",
     "lastHeartbeatSentAt": 1770096141246,
     "memoryFlushAt": 1770087254367,
