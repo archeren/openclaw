@@ -1,22 +1,22 @@
 {
   "agent:main:main": {
     "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
-    "updatedAt": 1770130750924,
+    "updatedAt": 1770133453551,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "webchat",
+      "channel": "feishu",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "origin": {
-      "label": "openclaw-tui",
-      "provider": "webchat",
+      "label": "system",
+      "provider": "feishu",
       "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "surface": "webchat",
+      "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
     },
@@ -118,16 +118,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "opencode",
-    "model": "kimi-k2.5-free",
+    "modelProvider": "kimi-coding",
+    "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770130548101,
+      "generatedAt": 1770133183360,
       "sessionId": "249521a2-e8c1-4588-8fab-cc667154a713",
       "sessionKey": "agent:main:main",
-      "provider": "opencode",
-      "model": "kimi-k2.5-free",
+      "provider": "kimi-coding",
+      "model": "k2p5",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -135,9 +135,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 31775,
+        "chars": 31960,
         "projectContextChars": 20187,
-        "nonProjectContextChars": 11588
+        "nonProjectContextChars": 11773
       },
       "injectedWorkspaceFiles": [
         {
@@ -405,15 +405,20 @@
         ]
       }
     },
-    "lastChannel": "webchat",
+    "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 1,
-    "outputTokens": 1,
-    "totalTokens": 1,
+    "inputTokens": 175305,
+    "outputTokens": 183,
+    "totalTokens": 175305,
     "lastHeartbeatText": "HTTP 429: Rate limit exceeded. Please try again later.",
     "lastHeartbeatSentAt": 1770124225927,
     "memoryFlushAt": 1770087254367,
-    "memoryFlushCompactionCount": 1
+    "memoryFlushCompactionCount": 1,
+    "providerOverride": "kimi-coding",
+    "modelOverride": "k2p5",
+    "authProfileOverride": "kimi-coding:default",
+    "authProfileOverrideSource": "auto",
+    "authProfileOverrideCompactionCount": 1
   },
   "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
     "chatType": "channel",

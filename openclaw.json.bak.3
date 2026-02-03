@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.1",
-    "lastTouchedAt": "2026-02-03T10:40:05.835Z"
+    "lastTouchedAt": "2026-02-03T13:48:44.448Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -26,6 +26,7 @@
     }
   },
   "models": {
+    "mode": "merge",
     "providers": {
       "qwen-portal": {
         "baseUrl": "https://portal.qwen.ai/v1",
@@ -66,14 +67,37 @@
             "maxTokens": 8192
           }
         ]
+      },
+      "fw": {
+        "baseUrl": "https://kimi.fuwoo.com/v1",
+        "apiKey": "${KIMI_KEY}",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "kimi-k2.5",
+            "name": "Kimi K2.5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          }
+        ]
       }
     }
   },
   "agents": {
     "defaults": {
       "model": {
-        "fallbacks": [],
-        "primary": "opencode/kimi-k2.5-free"
+        "primary": "opencode/kimi-k2.5-free",
+        "fallbacks": []
       },
       "models": {
         "qwen-portal/coder-model": {
@@ -86,6 +110,9 @@
         "opencode/kimi-k2.5-free": {},
         "kimi-coding/k2p5": {
           "alias": "Kimi K2.5"
+        },
+        "fw/kimi-k2.5": {
+          "alias": "fw"
         }
       },
       "workspace": "/home/tauora/.openclaw/workspace",
@@ -137,15 +164,17 @@
     }
   },
   "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "botToken": "8584119298:AAGayhgcrgmUQM2Uzily68erwX25-6o_Glo",
+      "groupPolicy": "allowlist",
+      "streamMode": "partial"
+    },
     "feishu": {
       "appId": "cli_a9f20e2b2cb99bb6",
       "appSecret": "mHJx508IWhMPN1utYW6hSfiiWtVexvkz",
       "enabled": true
-    },
-    "telegram": {
-      "enabled": true,
-      "botToken": "8584119298:AAGayh",
-      "dmPolicy": "pairing"
     }
   },
   "gateway": {
@@ -172,6 +201,9 @@
         "enabled": true
       },
       "feishu": {
+        "enabled": true
+      },
+      "telegram": {
         "enabled": true
       }
     },
