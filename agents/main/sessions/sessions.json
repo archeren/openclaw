@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "61dc77f3-a839-4f4a-a0ba-c3c9ae4547db",
-    "updatedAt": 1770136912319,
+    "updatedAt": 1770137341335,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -162,15 +162,15 @@
       ],
       "version": 0
     },
-    "inputTokens": 21815,
-    "outputTokens": 137,
-    "totalTokens": 21815,
+    "inputTokens": 26616,
+    "outputTokens": 891,
+    "totalTokens": 26616,
     "modelProvider": "kimi-coding",
     "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770136711947,
+      "generatedAt": 1770137331433,
       "sessionId": "61dc77f3-a839-4f4a-a0ba-c3c9ae4547db",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
