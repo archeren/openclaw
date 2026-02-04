@@ -1,15 +1,8 @@
 #!/usr/bin/env node
 /**
  * session-to-md.js - Extract conversation from OpenClaw session files
+ * Merges all sessions by day into single files
  * Outputs pipe-separated format: TIMESTAMP | ROLE | CONTENT
- * 
- * Usage:
- *   node session-to-md.js [session-id] [options]
- * 
- * Examples:
- *   node session-to-md.js                    # Extract latest session
- *   node session-to-md.js <session-id>       # Extract specific session
- *   node session-to-md.js --all              # Extract all sessions
  */
 
 const fs = require('fs');
@@ -21,7 +14,6 @@ const OUTPUT_DIR = '/home/tauora/.openclaw/workspace/logs/conversations';
 function formatTime(ts) {
   if (!ts) return '';
   const date = new Date(ts);
-  // Convert to Shanghai time (UTC+8)
   return date.toLocaleString('en-US', {
     timeZone: 'Asia/Shanghai',
     year: 'numeric',
@@ -34,9 +26,11 @@ function formatTime(ts) {
   }).replace(/\//g, '-');
 }
 
-function getDateFromTimestamp(ts) {
-  if (!ts) return new Date();
-  return new Date(ts);
+function getShanghaiDateStr(timestamp) {
+  if (!timestamp) return '';
+  const date = new Date(timestamp);
+  const shanghaiTime = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' }));
+  return shanghaiTime.toISOString().split('T')[0];
 }
 
 function extractTextFromContent(content) {
@@ -45,7 +39,6 @@ function extractTextFromContent(content) {
   const texts = [];
   for (const item of content) {
     if (item.type === 'text' && item.text) {
-      // Clean up the text
       let text = item.text
         .replace(/\s*\[message_id:\s*[\w-]+\]\s*$/m, '')
         .replace(/^System:.*$/gm, '')
@@ -65,10 +58,8 @@ function extractAssistantContent(content) {
   
   for (const item of content) {
     if (item.type === 'text' && item.text) {
-      let text = item.text;
-      // Remove thinking/analysis blocks
-      text = text.replace(/^[\s\S]*?<\/think>\s*/i, '');
-      text = text
+      let text = item.text
+        .replace(/^[\s\S]*?<\/think>\s*/i, '')
         .replace(/^\s*([-_]){3,}\s*$/gm, '')
         .replace(/\s*🅰️\s*$/, '')
         .trim();
@@ -116,7 +107,6 @@ function parseSessionFile(filePath) {
           }
         } else if (msg.role === 'assistant') {
           const { text } = extractAssistantContent(msg.content);
-          // Keep assistant messages even if empty (for completeness)
           messages.push({
             role: 'Assistant',
             text,
@@ -167,55 +157,33 @@ function getSessionFiles() {
     }));
 }
 
-function getLatestSession() {
-  const files = getSessionFiles();
-  if (files.length === 0) return null;
+function extractAllSessions() {
+  // Collect all messages from all sessions by date
+  const allMessagesByDate = new Map();
   
-  files.sort((a, b) => {
-    const statA = fs.statSync(a.path);
-    const statB = fs.statSync(b.path);
-    return statB.mtime - statA.mtime;
-  });
+  const sessionFiles = getSessionFiles();
+  console.log(`Found ${sessionFiles.length} sessions...`);
   
-  return files[0];
-}
-
-function getShanghaiDateStr(timestamp) {
-  if (!timestamp) return '';
-  const date = new Date(timestamp);
-  // Format as YYYY-MM-DD in Shanghai timezone
-  const shanghaiTime = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' }));
-  return shanghaiTime.toISOString().split('T')[0];
-}
-
-function extractSession(sessionId) {
-  const filePath = path.join(SESSIONS_DIR, `${sessionId}.jsonl`);
-  
-  if (!fs.existsSync(filePath)) {
-    console.error(`Session not found: ${sessionId}`);
-    process.exit(1);
-  }
-  
-  const messages = parseSessionFile(filePath);
-  
-  if (messages.length === 0) {
-    console.log('No messages found in session.');
-    return;
-  }
-  
-  // Group messages by date (Shanghai timezone)
-  const messagesByDate = new Map();
-  
-  for (const msg of messages) {
-    const dateStr = getShanghaiDateStr(msg.timestamp);
-    if (!messagesByDate.has(dateStr)) {
-      messagesByDate.set(dateStr, []);
+  for (const sessionFile of sessionFiles) {
+    try {
+      const sessionMessages = parseSessionFile(sessionFile.path);
+      for (const msg of sessionMessages) {
+        const dateStr = getShanghaiDateStr(msg.timestamp);
+        if (!allMessagesByDate.has(dateStr)) {
+          allMessagesByDate.set(dateStr, []);
+        }
+        allMessagesByDate.get(dateStr).push(msg);
+      }
+    } catch (e) {
+      console.error(`Failed to parse ${sessionFile.id}: ${e.message}`);
     }
-    messagesByDate.get(dateStr).push(msg);
   }
   
-  // Write each date's messages to a separate file
-  for (const [dateStr, dateMessages] of messagesByDate) {
+  // Write each date's merged messages to a single file
+  for (const [dateStr, dateMessages] of allMessagesByDate) {
+    // Sort by timestamp
+    dateMessages.sort((a, b) => Number(a.timestamp) - Number(b.timestamp));
+    
     const yearMonth = dateStr.substring(0, 7);
     
     const monthDir = path.join(OUTPUT_DIR, yearMonth);
@@ -226,7 +194,7 @@ function extractSession(sessionId) {
     // Format as markdown table
     const tableOutput = formatAsMarkdownTable(dateMessages);
     
-    const outputFile = path.join(monthDir, `${dateStr}-${sessionId}.md`);
+    const outputFile = path.join(monthDir, `${dateStr}.md`);
     fs.writeFileSync(outputFile, tableOutput, 'utf-8');
     
     console.log(`✅ Saved to: ${outputFile}`);
@@ -236,39 +204,12 @@ function extractSession(sessionId) {
 }
 
 function main() {
-  const args = process.argv.slice(2);
-  
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
   
-  if (args.length === 0) {
-    const latest = getLatestSession();
-    if (latest) {
-      extractSession(latest.id);
-    } else {
-      console.error('No sessions found.');
-    }
-  } else if (args[0] === '--all') {
-    const files = getSessionFiles();
-    console.log(`Found ${files.length} sessions...`);
-    for (const file of files) {
-      try {
-        extractSession(file.id);
-      } catch (e) {
-        console.error(`Failed to extract ${file.id}: ${e.message}`);
-      }
-    }
-  } else if (args[0] === '--list') {
-    const files = getSessionFiles();
-    console.log('Available sessions:');
-    files.forEach((f, i) => {
-      const stat = fs.statSync(f.path);
-      console.log(`  ${i + 1}. ${f.id} (${(stat.size / 1024).toFixed(1)} KB)`);
-    });
-  } else {
-    extractSession(args[0]);
-  }
+  // Always extract all sessions and merge by date
+  extractAllSessions();
 }
 
 main();
