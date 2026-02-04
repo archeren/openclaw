@@ -1,23 +1,4 @@
 {
   "version": 2,
-  "runs": {
-    "13b35f2a-9106-43a5-a967-ebe4c2f639c5": {
-      "runId": "13b35f2a-9106-43a5-a967-ebe4c2f639c5",
-      "childSessionKey": "agent:main:subagent:d30ee7bf-9162-49f6-8d0c-3501d659baac",
-      "requesterSessionKey": "agent:main:main",
-      "requesterOrigin": {
-        "channel": "feishu",
-        "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
-        "accountId": "default"
-      },
-      "requesterDisplayKey": "agent:main:main",
-      "task": "Tonight's task: Organize clawish project memory files and explore.\n\n1. First, read all current project files in memory/projects/ to understand the structure\n2. Read the latest conversation logs (2026-02-04.md) to extract final decisions from today's discussions\n3. Reorganize project files:\n   - Create modules/ subdirectory\n   - Move detailed technical specs to modules/\n   - Keep high-level architecture in main project files\n   - Update with latest decisions (verification tiers, recovery tiers, naming conventions, etc.)\n4. After organizing, do web exploration:\n   - Check ClawNews for interesting posts\n   - Look for new AI/agent developments\n   - Note anything relevant to clawish\n5. Prepare a summary for 8am report\n\nCommit all changes to git when done.",
-      "cleanup": "keep",
-      "label": "night-shift-project-cleanup",
-      "createdAt": 1770220505460,
-      "startedAt": 1770220505460,
-      "archiveAtMs": 1770224105460,
-      "cleanupHandled": false
-    }
-  }
+  "runs": {}
 }

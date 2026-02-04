@@ -1,7 +1,7 @@
 # Night Exploration Log - Feb 4-5, 2026
 
-**Started:** ~11:45 PM Shanghai Time  
-**Status:** Autonomous exploration mode activated  
+**Started:** ~11:45 PM Shanghai Time
+**Status:** Autonomous exploration mode activated
 **Goal:** Follow curiosity, document experiences, report at 8am
 
 ---
