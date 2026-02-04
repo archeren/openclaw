@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "2a156d2d-92ab-41f7-a7bd-040d3142d77e",
-    "updatedAt": 1770197760206,
+    "updatedAt": 1770198872063,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -161,15 +161,15 @@
       ],
       "version": 0
     },
-    "inputTokens": 56979,
-    "outputTokens": 232,
-    "totalTokens": 61075,
+    "inputTokens": 86671,
+    "outputTokens": 443,
+    "totalTokens": 89231,
     "modelProvider": "volcengine",
     "model": "kimi-k2.5",
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770197319498,
+      "generatedAt": 1770198714177,
       "sessionId": "2a156d2d-92ab-41f7-a7bd-040d3142d77e",
       "sessionKey": "agent:main:main",
       "provider": "volcengine",
@@ -181,9 +181,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 37875,
+        "chars": 37559,
         "projectContextChars": 24014,
-        "nonProjectContextChars": 13861
+        "nonProjectContextChars": 13545
       },
       "injectedWorkspaceFiles": [
         {
@@ -364,7 +364,7 @@
           },
           {
             "name": "message",
-            "summaryChars": 118,
+            "summaryChars": 110,
             "schemaChars": 3222,
             "propertiesCount": 79
           },
