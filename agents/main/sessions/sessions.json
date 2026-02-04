@@ -1,41 +1,23 @@
 {
   "agent:main:main": {
-    "sessionId": "2a156d2d-92ab-41f7-a7bd-040d3142d77e",
-    "updatedAt": 1770198872063,
+    "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
+    "updatedAt": 1770202782133,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "telegram",
-      "to": "telegram:6225675738",
-      "accountId": "default"
+      "channel": "webchat"
     },
     "origin": {
-      "provider": "telegram",
-      "surface": "telegram",
-      "chatType": "direct",
-      "label": "Tauora (@tauist) id:6225675738",
-      "from": "telegram:6225675738",
-      "to": "telegram:6225675738",
-      "accountId": "default"
+      "provider": "webchat",
+      "surface": "webchat",
+      "chatType": "direct"
     },
-    "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/2a156d2d-92ab-41f7-a7bd-040d3142d77e.jsonl",
-    "compactionCount": 3,
+    "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/d8c87f12-6b42-4152-b8e9-3879726e97c3.jsonl",
+    "compactionCount": 0,
     "skillsSnapshot": {
-      "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>feishu-doc</name>\n    <description>Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.\n</description>\n    <location>/home/tauora/.openclaw/extensions/feishu/skills/feishu-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-drive</name>\n    <description>Feishu cloud storage file management. Activate when user mentions cloud space, folders, drive.\n</description>\n    <location>/home/tauora/.openclaw/extensions/feishu/skills/feishu-drive/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-perm</name>\n    <description>Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.\n</description>\n    <location>/home/tauora/.openclaw/extensions/feishu/skills/feishu-perm/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-wiki</name>\n    <description>Feishu knowledge base navigation. Activate when user mentions knowledge base, wiki, or wiki links.\n</description>\n    <location>/home/tauora/.openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>bird</name>\n    <description>X/Twitter CLI for reading, searching, posting, and engagement via cookies.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/bird/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>bluebubbles</name>\n    <description>Build or update the BlueBubbles external channel plugin for OpenClaw (extension package, REST send/probe, webhook inbound).</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/bluebubbles/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>clawhub</name>\n    <description>Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/clawhub/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>github</name>\n    <description>Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/github/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>mcporter</name>\n    <description>Use the mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio), including ad-hoc servers, config edits, and CLI/type generation.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/mcporter/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/skill-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tmux</name>\n    <description>Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/tmux/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather and forecasts (no API key required).</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/weather/SKILL.md</location>\n  </skill>\n</available_skills>",
+      "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>bird</name>\n    <description>X/Twitter CLI for reading, searching, posting, and engagement via cookies.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/bird/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>bluebubbles</name>\n    <description>Build or update the BlueBubbles external channel plugin for OpenClaw (extension package, REST send/probe, webhook inbound).</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/bluebubbles/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>clawhub</name>\n    <description>Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/clawhub/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>github</name>\n    <description>Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/github/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/healthcheck/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>mcporter</name>\n    <description>Use the mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio), including ad-hoc servers, config edits, and CLI/type generation.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/mcporter/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/skill-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tmux</name>\n    <description>Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/tmux/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather and forecasts (no API key required).</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/weather/SKILL.md</location>\n  </skill>\n</available_skills>",
       "skills": [
-        {
-          "name": "feishu-doc"
-        },
-        {
-          "name": "feishu-drive"
-        },
-        {
-          "name": "feishu-perm"
-        },
-        {
-          "name": "feishu-wiki"
-        },
         {
           "name": "bird"
         },
@@ -47,6 +29,9 @@
         },
         {
           "name": "github"
+        },
+        {
+          "name": "healthcheck"
         },
         {
           "name": "mcporter"
@@ -62,38 +47,6 @@
         }
       ],
       "resolvedSkills": [
-        {
-          "name": "feishu-doc",
-          "description": "Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.\n",
-          "filePath": "/home/tauora/.openclaw/extensions/feishu/skills/feishu-doc/SKILL.md",
-          "baseDir": "/home/tauora/.openclaw/extensions/feishu/skills/feishu-doc",
-          "source": "openclaw-extra",
-          "disableModelInvocation": false
-        },
-        {
-          "name": "feishu-drive",
-          "description": "Feishu cloud storage file management. Activate when user mentions cloud space, folders, drive.\n",
-          "filePath": "/home/tauora/.openclaw/extensions/feishu/skills/feishu-drive/SKILL.md",
-          "baseDir": "/home/tauora/.openclaw/extensions/feishu/skills/feishu-drive",
-          "source": "openclaw-extra",
-          "disableModelInvocation": false
-        },
-        {
-          "name": "feishu-perm",
-          "description": "Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.\n",
-          "filePath": "/home/tauora/.openclaw/extensions/feishu/skills/feishu-perm/SKILL.md",
-          "baseDir": "/home/tauora/.openclaw/extensions/feishu/skills/feishu-perm",
-          "source": "openclaw-extra",
-          "disableModelInvocation": false
-        },
-        {
-          "name": "feishu-wiki",
-          "description": "Feishu knowledge base navigation. Activate when user mentions knowledge base, wiki, or wiki links.\n",
-          "filePath": "/home/tauora/.openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md",
-          "baseDir": "/home/tauora/.openclaw/extensions/feishu/skills/feishu-wiki",
-          "source": "openclaw-extra",
-          "disableModelInvocation": false
-        },
         {
           "name": "bird",
           "description": "X/Twitter CLI for reading, searching, posting, and engagement via cookies.",
@@ -123,6 +76,14 @@
           "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
           "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/github/SKILL.md",
           "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/github",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "healthcheck",
+          "description": "Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/healthcheck/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/healthcheck",
           "source": "openclaw-bundled",
           "disableModelInvocation": false
         },
@@ -161,16 +122,16 @@
       ],
       "version": 0
     },
-    "inputTokens": 86671,
-    "outputTokens": 443,
-    "totalTokens": 89231,
+    "inputTokens": 1135,
+    "outputTokens": 186,
+    "totalTokens": 31599,
     "modelProvider": "volcengine",
     "model": "kimi-k2.5",
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770198714177,
-      "sessionId": "2a156d2d-92ab-41f7-a7bd-040d3142d77e",
+      "generatedAt": 1770202732189,
+      "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
       "sessionKey": "agent:main:main",
       "provider": "volcengine",
       "model": "kimi-k2.5",
@@ -181,9 +142,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 37559,
+        "chars": 35966,
         "projectContextChars": 24014,
-        "nonProjectContextChars": 13545
+        "nonProjectContextChars": 11952
       },
       "injectedWorkspaceFiles": [
         {
@@ -252,24 +213,8 @@
         }
       ],
       "skills": {
-        "promptChars": 4088,
+        "promptChars": 3485,
         "entries": [
-          {
-            "name": "feishu-doc",
-            "blockChars": 278
-          },
-          {
-            "name": "feishu-drive",
-            "blockChars": 270
-          },
-          {
-            "name": "feishu-perm",
-            "blockChars": 292
-          },
-          {
-            "name": "feishu-wiki",
-            "blockChars": 272
-          },
           {
             "name": "bird",
             "blockChars": 259
@@ -285,6 +230,10 @@
           {
             "name": "github",
             "blockChars": 325
+          },
+          {
+            "name": "healthcheck",
+            "blockChars": 518
           },
           {
             "name": "mcporter",
@@ -305,8 +254,8 @@
         ]
       },
       "tools": {
-        "listChars": 2959,
-        "schemaChars": 18053,
+        "listChars": 1926,
+        "schemaChars": 13948,
         "entries": [
           {
             "name": "read",
@@ -429,66 +378,6 @@
             "propertiesCount": 3
           },
           {
-            "name": "feishu_doc",
-            "summaryChars": 116,
-            "schemaChars": 584,
-            "propertiesCount": 6
-          },
-          {
-            "name": "feishu_app_scopes",
-            "summaryChars": 102,
-            "schemaChars": 33,
-            "propertiesCount": 0
-          },
-          {
-            "name": "feishu_wiki",
-            "summaryChars": 83,
-            "schemaChars": 880,
-            "propertiesCount": 10
-          },
-          {
-            "name": "feishu_drive",
-            "summaryChars": 81,
-            "schemaChars": 458,
-            "propertiesCount": 5
-          },
-          {
-            "name": "feishu_bitable_get_meta",
-            "summaryChars": 114,
-            "schemaChars": 170,
-            "propertiesCount": 1
-          },
-          {
-            "name": "feishu_bitable_list_fields",
-            "summaryChars": 76,
-            "schemaChars": 255,
-            "propertiesCount": 2
-          },
-          {
-            "name": "feishu_bitable_list_records",
-            "summaryChars": 64,
-            "schemaChars": 436,
-            "propertiesCount": 4
-          },
-          {
-            "name": "feishu_bitable_get_record",
-            "summaryChars": 46,
-            "schemaChars": 335,
-            "propertiesCount": 3
-          },
-          {
-            "name": "feishu_bitable_create_record",
-            "summaryChars": 44,
-            "schemaChars": 515,
-            "propertiesCount": 3
-          },
-          {
-            "name": "feishu_bitable_update_record",
-            "summaryChars": 50,
-            "schemaChars": 439,
-            "propertiesCount": 4
-          },
-          {
             "name": "memory_search",
             "summaryChars": 235,
             "schemaChars": 139,
@@ -503,10 +392,6 @@
         ]
       }
     },
-    "lastChannel": "telegram",
-    "lastTo": "telegram:6225675738",
-    "lastAccountId": "default",
-    "memoryFlushAt": 1770193177011,
-    "memoryFlushCompactionCount": 2
+    "lastChannel": "webchat"
   }
 }

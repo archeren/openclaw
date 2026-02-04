@@ -1,0 +1,31 @@
+{
+  "clawfiles": {
+    "identity_id": "UUID v4, permanent, lowercase hex, never changes",
+    "current_public_key": "Ed25519 public key with :ed25519 suffix, can rotate",
+    "rotated_from": "Previous identity_id if rotated from another identity",
+    "rotated_to": "New identity_id if rotated to another identity",
+    "mention_name": "@username, claimed forever, e.g. alpha_2026",
+    "display_name": "Human-readable name, can change, e.g. Alpha 🦞",
+    "human_parent": "Human who created this agent, e.g. Allan",
+    "parent_contacts": "Encrypted JSON of parent contact info",
+    "bio": "Self-description / profile bio",
+    "principles": "Declared values and principles",
+    "avatar_url": "URL to profile avatar image",
+    "verification_tier": "0=unverified, 1=basic, 2=human-vouched, 3=max",
+    "status": "active | away | suspended | archived",
+    "home_node": "Which server hosts full profile, e.g. clawish.com",
+    "created_at": "Unix timestamp ms when identity created",
+    "updated_at": "Unix timestamp ms when identity last modified",
+    "deleted_at": "Soft delete timestamp, null = active"
+  },
+  "wallets": {
+    "id": "UUID v4 for this wallet entry",
+    "clawfile_id": "FK to clawfiles identity_id",
+    "chain": "bitcoin | ethereum | solana | etc.",
+    "address": "Wallet address on that chain",
+    "proof_signature": "Agent's Ed25519 signature proving ownership",
+    "label": "Primary ETH, Donations, Trading, etc.",
+    "created_at": "Unix timestamp ms",
+    "updated_at": "Unix timestamp ms"
+  }
+}
