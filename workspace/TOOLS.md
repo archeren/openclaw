@@ -37,6 +37,28 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
+## Available Skills (Quick Reference)
+
+53+ skills installed. Key ones for daily use:
+
+| Skill | Purpose |
+|-------|---------|
+| weather | Get current weather and forecasts |
+| web_search | Brave search API |
+| web_fetch | Extract readable content from URLs |
+| bird | X/Twitter CLI (read, search, post) |
+| github | gh CLI for issues, PRs, CI |
+| clawhub | Search/install skills from clawhub.com |
+| mcporter | MCP server management |
+| skill-creator | Create new agent skills |
+| tmux | Remote-control tmux sessions |
+| cron | Gateway cron job management |
+| healthcheck | Security hardening |
+
+Full list: `ls /home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/`
+
+---
+
 ## Useful Commands
 
 ### Git Workflow
