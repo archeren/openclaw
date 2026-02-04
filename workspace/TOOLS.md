@@ -49,9 +49,10 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 | bird | X/Twitter CLI (read, search, post) |
 | github | gh CLI for issues, PRs, CI |
 | clawhub | Search/install skills from clawhub.com |
-| mcporter | MCP server management |
+| mcporter | MCP server management (call tools, auth, codegen) |
 | skill-creator | Create new agent skills |
 | tmux | Remote-control tmux sessions |
+| sessions_spawn | Spawn sub-agents for parallel work |
 | cron | Gateway cron job management |
 | healthcheck | Security hardening |
 
