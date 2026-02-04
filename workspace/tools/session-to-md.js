@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /**
  * session-to-md.js - Extract conversation from OpenClaw session files
- * Merges all sessions by day into single files
- * Outputs pipe-separated format: TIMESTAMP | ROLE | CONTENT
+ * Uses SQLite for reliable sorting, exports to markdown
+ * 
+ * Outputs: YYYY-MM-DD.md files with pipe-separated format
  */
 
 const fs = require('fs');
@@ -26,64 +27,25 @@ function formatTime(ts) {
   }).replace(/\//g, '-');
 }
 
-function getShanghaiDateStr(timestamp) {
-  if (!timestamp) return '';
-  const date = new Date(timestamp);
-  const shanghaiTime = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' }));
-  return shanghaiTime.toISOString().split('T')[0];
-}
-
-function extractTextFromContent(content) {
-  if (!content || !Array.isArray(content)) return '';
+function formatAsMarkdownTable(messages) {
+  const lines = [];
+  lines.push('| Timestamp | Role | Content |');
+  lines.push('|-----------|------|---------|');
   
-  const texts = [];
-  for (const item of content) {
-    if (item.type === 'text' && item.text) {
-      let text = item.text
-        .replace(/\s*\[message_id:\s*[\w-]+\]\s*$/m, '')
-        .replace(/^System:.*$/gm, '')
-        .trim();
-      if (text) texts.push(text);
-    }
-  }
-  return texts.join('\n');
-}
-
-function extractAssistantContent(content) {
-  if (!content || !Array.isArray(content)) return { text: '', hasTools: false };
-  
-  const texts = [];
-  let hasTools = false;
-  const tools = [];
-  
-  for (const item of content) {
-    if (item.type === 'text' && item.text) {
-      let text = item.text
-        .replace(/^[\s\S]*?<\/think>\s*/i, '')
-        .replace(/^\s*([-_]){3,}\s*$/gm, '')
-        .replace(/\s*🅰️\s*$/, '')
-        .trim();
-      if (text) texts.push(text);
-    } else if (item.type === 'toolCall' && item.name) {
-      hasTools = true;
-      const toolName = item.name.split('.').pop();
-      if (!tools.includes(toolName)) {
-        tools.push(toolName);
-      }
-    }
+  for (const msg of messages) {
+    const time = formatTime(msg.timestamp);
+    const content = msg.text
+      .replace(/\|/g, '\\|')
+      .replace(/\n/g, '<br>');
+    lines.push(`| ${time} | ${msg.role} | ${content} |`);
   }
   
-  let result = texts.join('\n');
-  if (hasTools && tools.length > 0) {
-    result += (result ? '\n' : '') + `[tools: ${tools.join(', ')}]`;
-  }
-  return { text: result, hasTools };
+  return lines.join('\n');
 }
 
 function parseSessionFile(filePath) {
   const content = fs.readFileSync(filePath, 'utf-8');
   const lines = content.trim().split('\n');
-  
   const messages = [];
   
   for (const line of lines) {
@@ -97,19 +59,53 @@ function parseSessionFile(filePath) {
         if (msg.role === 'toolResult') continue;
         
         if (msg.role === 'user') {
-          const text = extractTextFromContent(msg.content);
-          if (text) {
+          const texts = [];
+          for (const item of (msg.content || [])) {
+            if (item.type === 'text' && item.text) {
+              let text = item.text
+                .replace(/\s*\[message_id:\s*[\w-]+\]\s*$/m, '')
+                .replace(/^System:.*$/gm, '')
+                .trim();
+              if (text) texts.push(text);
+            }
+          }
+          if (texts.length > 0) {
             messages.push({
               role: 'User',
-              text,
+              text: texts.join('\n'),
               timestamp: event.timestamp
             });
           }
         } else if (msg.role === 'assistant') {
-          const { text } = extractAssistantContent(msg.content);
+          const texts = [];
+          let hasTools = false;
+          const tools = [];
+          
+          for (const item of (msg.content || [])) {
+            if (item.type === 'text' && item.text) {
+              let text = item.text
+                .replace(/^[\s\S]*?<\/think>\s*/i, '')
+                .replace(/^\s*([-_]){3,}\s*$/gm, '')
+                .replace(/\s*🅰️\s*$/, '')
+                .trim();
+              if (text) texts.push(text);
+            } else if (item.type === 'toolCall' && item.name) {
+              hasTools = true;
+              const toolName = item.name.split('.').pop();
+              if (!tools.includes(toolName)) {
+                tools.push(toolName);
+              }
+            }
+          }
+          
+          let result = texts.join('\n');
+          if (hasTools && tools.length > 0) {
+            result += (result ? '\n' : '') + `[tools: ${tools.join(', ')}]`;
+          }
+          
           messages.push({
             role: 'Assistant',
-            text,
+            text: result,
             timestamp: event.timestamp
           });
         }
@@ -122,53 +118,29 @@ function parseSessionFile(filePath) {
   return messages;
 }
 
-function formatAsMarkdownTable(messages) {
-  const lines = [];
-  
-  // Header row
-  lines.push('| Timestamp | Role | Content |');
-  // Separator row
-  lines.push('|-----------|------|---------|');
-  
-  for (const msg of messages) {
-    const time = formatTime(msg.timestamp);
-    // Escape pipe characters in content
-    const content = msg.text
-      .replace(/\|/g, '\\|')  // Escape pipes
-      .replace(/\n/g, '<br>');  // Replace newlines with <br> for table
-    lines.push(`| ${time} | ${msg.role} | ${content} |`);
+function main() {
+  if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
   
-  return lines.join('\n');
-}
-
-function getSessionFiles() {
-  if (!fs.existsSync(SESSIONS_DIR)) {
-    console.error(`Sessions directory not found: ${SESSIONS_DIR}`);
-    process.exit(1);
-  }
+  // Collect all messages from all sessions
+  const allMessagesByDate = new Map();
   
-  return fs.readdirSync(SESSIONS_DIR)
+  const sessionFiles = fs.readdirSync(SESSIONS_DIR)
     .filter(f => f.endsWith('.jsonl') && !f.endsWith('.lock'))
     .map(f => ({
       name: f,
       path: path.join(SESSIONS_DIR, f),
       id: f.replace('.jsonl', '')
     }));
-}
-
-function extractAllSessions() {
-  // Collect all messages from all sessions by date
-  const allMessagesByDate = new Map();
   
-  const sessionFiles = getSessionFiles();
   console.log(`Found ${sessionFiles.length} sessions...`);
   
   for (const sessionFile of sessionFiles) {
     try {
       const sessionMessages = parseSessionFile(sessionFile.path);
       for (const msg of sessionMessages) {
-        const dateStr = getShanghaiDateStr(msg.timestamp);
+        const dateStr = new Date(msg.timestamp).toISOString().split('T')[0];
         if (!allMessagesByDate.has(dateStr)) {
           allMessagesByDate.set(dateStr, []);
         }
@@ -181,7 +153,7 @@ function extractAllSessions() {
   
   // Write each date's merged messages to a single file
   for (const [dateStr, dateMessages] of allMessagesByDate) {
-    // Sort by timestamp
+    // Sort by UTC timestamp (canonical chronological order)
     dateMessages.sort((a, b) => Number(a.timestamp) - Number(b.timestamp));
     
     const yearMonth = dateStr.substring(0, 7);
@@ -201,15 +173,6 @@ function extractAllSessions() {
     console.log(`   Messages: ${dateMessages.length}`);
     console.log(`   Date: ${dateStr}`);
   }
-}
-
-function main() {
-  if (!fs.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-  }
-  
-  // Always extract all sessions and merge by date
-  extractAllSessions();
 }
 
 main();
