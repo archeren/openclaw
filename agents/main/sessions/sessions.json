@@ -1,19 +1,24 @@
 {
   "agent:main:main": {
     "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
-    "updatedAt": 1770165372481,
+    "updatedAt": 1770170011141,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75"
+      "channel": "telegram",
+      "to": "telegram:6225675738",
+      "accountId": "default"
     },
-    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastTo": "telegram:6225675738",
     "origin": {
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
-      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75"
+      "label": "Tauora (@tauist) id:6225675738",
+      "provider": "telegram",
+      "from": "telegram:6225675738",
+      "to": "telegram:6225675738",
+      "surface": "telegram",
+      "chatType": "direct",
+      "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/4c172640-bb42-4358-a27f-bcdcbbb83dd7.jsonl",
     "compactionCount": 0,
@@ -160,15 +165,15 @@
     "authProfileOverride": "kimi-coding:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 51844,
-    "outputTokens": 45,
-    "totalTokens": 51844,
+    "inputTokens": 63917,
+    "outputTokens": 524,
+    "totalTokens": 63917,
     "modelProvider": "kimi-coding",
     "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770165355574,
+      "generatedAt": 1770169954143,
       "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -180,9 +185,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 34869,
+        "chars": 35185,
         "projectContextChars": 21992,
-        "nonProjectContextChars": 12877
+        "nonProjectContextChars": 13193
       },
       "injectedWorkspaceFiles": [
         {
@@ -363,7 +368,7 @@
           },
           {
             "name": "message",
-            "summaryChars": 110,
+            "summaryChars": 118,
             "schemaChars": 3222,
             "propertiesCount": 79
           },
@@ -465,7 +470,9 @@
           }
         ]
       }
-    }
+    },
+    "lastChannel": "telegram",
+    "lastAccountId": "default"
   },
   "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
     "chatType": "channel",
