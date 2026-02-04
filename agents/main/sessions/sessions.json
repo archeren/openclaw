@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
-    "updatedAt": 1770205154854,
+    "updatedAt": 1770205868833,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -10,7 +10,7 @@
       "to": "heartbeat"
     },
     "origin": {
-      "provider": "webchat",
+      "provider": "heartbeat",
       "surface": "webchat",
       "chatType": "direct",
       "label": "heartbeat",
@@ -126,15 +126,15 @@
       ],
       "version": 0
     },
-    "inputTokens": 406,
-    "outputTokens": 424,
-    "totalTokens": 86678,
+    "inputTokens": 418,
+    "outputTokens": 194,
+    "totalTokens": 90274,
     "modelProvider": "volcengine",
     "model": "kimi-k2.5",
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770205101009,
+      "generatedAt": 1770205853953,
       "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
       "sessionKey": "agent:main:main",
       "provider": "volcengine",
@@ -146,9 +146,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 36149,
+        "chars": 36155,
         "projectContextChars": 24197,
-        "nonProjectContextChars": 11952
+        "nonProjectContextChars": 11958
       },
       "injectedWorkspaceFiles": [
         {
