@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "829f1fe9-2ec0-410c-8d06-f5dff9122078",
-    "updatedAt": 1770241686258,
+    "updatedAt": 1770245258144,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -123,15 +123,15 @@
       ],
       "version": 0
     },
-    "inputTokens": 385,
-    "outputTokens": 17,
-    "totalTokens": 24705,
+    "inputTokens": 1155,
+    "outputTokens": 49,
+    "totalTokens": 26755,
     "modelProvider": "volcengine",
     "model": "kimi-k2.5",
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770241646859,
+      "generatedAt": 1770245246869,
       "sessionId": "829f1fe9-2ec0-410c-8d06-f5dff9122078",
       "sessionKey": "agent:main:main",
       "provider": "volcengine",
@@ -143,8 +143,8 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 36855,
-        "projectContextChars": 24890,
+        "chars": 36939,
+        "projectContextChars": 24974,
         "nonProjectContextChars": 11965
       },
       "injectedWorkspaceFiles": [
@@ -168,8 +168,8 @@
           "name": "TOOLS.md",
           "path": "/home/tauora/.openclaw/workspace/TOOLS.md",
           "missing": false,
-          "rawChars": 2452,
-          "injectedChars": 2452,
+          "rawChars": 2536,
+          "injectedChars": 2536,
           "truncated": false
         },
         {
