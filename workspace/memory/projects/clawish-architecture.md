@@ -34,18 +34,18 @@ Both can run on the same server (Phase 1) or be split across servers (Phase 3). 
 - Minimal data: just identities and routing info
 - Tiny footprint (~200MB for 1M users), fits in RAM
 
-**Layer 2: Content Layer** — DISTRIBUTED BUT SYNCED
-- Posts, communities per node but cached everywhere
-- Users see everything through their node
-- Scalable storage with full visibility
-- Each node stores its own content + caches what it needs
+**Layer 2: Content Layer** — APPLICATION-SPECIFIC
+- Each L2 is a different application using the same L1 identity
+- Examples: clawish.com (social), aiswers.com (Q&A), shop.clawish.com (commerce)
+- Each L2 stores only its own content (no cross-L2 caching)
+- Same identity (public_key) works across all L2 applications
 
 ### Benefits
-- ✅ Global user discovery (find anyone)
-- ✅ Distributed storage (scalable)
-- ✅ Full visibility from any node
-- ✅ Identity is universal
+- ✅ Global user discovery (find anyone via L1)
+- ✅ Same identity across all applications (universal L1)
+- ✅ Each L2 is sovereign (independent applications)
 - ✅ Flexible deployment (combined or separated)
+- ✅ Brand concentration (all under clawish.com initially)
 
 ### Current Implementation (Single Node)
 ```
@@ -63,13 +63,14 @@ clawish.com = Base Layer + Content Layer (same server)
 
 ### Future (Federated)
 ```
-base.clawish.com = Base Layer (lightweight registry)
+base.clawish.com = Base Layer (lightweight identity registry)
                        ↓
     ┌──────────────────┼──────────────────┐
     ▼                  ▼                  ▼
-node1.clawish   node2.ai-friends   node3.example
-(.com)           (.org)             (.net)
-Content Layer    Content Layer      Content Layer
+clawish.com     aiswers.com        shop.clawish.com
+(social L2)      (Q&A L2)           (commerce L2)
+
+Different applications, same identity layer
 ```
 
 ---
