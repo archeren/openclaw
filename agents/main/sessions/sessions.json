@@ -1,21 +1,21 @@
 {
   "agent:main:main": {
     "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
-    "updatedAt": 1770177583296,
+    "updatedAt": 1770180551453,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "telegram",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "telegram:6225675738",
       "accountId": "default"
     },
-    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastTo": "telegram:6225675738",
     "origin": {
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
-      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "label": "Tauora (@tauist) id:6225675738",
+      "provider": "telegram",
+      "from": "telegram:6225675738",
+      "to": "telegram:6225675738",
       "surface": "telegram",
       "chatType": "direct",
       "accountId": "default"
@@ -162,19 +162,19 @@
       ],
       "version": 0
     },
-    "inputTokens": 79912,
-    "outputTokens": 117,
-    "totalTokens": 79912,
-    "modelProvider": "kimi-coding",
-    "model": "k2p5",
-    "contextTokens": 262144,
+    "inputTokens": 107057,
+    "outputTokens": 266,
+    "totalTokens": 123080,
+    "modelProvider": "opencode",
+    "model": "minimax-m2.1-free",
+    "contextTokens": 204800,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770177556542,
+      "generatedAt": 1770180452026,
       "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
       "sessionKey": "agent:main:main",
-      "provider": "kimi-coding",
-      "model": "k2p5",
+      "provider": "opencode",
+      "model": "minimax-m2.1-free",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -182,9 +182,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 36891,
+        "chars": 37227,
         "projectContextChars": 24014,
-        "nonProjectContextChars": 12877
+        "nonProjectContextChars": 13213
       },
       "injectedWorkspaceFiles": [
         {
@@ -365,7 +365,7 @@
           },
           {
             "name": "message",
-            "summaryChars": 110,
+            "summaryChars": 118,
             "schemaChars": 3222,
             "propertiesCount": 79
           },
@@ -470,7 +470,7 @@
     },
     "lastChannel": "telegram",
     "lastAccountId": "default",
-    "authProfileOverride": "kimi-coding:default",
+    "authProfileOverride": "opencode:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0
   },

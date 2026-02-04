@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.1",
-    "lastTouchedAt": "2026-02-04T02:58:48.818Z"
+    "lastTouchedAt": "2026-02-04T04:46:36.779Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -101,7 +101,7 @@
     "defaults": {
       "model": {
         "fallbacks": [],
-        "primary": "kimi-coding/k2p5"
+        "primary": "opencode/minimax-m2.1-free"
       },
       "models": {
         "qwen-portal/coder-model": {
@@ -117,7 +117,8 @@
         },
         "fw/kimi-k2.5": {
           "alias": "fw"
-        }
+        },
+        "opencode/minimax-m2.1-free": {}
       },
       "workspace": "/home/tauora/.openclaw/workspace",
       "memorySearch": {
