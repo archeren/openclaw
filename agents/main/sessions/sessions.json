@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
-    "updatedAt": 1770158187100,
+    "updatedAt": 1770161813257,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -160,15 +160,15 @@
     "authProfileOverride": "kimi-coding:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 42517,
-    "outputTokens": 35,
-    "totalTokens": 42517,
+    "inputTokens": 50851,
+    "outputTokens": 14,
+    "totalTokens": 50851,
     "modelProvider": "kimi-coding",
     "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770158155560,
+      "generatedAt": 1770161755573,
       "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -180,8 +180,8 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 33064,
-        "projectContextChars": 20187,
+        "chars": 33973,
+        "projectContextChars": 21096,
         "nonProjectContextChars": 12877
       },
       "injectedWorkspaceFiles": [
@@ -205,8 +205,8 @@
           "name": "TOOLS.md",
           "path": "/home/tauora/.openclaw/workspace/TOOLS.md",
           "missing": false,
-          "rawChars": 850,
-          "injectedChars": 850,
+          "rawChars": 1759,
+          "injectedChars": 1759,
           "truncated": false
         },
         {
