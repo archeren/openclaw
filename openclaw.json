@@ -123,6 +123,8 @@
         "primary": "volcengine/kimi-k2.5",
         "fallbacks": []
       },
+      "typingMode": "instant",
+      "typingIntervalSeconds": 6,
       "models": {
         "volcengine/kimi-k2.5": {
           "alias": "volc Kimi 2.5"
