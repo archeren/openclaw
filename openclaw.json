@@ -55,7 +55,7 @@
               "cacheWrite": 0
             },
             "contextWindow": 200000,
-            "maxTokens": 8192
+            "maxTokens": 10000
           },
           {
             "id": "kimi-k2.5-thinking",
