@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
-    "updatedAt": 1770161813257,
+    "updatedAt": 1770165372481,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -160,15 +160,15 @@
     "authProfileOverride": "kimi-coding:default",
     "authProfileOverrideSource": "auto",
     "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 50851,
-    "outputTokens": 14,
-    "totalTokens": 50851,
+    "inputTokens": 51844,
+    "outputTokens": 45,
+    "totalTokens": 51844,
     "modelProvider": "kimi-coding",
     "model": "k2p5",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770161755573,
+      "generatedAt": 1770165355574,
       "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -180,8 +180,8 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 33973,
-        "projectContextChars": 21096,
+        "chars": 34869,
+        "projectContextChars": 21992,
         "nonProjectContextChars": 12877
       },
       "injectedWorkspaceFiles": [
@@ -245,8 +245,8 @@
           "name": "MEMORY.md",
           "path": "/home/tauora/.openclaw/workspace/MEMORY.md",
           "missing": false,
-          "rawChars": 3584,
-          "injectedChars": 3584,
+          "rawChars": 4480,
+          "injectedChars": 4480,
           "truncated": false
         }
       ],
