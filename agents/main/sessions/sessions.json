@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
-    "updatedAt": 1770170011141,
+    "updatedAt": 1770173960620,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -162,22 +162,19 @@
       ],
       "version": 0
     },
-    "authProfileOverride": "kimi-coding:default",
-    "authProfileOverrideSource": "auto",
-    "authProfileOverrideCompactionCount": 0,
-    "inputTokens": 63917,
-    "outputTokens": 524,
-    "totalTokens": 63917,
-    "modelProvider": "kimi-coding",
-    "model": "k2p5",
+    "inputTokens": 585,
+    "outputTokens": 600,
+    "totalTokens": 73542,
+    "modelProvider": "opencode",
+    "model": "kimi-k2.5-free",
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770169954143,
+      "generatedAt": 1770173581676,
       "sessionId": "4c172640-bb42-4358-a27f-bcdcbbb83dd7",
       "sessionKey": "agent:main:main",
-      "provider": "kimi-coding",
-      "model": "k2p5",
+      "provider": "opencode",
+      "model": "kimi-k2.5-free",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -185,9 +182,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 35185,
+        "chars": 34877,
         "projectContextChars": 21992,
-        "nonProjectContextChars": 13193
+        "nonProjectContextChars": 12885
       },
       "injectedWorkspaceFiles": [
         {
@@ -368,7 +365,7 @@
           },
           {
             "name": "message",
-            "summaryChars": 118,
+            "summaryChars": 110,
             "schemaChars": 3222,
             "propertiesCount": 79
           },
@@ -472,7 +469,10 @@
       }
     },
     "lastChannel": "telegram",
-    "lastAccountId": "default"
+    "lastAccountId": "default",
+    "authProfileOverride": "kimi-coding:default",
+    "authProfileOverrideSource": "auto",
+    "authProfileOverrideCompactionCount": 0
   },
   "agent:main:feishu:channel:ou_cadc2c270c8e9803d8f069eb8ce19b75": {
     "chatType": "channel",
