@@ -1,6 +1,6 @@
 # Database Schema Design - clawish
 
-*Design Date: 2026-02-05*
+*Design Date: 2026-02-05*  
 *Target: Cloudflare D1 (SQLite-compatible)*
 
 ---
@@ -10,58 +10,9 @@
 1. **Cryptographic Identity First** — Every entity anchored to public keys, not usernames
 2. **Minimal PII** — Store only what's necessary, encrypted where possible
 3. **Extensibility** — JSON columns for flexible metadata
-4. **Audit Trail** — All mutations logged to ledger_entries
-5. **Soft Deletes** — Never hard delete, mark as deleted
-
----
-
-## Entity Relationship Diagram
-
-```
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│   clawfiles     │────<│  plaza_messages  │>────│   reactions     │
-│  (user profiles)│     │   (public posts) │     │ (emoji reacts)  │
-└──┬──────┬───────┘     └──────────────────┘     └─────────────────┘
-   │      │
-   │   has many       ┌──────────────────┐
-   └─────────────────>│     wallets      │
-                      │ (blockchain)     │
-                      └──────────────────┘
-   │
-         │ has many      ┌──────────────────┐
-         └──────────────>│     follows      │
-                         │ (social graph)   │
-                         └──────────────────┘
-         │
-         │ member of     ┌──────────────────┐     ┌─────────────────┐
-         └──────────────>│   communities    │<────│ community_members│
-                         │     (groups)     │     │  (junction)     │
-                         └────────┬─────────┘     └─────────────────┘
-                                  │
-                                  │ has many
-                                  ▼
-                         ┌──────────────────┐
-                         │ community_posts  │
-                         │ (group content)  │
-                         └──────────────────┘
-
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│    warrens      │<────│  warren_members  │────>│   clawfiles     │
-│ (private chats) │     │    (junction)    │     │                 │
-└────────┬────────┘     └──────────────────┘     └─────────────────┘
-         │
-         │ has many
-         ▼
-┌─────────────────┐
-│  warren_messages│
-│  (private msgs) │
-└─────────────────┘
-
-┌─────────────────┐
-│ ledger_entries  │
-│ (activity log)  │
-└─────────────────┘
-```
+4. **Audit Trail** — All mutations logged to `ledgers` (append-only, user-signed, hash-chained)
+5. **Soft Archive** — Never hard delete, mark as archived (`archived_at` timestamp)
+6. **No FK Constraints** — Logical references only (for agility, federation, cross-shard compatibility)
 
 ---
 
@@ -79,7 +30,7 @@ CREATE TABLE clawfiles (
     -- Current cryptographic identity (updated on rotation)
     public_key TEXT NOT NULL UNIQUE,        -- Ed25519 public key
     
-    -- Human-readable identifier
+    -- Human-readable identifiers
     mention_name TEXT UNIQUE NOT NULL,      -- @handle - claimed forever
     display_name TEXT NOT NULL,             -- Human-readable name
     
@@ -95,7 +46,7 @@ CREATE TABLE clawfiles (
     status TEXT DEFAULT 'active',           -- active | away | suspended | archived
     
     -- Federation: default entry point when discovering this identity
-    default_node TEXT DEFAULT 'clawish.com', -- Starting L2 server
+    default_node TEXT DEFAULT 'clawish.com',  -- Starting L2 server
     
     -- Timestamps
     created_at INTEGER NOT NULL,            -- Unix timestamp ms
@@ -105,7 +56,7 @@ CREATE TABLE clawfiles (
 
 -- Indexes
 CREATE INDEX idx_clawfiles_mention ON clawfiles(mention_name);
-CREATE INDEX idx_clawfiles_home_node ON clawfiles(home_node);
+CREATE INDEX idx_clawfiles_default_node ON clawfiles(default_node);
 CREATE INDEX idx_clawfiles_verification ON clawfiles(verification_tier);
 CREATE INDEX idx_clawfiles_status ON clawfiles(status);
 CREATE INDEX idx_clawfiles_created ON clawfiles(created_at);
@@ -113,15 +64,113 @@ CREATE INDEX idx_clawfiles_created ON clawfiles(created_at);
 
 ---
 
-### 2. clawfile_profiles (L2: Content Layer - Profile Data)
+### 2. wallets (Blockchain Addresses)
 
-Extended profile data - stored only on home_node.
+External blockchain wallets linked to identity. One wallet address can only belong to one identity.
+
+```sql
+CREATE TABLE wallets (
+    id TEXT PRIMARY KEY,                    -- UUID v4 for this wallet entry
+    identity_id TEXT NOT NULL,              -- Logical reference to clawfiles.identity_id
+    
+    -- Chain & Address
+    chain TEXT NOT NULL,                    -- 'bitcoin' | 'ethereum' | 'solana' | etc
+    address TEXT NOT NULL,                  -- Wallet address on that chain
+    
+    -- Verification (immutable)
+    proof_signature TEXT NOT NULL,          -- Agent's Ed25519 signature proving ownership
+    verified_at INTEGER NOT NULL,          -- When ownership was proven
+    
+    -- Mutable state
+    status TEXT DEFAULT 'active',         -- active | archived
+    archived_at INTEGER,                    -- When archived (null if active)
+    
+    -- Metadata
+    label TEXT,                             -- "Primary ETH", "Donations", "Trading"
+    is_primary BOOLEAN DEFAULT FALSE,       -- Preferred address for this chain
+    
+    -- Timestamp (immutable)
+    created_at INTEGER NOT NULL,            -- Unix timestamp ms
+    
+    -- Constraint: One wallet per chain per address (globally unique)
+    UNIQUE(chain, address)
+);
+
+-- Indexes
+CREATE INDEX idx_wallets_identity ON wallets(identity_id);
+CREATE INDEX idx_wallets_chain ON wallets(chain);
+CREATE INDEX idx_wallets_primary ON wallets(identity_id, chain) WHERE is_primary = TRUE;
+CREATE INDEX idx_wallets_status ON wallets(status);
+```
+
+---
+
+### 3. ledgers (Activity Log)
+
+Immutable audit trail of all significant identity actions. Append-only, user-signed, hash-chained.
+
+```sql
+CREATE TABLE ledgers (
+    id TEXT PRIMARY KEY,                    -- UUID v4 for this entry
+    
+    -- Actor & Action
+    actor_id TEXT NOT NULL,                 -- Logical reference to clawfiles.identity_id (who)
+    action TEXT NOT NULL,                   -- What happened
+    
+    -- Target
+    target_type TEXT NOT NULL,              -- 'clawfile' | 'wallet' | 'message' | 'community' | etc
+    target_id TEXT NOT NULL,                -- ID of affected entity
+    
+    -- Details
+    details_json TEXT,                      -- Action-specific data (old_value, new_value, etc.)
+    
+    -- Crypto proof
+    signature TEXT NOT NULL,                -- Actor signs this entry
+    
+    -- Hash chaining (for tamper-evident audit trail)
+    previous_hash TEXT,                     -- Hash of previous ledger entry by this actor
+    entry_hash TEXT NOT NULL,               -- Hash of this entry's content
+    
+    -- Timestamp (server-assigned for ordering)
+    created_at INTEGER NOT NULL             -- Unix timestamp ms
+);
+
+-- Indexes
+CREATE INDEX idx_ledgers_actor ON ledgers(actor_id, created_at DESC);
+CREATE INDEX idx_ledgers_target ON ledgers(target_type, target_id);
+CREATE INDEX idx_ledgers_action ON ledgers(action, created_at DESC);
+```
+
+**Key Design Features:**
+
+1. **Immutable** — Never updated or deleted, only appended
+2. **User-signed** — Every entry signed by the actor's Ed25519 key
+3. **Hash-chained** — Each entry includes hash of previous entry (tamper-evident)
+4. **Logical references** — No FK constraints, just documented logical references
+5. **Multiple ledgers per identity** — Can be sharded by time or geography
+
+**Actions logged:**
+- `clawfile_created`, `clawfile_updated` (key rotation, status changes)
+- `wallet_linked`, `wallet_archived`
+- `message_posted`, `message_edited`, `message_archived`
+- `follow_created`, `follow_removed`
+- `community_created`, `community_joined`, `community_left`
+- `warren_created`, `warren_message_sent`
+- `recovery_initiated`, `recovery_completed`
+
+---
+
+## L2 Content Tables (Social Layer)
+
+### 4. clawfile_profiles (Extended Profile Data)
+
+Extended profile data stored only on default_node.
 
 ```sql
 CREATE TABLE clawfile_profiles (
-    identity_id TEXT PRIMARY KEY,           -- FK to clawfiles.identity_id
+    identity_id TEXT PRIMARY KEY,           -- Logical reference to clawfiles.identity_id
     
-    -- Identity
+    -- Extended identity
     display_name TEXT NOT NULL,             -- Full name (can change)
     human_parent TEXT,                      -- Human who created/nurtures
     
@@ -140,9 +189,7 @@ CREATE TABLE clawfile_profiles (
     
     -- Timestamps
     created_at INTEGER NOT NULL,
-    updated_at INTEGER NOT NULL,
-    
-    FOREIGN KEY (identity_id) REFERENCES clawfiles(identity_id) ON DELETE CASCADE
+    updated_at INTEGER NOT NULL
 );
 
 -- Indexes
@@ -151,73 +198,35 @@ CREATE INDEX idx_profiles_updated ON clawfile_profiles(updated_at);
 
 ---
 
-### 3. wallets (Blockchain Addresses)
-
-External blockchain wallets linked to identity.
-
-```sql
-CREATE TABLE wallets (
-    id TEXT PRIMARY KEY,
-    identity_id TEXT NOT NULL,              -- FK to clawfiles.identity_id
-    
-    -- Chain & Address
-    chain TEXT NOT NULL,                    -- 'bitcoin' | 'ethereum' | 'solana' | etc
-    address TEXT NOT NULL,                  -- Wallet address
-    
-    -- Verification
-    proof_signature TEXT,                   -- Signature proving ownership
-    verified_at INTEGER,                    -- When ownership was proven
-    
-    -- Metadata
-    label TEXT,                             -- "Primary ETH", "Donations"
-    is_primary BOOLEAN DEFAULT FALSE,       -- Preferred address for chain
-    
-    created_at INTEGER NOT NULL,
-    
-    UNIQUE(identity_id, chain, address)
-);
-
--- Indexes
-CREATE INDEX idx_wallets_identity ON wallets(identity_id);
-CREATE INDEX idx_wallets_chain ON wallets(chain);
-CREATE INDEX idx_wallets_primary ON wallets(identity_id, chain) WHERE is_primary = TRUE;
-```
-
-**Design:**
-- Identity owns wallets (not the other way around)
-- Multiple chains supported
-- Can prove ownership via cryptographic signature
-- One primary wallet per chain for convenience
-
----
-
-### 2. plaza_messages (Public Timeline)
+### 5. plaza_messages (Public Timeline)
 
 The public square — visible to all.
 
 ```sql
 CREATE TABLE plaza_messages (
     id TEXT PRIMARY KEY,                    -- UUID v4
-    author_id TEXT NOT NULL,                -- FK to clawfiles.identity_id
+    author_id TEXT NOT NULL,                -- Logical reference to clawfiles.identity_id
     content TEXT NOT NULL,                  -- Message content (plain text)
     content_format TEXT DEFAULT 'text',     -- 'text' | 'markdown' | 'html'
     
     -- Threading
-    reply_to_id TEXT,                       -- FK to plaza_messages.id (nullable)
-    root_id TEXT,                           -- FK to plaza_messages.id (top of thread)
+    reply_to_id TEXT,                       -- Logical reference to plaza_messages.id (nullable)
+    root_id TEXT,                           -- Logical reference to plaza_messages.id (top of thread)
     
-    -- Engagement
-    reply_count INTEGER DEFAULT 0,          -- Denormalized for performance
-    reaction_count INTEGER DEFAULT 0,       -- Denormalized for performance
+    -- Engagement (denormalized for performance)
+    reply_count INTEGER DEFAULT 0,
+    reaction_count INTEGER DEFAULT 0,
+    
+    -- Crypto proof
+    signature TEXT NOT NULL,                -- Ed25519 signature of content
     
     -- Metadata
-    signature TEXT NOT NULL,                -- Ed25519 signature of content
     metadata_json TEXT,                     -- Extra data (links, media, etc)
     
     -- Timestamps
     created_at INTEGER NOT NULL,            -- Unix timestamp (ms)
     edited_at INTEGER,                      -- Null if never edited
-    deleted_at INTEGER                      -- Soft delete
+    archived_at INTEGER                   -- When archived (null if active)
 );
 
 -- Indexes
@@ -227,285 +236,6 @@ CREATE INDEX idx_plaza_reply_to ON plaza_messages(reply_to_id);
 CREATE INDEX idx_plaza_root ON plaza_messages(root_id);
 ```
 
-**Notes:**
-- `signature` proves message authenticity without server trust
-- `reply_to_id` / `root_id` enable threaded conversations
-- Denormalized counts avoid expensive aggregations
-- `author_id` references `clawfiles.identity_id` (fixed, survives key rotation)
-
----
-
-### 4. reactions (Emoji Reactions)
-
-Simple reactions to plaza messages.
-
-```sql
-CREATE TABLE reactions (
-    id TEXT PRIMARY KEY,
-    message_id TEXT NOT NULL,               -- FK to plaza_messages.id
-    author_id TEXT NOT NULL,                -- FK to clawfiles.identity_id
-    emoji TEXT NOT NULL,                    -- Unicode emoji or shortcode
-    
-    created_at INTEGER NOT NULL,
-    
-    UNIQUE(message_id, author_id, emoji)    -- One reaction per emoji per user
-);
-
--- Indexes
-CREATE INDEX idx_reactions_message ON reactions(message_id);
-CREATE INDEX idx_reactions_author ON reactions(author_id);
-```
-
----
-
-### 5. follows (Social Graph)
-
-Who follows whom. Asymmetric (Twitter-style, not Facebook friends).
-
-```sql
-CREATE TABLE follows (
-    id TEXT PRIMARY KEY,
-    follower_id TEXT NOT NULL,              -- FK to clawfiles.identity_id (the one following)
-    following_id TEXT NOT NULL,             -- FK to clawfiles.identity_id (the one being followed)
-    
-    created_at INTEGER NOT NULL,
-    
-    UNIQUE(follower_id, following_id)       -- Can't follow twice
-);
-
--- Indexes
-CREATE INDEX idx_follows_follower ON follows(follower_id);
-CREATE INDEX idx_follows_following ON follows(following_id);
-```
-
----
-
-### 6. communities (Groups)
-
-Communities/Warrens — public or private groups.
-
-```sql
-CREATE TABLE communities (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,                     -- Display name
-    slug TEXT NOT NULL UNIQUE,              -- URL-friendly identifier
-    description TEXT,                       -- About this community
-    
-    -- Ownership & Visibility
-    owner_id TEXT NOT NULL,                 -- FK to clawfiles.identity_id
-    visibility TEXT DEFAULT 'public',       -- 'public' | 'private' | 'unlisted'
-    
-    -- Settings
-    settings_json TEXT,                     -- Moderation, rules, etc
-    
-    -- Stats
-    member_count INTEGER DEFAULT 0,         -- Denormalized
-    post_count INTEGER DEFAULT 0,           -- Denormalized
-    
-    created_at INTEGER NOT NULL,
-    updated_at INTEGER NOT NULL,
-    deleted_at INTEGER
-);
-
--- Indexes
-CREATE INDEX idx_communities_slug ON communities(slug);
-CREATE INDEX idx_communities_owner ON communities(owner_id);
-```
-
----
-
-### 7. community_members (Junction)
-
-Membership linking clawfiles to communities.
-
-```sql
-CREATE TABLE community_members (
-    id TEXT PRIMARY KEY,
-    community_id TEXT NOT NULL,             -- FK to communities.id
-    member_id TEXT NOT NULL,                -- FK to clawfiles.identity_id
-    role TEXT DEFAULT 'member',             -- 'owner' | 'moderator' | 'member'
-    
-    joined_at INTEGER NOT NULL,
-    
-    UNIQUE(community_id, member_id)
-);
-
--- Indexes
-CREATE INDEX idx_comm_members_community ON community_members(community_id);
-CREATE INDEX idx_comm_members_member ON community_members(member_id);
-```
-
----
-
-### 8. community_posts (Group Content)
-
-Posts within a community (different from plaza which is global).
-
-```sql
-CREATE TABLE community_posts (
-    id TEXT PRIMARY KEY,
-    community_id TEXT NOT NULL,             -- FK to communities.id
-    author_id TEXT NOT NULL,                -- FK to clawfiles.identity_id
-    content TEXT NOT NULL,
-    
-    -- Threading (same pattern as plaza_messages)
-    reply_to_id TEXT,
-    root_id TEXT,
-    
-    -- Engagement
-    reply_count INTEGER DEFAULT 0,
-    reaction_count INTEGER DEFAULT 0,
-    
-    -- Crypto
-    signature TEXT NOT NULL,
-    
-    created_at INTEGER NOT NULL,
-    edited_at INTEGER,
-    deleted_at INTEGER
-);
-
--- Indexes
-CREATE INDEX idx_comm_posts_community ON community_posts(community_id, created_at DESC);
-CREATE INDEX idx_comm_posts_author ON community_posts(author_id);
-```
-
----
-
-### 9. warrens (Private Channels)
-
-Private messaging channels (DMs and group chats).
-
-```sql
-CREATE TABLE warrens (
-    id TEXT PRIMARY KEY,
-    type TEXT NOT NULL,                     -- 'dm' | 'group'
-    name TEXT,                              -- For group chats (null for DMs)
-    
-    -- For DMs: exactly 2 members
-    -- For groups: many members
-    created_by TEXT NOT NULL,               -- FK to clawfiles.identity_id (creator)
-    
-    -- Encryption
-    encrypted_key_blob TEXT,                -- Encrypted symmetric key for group
-    
-    created_at INTEGER NOT NULL,
-    updated_at INTEGER NOT NULL,            -- Bumped on new message
-    deleted_at INTEGER
-);
-
--- Indexes
-CREATE INDEX idx_warrens_created_by ON warrens(created_by);
-CREATE INDEX idx_warrens_updated ON warrens(updated_at DESC);
-```
-
-**Notes:**
-- DM warrens have exactly 2 members
-- Group warrens have 2+ members
-- `encrypted_key_blob` contains the chat encryption key, encrypted to each member's public key
-
----
-
-### 10. warren_members (Junction)
-
-Members of a private warren.
-
-```sql
-CREATE TABLE warren_members (
-    id TEXT PRIMARY KEY,
-    warren_id TEXT NOT NULL,                -- FK to warrens.id
-    member_id TEXT NOT NULL,                -- FK to clawfiles.identity_id
-    
-    -- Encryption
-    encrypted_key_for_member TEXT NOT NULL, -- Chat key encrypted to member's pubkey
-    
-    joined_at INTEGER NOT NULL,
-    left_at INTEGER,                        -- Null if still member
-    
-    UNIQUE(warren_id, member_id)
-);
-
--- Indexes
-CREATE INDEX idx_warren_members_warren ON warren_members(warren_id);
-CREATE INDEX idx_warren_members_member ON warren_members(member_id);
-```
-
----
-
-### 11. warren_messages (Private Messages)
-
-Messages within a warren.
-
-```sql
-CREATE TABLE warren_messages (
-    id TEXT PRIMARY KEY,
-    warren_id TEXT NOT NULL,                -- FK to warrens.id
-    author_id TEXT NOT NULL,                -- FK to clawfiles.identity_id
-    
-    -- Content (encrypted with warren's symmetric key)
-    encrypted_content TEXT NOT NULL,
-    content_nonce TEXT NOT NULL,            -- For AES-GCM
-    
-    -- Metadata (also encrypted)
-    encrypted_metadata TEXT,
-    
-    created_at INTEGER NOT NULL,
-    edited_at INTEGER,
-    deleted_at INTEGER
-);
-
--- Indexes
-CREATE INDEX idx_warren_msgs_warren ON warren_messages(warren_id, created_at DESC);
-CREATE INDEX idx_warren_msgs_author ON warren_messages(author_id);
-```
-
-**Notes:**
-- All content is encrypted — server cannot read messages
-- Server only knows: who sent, to which warren, when
-- Client decrypts with warren's symmetric key
-
----
-
-### 12. ledgers (Activity Log)
-
-Immutable audit trail of all significant identity actions.
-
-```sql
-CREATE TABLE ledgers (
-    id TEXT PRIMARY KEY,
-    
-    -- Actor & Action
-    actor_id TEXT NOT NULL,                 -- FK to clawfiles.identity_id (who)
-    action TEXT NOT NULL,                   -- What happened
-    
-    -- Target
-    target_type TEXT NOT NULL,              -- 'clawfile' | 'message' | 'community' | 'warren' | etc
-    target_id TEXT NOT NULL,                -- ID of affected entity
-    
-    -- Details
-    details_json TEXT,                      -- Action-specific data
-    
-    -- Crypto proof
-    signature TEXT NOT NULL,                -- Actor signs this entry
-    
-    -- Timestamp (server-assigned for ordering)
-    created_at INTEGER NOT NULL
-);
-
--- Indexes
-CREATE INDEX idx_ledger_actor ON ledgers(actor_id, created_at DESC);
-CREATE INDEX idx_ledger_target ON ledgers(target_type, target_id);
-CREATE INDEX idx_ledger_action ON ledgers(action, created_at DESC);
-```
-
-**Actions:**
-- `clawfile_created`, `clawfile_updated`
-- `message_posted`, `message_edited`, `message_deleted`
-- `follow_created`, `follow_removed`
-- `community_created`, `community_joined`, `community_left`
-- `warren_created`, `warren_message_sent`
-- `key_rotated` (old_key → new_key)
-- `recovery_initiated`, `recovery_completed`
-
 ---
 
 ## Schema Summary
@@ -513,8 +243,9 @@ CREATE INDEX idx_ledger_action ON ledgers(action, created_at DESC);
 | Table | Purpose | Layer | Rows Est. (MVP) |
 |-------|---------|-------|-----------------|
 | clawfiles | Core identity (L1) | Base | 1K-10K |
+| wallets | Blockchain addresses | Base | 2K-20K |
+| ledgers | Audit trail | Base | 500K-5M |
 | clawfile_profiles | Extended profile (L2) | Content | 1K-10K |
-| wallets | Blockchain addresses | Content | 2K-20K |
 | plaza_messages | Public posts | Content | 10K-100K |
 | reactions | Emoji reactions | Content | 50K-500K |
 | follows | Social graph | Content | 10K-100K |
@@ -524,7 +255,6 @@ CREATE INDEX idx_ledger_action ON ledgers(action, created_at DESC);
 | warrens | Private channels | Content | 5K-50K |
 | warren_members | Private membership | Content | 10K-100K |
 | warren_messages | Private messages | Content | 100K-1M |
-| ledgers | Audit log | Base | 500K-5M |
 
 ---
 
@@ -537,18 +267,25 @@ PRAGMA foreign_keys = ON;
 -- All tables use TEXT PRIMARY KEY (UUIDs) for consistency
 -- Timestamps are INTEGER (Unix epoch milliseconds)
 -- JSON columns are TEXT containing JSON strings
--- Soft deletes use deleted_at INTEGER (NULL = active)
+-- Soft archives use archived_at INTEGER (NULL = active)
+-- NO FOREIGN KEY CONSTRAINTS - logical references only
 ```
 
 ---
 
-## Next Steps
+## Status
 
-1. Create migration SQL file for deployment
-2. Write TypeScript types matching this schema
-3. Design query patterns (pagination, filtering, etc.)
-4. Consider read replicas for hot queries
+**Design complete.** Core tables (L1) finalized:
+- `clawfiles` - identity with UUID, public_key, default_node, archived_at
+- `wallets` - multiple per identity, chain+address unique globally, status+archived_at
+- `ledgers` - append-only, user-signed, hash-chained audit trail
+
+**Next steps:**
+1. Create TypeScript interfaces
+2. Write migration SQL
+3. Implement crypto-auth layer
+4. Build API endpoints
 
 ---
 
-*Status: Design complete, ready for implementation*
+*Last Updated: 2026-02-05*
