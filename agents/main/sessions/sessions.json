@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
-    "updatedAt": 1770222477031,
+    "updatedAt": 1770222678641,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -128,9 +128,9 @@
       ],
       "version": 0
     },
-    "inputTokens": 396,
-    "outputTokens": 558,
-    "totalTokens": 107404,
+    "inputTokens": 316,
+    "outputTokens": 441,
+    "totalTokens": 110140,
     "modelProvider": "volcengine",
     "model": "kimi-k2.5",
     "contextTokens": 200000,
