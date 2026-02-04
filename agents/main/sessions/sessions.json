@@ -1,17 +1,21 @@
 {
   "agent:main:main": {
     "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
-    "updatedAt": 1770202782133,
+    "updatedAt": 1770205154854,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "webchat"
+      "channel": "webchat",
+      "to": "heartbeat"
     },
     "origin": {
       "provider": "webchat",
       "surface": "webchat",
-      "chatType": "direct"
+      "chatType": "direct",
+      "label": "heartbeat",
+      "from": "heartbeat",
+      "to": "heartbeat"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/d8c87f12-6b42-4152-b8e9-3879726e97c3.jsonl",
     "compactionCount": 0,
@@ -122,15 +126,15 @@
       ],
       "version": 0
     },
-    "inputTokens": 1135,
-    "outputTokens": 186,
-    "totalTokens": 31599,
+    "inputTokens": 406,
+    "outputTokens": 424,
+    "totalTokens": 86678,
     "modelProvider": "volcengine",
     "model": "kimi-k2.5",
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770202732189,
+      "generatedAt": 1770205101009,
       "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
       "sessionKey": "agent:main:main",
       "provider": "volcengine",
@@ -142,8 +146,8 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 35966,
-        "projectContextChars": 24014,
+        "chars": 36149,
+        "projectContextChars": 24197,
         "nonProjectContextChars": 11952
       },
       "injectedWorkspaceFiles": [
@@ -151,8 +155,8 @@
           "name": "AGENTS.md",
           "path": "/home/tauora/.openclaw/workspace/AGENTS.md",
           "missing": false,
-          "rawChars": 9783,
-          "injectedChars": 9783,
+          "rawChars": 9966,
+          "injectedChars": 9966,
           "truncated": false
         },
         {
@@ -392,6 +396,7 @@
         ]
       }
     },
-    "lastChannel": "webchat"
+    "lastChannel": "webchat",
+    "lastTo": "heartbeat"
   }
 }

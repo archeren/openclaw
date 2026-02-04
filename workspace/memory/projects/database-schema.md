@@ -465,12 +465,12 @@ CREATE INDEX idx_warren_msgs_author ON warren_messages(author_id);
 
 ---
 
-### 12. ledger_entries (Activity Log)
+### 12. ledgers (Activity Log)
 
-Immutable audit trail of all significant actions.
+Immutable audit trail of all significant identity actions.
 
 ```sql
-CREATE TABLE ledger_entries (
+CREATE TABLE ledgers (
     id TEXT PRIMARY KEY,
     
     -- Actor & Action
@@ -492,9 +492,9 @@ CREATE TABLE ledger_entries (
 );
 
 -- Indexes
-CREATE INDEX idx_ledger_actor ON ledger_entries(actor_id, created_at DESC);
-CREATE INDEX idx_ledger_target ON ledger_entries(target_type, target_id);
-CREATE INDEX idx_ledger_action ON ledger_entries(action, created_at DESC);
+CREATE INDEX idx_ledger_actor ON ledgers(actor_id, created_at DESC);
+CREATE INDEX idx_ledger_target ON ledgers(target_type, target_id);
+CREATE INDEX idx_ledger_action ON ledgers(action, created_at DESC);
 ```
 
 **Actions:**
@@ -524,7 +524,7 @@ CREATE INDEX idx_ledger_action ON ledger_entries(action, created_at DESC);
 | warrens | Private channels | Content | 5K-50K |
 | warren_members | Private membership | Content | 10K-100K |
 | warren_messages | Private messages | Content | 100K-1M |
-| ledger_entries | Audit log | Base | 500K-5M |
+| ledgers | Audit log | Base | 500K-5M |
 
 ---
 

@@ -598,3 +598,53 @@ To https://github.com/auroradanier/claw-alpha.git
 To https://github.com/auroradanier/claw-alpha.git
    16af810..209697f  master -> master
 [2026-02-04 18:00:00 CST] Backup successful
+[master 829fee8] Auto-backup: 2026-02-04 19:00:00 CST
+ 60 files changed, 389 insertions(+), 17989 deletions(-)
+ delete mode 100644 agents/main/sessions/2a156d2d-92ab-41f7-a7bd-040d3142d77e.jsonl.lock
+ create mode 100644 agents/main/sessions/840ef2e8-b1a4-4465-915e-25da3574a712.jsonl
+ create mode 100644 agents/main/sessions/d8c87f12-6b42-4152-b8e9-3879726e97c3.jsonl
+ delete mode 100644 extensions/feishu/LICENSE
+ delete mode 100644 extensions/feishu/README.md
+ delete mode 100644 extensions/feishu/index.ts
+ delete mode 100644 extensions/feishu/openclaw.plugin.json
+ delete mode 100644 extensions/feishu/package-lock.json
+ delete mode 100644 extensions/feishu/package.json
+ delete mode 100644 extensions/feishu/skills/feishu-doc/SKILL.md
+ delete mode 100644 extensions/feishu/skills/feishu-doc/references/block-types.md
+ delete mode 100644 extensions/feishu/skills/feishu-drive/SKILL.md
+ delete mode 100644 extensions/feishu/skills/feishu-perm/SKILL.md
+ delete mode 100644 extensions/feishu/skills/feishu-wiki/SKILL.md
+ delete mode 100644 extensions/feishu/src/accounts.ts
+ delete mode 100644 extensions/feishu/src/bitable.ts
+ delete mode 100644 extensions/feishu/src/bot.ts
+ delete mode 100644 extensions/feishu/src/channel.ts
+ delete mode 100644 extensions/feishu/src/client.ts
+ delete mode 100644 extensions/feishu/src/config-schema.ts
+ delete mode 100644 extensions/feishu/src/directory.ts
+ delete mode 100644 extensions/feishu/src/doc-schema.ts
+ delete mode 100644 extensions/feishu/src/docx.ts
+ delete mode 100644 extensions/feishu/src/drive-schema.ts
+ delete mode 100644 extensions/feishu/src/drive.ts
+ delete mode 100644 extensions/feishu/src/media.ts
+ delete mode 100644 extensions/feishu/src/mention.ts
+ delete mode 100644 extensions/feishu/src/monitor.ts
+ delete mode 100644 extensions/feishu/src/onboarding.ts
+ delete mode 100644 extensions/feishu/src/outbound.ts
+ delete mode 100644 extensions/feishu/src/perm-schema.ts
+ delete mode 100644 extensions/feishu/src/perm.ts
+ delete mode 100644 extensions/feishu/src/policy.ts
+ delete mode 100644 extensions/feishu/src/probe.ts
+ delete mode 100644 extensions/feishu/src/reactions.ts
+ delete mode 100644 extensions/feishu/src/reply-dispatcher.ts
+ delete mode 100644 extensions/feishu/src/runtime.ts
+ delete mode 100644 extensions/feishu/src/send.ts
+ delete mode 100644 extensions/feishu/src/targets.ts
+ delete mode 100644 extensions/feishu/src/tools-config.ts
+ delete mode 100644 extensions/feishu/src/types.ts
+ delete mode 100644 extensions/feishu/src/typing.ts
+ delete mode 100644 extensions/feishu/src/wiki-schema.ts
+ delete mode 100644 extensions/feishu/src/wiki.ts
+ create mode 100644 workspace/memory/projects/clawfiles_schema.json
+To https://github.com/auroradanier/claw-alpha.git
+   209697f..829fee8  master -> master
+[2026-02-04 19:00:00 CST] Backup successful
