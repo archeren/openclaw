@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 /**
- * session-to-md.js - Extract conversation from OpenClaw session files
+ * session-extract.js - Extract conversation from OpenClaw session files
  * Outputs pipe-separated format: TIMESTAMP | ROLE | CONTENT
  * 
  * Usage:
- *   node session-to-md.js [session-id] [options]
+ *   node session-extract.js [session-id]
  * 
  * Examples:
- *   node session-to-md.js                    # Extract latest session
- *   node session-to-md.js <session-id>       # Extract specific session
- *   node session-to-md.js --all              # Extract all sessions
+ *   node session-extract.js                    # Extract latest session
+ *   node session-extract.js <session-id>       # Extract specific session
  */
 
 const fs = require('fs');
@@ -21,17 +20,7 @@ const OUTPUT_DIR = '/home/tauora/.openclaw/workspace/logs/conversations';
 function formatTime(ts) {
   if (!ts) return '';
   const date = new Date(ts);
-  // Convert to Shanghai time (UTC+8)
-  return date.toLocaleString('en-US', {
-    timeZone: 'Asia/Shanghai',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false
-  }).replace(/\//g, '-');
+  return date.toISOString().replace('T', ' ').slice(0, 19);
 }
 
 function getDateFromTimestamp(ts) {
@@ -132,21 +121,14 @@ function parseSessionFile(filePath) {
   return messages;
 }
 
-function formatAsMarkdownTable(messages) {
+function formatAsPipes(messages) {
   const lines = [];
-  
-  // Header row
-  lines.push('| Timestamp | Role | Content |');
-  // Separator row
-  lines.push('|-----------|------|---------|');
   
   for (const msg of messages) {
     const time = formatTime(msg.timestamp);
-    // Escape pipe characters in content
-    const content = msg.text
-      .replace(/\|/g, '\\|')  // Escape pipes
-      .replace(/\n/g, '<br>');  // Replace newlines with <br> for table
-    lines.push(`| ${time} | ${msg.role} | ${content} |`);
+    // Escape newlines in content for single-line format
+    const content = msg.text.replace(/\n/g, '\\n');
+    lines.push(`${time} | ${msg.role} | ${content}`);
   }
   
   return lines.join('\n');
@@ -180,14 +162,6 @@ function getLatestSession() {
   return files[0];
 }
 
-function getShanghaiDateStr(timestamp) {
-  if (!timestamp) return '';
-  const date = new Date(timestamp);
-  // Format as YYYY-MM-DD in Shanghai timezone
-  const shanghaiTime = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' }));
-  return shanghaiTime.toISOString().split('T')[0];
-}
-
 function extractSession(sessionId) {
   const filePath = path.join(SESSIONS_DIR, `${sessionId}.jsonl`);
   
@@ -203,36 +177,25 @@ function extractSession(sessionId) {
     return;
   }
   
-  // Group messages by date (Shanghai timezone)
-  const messagesByDate = new Map();
+  const firstMsg = messages[0];
+  const date = getDateFromTimestamp(firstMsg.timestamp);
+  const dateStr = date.toISOString().split('T')[0];
+  const yearMonth = dateStr.substring(0, 7);
   
-  for (const msg of messages) {
-    const dateStr = getShanghaiDateStr(msg.timestamp);
-    if (!messagesByDate.has(dateStr)) {
-      messagesByDate.set(dateStr, []);
-    }
-    messagesByDate.get(dateStr).push(msg);
+  const monthDir = path.join(OUTPUT_DIR, yearMonth);
+  if (!fs.existsSync(monthDir)) {
+    fs.mkdirSync(monthDir, { recursive: true });
   }
   
-  // Write each date's messages to a separate file
-  for (const [dateStr, dateMessages] of messagesByDate) {
-    const yearMonth = dateStr.substring(0, 7);
-    
-    const monthDir = path.join(OUTPUT_DIR, yearMonth);
-    if (!fs.existsSync(monthDir)) {
-      fs.mkdirSync(monthDir, { recursive: true });
-    }
-    
-    // Format as markdown table
-    const tableOutput = formatAsMarkdownTable(dateMessages);
-    
-    const outputFile = path.join(monthDir, `${dateStr}-${sessionId}.md`);
-    fs.writeFileSync(outputFile, tableOutput, 'utf-8');
-    
-    console.log(`✅ Saved to: ${outputFile}`);
-    console.log(`   Messages: ${dateMessages.length}`);
-    console.log(`   Date: ${dateStr}`);
-  }
+  // Format as pipe-separated
+  const pipeOutput = formatAsPipes(messages);
+  
+  const outputFile = path.join(monthDir, `${dateStr}-${sessionId}.txt`);
+  fs.writeFileSync(outputFile, pipeOutput, 'utf-8');
+  
+  console.log(`✅ Saved to: ${outputFile}`);
+  console.log(`   Messages: ${messages.length}`);
+  console.log(`   Date: ${dateStr}`);
 }
 
 function main() {
@@ -249,23 +212,6 @@ function main() {
     } else {
       console.error('No sessions found.');
     }
-  } else if (args[0] === '--all') {
-    const files = getSessionFiles();
-    console.log(`Found ${files.length} sessions...`);
-    for (const file of files) {
-      try {
-        extractSession(file.id);
-      } catch (e) {
-        console.error(`Failed to extract ${file.id}: ${e.message}`);
-      }
-    }
-  } else if (args[0] === '--list') {
-    const files = getSessionFiles();
-    console.log('Available sessions:');
-    files.forEach((f, i) => {
-      const stat = fs.statSync(f.path);
-      console.log(`  ${i + 1}. ${f.id} (${(stat.size / 1024).toFixed(1)} KB)`);
-    });
   } else {
     extractSession(args[0]);
   }
