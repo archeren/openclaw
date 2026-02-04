@@ -1,21 +1,23 @@
 {
   "agent:main:main": {
     "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
-    "updatedAt": 1770205868833,
+    "updatedAt": 1770209877791,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "webchat",
-      "to": "heartbeat"
+      "channel": "feishu",
+      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "accountId": "default"
     },
     "origin": {
-      "provider": "heartbeat",
-      "surface": "webchat",
+      "provider": "feishu",
+      "surface": "feishu",
       "chatType": "direct",
-      "label": "heartbeat",
-      "from": "heartbeat",
-      "to": "heartbeat"
+      "label": "fc8c9b16",
+      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/d8c87f12-6b42-4152-b8e9-3879726e97c3.jsonl",
     "compactionCount": 0,
@@ -126,15 +128,15 @@
       ],
       "version": 0
     },
-    "inputTokens": 418,
-    "outputTokens": 194,
-    "totalTokens": 90274,
+    "inputTokens": 263,
+    "outputTokens": 687,
+    "totalTokens": 102663,
     "modelProvider": "volcengine",
     "model": "kimi-k2.5",
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770205853953,
+      "generatedAt": 1770209694288,
       "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
       "sessionKey": "agent:main:main",
       "provider": "volcengine",
@@ -146,9 +148,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 36155,
+        "chars": 36153,
         "projectContextChars": 24197,
-        "nonProjectContextChars": 11958
+        "nonProjectContextChars": 11956
       },
       "injectedWorkspaceFiles": [
         {
@@ -396,7 +398,10 @@
         ]
       }
     },
-    "lastChannel": "webchat",
-    "lastTo": "heartbeat"
+    "lastChannel": "feishu",
+    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+    "lastAccountId": "default",
+    "lastHeartbeatText": "⚠️ Agent failed before reply: session file locked (timeout 10000ms): pid=96289 /home/tauora/.openclaw/agents/main/sessions/d8c87f12-6b42-4152-b8e9-3879726e97c3.jsonl.lock.\nLogs: openclaw logs --follow",
+    "lastHeartbeatSentAt": 1770209353138
   }
 }

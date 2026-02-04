@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.1",
-    "lastTouchedAt": "2026-02-04T04:46:36.779Z"
+    "lastTouchedAt": "2026-02-04T07:18:18.243Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -38,12 +38,40 @@
     "providers": {
       "volcengine": {
         "baseUrl": "https://ark.cn-beijing.volces.com/api/coding/v3",
-        "apiKey": "d9d73710-33d5-44e1-9287-e2efbcc731a9", 
+        "apiKey": "d9d73710-33d5-44e1-9287-e2efbcc731a9",
         "api": "openai-completions",
         "models": [
           {
             "id": "kimi-k2.5",
-            "name": "Kimi K2.5"
+            "name": "Kimi K2.5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "kimi-k2.5-thinking",
+            "name": "Kimi K2.5 Thinking",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
           }
         ]
       },
@@ -92,12 +120,15 @@
   "agents": {
     "defaults": {
       "model": {
-        "fallbacks": [],
-        "primary": "volcengine/kimi-k2.5"
+        "primary": "volcengine/kimi-k2.5",
+        "fallbacks": []
       },
       "models": {
         "volcengine/kimi-k2.5": {
           "alias": "volc Kimi 2.5"
+        },
+        "volcengine/kimi-k2.5-thinking": {
+          "alias": "volc Kimi 2.5 Thinking"
         },
         "qwen-portal/coder-model": {
           "alias": "qwen"
@@ -166,7 +197,11 @@
       "dmPolicy": "pairing",
       "botToken": "8584119298:AAGayhgcrgmUQM2Uzily68erwX25-6o_Glo",
       "groupPolicy": "allowlist",
-      "streamMode": "partial"
+      "streamMode": "partial",
+      "actions": {
+        "reactions": true,
+        "sendMessage": true
+      }
     },
     "feishu": {
       "appId": "cli_a9f20e2b2cb99bb6",
@@ -209,8 +244,8 @@
         "source": "npm",
         "spec": "@m1heng-clawd/feishu",
         "installPath": "/home/tauora/.openclaw/extensions/feishu",
-        "version": "0.1.6",
-        "installedAt": "2026-02-03T02:52:15.376Z"
+        "version": "0.1.7",
+        "installedAt": "2026-02-04T07:18:18.227Z"
       }
     }
   }

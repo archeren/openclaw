@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.2-3",
-    "lastTouchedAt": "2026-02-04T10:40:19.960Z"
+    "lastTouchedAt": "2026-02-04T12:07:54.360Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -120,7 +120,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "volcengine/kimi-k2.5-thinking",
+        "primary": "volcengine/kimi-k2.5",
         "fallbacks": []
       },
       "models": {
@@ -233,13 +233,12 @@
         "enabled": true
       },
       "feishu": {
-        "enabled": false
+        "enabled": true
       },
       "telegram": {
         "enabled": true
       }
     },
-    "installs": {
-    }
+    "installs": {}
   }
 }

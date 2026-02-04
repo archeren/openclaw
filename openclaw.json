@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.2-3",
-    "lastTouchedAt": "2026-02-04T10:50:38.077Z"
+    "lastTouchedAt": "2026-02-04T12:14:30.333Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -120,8 +120,8 @@
   "agents": {
     "defaults": {
       "model": {
-        "fallbacks": [],
-        "primary": "volcengine/kimi-k2.5"
+        "primary": "volcengine/kimi-k2.5",
+        "fallbacks": []
       },
       "models": {
         "volcengine/kimi-k2.5": {
@@ -206,7 +206,8 @@
     "feishu": {
       "appId": "cli_a9f20e2b2cb99bb6",
       "appSecret": "mHJx508IWhMPN1utYW6hSfiiWtVexvkz",
-      "enabled": false
+      "enabled": true,
+      "domain": "feishu"
     }
   },
   "gateway": {
@@ -233,7 +234,7 @@
         "enabled": true
       },
       "feishu": {
-        "enabled": false
+        "enabled": true
       },
       "telegram": {
         "enabled": true
