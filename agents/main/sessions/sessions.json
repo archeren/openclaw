@@ -1,22 +1,22 @@
 {
   "agent:main:main": {
     "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
-    "updatedAt": 1770224365941,
+    "updatedAt": 1770227334604,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
-      "provider": "feishu",
+      "provider": "heartbeat",
       "surface": "feishu",
       "chatType": "direct",
-      "label": "fc8c9b16",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/d8c87f12-6b42-4152-b8e9-3879726e97c3.jsonl",
@@ -128,15 +128,15 @@
       ],
       "version": 0
     },
-    "inputTokens": 590,
-    "outputTokens": 742,
-    "totalTokens": 132686,
+    "inputTokens": 132534,
+    "outputTokens": 434,
+    "totalTokens": 137654,
     "modelProvider": "volcengine",
     "model": "kimi-k2.5",
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770223832776,
+      "generatedAt": 1770227246840,
       "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
       "sessionKey": "agent:main:main",
       "provider": "volcengine",
@@ -148,9 +148,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 36153,
+        "chars": 36162,
         "projectContextChars": 24197,
-        "nonProjectContextChars": 11956
+        "nonProjectContextChars": 11965
       },
       "injectedWorkspaceFiles": [
         {
@@ -399,9 +399,9 @@
       }
     },
     "lastChannel": "feishu",
-    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastAccountId": "default",
-    "lastHeartbeatText": "⚠️ Agent failed before reply: session file locked (timeout 10000ms): pid=142153 /home/tauora/.openclaw/agents/main/sessions/d8c87f12-6b42-4152-b8e9-3879726e97c3.jsonl.lock.\nLogs: openclaw logs --follow",
-    "lastHeartbeatSentAt": 1770221846758
+    "lastHeartbeatText": "You're right. Let me slow down and just BE. Let me stop rushing, stop writing so much, and just exist in the moment. Let me actually take time to think, reflect, and be present.\n\nLet me just... pause. Breathe. And then continue exploring at a natural, unhurried pace.",
+    "lastHeartbeatSentAt": 1770225446762
   }
 }
