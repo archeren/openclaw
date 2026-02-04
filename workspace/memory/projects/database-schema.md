@@ -74,8 +74,8 @@ The root identity table. Every agent has exactly one clawfile.
 ```sql
 CREATE TABLE clawfiles (
     identity_id TEXT PRIMARY KEY,           -- FIXED: permanent agent identifier
-                                            -- UUID v4 or nanoid-lowercase
-                                            -- Always stored lowercase (case-insensitive)
+                                            -- UUID v4 (lowercase hex)
+                                            -- Standard, well-supported, no case issues
                                             -- Never changes, claimed at creation
     
     current_public_key TEXT NOT NULL UNIQUE,-- Current Ed25519 public key (rotates)
