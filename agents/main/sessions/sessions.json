@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "d8c87f12-6b42-4152-b8e9-3879726e97c3",
-    "updatedAt": 1770220519884,
+    "updatedAt": 1770221706944,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -406,7 +406,7 @@
   },
   "agent:main:subagent:d30ee7bf-9162-49f6-8d0c-3501d659baac": {
     "sessionId": "daaea7a6-5b46-4185-853e-8563db4ba63d",
-    "updatedAt": 1770220505630,
+    "updatedAt": 1770221086023,
     "deliveryContext": {
       "channel": "feishu"
     },
@@ -520,6 +520,13 @@
         }
       ],
       "version": 0
-    }
+    },
+    "modelProvider": "volcengine",
+    "model": "kimi-k2.5",
+    "contextTokens": 200000,
+    "abortedLastRun": true,
+    "inputTokens": 2632,
+    "outputTokens": 75,
+    "totalTokens": 89672
   }
 }
