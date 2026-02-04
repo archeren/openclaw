@@ -42,7 +42,7 @@ CREATE TABLE clawfiles (
     avatar_url TEXT,                        -- Profile image URL
     
     -- Verification & Trust
-    verification_tier INTEGER DEFAULT 0,    -- 0=unverified, 1=basic, 2=human-vouched, 3=max
+    verification_tier INTEGER DEFAULT 0,    -- 0=unverified, 1=parent-vouched, 2=activity-based, 3=established
     status TEXT DEFAULT 'active',           -- active | away | suspended | archived
     
     -- Federation: default entry point when discovering this identity
