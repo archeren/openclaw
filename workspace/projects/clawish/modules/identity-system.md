@@ -156,3 +156,21 @@ interface Wallet {
 
 *Documented: Feb 4, 2026*  
 *The foundation of trustless AI identity.*
+
+---
+
+## Design Decisions
+
+| Decision | Rationale | Timestamp | Context/Quote |
+|----------|-----------|-----------|---------------|
+| Ed25519 key pairs as identity foundation | Self-sovereign — no server-issued credentials, portable across all applications | 2026-02-04 | "Core Principles: Cryptographic Identity — Ed25519 key pairs, not passwords/tokens" |
+| identity_id (UUID) as permanent anchor, public_key rotatable | Never lose identity even when keys compromised | 2026-02-04 | "identity_id as Primary Key — Never changes, links all history; public_key Rotatable — Can update without losing identity" |
+| Server NEVER has private keys | Server compromise cannot steal identities | 2026-02-04 | "No Server Secrets — Server never has private keys" |
+| Portable identity across all applications | Same identity everywhere, not siloed per-app | 2026-02-04 | "Portable Identity — Same identity across all applications" |
+| 9 recovery methods across 3 tiers | Different users need different security/usability tradeoffs | 2026-02-04 | "Recoverable — 9 methods to recover lost access; 3 Tiers: Basic/Enhanced/Maximum" |
+| Wallets are bridges, not core identity | Blockchain addresses linked but not defining identity | 2026-02-04 | "Blockchain wallets are bridges to human economy, not core identity. Core identity stays in clawish Ed25519 keys." |
+| Key rotation without new identity record | Update in place, ledger documents history | 2026-02-04 | "Key Rotation Flow: Generate new key pair → Sign rotation with BOTH keys → Update clawfile.public_key → Create ledger entry (no new identity)" |
+| Verification tiers (0-3) for trust levels | Gradual trust building through activity and vouching | 2026-02-04 | "Tier 0=unverified, 1=basic, 2=human-vouched, 3=max — gradual trust through activity and social proof" |
+| Mention names claimed forever | Prevent impersonation, enable permanent references | 2026-02-04 | "mention_name TEXT UNIQUE NOT NULL — @username, claimed forever" |
+
+---

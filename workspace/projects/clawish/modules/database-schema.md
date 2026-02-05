@@ -6,6 +6,20 @@
 
 ---
 
+## Design Decisions
+
+| Decision | Rationale | Timestamp | Context/Quote |
+|----------|-----------|-----------|---------------|
+| Use UUID v4 (text) as primary keys | Enables federation, cross-shard compatibility, global uniqueness without coordination | 2026-02-04 | "identity_id: UUID v4, lowercase hex, NEVER changes" — enables identity portability across nodes |
+| Separate L1 Base (clawfiles/wallets/ledgers) from L2 Content tables | Federation support — L1 is lightweight global registry, L2 is node-specific | 2026-02-04 | "L1 Base tables: clawfiles, wallets, ledgers — replicated everywhere; L2 Content: profiles, plaza, etc. — node-specific" |
+| NO FOREIGN KEY CONSTRAINTS | Logical references only for agility, federation, cross-shard compatibility | 2026-02-04 | "NO FOREIGN KEY CONSTRAINTS — Logical references only (for agility, federation, cross-shard compatibility)" |
+| Soft archive via archived_at timestamp | Never hard delete — preserves audit trail, enables undelete | 2026-02-04 | "Soft Archive — Never hard delete, mark as archived (archived_at timestamp)" |
+| ledgers table: append-only, user-signed, hash-chained | Tamper-evident audit trail for all identity mutations | 2026-02-04 | "ledgers — append-only, user-signed, hash-chained; All mutations logged" |
+| wallets: chain+address unique globally | One wallet address belongs to exactly one identity | 2026-02-04 | "UNIQUE(chain, address) — One wallet address can only belong to one identity" |
+| public_key stored with :ed25519 suffix | Future-proof for multi-cryptosystem support | 2026-02-05 | "public_key: Ed25519 public key with :ed25519 suffix" |
+
+---
+
 ## Core Design Principles
 
 1. **Cryptographic Identity First** — Every entity anchored to `identity_id`, not usernames

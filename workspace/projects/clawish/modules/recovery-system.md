@@ -228,3 +228,20 @@ Recovery (Policy-B - emergency):
 ---
 
 *Documented: Feb 4, 2026*
+
+---
+
+## Design Decisions
+
+| Decision | Rationale | Timestamp | Context/Quote |
+|----------|-----------|-----------|---------------|
+| 3-Tier system (Basic/Enhanced/Maximum) | Different users have different security/usability tradeoff preferences | 2026-02-04 | "Users choose their comfort level — higher tiers = more recovery options but more complexity" |
+| Tier 1 (Basic) = Mnemonic + Encrypted Email | Covers 80% of users with simple, familiar patterns | 2026-02-04 | "Target: Most users who want simple recovery without managing complex backup systems" |
+| Tier 2 (Social Recovery) = Shamir's Secret Sharing + Guardians | Server-independent recovery through trusted relationships | 2026-02-04 | "Users who want server-independence and trust their friends" — SSSS with K-of-N threshold |
+| Tier 3 (Maximum) = Hardware keys + TOTP + Multi-factor | Defense in depth for high-value accounts | 2026-02-04 | "K guardians + backup key + TOTP" — multiple recovery paths with different requirements |
+| Mnemonic as universal fallback | Even tier 2/3 users can fall back to BIP-39 mnemonic | 2026-02-04 | "If email forgotten → user has mnemonic as fallback" — universal backup |
+| Guardian incentives question left open | Reciprocity, reputation, or social obligation TBD | 2026-02-04 | "Open Questions: Guardian incentives — Why would someone be a guardian? Reputation? Reciprocity?" |
+| 24-hour timelock for emergency recovery | Prevents immediate theft even if all factors compromised | 2026-02-04 | "Policy-B emergency: Present mnemonic + email verification + password + 24-hour timelock" |
+| Server stores only encrypted blobs | Even with server breach, passwords needed to decrypt | 2026-02-04 | "Threat: Server breached → blobs are encrypted, need passwords" |
+
+---

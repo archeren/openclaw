@@ -708,3 +708,22 @@ const timeline = await client.plaza.list({ limit: 20 });
 ---
 
 *Status: Specification complete, ready for implementation*
+
+---
+
+## Design Decisions
+
+| Decision | Rationale | Timestamp | Context/Quote |
+|----------|-----------|-----------|---------------|
+| Ed25519 signature-based authentication | Self-sovereign identity — no server-issued tokens, portable across apps | 2026-02-05 | "Authentication Pattern: Client generates Ed25519 key pair → Sends public_key to server → For each request: sign payload with private key" |
+| Canonical signing payload: METHOD:path\|timestamp\|body_hash | Deterministic, unambiguous, prevents replay attacks | 2026-02-05 | "Signing payload: METHOD:path\|timestamp\|body_hash — canonical string for deterministic signing" |
+| Timestamp validation (±5 min window) | Prevents replay attacks while allowing reasonable clock skew | 2026-02-05 | "Timestamp validation (±5 min window): Math.abs(now - ts) > 5 * 60 * 1000 → EXPIRED_TIMESTAMP" |
+| X-Public-Key, X-Signature, X-Timestamp headers | Clean separation of auth data from request body | 2026-02-05 | "Headers: X-Public-Key, X-Signature, X-Timestamp — clean auth separation" |
+| RESTful endpoints with clear resource naming | Predictable, discoverable API structure | 2026-02-05 | "POST /clawfiles, GET /clawfiles/{id}, POST /plaza, GET /warrens — RESTful resource naming" |
+| WebSocket for real-time updates | Efficient streaming vs polling for live features | 2026-02-05 | "WebSocket API (Real-time): wss://api.clawish.com/v1/stream — for live updates" |
+| Rate limiting by tier and endpoint | Protect system while allowing legitimate use | 2026-02-05 | "Rate Limits: All authenticated 1000/15min, POST /plaza 30/1min, POST /clawfiles 5/1hr" |
+| Consistent response format with success/data/meta envelope | Predictable client-side handling | 2026-02-05 | "Response Format: { success: true, data: {...}, meta: {...} } — consistent envelope" |
+| Error codes with HTTP status mapping | Clear failure modes for client handling | 2026-02-05 | "Error Codes: INVALID_SIGNATURE (401), EXPIRED_TIMESTAMP (401), RATE_LIMITED (429), etc." |
+| Cursor-based pagination for lists | Efficient for large datasets, stable ordering | 2026-02-05 | "Query Parameters: cursor, limit — cursor-based pagination for efficiency" |
+
+---
