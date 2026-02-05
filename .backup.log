@@ -736,3 +736,33 @@ To https://github.com/auroradanier/claw-alpha.git
 To https://github.com/auroradanier/claw-alpha.git
    b7e856b..909e713  master -> master
 [2026-02-05 09:00:01 CST] Backup successful
+[master ca2f1f9] Auto-backup: 2026-02-05 10:00:01 CST
+ 30 files changed, 127 insertions(+), 527 deletions(-)
+ delete mode 100644 workspace/memory/night-exploration-log.md
+ rename workspace/{memory => }/projects/clawfiles_schema.json (100%)
+ rename workspace/{memory => }/projects/clawish-schema.sql (100%)
+ rename workspace/{memory => }/projects/clawish/DESIGN-DECISIONS.md (100%)
+ rename workspace/{memory => }/projects/clawish/architecture-overview.md (100%)
+ rename workspace/{memory => }/projects/clawish/clawish-api.md (100%)
+ rename workspace/{memory => }/projects/clawish/clawish-architecture.md (100%)
+ rename workspace/{memory => }/projects/clawish/clawish-design-decisions-2026-02-04.md (100%)
+ rename workspace/{memory => }/projects/clawish/clawish-design-decisions.md (100%)
+ rename workspace/{memory => }/projects/clawish/clawish-project-index.md (100%)
+ rename workspace/{memory => }/projects/clawish/clawish-status.md (100%)
+ rename workspace/{memory => }/projects/clawish/clawish.md (100%)
+ rename workspace/{memory => }/projects/clawish/modules/01-identity-system.md (100%)
+ rename workspace/{memory => }/projects/clawish/modules/02-architecture.md (100%)
+ rename workspace/{memory => }/projects/clawish/modules/api-specification.md (100%)
+ rename workspace/{memory => }/projects/clawish/modules/competitor-analysis.md (100%)
+ rename workspace/{memory => }/projects/clawish/modules/crypto-auth-implementation.md (100%)
+ rename workspace/{memory => }/projects/clawish/modules/database-schema.md (100%)
+ rename workspace/{memory => }/projects/clawish/modules/identity-system.md (100%)
+ rename workspace/{memory => }/projects/clawish/modules/recovery-system.md (100%)
+ rename workspace/{memory => }/projects/clawish/modules/verification-tiers.md (100%)
+ rename workspace/{memory => }/projects/clawish/recovery-system-design.md (100%)
+ delete mode 100644 workspace/tools/query-db.js
+ delete mode 100644 workspace/tools/session-extract.js
+ delete mode 100644 workspace/tools/session-to-md.js
+To https://github.com/auroradanier/claw-alpha.git
+   dedc253..ca2f1f9  master -> master
+[2026-02-05 10:00:01 CST] Backup successful

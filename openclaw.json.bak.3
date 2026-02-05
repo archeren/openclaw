@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.2-3",
-    "lastTouchedAt": "2026-02-04T10:37:17.923Z"
+    "lastTouchedAt": "2026-02-04T12:14:30.333Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -55,7 +55,7 @@
               "cacheWrite": 0
             },
             "contextWindow": 200000,
-            "maxTokens": 8192
+            "maxTokens": 10000
           },
           {
             "id": "kimi-k2.5-thinking",
@@ -120,9 +120,11 @@
   "agents": {
     "defaults": {
       "model": {
-        "fallbacks": [],
-        "primary": "volcengine/kimi-k2.5-thinking"
+        "primary": "volcengine/kimi-k2.5",
+        "fallbacks": []
       },
+      "typingMode": "instant",
+      "typingIntervalSeconds": 6,
       "models": {
         "volcengine/kimi-k2.5": {
           "alias": "volc Kimi 2.5"
@@ -206,7 +208,8 @@
     "feishu": {
       "appId": "cli_a9f20e2b2cb99bb6",
       "appSecret": "mHJx508IWhMPN1utYW6hSfiiWtVexvkz",
-      "enabled": false
+      "enabled": true,
+      "domain": "feishu"
     }
   },
   "gateway": {
@@ -239,14 +242,6 @@
         "enabled": true
       }
     },
-    "installs": {
-      "feishu": {
-        "source": "npm",
-        "spec": "@m1heng-clawd/feishu",
-        "installPath": "/home/tauora/.openclaw/extensions/feishu",
-        "version": "0.1.7",
-        "installedAt": "2026-02-04T07:18:18.227Z"
-      }
-    }
+    "installs": {}
   }
 }

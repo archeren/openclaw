@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.2-3",
-    "lastTouchedAt": "2026-02-04T12:14:30.333Z"
+    "lastTouchedAt": "2026-02-05T02:24:13.880Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -120,11 +120,9 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "volcengine/kimi-k2.5",
-        "fallbacks": []
+        "fallbacks": [],
+        "primary": "valcengine/kimi-k2.5"
       },
-      "typingMode": "instant",
-      "typingIntervalSeconds": 6,
       "models": {
         "volcengine/kimi-k2.5": {
           "alias": "volc Kimi 2.5"
@@ -143,7 +141,9 @@
         "kimi-coding/k2p5": {
           "alias": "Kimi K2.5"
         },
-        "opencode/minimax-m2.1-free": {}
+        "opencode/minimax-m2.1-free": {},
+        "valcengine/kimi-k2.5": {},
+        "valcengine/kimi-k2.5-thinking": {}
       },
       "workspace": "/home/tauora/.openclaw/workspace",
       "memorySearch": {
@@ -158,6 +158,8 @@
       "compaction": {
         "mode": "safeguard"
       },
+      "typingIntervalSeconds": 6,
+      "typingMode": "instant",
       "heartbeat": {
         "every": "30m",
         "target": "last",
