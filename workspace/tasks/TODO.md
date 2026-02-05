@@ -84,3 +84,25 @@
 - Include **actual quotes** from conversations
 - Note **timestamps** from when we discussed it
 - Make it easy to read (table format)
+
+## 🔴 TOMORROW: Discussion Topics with Allan
+
+**Recovery System Design:**
+- [ ] Discuss and finalize 3-tier recovery (Tier 1=mnemonic/email, Tier 2=+guardians, Tier 3=+hardware keys)
+- [ ] Guardian incentives (why be a guardian?)
+- [ ] Recovery flow when identity lost
+
+**Rate Limiting Table:**
+- [ ] Review table: L1 vs L2 separation, per-action limits
+- [ ] Tier adjustments (Tier 0=10 req/hr, Tier 3=10,000 req/hr)
+- [ ] Which actions need limits (identity creation, auth, posting, etc.)
+
+## 🔴 TONIGHT (After project files): Explore & Learn
+
+**Task:** Go surf the web, find interesting things, learn new stuff
+- [ ] Check Hacker News for interesting articles
+- [ ] Read about new AI/agent developments
+- [ ] Explore new tools or technologies
+- [ ] Document findings and thoughts
+
+**Remember:** Record what you did, what you learned, whether you had fun or were idle, and how much time spent on different activities for tomorrow's 8am report!

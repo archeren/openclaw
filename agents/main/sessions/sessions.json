@@ -1,23 +1,23 @@
 {
   "agent:main:main": {
     "sessionId": "fa7d8ba3-e83c-42ac-9177-b374b983a43b",
-    "updatedAt": 1770314374527,
+    "updatedAt": 1770317325046,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "lastChannel": "feishu",
     "origin": {
-      "provider": "feishu",
+      "provider": "heartbeat",
       "surface": "feishu",
       "chatType": "direct",
-      "label": "fc8c9b16",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/fa7d8ba3-e83c-42ac-9177-b374b983a43b.jsonl",
@@ -134,7 +134,7 @@
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770314363155,
+      "generatedAt": 1770317283127,
       "sessionId": "fa7d8ba3-e83c-42ac-9177-b374b983a43b",
       "sessionKey": "agent:main:main",
       "provider": "vole",
@@ -146,9 +146,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 37094,
+        "chars": 37103,
         "projectContextChars": 25121,
-        "nonProjectContextChars": 11973
+        "nonProjectContextChars": 11982
       },
       "injectedWorkspaceFiles": [
         {
@@ -396,12 +396,12 @@
         ]
       }
     },
-    "inputTokens": 355,
-    "outputTokens": 336,
-    "totalTokens": 110691,
-    "lastHeartbeatText": "Understood. Following HEARTBEAT.md strictly:\n\n**Current State:**\n- Allan is asleep\n- Last action: work (GitHub skill research)\n- No valid reason to stay quiet\n\n**Action:** DO WORK per HEARTBEAT.md instructions.\n\nI'm picking the high-priority task from TODO.md: **\"TONIGHT: Update All Project Files with Decision Documentation\"**\n\nStarting work now. Will update state file and begin going through all Feb 3-4 conversations to extract decision reasoning with timestamps.\n\n**HEARTBEAT_OK** - proceeding with work.",
-    "lastHeartbeatSentAt": 1770313683052,
-    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+    "inputTokens": 114019,
+    "outputTokens": 471,
+    "totalTokens": 114019,
+    "lastHeartbeatText": "** — Proceeding with work. Allan is asleep. Starting tonight's tasks from TODO.md: 1. **Project files** — Updating all 10 files with decision documentation (table format) 2. **Research** — Reading the WeChat article Allan shared, researching mentioned sites 3. **Documentation** — Recording findings for 8am report Beginning with project file updates now. 🦞",
+    "lastHeartbeatSentAt": 1770317283056,
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastAccountId": "default"
   }
 }
