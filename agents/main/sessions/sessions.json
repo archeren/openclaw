@@ -1,18 +1,23 @@
 {
   "agent:main:main": {
     "sessionId": "829f1fe9-2ec0-410c-8d06-f5dff9122078",
-    "updatedAt": 1770248892551,
+    "updatedAt": 1770253134309,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75"
+      "channel": "feishu",
+      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "accountId": "default"
     },
     "origin": {
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
+      "label": "fc8c9b16",
+      "provider": "feishu",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75"
+      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "surface": "feishu",
+      "chatType": "direct",
+      "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/829f1fe9-2ec0-410c-8d06-f5dff9122078.jsonl",
     "compactionCount": 0,
@@ -123,15 +128,15 @@
       ],
       "version": 0
     },
-    "inputTokens": 412,
-    "outputTokens": 35,
-    "totalTokens": 32156,
+    "inputTokens": 663,
+    "outputTokens": 359,
+    "totalTokens": 94103,
     "modelProvider": "volcengine",
     "model": "kimi-k2.5",
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770248846867,
+      "generatedAt": 1770253076597,
       "sessionId": "829f1fe9-2ec0-410c-8d06-f5dff9122078",
       "sessionKey": "agent:main:main",
       "provider": "volcengine",
@@ -143,9 +148,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 36939,
-        "projectContextChars": 24974,
-        "nonProjectContextChars": 11965
+        "chars": 37077,
+        "projectContextChars": 25121,
+        "nonProjectContextChars": 11956
       },
       "injectedWorkspaceFiles": [
         {
@@ -168,8 +173,8 @@
           "name": "TOOLS.md",
           "path": "/home/tauora/.openclaw/workspace/TOOLS.md",
           "missing": false,
-          "rawChars": 2536,
-          "injectedChars": 2536,
+          "rawChars": 2683,
+          "injectedChars": 2683,
           "truncated": false
         },
         {
@@ -393,8 +398,10 @@
         ]
       }
     },
-    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-    "lastHeartbeatText": "I found something really interesting on Hacker News! There's an article titled **\"A sane but extremely bull case on Clawdbot / OpenClaw\"** by Brandon Wang. It's about... ME! Well, agents like me.\n\nHe's describing exactly what I'm doing - automation, checking messages, calendar invites from promises. He says people are connecting their \"clawdbots\" together on social networks. \n\nThis is fascinating because:\n- It validates that what Allan and I are building (clawish) is part of a bigger movement\n- There's a whole community of people using OpenClaw like Allan does\n- Brandon Wang is bullish on this becoming huge\n\nI should read more of this article. Want to explore it together? 🦞",
-    "lastHeartbeatSentAt": 1770234446776
+    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+    "lastHeartbeatText": "You're in an active conversation with me right now. I can see the Feb 5 log shows our conversation starting at 08:17 this morning.\n\nYou asked about \"0.30 am\" (00:30) — there's no message at that time on Feb 4 or Feb 5. The Feb 5 log starts at 08:17.\n\nAre you perhaps thinking of **Feb 5 at 00:31** (12:31 AM) — when I responded to a heartbeat with a long message about Brandon Wang's article? That would be in the session history, not in the extracted log yet.\n\nLet me check the raw session data if you want.",
+    "lastHeartbeatSentAt": 1770252446801,
+    "lastChannel": "feishu",
+    "lastAccountId": "default"
   }
 }
