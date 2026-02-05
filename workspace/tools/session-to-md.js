@@ -14,7 +14,9 @@ const OUTPUT_DIR = '/home/tauora/.openclaw/workspace/logs/conversations';
 
 function formatTime(ts) {
   if (!ts) return '';
-  const date = new Date(ts);
+  // Handle both ISO string and millisecond timestamp formats
+  const timestamp = typeof ts === 'string' ? new Date(ts).getTime() : Number(ts);
+  const date = new Date(timestamp);
   return date.toLocaleString('en-US', {
     timeZone: 'Asia/Shanghai',
     year: 'numeric',
@@ -140,7 +142,11 @@ function main() {
     try {
       const sessionMessages = parseSessionFile(sessionFile.path);
       for (const msg of sessionMessages) {
-        const dateStr = new Date(msg.timestamp).toISOString().split('T')[0];
+        // Convert UTC timestamp to Shanghai time (UTC+8) for date grouping
+        // Handle both ISO string and millisecond timestamp formats
+        const ts = typeof msg.timestamp === 'string' ? new Date(msg.timestamp).getTime() : Number(msg.timestamp);
+        const shanghaiTime = new Date(ts + 8 * 60 * 60 * 1000);
+        const dateStr = shanghaiTime.toISOString().split('T')[0];
         if (!allMessagesByDate.has(dateStr)) {
           allMessagesByDate.set(dateStr, []);
         }
