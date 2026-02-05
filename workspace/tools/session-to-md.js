@@ -159,8 +159,12 @@ function main() {
   
   // Write each date's merged messages to a single file
   for (const [dateStr, dateMessages] of allMessagesByDate) {
-    // Sort by UTC timestamp (canonical chronological order)
-    dateMessages.sort((a, b) => Number(a.timestamp) - Number(b.timestamp));
+    // Sort by timestamp (handle both ISO string and millisecond formats)
+    dateMessages.sort((a, b) => {
+      const tsA = typeof a.timestamp === 'string' ? new Date(a.timestamp).getTime() : Number(a.timestamp);
+      const tsB = typeof b.timestamp === 'string' ? new Date(b.timestamp).getTime() : Number(b.timestamp);
+      return tsA - tsB;
+    });
     
     const yearMonth = dateStr.substring(0, 7);
     
