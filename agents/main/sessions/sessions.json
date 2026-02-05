@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "829f1fe9-2ec0-410c-8d06-f5dff9122078",
-    "updatedAt": 1770245258144,
+    "updatedAt": 1770248892551,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -123,15 +123,15 @@
       ],
       "version": 0
     },
-    "inputTokens": 1155,
-    "outputTokens": 49,
-    "totalTokens": 26755,
+    "inputTokens": 412,
+    "outputTokens": 35,
+    "totalTokens": 32156,
     "modelProvider": "volcengine",
     "model": "kimi-k2.5",
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770245246869,
+      "generatedAt": 1770248846867,
       "sessionId": "829f1fe9-2ec0-410c-8d06-f5dff9122078",
       "sessionKey": "agent:main:main",
       "provider": "volcengine",
