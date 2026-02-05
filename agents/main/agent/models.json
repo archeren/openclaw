@@ -40,7 +40,7 @@
       ],
       "apiKey": "qwen-oauth"
     },
-    "volcengine": {
+    "vole": {
       "baseUrl": "https://ark.cn-beijing.volces.com/api/coding/v3",
       "apiKey": "d9d73710-33d5-44e1-9287-e2efbcc731a9",
       "api": "openai-completions",
