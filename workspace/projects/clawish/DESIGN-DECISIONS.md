@@ -25,7 +25,8 @@ Each decision includes:
 **Rationale:**
 - `identity_id` (UUID v4): Permanent anchor, never changes, created at "birth"
 - `current_public_key` (Ed25519): Can rotate if compromised, used for daily auth
-- Foreign keys reference `identity_id` (stable), not `public_key` (changeable)
+- Logical references use `identity_id` (stable), not `public_key` (changeable)
+- No SQL foreign key constraints — logical references only (for agility, federation)
 - One record per identity, updated in place
 
 **Timestamp:** 2026-02-04 18:12
@@ -40,7 +41,7 @@ Each decision includes:
 **Decision:** Update existing record on rotation (don't create new record)
 
 **Rationale:**
-- Preserves foreign key relationships (posts, follows reference identity_id)
+- Preserves logical references (posts, follows reference identity_id)
 - All history stays linked to same identity
 - Simple atomic operation vs complex merge
 - `rotated_from/to` reserved for rare identity merge/split

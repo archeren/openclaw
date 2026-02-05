@@ -25,6 +25,28 @@
         "lastStatus": "ok",
         "lastDurationMs": 8
       }
+    },
+    {
+      "id": "4db236aa-8fb0-4bd4-a9d4-c1665aa4abfa",
+      "agentId": "main",
+      "name": "Daily 8AM Report",
+      "enabled": true,
+      "createdAtMs": 1770311796103,
+      "updatedAtMs": 1770311796103,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * *",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "main",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "systemEvent",
+        "text": "8:00 AM - Time for the daily report. What did I work on? What did I learn? What progress was made?"
+      },
+      "state": {
+        "nextRunAtMs": 1770336000000
+      }
     }
   ]
 }

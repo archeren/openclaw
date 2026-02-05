@@ -1,0 +1,1 @@
+{"ts":1770311393901,"jobId":"a8b857a8-6ab3-4c61-9873-d6c9859f3d34","action":"finished","status":"ok","summary":"TEST: 8:00 AM Shanghai time (00:00 UTC) - If this fires at correct time, cron is working. Check actual wall clock time when this arrives.","runAtMs":1770311393899,"durationMs":2}

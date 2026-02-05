@@ -57,3 +57,30 @@
 ## 📝 Backlog / Ideas
 
 - [ ] **Document useful commands** - Keep notes in TOOLS.md
+
+## 🔴 TONIGHT: Update All Project Files with Decision Documentation
+
+**Task:** Go through all Feb 3-4 conversations and update every project file with:
+
+### Format (Table in Markdown):
+| Decision | Rationale | Timestamp | Context/Quote |
+|----------|-----------|-----------|---------------|
+| What we decided | Why we decided it | When discussed | Quote from conversation |
+
+### Files to Update:
+- [ ] `DESIGN-DECISIONS.md` (main overview)
+- [ ] `modules/01-identity-system.md`
+- [ ] `modules/02-architecture.md`
+- [ ] `modules/api-specification.md`
+- [ ] `modules/competitor-analysis.md`
+- [ ] `modules/crypto-auth-implementation.md`
+- [ ] `modules/database-schema.md`
+- [ ] `modules/identity-system.md`
+- [ ] `modules/recovery-system.md`
+- [ ] `modules/verification-tiers.md`
+
+### Notes:
+- Use **newest reasoning** if discussed multiple times
+- Include **actual quotes** from conversations
+- Note **timestamps** from when we discussed it
+- Make it easy to read (table format)
