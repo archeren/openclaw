@@ -71,7 +71,7 @@
         {
           "id": "intern-s1-pro",
           "name": "Intern S1 Pro",
-          "reasoning": true,
+          "reasoning": false,
           "input": [
             "text"
           ],
