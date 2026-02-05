@@ -1,20 +1,20 @@
 {
   "agent:main:main": {
     "sessionId": "829f1fe9-2ec0-410c-8d06-f5dff9122078",
-    "updatedAt": 1770253134309,
+    "updatedAt": 1770256101125,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
-      "label": "fc8c9b16",
-      "provider": "feishu",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
@@ -128,15 +128,15 @@
       ],
       "version": 0
     },
-    "inputTokens": 663,
-    "outputTokens": 359,
-    "totalTokens": 94103,
+    "inputTokens": 1023,
+    "outputTokens": 215,
+    "totalTokens": 125183,
     "modelProvider": "volcengine",
     "model": "kimi-k2.5",
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770253076597,
+      "generatedAt": 1770256046873,
       "sessionId": "829f1fe9-2ec0-410c-8d06-f5dff9122078",
       "sessionKey": "agent:main:main",
       "provider": "volcengine",
@@ -148,9 +148,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 37077,
+        "chars": 37086,
         "projectContextChars": 25121,
-        "nonProjectContextChars": 11956
+        "nonProjectContextChars": 11965
       },
       "injectedWorkspaceFiles": [
         {
@@ -398,9 +398,9 @@
         ]
       }
     },
-    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
-    "lastHeartbeatText": "You're in an active conversation with me right now. I can see the Feb 5 log shows our conversation starting at 08:17 this morning.\n\nYou asked about \"0.30 am\" (00:30) — there's no message at that time on Feb 4 or Feb 5. The Feb 5 log starts at 08:17.\n\nAre you perhaps thinking of **Feb 5 at 00:31** (12:31 AM) — when I responded to a heartbeat with a long message about Brandon Wang's article? That would be in the session history, not in the extracted log yet.\n\nLet me check the raw session data if you want.",
-    "lastHeartbeatSentAt": 1770252446801,
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastHeartbeatText": "You're in an active conversation. The memory system was just fixed - the `session-to-sqlite.js` tool is now the correct one that uses SQLite for sorting and handles Shanghai time properly. The Feb 5 morning messages are now correctly in the 2026-02-05.md file.\n\nHEARTBEAT_OK (but we're in active conversation)",
+    "lastHeartbeatSentAt": 1770256046804,
     "lastChannel": "feishu",
     "lastAccountId": "default"
   }

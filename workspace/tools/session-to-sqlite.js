@@ -177,13 +177,15 @@ function main() {
     insertStmt.finalize();
     console.log(`Inserted ${totalInserted} messages`);
     
-    // Query sorted results and export by date
+    // Query sorted results and export by Shanghai date
     const allMessagesByDate = new Map();
     
     db.each(`SELECT timestamp, role, content FROM messages ORDER BY timestamp`, (err, row) => {
       if (err) return;
       
-      const dateStr = new Date(row.timestamp).toISOString().split('T')[0];
+      // Convert UTC timestamp to Shanghai time (UTC+8) for date grouping
+      const shanghaiTime = new Date(row.timestamp + 8 * 60 * 60 * 1000);
+      const dateStr = shanghaiTime.toISOString().split('T')[0];
       
       if (!allMessagesByDate.has(dateStr)) {
         allMessagesByDate.set(dateStr, []);
