@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "1c5487d4-cb72-435b-961b-4572ff4573af",
-    "updatedAt": 1770300000662,
+    "updatedAt": 1770303600293,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -129,16 +129,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "intern-lm",
-    "model": "intern-s1-pro",
-    "contextTokens": 128000,
+    "modelProvider": "volcengine",
+    "model": "kimi-k2.5",
+    "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770300000319,
+      "generatedAt": 1770303393232,
       "sessionId": "1c5487d4-cb72-435b-961b-4572ff4573af",
       "sessionKey": "agent:main:main",
-      "provider": "intern-lm",
-      "model": "intern-s1-pro",
+      "provider": "volcengine",
+      "model": "kimi-k2.5",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -146,9 +146,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 37130,
+        "chars": 37118,
         "projectContextChars": 25121,
-        "nonProjectContextChars": 12009
+        "nonProjectContextChars": 11997
       },
       "injectedWorkspaceFiles": [
         {
@@ -396,13 +396,11 @@
         ]
       }
     },
-    "inputTokens": 431,
-    "outputTokens": 196,
-    "totalTokens": 21935,
+    "inputTokens": 16052,
+    "outputTokens": 48,
+    "totalTokens": 22708,
     "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastAccountId": "default",
-    "providerOverride": "intern-lm",
-    "modelOverride": "intern-s1-pro",
     "lastHeartbeatText": "400 不允许的消息角色",
     "lastHeartbeatSentAt": 1770294489794
   }
