@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.2-3",
-    "lastTouchedAt": "2026-02-05T02:00:59.865Z"
+    "lastTouchedAt": "2026-02-05T11:33:24.299Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -56,22 +56,6 @@
             },
             "contextWindow": 200000,
             "maxTokens": 10000
-          },
-          {
-            "id": "kimi-k2.5-thinking",
-            "name": "Kimi K2.5 Thinking",
-            "reasoning": true,
-            "input": [
-              "text"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 200000,
-            "maxTokens": 8192
           }
         ]
       },
@@ -114,6 +98,29 @@
             "maxTokens": 8192
           }
         ]
+      },
+      "intern-lm": {
+        "baseUrl": "https://chat.intern-ai.org.cn/api/v1",
+        "apiKey": "sk-Kh6R9OgXmIaFwh0se2ODPweroFompzo4cydJlHMYplJJeIag",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "intern-s1-pro",
+            "name": "Intern S1 Pro",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
       }
     }
   },
@@ -121,7 +128,7 @@
     "defaults": {
       "model": {
         "fallbacks": [],
-        "primary": "opencode/kimi-k2.5-free"
+        "primary": "intern-lm/intern-s1-pro"
       },
       "models": {
         "volcengine/kimi-k2.5": {
@@ -141,7 +148,13 @@
         "kimi-coding/k2p5": {
           "alias": "Kimi K2.5"
         },
-        "opencode/minimax-m2.1-free": {}
+        "opencode/minimax-m2.1-free": {},
+        "valcengine/kimi-k2.5": {},
+        "valcengine/kimi-k2.5-thinking": {},
+        "valcengine/kimi-K2.5": {},
+        "intern-lm/intern-s1-pro": {
+          "alias": "Intern S1 Pro"
+        }
       },
       "workspace": "/home/tauora/.openclaw/workspace",
       "memorySearch": {

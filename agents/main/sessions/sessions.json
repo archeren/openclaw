@@ -1,21 +1,21 @@
 {
   "agent:main:main": {
     "sessionId": "1c5487d4-cb72-435b-961b-4572ff4573af",
-    "updatedAt": 1770289168045,
+    "updatedAt": 1770292601508,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "feishu",
+      "channel": "webchat",
       "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
       "accountId": "default"
     },
-    "lastChannel": "feishu",
+    "lastChannel": "webchat",
     "origin": {
-      "provider": "feishu",
-      "surface": "feishu",
+      "provider": "webchat",
+      "surface": "webchat",
       "chatType": "direct",
-      "label": "fc8c9b16",
+      "label": "openclaw-tui",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
       "accountId": "default"
@@ -129,16 +129,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "opencode",
-    "model": "kimi-k2.5-free",
-    "contextTokens": 262144,
+    "modelProvider": "intern-lm",
+    "model": "intern-s1-pro",
+    "contextTokens": 128000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770257770044,
-      "sessionId": "3b1bad57-cc35-4952-9440-6534cbc0bb5a",
+      "generatedAt": 1770292599283,
+      "sessionId": "1c5487d4-cb72-435b-961b-4572ff4573af",
       "sessionKey": "agent:main:main",
-      "provider": "opencode",
-      "model": "kimi-k2.5-free",
+      "provider": "intern-lm",
+      "model": "intern-s1-pro",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -146,9 +146,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 37083,
+        "chars": 37124,
         "projectContextChars": 25121,
-        "nonProjectContextChars": 11962
+        "nonProjectContextChars": 12003
       },
       "injectedWorkspaceFiles": [
         {
@@ -396,10 +396,12 @@
         ]
       }
     },
-    "inputTokens": 32403,
-    "outputTokens": 939,
-    "totalTokens": 45715,
+    "inputTokens": 431,
+    "outputTokens": 196,
+    "totalTokens": 21935,
     "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
-    "lastAccountId": "default"
+    "lastAccountId": "default",
+    "providerOverride": "intern-lm",
+    "modelOverride": "intern-s1-pro"
   }
 }

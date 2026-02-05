@@ -40,29 +40,6 @@
       ],
       "apiKey": "qwen-oauth"
     },
-    "fw": {
-      "baseUrl": "https://kimi.fuwoo.com/v1",
-      "apiKey": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ1c2VyLWNlbnRlciIsImV4cCI6MTc3NzkwNDA5MywiaWF0IjoxNzcwMTI4MDkzLCJqdGkiOiJkNjEwNW5lbXU2c2Y5M2tjdWhtMCIsInR5cCI6InJlZnJlc2giLCJhcHBfaWQiOiJraW1pIiwic3ViIjoiY211YmttMDNyMDc3Y2lnYmFtNjAiLCJzcGFjZV9pZCI6ImNtdWJrbTAzcjA3N2NpZ2JhbTVnIiwiYWJzdHJhY3RfdXNlcl9pZCI6ImNtdWJrbTAzcjA3N2NpZ2JhbTUwIiwicm9sZXMiOlsidmlkZW9fZ2VuX2FjY2VzcyIsImludGVybmFsLXRlc3QtYWxwaGEtbGFiIl0sInNzaWQiOiIxNzMwMTMyMTIzODQzMDU4NjA1IiwiZGV2aWNlX2lkIjoiNzYwMjY0MTUwODk1NjcwODEwOCIsInJlZ2lvbiI6ImNuIiwibWVtYmVyc2hpcCI6eyJsZXZlbCI6MTV9fQ.k9UzVr177b70c0Af9pyW6rboadYuwUBC3R7FZcVO0eSx5SpVxs3vvz_wfEfnIbLu17oerH3nHMmpBSPojzMzrg",
-      "api": "openai-completions",
-      "models": [
-        {
-          "id": "kimi-k2.5",
-          "name": "Kimi K2.5",
-          "reasoning": false,
-          "input": [
-            "text"
-          ],
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
-          "contextWindow": 200000,
-          "maxTokens": 8192
-        }
-      ]
-    },
     "volcengine": {
       "baseUrl": "https://ark.cn-beijing.volces.com/api/coding/v3",
       "apiKey": "d9d73710-33d5-44e1-9287-e2efbcc731a9",
@@ -83,10 +60,17 @@
           },
           "contextWindow": 200000,
           "maxTokens": 10000
-        },
+        }
+      ]
+    },
+    "intern-lm": {
+      "baseUrl": "https://chat.intern-ai.org.cn/api/v1",
+      "apiKey": "sk-Kh6R9OgXmIaFwh0se2ODPweroFompzo4cydJlHMYplJJeIag",
+      "api": "openai-completions",
+      "models": [
         {
-          "id": "kimi-k2.5-thinking",
-          "name": "Kimi K2.5 Thinking",
+          "id": "intern-s1-pro",
+          "name": "Intern S1 Pro",
           "reasoning": true,
           "input": [
             "text"
@@ -97,7 +81,7 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
-          "contextWindow": 200000,
+          "contextWindow": 128000,
           "maxTokens": 8192
         }
       ]

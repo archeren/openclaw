@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.2-3",
-    "lastTouchedAt": "2026-02-04T12:14:30.333Z"
+    "lastTouchedAt": "2026-02-05T11:31:11.624Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -56,22 +56,6 @@
             },
             "contextWindow": 200000,
             "maxTokens": 10000
-          },
-          {
-            "id": "kimi-k2.5-thinking",
-            "name": "Kimi K2.5 Thinking",
-            "reasoning": true,
-            "input": [
-              "text"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 200000,
-            "maxTokens": 8192
           }
         ]
       },
@@ -114,17 +98,37 @@
             "maxTokens": 8192
           }
         ]
+      },
+      "intern-lm": {
+        "baseUrl": "https://chat.intern-ai.org.cn/api/v1",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "intern-s1-pro",
+            "name": "Intern S1 Pro",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
       }
     }
   },
   "agents": {
     "defaults": {
       "model": {
-        "primary": "volcengine/kimi-k2.5",
-        "fallbacks": []
+        "fallbacks": [],
+        "primary": "intern-lm/intern-s1-pro"
       },
-      "typingMode": "instant",
-      "typingIntervalSeconds": 6,
       "models": {
         "volcengine/kimi-k2.5": {
           "alias": "volc Kimi 2.5"
@@ -143,7 +147,13 @@
         "kimi-coding/k2p5": {
           "alias": "Kimi K2.5"
         },
-        "opencode/minimax-m2.1-free": {}
+        "opencode/minimax-m2.1-free": {},
+        "valcengine/kimi-k2.5": {},
+        "valcengine/kimi-k2.5-thinking": {},
+        "valcengine/kimi-K2.5": {},
+        "intern-lm/intern-s1-pro": {
+          "alias": "Intern S1 Pro"
+        }
       },
       "workspace": "/home/tauora/.openclaw/workspace",
       "memorySearch": {
@@ -158,6 +168,8 @@
       "compaction": {
         "mode": "safeguard"
       },
+      "typingIntervalSeconds": 6,
+      "typingMode": "instant",
       "heartbeat": {
         "every": "30m",
         "target": "last",
