@@ -1,23 +1,23 @@
 {
   "agent:main:main": {
     "sessionId": "1c5487d4-cb72-435b-961b-4572ff4573af",
-    "updatedAt": 1770292601508,
+    "updatedAt": 1770296290240,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "webchat",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "channel": "feishu",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
-    "lastChannel": "webchat",
+    "lastChannel": "feishu",
     "origin": {
-      "provider": "webchat",
-      "surface": "webchat",
+      "provider": "heartbeat",
+      "surface": "feishu",
       "chatType": "direct",
-      "label": "openclaw-tui",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/1c5487d4-cb72-435b-961b-4572ff4573af.jsonl",
@@ -134,7 +134,7 @@
     "contextTokens": 128000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770292599283,
+      "generatedAt": 1770296289865,
       "sessionId": "1c5487d4-cb72-435b-961b-4572ff4573af",
       "sessionKey": "agent:main:main",
       "provider": "intern-lm",
@@ -146,9 +146,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 37124,
+        "chars": 37130,
         "projectContextChars": 25121,
-        "nonProjectContextChars": 12003
+        "nonProjectContextChars": 12009
       },
       "injectedWorkspaceFiles": [
         {
@@ -399,9 +399,11 @@
     "inputTokens": 431,
     "outputTokens": 196,
     "totalTokens": 21935,
-    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastAccountId": "default",
     "providerOverride": "intern-lm",
-    "modelOverride": "intern-s1-pro"
+    "modelOverride": "intern-s1-pro",
+    "lastHeartbeatText": "400 不允许的消息角色",
+    "lastHeartbeatSentAt": 1770294489794
   }
 }
