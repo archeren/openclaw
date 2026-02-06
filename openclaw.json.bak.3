@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.3-1",
-    "lastTouchedAt": "2026-02-06T13:44:34.159Z"
+    "lastTouchedAt": "2026-02-06T00:54:17.734Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -25,10 +25,6 @@
       },
       "kimi-coding:default": {
         "provider": "kimi-coding",
-        "mode": "api_key"
-      },
-      "infi:default": {
-        "provider": "infi",
         "mode": "api_key"
       },
       "opencode:manual": {
@@ -125,29 +121,6 @@
             "maxTokens": 8192
           }
         ]
-      },
-      "infi": {
-        "baseUrl": "https://cloud.infini-ai.com/api/v1",
-        "apiKey": "sk-es6pe44o7feffqgj",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "kimi-k2.5",
-            "name": "Infini AI Kimi K2.5",
-            "reasoning": false,
-            "input": [
-              "text"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 200000,
-            "maxTokens": 8192
-          }
-        ]
       }
     }
   },
@@ -155,7 +128,7 @@
     "defaults": {
       "model": {
         "fallbacks": [],
-        "primary": "infi/kimi-k2.5"
+        "primary": "opencode/kimi-k2.5-free"
       },
       "models": {
         "vole/kimi-k2.5": {
@@ -178,9 +151,6 @@
         "opencode/minimax-m2.1-free": {},
         "intern-lm/intern-s1-pro": {
           "alias": "Intern S1 Pro"
-        },
-        "infi/kimi-k2.5": {
-          "alias": "Infini Kimi"
         }
       },
       "workspace": "/home/tauora/.openclaw/workspace",

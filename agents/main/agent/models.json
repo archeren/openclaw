@@ -86,8 +86,8 @@
         }
       ]
     },
-    "infi": {
-      "baseUrl": "https://cloud.infini-ai.com/api/v1",
+    "infini-ai": {
+      "baseUrl": "https://cloud.infini-ai.com/maas/v1",
       "apiKey": "sk-es6pe44o7feffqgj",
       "api": "openai-completions",
       "models": [

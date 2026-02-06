@@ -23,25 +23,9 @@
 
 ## 🔴 High Priority (Blocking Development)
 
-### 1. Recovery System MVP Scope
+### 1. Technical Implementation Details
 
-| Item | Current Status | Needs Confirmation |
-|------|----------------|-------------------|
-| Recovery Methods | 9 methods documented | Which ones for Phase 1? |
-| Proposed Solution | — | Mnemonic + Encrypted Email (2 methods) |
-| Social Recovery | Involves Shamir SSSS + Guardians | Defer to Phase 2? |
-| TOTP/Hardware Keys | Tier 3 features | Defer to Phase 3? |
-
-**Key Questions:**
-- [ ] Is mnemonic-only recovery sufficient for MVP?
-- [ ] Is encrypted email recovery needed?
-- [ ] How to design the recovery UX flow?
-
----
-
-### 2. Technical Implementation Details
-
-#### 2.1 Encoding Format
+#### 1.1 Encoding Format
 | Option | Status |
 |--------|--------|
 | base64url (URL-safe, no padding) | ⏸ Pending |
