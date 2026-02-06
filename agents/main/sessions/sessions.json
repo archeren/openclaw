@@ -1,20 +1,20 @@
 {
   "agent:main:main": {
     "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
-    "updatedAt": 1770343006698,
+    "updatedAt": 1770346788056,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
       "accountId": "default"
     },
     "origin": {
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
+      "label": "fc8c9b16",
+      "provider": "feishu",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
       "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
@@ -128,16 +128,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "opencode",
-    "model": "kimi-k2.5-free",
-    "contextTokens": 262144,
+    "modelProvider": "vole",
+    "model": "kimi-k2.5",
+    "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770342872946,
+      "generatedAt": 1770344977919,
       "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
       "sessionKey": "agent:main:main",
-      "provider": "opencode",
-      "model": "kimi-k2.5-free",
+      "provider": "vole",
+      "model": "kimi-k2.5",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -145,9 +145,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 37121,
+        "chars": 37103,
         "projectContextChars": 25121,
-        "nonProjectContextChars": 12000
+        "nonProjectContextChars": 11982
       },
       "injectedWorkspaceFiles": [
         {
@@ -395,16 +395,13 @@
         ]
       }
     },
-    "inputTokens": 438,
-    "outputTokens": 827,
-    "totalTokens": 98742,
+    "inputTokens": 498,
+    "outputTokens": 459,
+    "totalTokens": 93426,
     "lastHeartbeatText": "Request timed out.",
     "lastHeartbeatSentAt": 1770342872806,
-    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
     "lastChannel": "feishu",
-    "lastAccountId": "default",
-    "authProfileOverride": "opencode:default",
-    "authProfileOverrideSource": "auto",
-    "authProfileOverrideCompactionCount": 0
+    "lastAccountId": "default"
   }
 }

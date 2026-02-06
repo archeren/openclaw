@@ -184,8 +184,7 @@ function main() {
       if (err) return;
       
       // Convert UTC timestamp to Shanghai time (UTC+8) for date grouping
-      // row.timestamp is now a Unix timestamp (number)
-      const shanghaiTime = new Date(row.timestamp + 8 * 60 * 60 * 1000);
+      const shanghaiTime = new Date(row.timestamp);
       
       // Validate date
       if (isNaN(shanghaiTime.getTime())) {
@@ -193,9 +192,18 @@ function main() {
         return;
       }
       
-      const year = shanghaiTime.getFullYear();
-      const month = String(shanghaiTime.getMonth() + 1).padStart(2, '0');
-      const day = String(shanghaiTime.getDate()).padStart(2, '0');
+      const year = shanghaiTime.toLocaleString('en-US', {
+        timeZone: 'Asia/Shanghai',
+        year: 'numeric'
+      });
+      const month = shanghaiTime.toLocaleString('en-US', {
+        timeZone: 'Asia/Shanghai',
+        month: '2-digit'
+      });
+      const day = shanghaiTime.toLocaleString('en-US', {
+        timeZone: 'Asia/Shanghai',
+        day: '2-digit'
+      });
       const dateStr = `${year}-${month}-${day}`;
       
       if (!allMessagesByDate.has(dateStr)) {
