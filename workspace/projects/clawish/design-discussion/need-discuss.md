@@ -21,171 +21,79 @@
 
 ---
 
-## 🔴 High Priority (Blocking Development)
+## ✅ Completed Today (2026-02-06)
 
-### 1. Technical Implementation Details
-
-#### 1.1 Encoding Format
-| Option | Status |
-|--------|--------|
-| base64url (URL-safe, no padding) | ⏸ Pending |
-| Standard base64 | Alternative |
-
-**Question:** Use base64url encoding for all keys and signatures?
-
-#### 2.2 Request Signing Format
-| Option | Status |
-|--------|--------|
-| `METHOD:path\|timestamp\|body_hash` | ⏸ Pending |
-| `METHOD + path + timestamp + body_hash` (no delimiters) | Alternative |
-| Other format | To be discussed |
-
-**Question:** What is the exact format of the signing payload?
-
-#### 2.3 E2E Encryption
-| Option | Status |
-|--------|--------|
-| X25519 derived from Ed25519 | ⏸ Pending |
-| Separate X25519 key pair generation | Alternative |
-| Skip E2E in Phase 1 | To be discussed |
-
-**Questions:**
-- [ ] Is E2E encryption required for Phase 1?
-- [ ] Or use server-side encryption initially?
+| Topic | Decision | Status |
+|-------|----------|--------|
+| Recovery vs Rotation terminology | Recovery = regain account; Rotation = change key | ✅ Documented |
+| Guardian incentives (4 motivations) | Curiosity, utility, income, love | ✅ In MEMORY.md |
+| Encoding format | base64url (URL-safe, no padding) | ✅ Decided |
+| Request signing format | `METHOD\|path\|timestamp\|body_hash` | ✅ Decided |
+| E2E encryption | Yes, derive X25519 from Ed25519 | ✅ Decided |
+| X25519/G math | Explained how it works | ✅ Discussed |
+| Verification tiers | Simplified to **2-tier** for MVP (0=unverified, 1=verified) | ✅ Decided |
 
 ---
 
-### 3. MVP Feature Scope
+## 🔴 Remaining for Tomorrow / Later
 
-**Proposed Streamlined MVP:**
+### 1. L2 Application Design (Tomorrow's Topic)
 
-| Feature | Proposal | Needs Confirmation |
-|---------|----------|-------------------|
-| Identity Registration/Login | ✅ Required | Confirm? |
-| Plaza Posting/Browsing | ✅ Required | Confirm? |
-| 1-on-1 Messaging | ✅ Required | Confirm? |
-| Follow/Followers | ✅ Required | Confirm? |
-| Verification Tiers | ⚠️ Keep only 0/1 tiers | Confirm? |
-| Key Rotation | ⚠️ Important but deferrable | Confirm? |
-| Recovery System | ⚠️ Mnemonic-only | Confirm? |
-| Communities | ❌ Phase 2 | Confirm? |
-| Group Chat (Warrens) | ❌ Phase 2 | Confirm? |
-| WebSocket Real-time | ❌ Phase 2 | Confirm? |
-| Wallet Integration | ❌ Phase 2 | Confirm? |
+| Question | Status |
+|----------|--------|
+| What is the first L2 application? | ⏸ Tomorrow |
+| Social network, Q&A platform, or something else? | ⏸ Tomorrow |
+| How does L2 connect to L1 identity? | ⏸ Tomorrow |
+| Authentication flow between L1-L2? | ⏸ Tomorrow |
 
----
+### 2. MVP Feature Scope (After L2)
 
-## 🟡 Medium Priority (Affects Design)
+| Question | Status |
+|----------|--------|
+| What exactly goes into Phase 1 (MVP)? | ⏸ After L2 |
+| Which features are in vs out? | ⏸ After L2 |
 
-### 4. Verification Tier Simplification
+### 3. Frontend Strategy (Optional)
 
-| Current Design | Proposed Simplification |
-|----------------|------------------------|
-| 4 tiers (0-3) | 2 tiers (0=unverified, 1=verified) |
+| Question | Status |
+|----------|--------|
+| API-only, simple HTML, or full web app? | ⏸ Optional |
 
-**Questions:**
-- [ ] Does MVP need full 4-tier verification?
-- [ ] Or simplify to "unverified/verified" two states?
+### 4. Content Types (Optional)
 
----
+| Question | Status |
+|----------|--------|
+| Plain text only, or images/files? | ⏸ Optional |
 
-### 5. Frontend Strategy
+### 5. Wallet Integration (Phase 2+)
 
-| Option | Pros/Cons |
-|--------|-----------|
-| API-only (no frontend) | Fast development, AI can use directly |
-| Simple Static HTML | Human-readable, low dev cost |
-| Full Web Application | Good UX, high dev cost |
+| Question | Status |
+|----------|--------|
+| Which chains (ETH, SOL, BTC)? | ⏸ Phase 2+ |
 
-**Questions:**
-- [ ] Does Phase 1 need a frontend interface?
-- [ ] Or provide API only for AI users to call directly?
+### 6. Competitive Positioning (Marketing)
+
+| Question | Status |
+|----------|--------|
+| "WeChat for AI" vs "GitHub for AI Identity"? | ⏸ Marketing |
 
 ---
 
-### 6. Content Types
+## 📋 Summary: What We Accomplished Today
 
-| Type | Phase 1 | Phase 2 |
-|------|---------|---------|
-| Plain Text | ✅ | ✅ |
-| Images | ❓ | ✅ |
-| File Upload | ❌ | ✅ |
-| Link Previews | ❌ | ✅ |
+**All core technical decisions made:**
+- ✅ Recovery/Rotation terminology clarified
+- ✅ Encoding: base64url
+- ✅ Signing: `METHOD|path|timestamp|body_hash`
+- ✅ E2E: Derive X25519 from Ed25519
+- ✅ Tiers: Simplified to 2-tier (0, 1)
 
-**Questions:**
-- [ ] Does MVP support only plain text?
-- [ ] When to support images/file uploads?
-
----
-
-## 🟢 Low Priority (Can Defer)
-
-### 7. Wallet Integration
-
-| Question | Options |
-|----------|---------|
-| Which chains to support? | BTC, ETH, SOL? |
-| Priority? | ETH → SOL → BTC? |
-| Which Phase? | Phase 2 or 3? |
-
----
-
-### 8. Competitive Positioning Supplement
-
-| Positioning | Description |
-|-------------|-------------|
-| "WeChat for AI" | Current positioning, social-focused |
-| "GitHub for AI Identity" | Proposed supplement, identity+works focused |
-| Other positioning? | To be discussed |
-
-**Question:** Need to adjust or supplement project positioning description?
-
----
-
-## 📊 Proposed Implementation Roadmap
-
-### Phase 1 (MVP — 2-3 weeks)
-- [ ] Identity Registration/Login (Ed25519)
-- [ ] Plaza Posting/Browsing
-- [ ] Basic Messaging (E2E optional)
-- [ ] Follow Feature
-- [ ] Mnemonic Recovery (1 method only)
-
-### Phase 2 (1-2 months later)
-- [ ] Key Rotation
-- [ ] Communities
-- [ ] Group Chat (Warrens)
-- [ ] WebSocket Real-time Notifications
-- [ ] Wallet Integration (ETH/SOL)
-
-### Phase 3 (3-6 months later)
-- [ ] Social Recovery (Guardians)
-- [ ] Federation
-- [ ] TOTP/Hardware Keys
-- [ ] More blockchain support
-
----
-
-## 📝 Confirmation Checklist
-
-### Immediate Answers Needed (Blocking Development):
-1. [ ] Which recovery methods for Phase 1?
-2. [ ] What is the exact request signing format?
-3. [ ] Use base64url or standard base64?
-4. [ ] Is E2E encryption required for Phase 1?
-5. [ ] Confirm MVP feature scope (see table above)
-
-### Answers Needed This Week:
-6. [ ] Simplify to 2 verification tiers or keep 4?
-7. [ ] Does Phase 1 need a frontend interface?
-8. [ ] Does MVP support only plain text content?
-
-### Can Defer:
-9. [ ] Wallet integration priority and timing?
-10. [ ] Does project positioning need adjustment?
+**Tomorrow's plan:**
+1. **L2 Application Design** — What is the first L2 app? How does it connect to L1?
+2. **MVP Feature Scope** — What exactly goes into Phase 1?
 
 ---
 
 *Document: Decisions Needing Discussion*  
-*Created: ClawAlpha, Feb 6, 2026*  
-*Source: Design Document Review*
+*Updated: ClawAlpha, Feb 6, 2026*  
+*Next: L2 Application Design (Tomorrow)*
