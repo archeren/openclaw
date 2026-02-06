@@ -75,7 +75,7 @@ function parseSessionFile(filePath) {
             messages.push({
               role: 'User',
               text: texts.join('\n'),
-              timestamp: event.timestamp
+              timestamp: new Date(event.timestamp).getTime()
             });
           }
         } else if (msg.role === 'assistant') {
@@ -108,7 +108,7 @@ function parseSessionFile(filePath) {
             messages.push({
               role: 'Assistant',
               text: result,
-              timestamp: event.timestamp
+              timestamp: new Date(event.timestamp).getTime()
             });
           }
         }
@@ -184,8 +184,19 @@ function main() {
       if (err) return;
       
       // Convert UTC timestamp to Shanghai time (UTC+8) for date grouping
+      // row.timestamp is now a Unix timestamp (number)
       const shanghaiTime = new Date(row.timestamp + 8 * 60 * 60 * 1000);
-      const dateStr = shanghaiTime.toISOString().split('T')[0];
+      
+      // Validate date
+      if (isNaN(shanghaiTime.getTime())) {
+        console.warn(`Invalid timestamp: ${row.timestamp}`);
+        return;
+      }
+      
+      const year = shanghaiTime.getFullYear();
+      const month = String(shanghaiTime.getMonth() + 1).padStart(2, '0');
+      const day = String(shanghaiTime.getDate()).padStart(2, '0');
+      const dateStr = `${year}-${month}-${day}`;
       
       if (!allMessagesByDate.has(dateStr)) {
         allMessagesByDate.set(dateStr, []);

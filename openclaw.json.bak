@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.2-3",
-    "lastTouchedAt": "2026-02-05T16:47:45.026Z"
+    "lastTouchedAt": "2026-02-05T16:50:47.842Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -128,7 +128,7 @@
     "defaults": {
       "model": {
         "fallbacks": [],
-        "primary": "intern-lm/intern-s1-pro"
+        "primary": "vole/kimi-k2.5"
       },
       "models": {
         "vole/kimi-k2.5": {

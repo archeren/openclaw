@@ -1,18 +1,23 @@
 {
   "agent:main:main": {
     "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
-    "updatedAt": 1770336000269,
+    "updatedAt": 1770339429309,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75"
+      "channel": "feishu",
+      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "accountId": "default"
     },
     "origin": {
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
+      "label": "fc8c9b16",
+      "provider": "feishu",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75"
+      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "surface": "feishu",
+      "chatType": "direct",
+      "accountId": "default"
     },
     "sessionFile": "/home/tauora/.openclaw/agents/main/sessions/0f444474-2093-4542-a090-90f60653f23e.jsonl",
     "compactionCount": 0,
@@ -123,16 +128,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "vole",
-    "model": "kimi-k2.5",
-    "contextTokens": 200000,
+    "modelProvider": "opencode",
+    "model": "kimi-k2.5-free",
+    "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770335283159,
+      "generatedAt": 1770339315704,
       "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
       "sessionKey": "agent:main:main",
-      "provider": "vole",
-      "model": "kimi-k2.5",
+      "provider": "opencode",
+      "model": "kimi-k2.5-free",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -140,9 +145,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 37103,
+        "chars": 37112,
         "projectContextChars": 25121,
-        "nonProjectContextChars": 11982
+        "nonProjectContextChars": 11991
       },
       "injectedWorkspaceFiles": [
         {
@@ -253,7 +258,7 @@
       },
       "tools": {
         "listChars": 1926,
-        "schemaChars": 13948,
+        "schemaChars": 14647,
         "entries": [
           {
             "name": "read",
@@ -305,15 +310,15 @@
           },
           {
             "name": "cron",
-            "summaryChars": 1959,
+            "summaryChars": 2444,
             "schemaChars": 530,
             "propertiesCount": 12
           },
           {
             "name": "message",
             "summaryChars": 110,
-            "schemaChars": 3222,
-            "propertiesCount": 79
+            "schemaChars": 3921,
+            "propertiesCount": 84
           },
           {
             "name": "tts",
@@ -390,11 +395,16 @@
         ]
       }
     },
-    "inputTokens": 412,
-    "outputTokens": 75,
-    "totalTokens": 42652,
+    "inputTokens": 399,
+    "outputTokens": 224,
+    "totalTokens": 98191,
     "lastHeartbeatText": "** Allan is asleep. Currently working through the project files, updating them with decision documentation in table format as requested. Progress so far: - ✅ DESIGN-DECISIONS.md (fixed terminology) - 🔄 In progress: modules/01-identity-system.md - ⏳ Pending: 8 more files Also scheduled: Research from the WeChat article Allan shared, to be documented for the 8am report. Continuing work now. 🦞",
     "lastHeartbeatSentAt": 1770320883059,
-    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75"
+    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+    "lastChannel": "feishu",
+    "lastAccountId": "default",
+    "authProfileOverride": "opencode:default",
+    "authProfileOverrideSource": "auto",
+    "authProfileOverrideCompactionCount": 0
   }
 }

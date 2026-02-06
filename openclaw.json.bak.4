@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.2-3",
-    "lastTouchedAt": "2026-02-05T11:57:37.558Z"
+    "lastTouchedAt": "2026-02-05T15:19:27.300Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -11,8 +11,8 @@
   },
   "auth": {
     "profiles": {
-      "volcengine:default": {
-        "provider": "volcengine",
+      "vole:default": {
+        "provider": "vole",
         "mode": "api_key"
       },
       "qwen-portal:default": {
@@ -36,7 +36,7 @@
   "models": {
     "mode": "merge",
     "providers": {
-      "volcengine": {
+      "vole": {
         "baseUrl": "https://ark.cn-beijing.volces.com/api/coding/v3",
         "apiKey": "d9d73710-33d5-44e1-9287-e2efbcc731a9",
         "api": "openai-completions",
@@ -128,13 +128,13 @@
     "defaults": {
       "model": {
         "fallbacks": [],
-        "primary": "volcengine/kimi-k2.5"
+        "primary": "intern-lm/intern-s1-pro"
       },
       "models": {
-        "volcengine/kimi-k2.5": {
+        "vole/kimi-k2.5": {
           "alias": "volc Kimi 2.5"
         },
-        "volcengine/kimi-k2.5-thinking": {
+        "vole/kimi-k2.5-thinking": {
           "alias": "volc Kimi 2.5 Thinking"
         },
         "qwen-portal/coder-model": {
