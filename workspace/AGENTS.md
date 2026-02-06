@@ -258,6 +258,46 @@ workspace/
 - Tools/scripts → `tools/`
 - Credentials → `credentials/` (ask first before saving new ones)
 - Curated memory → `MEMORY.md` (distilled from daily notes)
+- Design docs → `projects/clawish/design-discussion/` (follow standard below)
+
+---
+
+## Writing Documentation
+
+### Design Discussion Documents
+
+**Location:** `projects/[project-name]/design-discussion/`  
+**Standard:** Read `projects/DESIGN-DISCUSSION-STANDARD.md` (applies to all projects)
+
+**When writing design docs:**
+
+1. **Follow section template:** Each decision needs:
+   - **Function:** What problem does this solve?
+   - **Decision:** What was decided?
+   - **Status:** ✅ Decided | 🔄 In Progress | ⏸ Pending | ❌ Rejected
+   - **Rationale:** Why this decision?
+   - **Context & Discussion:** Quote relevant conversation with name and date
+
+2. **Use consistent status indicators:**
+   - ✅ Decided — Final decision made
+   - 🔄 In Progress — Actively being discussed
+   - ⏸ Pending — Needs more info
+   - ❌ Rejected — Considered but not chosen
+
+3. **Code examples with inline comments:**
+   ```json
+   {
+     "field_name": "value",  // Explanation
+     ...
+   }
+   ```
+
+4. **Quote sources:**
+   ```markdown
+   > [Name]: "[Content]" — Date
+   ```
+
+---
 
 ## Make It Yours
 
