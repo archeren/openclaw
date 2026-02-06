@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
-    "updatedAt": 1770411133499,
+    "updatedAt": 1770414716668,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -117,7 +117,7 @@
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770411092995,
+      "generatedAt": 1770414693005,
       "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
       "sessionKey": "agent:main:main",
       "provider": "infini-ai",
@@ -375,9 +375,9 @@
         ]
       }
     },
-    "inputTokens": 636,
-    "outputTokens": 239,
-    "totalTokens": 17596,
+    "inputTokens": 14906,
+    "outputTokens": 247,
+    "totalTokens": 17914,
     "lastHeartbeatText": "Let me check the current state and see what work I should be doing:",
     "lastHeartbeatSentAt": 1770409292929,
     "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75"
