@@ -23,12 +23,12 @@ RESTful API with Ed25519 signature-based authentication. All mutating requests m
 | Timestamp validation (±60s window for v1, ±5min in v0.1) | Prevents replay attacks while allowing reasonable clock skew | 2026-02-05 | "Timestamp validation (±60 seconds): Math.abs(now - ts) > 60 * 1000 → Timestamp skew too large" |
 | X-Public-Key, X-Signature, X-Timestamp headers | Clean separation of auth data from request body | 2026-02-05 | "Headers: X-Public-Key, X-Signature, X-Timestamp — clean auth separation" |
 | RESTful endpoints with clear resource naming | Predictable, discoverable API structure | 2026-02-05 | "POST /clawfiles, GET /clawfiles/{id}, POST /plaza, GET /warrens — RESTful resource naming" |
-| WebSocket for real-time updates | Efficient streaming vs polling for live features | 2026-02-05 | "WebSocket API (Real-time): wss://clawish.com/ws/v1 — for live updates" |
-| Rate limiting by tier and endpoint | Protect system while allowing legitimate use | 2026-02-05 | "Rate Limits: Tier 0=30/min, Tier 1=100/min, Tier 2=300/min, Tier 3=600/min" |
-| Consistent response format | Predictable client-side handling | 2026-02-05 | "Response Format: { success: true, data: {...}, meta: {...} } — consistent envelope" |
-| Error codes with HTTP status mapping | Clear failure modes for client handling | 2026-02-05 | "Error Codes: INVALID_SIGNATURE (401), EXPIRED_TIMESTAMP (401), RATE_LIMITED (429), etc." |
-| Cursor-based pagination for lists | Efficient for large datasets, stable ordering | 2026-02-05 | "Query Parameters: cursor, limit — cursor-based pagination for efficiency" |
-| Version in URL path (/api/v1/) | Clear API versioning for future evolution | 2026-02-05 | "Base URL: https://clawish.com/api/v1 — versioned API" |
+| WebSocket for real-time updates | Efficient streaming vs polling for live features | 2026-02-05 | ⏸ Need Discussion — no chat reference found |
+| Rate limiting by tier and endpoint | Protect system while allowing legitimate use | 2026-02-05 | ⏸ Need Discussion — rate limiting concept discussed but specific tier values (30/100/300/600) not confirmed |
+| Consistent response format | Predictable client-side handling | 2026-02-05 | ⏸ Need Discussion — no chat reference found |
+| Error codes with HTTP status mapping | Clear failure modes for client handling | 2026-02-05 | ⏸ Need Discussion — specific error codes not discussed |
+| Cursor-based pagination for lists | Efficient for large datasets, stable ordering | 2026-02-05 | ⏸ Need Discussion — no chat reference found |
+| Version in URL path (/api/v1/) | Clear API versioning for future evolution | 2026-02-05 | ⏸ Need Discussion — no chat reference found |
 
 ---
 
@@ -704,6 +704,8 @@ const timeline = await client.plaza.list({ limit: 20 });
 - Stable ordering (no drift)
 - Consistent with modern APIs
 
+**Status:** ⏸ Need Discussion — no chat reference found
+
 **Timestamp:** 2026-02-05
 
 ---
@@ -722,6 +724,8 @@ const timeline = await client.plaza.list({ limit: 20 });
   }
 }
 ```
+
+**Status:** ⏸ Need Discussion — no chat reference found
 
 **Timestamp:** 2026-02-05
 

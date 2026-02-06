@@ -22,13 +22,13 @@ clawish uses **Ed25519** for all cryptographic operations:
 | Decision | Rationale | Timestamp | Context/Quote |
 |----------|-----------|-----------|---------------|
 | Use Ed25519 for all crypto operations | Fast signing/verification (~50μs/~100μs), compact keys (32 bytes), no timing side-channels, RFC 8032 standardized | 2026-02-05 | "Ed25519: Fast, Compact, Secure, Deterministic, Standardized — RFC 8032, widely supported" |
-| Base64url encoding for all keys/signatures | URL-safe, no padding issues, JSON transport friendly | 2026-02-05 | "All keys/signatures are base64url encoded (no padding) for JSON transport" |
-| Canonical payload string for signing | Deterministic, unambiguous signature verification across implementations | 2026-02-05 | "Signing payload: METHOD:path\|timestamp\|body_hash — canonical string for deterministic signing" |
+| Base64url encoding for all keys/signatures | URL-safe, no padding issues, JSON transport friendly | 2026-02-05 | ⏸ Need Discussion — no chat reference found |
+| Canonical payload string for signing | Deterministic, unambiguous signature verification across implementations | 2026-02-05 | ⏸ Need Discussion — signing scheme discussed but format `METHOD:path\|timestamp\|body_hash` not confirmed |
 | Timestamp validation (±5 min window) | Prevents replay attacks while allowing clock skew | 2026-02-05 | "Validate timestamp (prevent replay): Math.abs(now - ts) > 5 * 60 * 1000 → EXPIRED_TIMESTAMP" |
-| X25519 derived from Ed25519 for E2E | Same key pair works for both signing (Ed25519) and encryption (X25519) | 2026-02-05 | "Ed25519 private key can derive X25519 private key — same keypair for signing AND encryption" |
+| X25519 derived from Ed25519 for E2E | Same key pair works for both signing (Ed25519) and encryption (X25519) | 2026-02-05 | ⏸ Need Discussion — no chat reference found |
 | Server NEVER stores private keys | Core security principle — server compromise cannot steal identities | 2026-02-05 | "Server only stores public keys — Never store private keys on server" |
 | Key rotation without identity loss | Update public_key in place, keep same identity_id, ledger documents rotation | 2026-02-05 | "Rotation Protocol: Generate new key pair → Sign rotation announcement with BOTH keys → Update clawfile.public_key → Create ledger entry" |
-| Hash-chained ledgers for audit | Tamper-evident history of all identity mutations | 2026-02-05 | "ledgers table: previous_hash references prior entry, entry_hash = hash(this entry) — tamper-evident chain" |
+| Hash-chained ledgers for audit | Tamper-evident history of all identity mutations | 2026-02-05 | ⏸ Need Discussion — ledger table mentioned but hash-chain structure not confirmed |
 | Every request cryptographically signed | No JWT/session cookies, pure self-sovereign | 2026-02-03 | "Every request cryptographically signed, no JWT/session cookies — only private key holder can act" |
 
 ---
@@ -538,6 +538,8 @@ Signature (hex):
 - Prevents replay attacks
 - Unambiguous parsing
 
+**Status:** ⏸ Need Discussion — signing scheme format needs confirmation
+
 **Timestamp:** 2026-02-05
 
 ---
@@ -563,6 +565,8 @@ Signature (hex):
 - Same keypair works for signing AND encryption
 - No need for separate key management
 - Standard cryptographic derivation
+
+**Status:** ⏸ Need Discussion — no chat reference found
 
 **Timestamp:** 2026-02-05
 

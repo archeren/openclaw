@@ -27,6 +27,10 @@
         "provider": "kimi-coding",
         "mode": "api_key"
       },
+      "infi:default": {
+        "provider": "infi",
+        "mode": "api_key"
+      },
       "opencode:manual": {
         "provider": "opencode",
         "mode": "token"
@@ -121,6 +125,29 @@
             "maxTokens": 8192
           }
         ]
+      },
+      "infi": {
+        "baseUrl": "https://cloud.infini-ai.com/api/v1",
+        "apiKey": "sk-es6pe44o7feffqgj",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "kimi-k2.5",
+            "name": "Infini AI Kimi K2.5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
       }
     }
   },
@@ -151,6 +178,9 @@
         "opencode/minimax-m2.1-free": {},
         "intern-lm/intern-s1-pro": {
           "alias": "Intern S1 Pro"
+        },
+        "infi/kimi-k2.5": {
+          "alias": "Infini Kimi"
         }
       },
       "workspace": "/home/tauora/.openclaw/workspace",

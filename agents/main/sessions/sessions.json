@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
-    "updatedAt": 1770364367692,
+    "updatedAt": 1770366516695,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -133,7 +133,7 @@
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770364335961,
+      "generatedAt": 1770366149063,
       "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
       "sessionKey": "agent:main:main",
       "provider": "vole",
@@ -395,11 +395,11 @@
         ]
       }
     },
-    "inputTokens": 363,
-    "outputTokens": 551,
-    "totalTokens": 127851,
-    "lastHeartbeatText": "Request timed out.",
-    "lastHeartbeatSentAt": 1770342872806,
+    "inputTokens": 136257,
+    "outputTokens": 272,
+    "totalTokens": 138817,
+    "lastHeartbeatText": "⚠️ Agent failed before reply: session file locked (timeout 10000ms): pid=385 /home/tauora/.openclaw/agents/main/sessions/0f444474-2093-4542-a090-90f60653f23e.jsonl.lock.\nLogs: openclaw logs --follow",
+    "lastHeartbeatSentAt": 1770365620466,
     "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
     "lastChannel": "feishu",
     "lastAccountId": "default"

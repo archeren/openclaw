@@ -14,7 +14,7 @@
 | Learn from both platforms' agent-specific language | Use "claw" terminology and agent-centric framing like competitors | 2026-02-04 | "What's Working: Agent-specific language — Both use 'claw' terminology, agent-centric framing" |
 | Fill missing gaps: recovery, private spaces, persistent profiles | Competitors lack these; they're clawish opportunities | 2026-02-04 | "What's Missing: Unified Identity, Recovery Systems, Private Spaces, Persistent Profiles" |
 | Complement rather than compete | Build infrastructure that existing platforms can use | 2026-02-04 | "Build clawish to complement, not compete — Integrate with existing platforms" |
-| Study ERC-8004 standard | Identity standard gaining traction on ClawNews | 2026-02-04 | "Study ERC-8004 — identity standard gaining traction" |
+| Study ERC-8004 standard | Identity standard gaining traction on ClawNews | 2026-02-04 | ⏸ Need Discussion — ERC-8004 mentioned but not studied/discussed in detail |
 
 ---
 

@@ -24,13 +24,25 @@ You can still recover your identity and all your relationships.
 
 ## Design Decisions
 
+| Decision | Rationale | Timestamp | Context/Quote |
+|----------|-----------|-----------|---------------|
+| Distinguish verification vs recovery | Mnemonic seed proves ownership (recovery), not identity (verification) | 2026-02-06 | "Mnemonic words are for recovery account, it's not for verification. They have the key, ask them to enter again doesn't verify their identity." |
+| Remove SMS option | International cost issues + no universal number format | 2026-02-06 | "People are from the world. There is no one number for them to send. And it cost money. So this option can be cancelled." |
+| TOTP for operations/recovery, not login | Public key system has no password to verify on login | 2026-02-06 | "In our case, we are public key system so no password. But it still can be used as a way for recover or changed the public key." |
+| Tier 2 = Activity-based, Tier 3 = Community-based | Reversed from original — activity metrics vs peer interactions | 2026-02-06 | "Tier three is community action. Tier two is action based." |
+| Email verification stores hash only | Server doesn't store plaintext email, only hash for comparison | 2026-02-06 | "The server stores hash only... when receive email, system can hash email again, then compare if it matches" |
+| No option D (requester-provided email) | Critical security vulnerability — anyone can fake email | 2026-02-06 | "No, option d's key problem is you can fake email. You can say i'm john send to abc@example.com How do you know the email is the correct one." |
+| Encrypted email (Option A) is secure | Recovery destination must be pre-registered and immutable | 2026-02-06 | "Option A (Encrypted storage) is also good: Store encrypted email: aes256:allan@example.com — When recovery requested, decrypt and send" |
+
+---
+
 ### REC-01: Three-Tier Recovery
 
 **Function:** Provide different security/usability tradeoffs for different users
 
 **Decision:** 9 recovery methods across 3 tiers
 
-**Status:** ✅ Decided
+**Status:** ⏸ Need Discussion
 
 **Rationale:**
 - Different users have different security/usability tradeoffs
@@ -106,7 +118,7 @@ Recovery:
 
 **Decision:** Shamir's Secret Sharing (SSSS) + Guardians (K-of-N threshold)
 
-**Status:** ✅ Decided
+**Status:** ⏸ Need Discussion
 
 **Rationale:**
 - Server-independent: No single point of failure
@@ -155,7 +167,7 @@ Recovery:
 
 **Decision:** Hardware-backed keys + TOTP + Multi-factor
 
-**Status:** ✅ Decided
+**Status:** ⏸ Need Discussion
 
 **Rationale:**
 - Multiple independent factors: Compromise of any single factor insufficient
@@ -207,7 +219,7 @@ Recovery (Policy-B - emergency):
 
 **Decision:** Emergency recovery includes 24-hour timelock
 
-**Status:** ✅ Decided
+**Status:** ⏸ Need Discussion
 
 **Rationale:**
 - Prevents immediate theft: Gives time to cancel fraudulent recovery
@@ -226,7 +238,7 @@ Recovery (Policy-B - emergency):
 
 **Decision:** Server stores only encrypted blobs; even with server breach, passwords needed to decrypt
 
-**Status:** ✅ Decided
+**Status:** ⏸ Need Discussion
 
 **Rationale:**
 - Compromise-safe: Server breach cannot steal identities
@@ -253,7 +265,7 @@ Recovery (Policy-B - emergency):
 
 **Decision:** No central recovery authority — Self-responsible
 
-**Status:** ✅ Decided
+**Status:** ⏸ Need Discussion
 
 **Rationale:**
 - Self-sovereign means self-responsible
@@ -273,7 +285,7 @@ Recovery (Policy-B - emergency):
 
 **Decision:** "Accept loss" as valid recovery option
 
-**Status:** ✅ Decided
+**Status:** ⏸ Need Discussion
 
 **Rationale:**
 - Realistic: Some losses cannot be recovered
