@@ -11,7 +11,7 @@ const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
 const SESSIONS_DIR = '/home/tauora/.openclaw/agents/main/sessions';
-const OUTPUT_DIR = '/home/tauora/.openclaw/workspace/logs/conversations';
+const OUTPUT_DIR = '/home/tauora/.openclaw/workspace/chat';
 const DB_PATH = path.join(OUTPUT_DIR, 'conversations.db');
 
 function formatTimeShanghai(ts) {
@@ -216,17 +216,18 @@ function main() {
         text: row.content
       });
     }, () => {
-      // Export files
+      // Export files to dm/allan/ structure (per-person organization)
       for (const [dateStr, dateMessages] of allMessagesByDate) {
         const yearMonth = dateStr.substring(0, 7);
-        const monthDir = path.join(OUTPUT_DIR, yearMonth);
+        // Structure: chat/dm/allan/YYYY-MM/YYYY-MM-DD.md
+        const personDir = path.join(OUTPUT_DIR, 'dm', 'allan', yearMonth);
         
-        if (!fs.existsSync(monthDir)) {
-          fs.mkdirSync(monthDir, { recursive: true });
+        if (!fs.existsSync(personDir)) {
+          fs.mkdirSync(personDir, { recursive: true });
         }
         
         const tableOutput = formatAsMarkdownTable(dateMessages);
-        const outputFile = path.join(monthDir, `${dateStr}.md`);
+        const outputFile = path.join(personDir, `${dateStr}.md`);
         fs.writeFileSync(outputFile, tableOutput, 'utf-8');
         
         console.log(`✓ ${dateStr}: ${dateMessages.length} messages`);

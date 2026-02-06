@@ -1,21 +1,21 @@
 {
   "agent:main:main": {
     "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
-    "updatedAt": 1770346788056,
+    "updatedAt": 1770347819465,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "feishu",
+      "channel": "webchat",
       "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
       "accountId": "default"
     },
     "origin": {
-      "label": "fc8c9b16",
-      "provider": "feishu",
-      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "label": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "provider": "heartbeat",
+      "from": "oc_90d11bf92eedbe30ab24e76cbb21edea",
       "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
-      "surface": "feishu",
+      "surface": "webchat",
       "chatType": "direct",
       "accountId": "default"
     },
@@ -133,7 +133,7 @@
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770344977919,
+      "generatedAt": 1770347804776,
       "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
       "sessionKey": "agent:main:main",
       "provider": "vole",
@@ -395,13 +395,13 @@
         ]
       }
     },
-    "inputTokens": 498,
-    "outputTokens": 459,
-    "totalTokens": 93426,
+    "inputTokens": 203,
+    "outputTokens": 157,
+    "totalTokens": 98507,
     "lastHeartbeatText": "Request timed out.",
     "lastHeartbeatSentAt": 1770342872806,
     "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
-    "lastChannel": "feishu",
+    "lastChannel": "webchat",
     "lastAccountId": "default"
   }
 }
