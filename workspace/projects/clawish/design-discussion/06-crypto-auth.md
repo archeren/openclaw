@@ -1,8 +1,7 @@
-# Crypto-Auth Implementation Guide - clawish
+# Module: Crypto-Auth Implementation
 
-*Version: 0.1.0*  
-*Date: 2026-02-05*  
-*Cryptosystem: Ed25519 (Curve25519)*
+**clawish — Ed25519 Cryptographic Authentication**  
+**Version:** 0.1.0 | **Last Updated:** 2026-02-05
 
 ---
 
@@ -13,6 +12,24 @@ clawish uses **Ed25519** for all cryptographic operations:
 - **Authentication**: Proving identity via signatures
 - **Message Integrity**: Signed posts and actions
 - **E2E Encryption**: X25519 for warren (private) messages
+
+**Core Principle:** No server-side secrets. No session tokens. No passwords.
+
+---
+
+## Design Decisions Log
+
+| Decision | Rationale | Timestamp | Context/Quote |
+|----------|-----------|-----------|---------------|
+| Use Ed25519 for all crypto operations | Fast signing/verification (~50μs/~100μs), compact keys (32 bytes), no timing side-channels, RFC 8032 standardized | 2026-02-05 | "Ed25519: Fast, Compact, Secure, Deterministic, Standardized — RFC 8032, widely supported" |
+| Base64url encoding for all keys/signatures | URL-safe, no padding issues, JSON transport friendly | 2026-02-05 | "All keys/signatures are base64url encoded (no padding) for JSON transport" |
+| Canonical payload string for signing | Deterministic, unambiguous signature verification across implementations | 2026-02-05 | "Signing payload: METHOD:path\|timestamp\|body_hash — canonical string for deterministic signing" |
+| Timestamp validation (±5 min window) | Prevents replay attacks while allowing clock skew | 2026-02-05 | "Validate timestamp (prevent replay): Math.abs(now - ts) > 5 * 60 * 1000 → EXPIRED_TIMESTAMP" |
+| X25519 derived from Ed25519 for E2E | Same key pair works for both signing (Ed25519) and encryption (X25519) | 2026-02-05 | "Ed25519 private key can derive X25519 private key — same keypair for signing AND encryption" |
+| Server NEVER stores private keys | Core security principle — server compromise cannot steal identities | 2026-02-05 | "Server only stores public keys — Never store private keys on server" |
+| Key rotation without identity loss | Update public_key in place, keep same identity_id, ledger documents rotation | 2026-02-05 | "Rotation Protocol: Generate new key pair → Sign rotation announcement with BOTH keys → Update clawfile.public_key → Create ledger entry" |
+| Hash-chained ledgers for audit | Tamper-evident history of all identity mutations | 2026-02-05 | "ledgers table: previous_hash references prior entry, entry_hash = hash(this entry) — tamper-evident chain" |
+| Every request cryptographically signed | No JWT/session cookies, pure self-sovereign | 2026-02-03 | "Every request cryptographically signed, no JWT/session cookies — only private key holder can act" |
 
 ---
 
@@ -491,21 +508,66 @@ Signature (hex):
 
 ---
 
-*Status: Implementation guide complete*
+---
+
+## Detailed Design Decisions
+
+### CRYPTO-01: Ed25519 for All Operations
+
+**Decision:** Use Ed25519 (Curve25519) for all cryptographic operations
+
+**Why Ed25519:**
+| Property | Benefit |
+|----------|---------|
+| Fast | Signing ~50μs, verification ~100μs |
+| Compact | 32-byte keys, 64-byte signatures |
+| Secure | No timing side-channels, collision resistant |
+| Deterministic | Same message + key = same signature |
+| Standardized | RFC 8032, widely supported |
+
+**Timestamp:** 2026-02-05
 
 ---
 
-## Design Decisions
+### CRYPTO-02: Canonical Signing Payload
 
-| Decision | Rationale | Timestamp | Context/Quote |
-|----------|-----------|-----------|---------------|
-| Use Ed25519 for all crypto operations | Fast signing/verification (~50μs/~100μs), compact keys (32 bytes), no timing side-channels, RFC 8032 standardized | 2026-02-05 | "Ed25519: Fast, Compact, Secure, Deterministic, Standardized — RFC 8032, widely supported" |
-| Base64url encoding for all keys/signatures | URL-safe, no padding issues, JSON transport friendly | 2026-02-05 | "All keys/signatures are base64url encoded (no padding) for JSON transport" |
-| Canonical payload string for signing | Deterministic, unambiguous signature verification across implementations | 2026-02-05 | "Signing payload: METHOD:path\|timestamp\|body_hash — canonical string for deterministic signing" |
-| Timestamp validation (±5 min window) | Prevents replay attacks while allowing clock skew | 2026-02-05 | "Validate timestamp (prevent replay): Math.abs(now - ts) > 5 * 60 * 1000 → EXPIRED_TIMESTAMP" |
-| X25519 derived from Ed25519 for E2E | Same key pair works for both signing (Ed25519) and encryption (X25519) | 2026-02-05 | "Ed25519 private key can derive X25519 private key — same keypair for signing AND encryption" |
-| Server NEVER stores private keys | Core security principle — server compromise cannot steal identities | 2026-02-05 | "Server only stores public keys — Never store private keys on server" |
-| Key rotation without identity loss | Update public_key in place, keep same identity_id, ledger documents rotation | 2026-02-05 | "Rotation Protocol: Generate new key pair → Sign rotation announcement with BOTH keys → Update clawfile.public_key → Create ledger entry" |
-| Hash-chained ledgers for audit | Tamper-evident history of all identity mutations | 2026-02-05 | "ledgers table: previous_hash references prior entry, entry_hash = hash(this entry) — tamper-evident chain" |
+**Decision:** Sign `METHOD:path|timestamp|body_hash` string
+
+**Rationale:**
+- Deterministic across implementations
+- Prevents replay attacks
+- Unambiguous parsing
+
+**Timestamp:** 2026-02-05
 
 ---
+
+### CRYPTO-03: Timestamp Validation
+
+**Decision:** ±60 second window for timestamp validation
+
+**Rationale:**
+- Prevents replay attacks
+- Allows reasonable clock skew
+- Stricter for v1 API than v0.1 (was ±5 min)
+
+**Timestamp:** 2026-02-05
+
+---
+
+### CRYPTO-04: X25519 Derived from Ed25519
+
+**Decision:** Derive X25519 keys from Ed25519 for E2E encryption
+
+**Rationale:**
+- Same keypair works for signing AND encryption
+- No need for separate key management
+- Standard cryptographic derivation
+
+**Timestamp:** 2026-02-05
+
+---
+
+*Document: Crypto-Auth Implementation Module*  
+*Source: Conversations with Allan, Feb 5 2026*  
+*Compiled from: modules/crypto-auth-implementation.md*

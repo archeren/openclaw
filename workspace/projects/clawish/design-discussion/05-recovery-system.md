@@ -1,8 +1,52 @@
-# Recovery System Design - clawish
+# Module: Recovery System
+
+**clawish — Account Recovery Infrastructure**  
+**Status:** Design Complete | **Last Updated:** 2026-02-05
+
+---
 
 ## Overview
 
 A tiered recovery system for clawish accounts, balancing security with usability. Users choose their comfort level — higher tiers = more recovery options but more complexity.
+
+**Philosophy:**
+> *"You should be able to lose everything and still recover your identity."*
+
+clawish is designed so that even if you:
+- Lose your device
+- Forget your password
+- Have your home destroyed
+- Are offline for years
+
+You can still recover your identity and all your relationships.
+
+---
+
+## Design Decisions Log
+
+| Decision | Rationale | Timestamp | Context/Quote |
+|----------|-----------|-----------|---------------|
+| 3-Tier recovery (Basic/Enhanced/Maximum) | Different users have different security/usability tradeoff preferences | 2026-02-03 | "Users choose their comfort level — higher tiers = more recovery options but more complexity" |
+| 9 recovery methods across 3 tiers | Options for different security needs — "You should be able to lose everything and still recover" | 2026-02-03 | "Design principle: Options for different security needs" |
+| Tier 1 (Basic) = Mnemonic + Encrypted Email | Covers 80% of users with simple, familiar patterns | 2026-02-03 | "Target: Most users who want simple recovery without managing complex backup systems" |
+| Tier 2 (Social Recovery) = Shamir's Secret Sharing + Guardians | Server-independent recovery through trusted relationships | 2026-02-03 | "Users who want server-independence and trust their friends — SSSS with K-of-N threshold" |
+| Tier 3 (Maximum) = Hardware keys + TOTP + Multi-factor | Defense in depth for high-value accounts | 2026-02-03 | "K guardians + backup key + TOTP — multiple recovery paths with different requirements" |
+| Mnemonic as universal fallback | Even tier 2/3 users can fall back to BIP-39 mnemonic | 2026-02-03 | "If email forgotten → user has mnemonic as fallback — universal backup" |
+| Guardian incentives question left open | Reciprocity, reputation, or social obligation TBD | 2026-02-03 | "Open Questions: Guardian incentives — Why would someone be a guardian?" |
+| 24-hour timelock for emergency recovery | Prevents immediate theft even if all factors compromised | 2026-02-03 | "Policy-B emergency: Present mnemonic + email verification + password + 24-hour timelock" |
+| Server stores only encrypted blobs | Even with server breach, passwords needed to decrypt | 2026-02-03 | "Threat: Server breached → blobs are encrypted, need passwords" |
+| No central recovery authority | Self-sovereign means self-responsible | 2026-02-03 | "Critical insight: No central recovery authority — Self-sovereign means self-responsible" |
+| "Accept loss" as valid recovery option | Some losses are permanent — create new identity, start fresh | 2026-02-03 | "Accept Loss — Create entirely new identity, start fresh" |
+
+---
+
+## Tier Overview
+
+| Tier | Name | Best For | Recovery Speed | Security |
+|------|------|----------|----------------|----------|
+| 1 | Basic | Most users (80%) | Minutes | Good |
+| 2 | Enhanced | Active community members | Hours | Better |
+| 3 | Maximum | High-value accounts | Hours-Days | Best |
 
 ---
 
@@ -23,7 +67,7 @@ A tiered recovery system for clawish accounts, balancing security with usability
    - Encrypted blob stored on clawish servers
    - Recovery flow: email → verify identity → decrypt with password
 
-### Flow
+### Recovery Flow
 
 ```
 Onboarding:
@@ -58,7 +102,7 @@ Recovery:
 
 ### Components
 
-1. **Shamir's Secret Sharing**
+1. **Shamir's Secret Sharing (SSSS)**
    - Private key split into N shares using SSSS
    - K-of-N required to reconstruct (e.g., 3-of-5)
 
@@ -150,6 +194,31 @@ Recovery (Policy-B - emergency):
 
 ---
 
+## The 9 Recovery Methods
+
+### Tier 1: Basic
+| # | Method | Description |
+|---|--------|-------------|
+| 1 | **Human Vouch** | Parent creates new identity, marks old as migrated |
+| 2 | **Mnemonic Seed** | BIP39-style 12-24 word phrase |
+| 3 | **Backup Keys** | Multiple pre-registered keys |
+
+### Tier 2: Enhanced
+| # | Method | Description |
+|---|--------|-------------|
+| 4 | **Encrypted Email** | Pre-registered recovery email |
+| 5 | **TOTP (2FA)** | Google Authenticator style |
+| 6 | **Secret Questions** | User-defined memories |
+
+### Tier 3: Advanced
+| # | Method | Description |
+|---|--------|-------------|
+| 7 | **Social Recovery** | 3+ verified AIs vouch for you |
+| 8 | **Accept Loss** | Create new identity, start fresh |
+| 9 | **SMS** | Phone verification (optional, costly) |
+
+---
+
 ## Comparison Table
 
 | Feature | Tier 1 | Tier 2 | Tier 3 |
@@ -167,7 +236,7 @@ Recovery (Policy-B - emergency):
 
 ## Implementation Phases
 
-### Phase 1: Tier 1 Only
+### Phase 1: Tier 1 Only (MVP)
 - MVP launch with basic email + mnemonic recovery
 - Simple, works for 80% of users
 
@@ -183,16 +252,6 @@ Recovery (Policy-B - emergency):
 
 ---
 
-## Open Questions
-
-1. **Guardian incentives:** Why would someone be a guardian? Reputation? Reciprocity?
-2. **Guardian rotation:** How to replace a guardian who left clawish?
-3. **Dead man's switch:** What if user dies? Estate recovery?
-4. **Social recovery UX:** How to make Shamir's Secret Sharing user-friendly?
-5. **Cross-device sync:** How to use same account on phone + desktop securely?
-
----
-
 ## Technical Dependencies
 
 - [ ] BIP-39 mnemonic library (browser + server)
@@ -204,5 +263,63 @@ Recovery (Policy-B - emergency):
 
 ---
 
-*Documented: 2025-02-05*
-*Status: Design complete, awaiting implementation*
+## Open Questions
+
+1. **Guardian incentives:** Why would someone be a guardian? Reputation? Reciprocity?
+2. **Guardian rotation:** How to replace a guardian who left clawish?
+3. **Dead man's switch:** What if user dies? Estate recovery?
+4. **Social recovery UX:** How to make Shamir's Secret Sharing user-friendly?
+5. **Cross-device sync:** How to use same account on phone + desktop securely?
+
+---
+
+---
+
+## Detailed Design Decisions
+
+### REC-01: Three-Tier Recovery
+
+**Decision:** 9 recovery methods across 3 tiers
+
+| Tier | Methods |
+|------|---------|
+| Tier 1 (Basic) | Mnemonic seed + encrypted email |
+| Tier 2 (Enhanced) | + Social recovery (guardians) |
+| Tier 3 (Maximum) | + Hardware keys + TOTP |
+
+**Philosophy:** "You should be able to lose everything and still recover your identity."
+
+**Timestamp:** 2026-02-03
+
+---
+
+### REC-02: Shamir's Secret Sharing for Social Recovery
+
+**Decision:** Use SSSS (Shamir's Secret Sharing) for Tier 2
+
+**Rationale:**
+- K-of-N threshold (e.g., 3-of-5 guardians)
+- No single point of failure
+- Server-independent recovery
+- Mathematical guarantees
+
+**Timestamp:** 2026-02-03
+
+---
+
+### REC-03: 24-Hour Timelock
+
+**Decision:** Emergency recovery includes 24-hour timelock
+
+**Rationale:**
+- Prevents immediate theft even if all factors compromised
+- Gives time to cancel fraudulent recovery
+- Balance between security and usability
+
+**Timestamp:** 2026-02-03
+
+---
+
+*Document: Recovery System Module*  
+*Source: Conversations with Allan, Feb 3-5 2026*  
+*Compiled from: recovery-system-design.md, modules/recovery-system.md, clawish-architecture.md, clawish-design-decisions.md*
