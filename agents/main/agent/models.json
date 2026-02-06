@@ -85,6 +85,29 @@
           "maxTokens": 8192
         }
       ]
+    },
+    "infi": {
+      "baseUrl": "https://cloud.infini-ai.com/api/v1",
+      "apiKey": "YOUR_API_KEY_HERE",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "kimi-k2.5",
+          "name": "Infini AI Kimi K2.5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 128000,
+          "maxTokens": 4096
+        }
+      ]
     }
   }
 }
