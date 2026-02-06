@@ -17,14 +17,103 @@
 
 ---
 
+## Core Concepts: Recovery vs Key Rotation
+
+**Critical Distinction:** These are fundamentally different operations.
+
+| Concept | Definition | Who Controls | Server Role |
+|---------|-----------|--------------|-------------|
+| **Recovery** | User finds their **own** private key using mnemonic | **User only** (client-side) | **None** — completely offline |
+| **Key Rotation Type A** | User **has** old key, wants new key pair | User signs with **old key** | Verifies signature, updates record |
+| **Key Rotation Type B** | User **lost** private key, needs account back | User proves identity via **email/TOTP** | Validates proof, enforces time delay |
+
+### Recovery (Self-Service, Zero Server Trust)
+
+**Flow:**
+```
+User has: 12-word mnemonic (written on paper)
+         ↓
+Client-side: mnemonic → seed → Ed25519 key pair (same as original)
+         ↓
+User now has: private key (same as before)
+         ↓
+Use normally: sign requests, access account
+```
+
+**Key points:**
+- ✅ **No server involvement** — happens entirely on user's device
+- ✅ **No "recovery request"** — user just regenerates their key
+- ✅ **Same key** — mnemonic deterministically generates same Ed25519 key
+- ✅ **Instant** — no delays, no approvals
+
+### Key Rotation Type A (Cryptographic Proof)
+
+**When:** User has old private key, wants to rotate to new key pair
+
+**Flow:**
+```
+User has: old_private_key + old_public_key (registered)
+         ↓
+Generates: new_private_key + new_public_key
+         ↓
+Signs rotation request: 
+  sign(old_private_key, "ROTATE|old_pk|new_pk|timestamp")
+         ↓
+Sends to server: 
+  old_public_key, new_public_key, signature, timestamp
+         ↓
+Server verifies:
+  verify(old_public_key, signature, "ROTATE|old_pk|new_pk|timestamp")
+         ↓
+If valid: Update record (old_pk → new_pk), keep key history
+```
+
+**Key points:**
+- ✅ **Cryptographic proof** — proves possession of old key
+- ✅ **Immediate** — no delays if signature valid
+- ✅ **Key history preserved** — can still verify old signatures
+- ⚠️ **Requires old key** — if lost, must use Type B
+
+### Key Rotation Type B (Trust-Based Recovery)
+
+**When:** User **lost** private key, cannot prove cryptographically
+
+**Flow:**
+```
+User lost: private key (no mnemonic, no backup)
+         ↓
+Requests: Key rotation via email verification
+         ↓
+Server sends: Verification code to pre-registered email
+         ↓
+User enters: Code + password to decrypt email backup
+         ↓
+Server validates:
+  - Code correct?
+  - Email hash matches?
+  - Decryption successful?
+         ↓
+If valid: ⏳ TIME DELAY enforced (24-48 hours)
+         ↓
+After delay: Allow key rotation to new key pair
+```
+
+**Key points:**
+- ⚠️ **Higher friction** — no cryptographic proof, so extra security
+- ⚠️ **Time delay** — prevents immediate theft if email compromised
+- ✅ **Uses pre-registered recovery** — email set up during registration
+- ✅ **Last resort** — when all else fails
+
+---
+
 ## Method Categories
 
-| Category | Purpose | When Used |
-|----------|---------|-----------|
-| **Verification Only** | Prove identity/creation at registration | Tier 0 → Tier 1 |
-| **Recovery Only** | Regain access after losing private key | Emergency access |
-| **Operations** | High-risk actions (key rotation, etc.) | Sensitive operations |
-| **Both (Verification + Recovery)** | Prove identity AND enable recovery | Flexible dual-use |
+| Category | Purpose | When Used | Server Involvement |
+|----------|---------|-----------|-------------------|
+| **Verification Only** | Prove identity/creation at registration | Tier 0 → Tier 1 | Validates proof |
+| **Recovery Only** | **User regenerates their own key** using mnemonic (client-side, **no server**) | Lost key, have mnemonic | **Zero** — happens offline on user's device |
+| **Operations** | High-risk actions (key rotation, etc.) | Sensitive operations | Validates signature or proof |
+| **Both (Verification + Recovery)** | Prove identity AND enable account recovery | Flexible dual-use | Varies by method |
 
 ---
 
