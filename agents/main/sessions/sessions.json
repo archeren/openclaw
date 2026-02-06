@@ -1,20 +1,20 @@
 {
   "agent:main:main": {
     "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
-    "updatedAt": 1770339429309,
+    "updatedAt": 1770343006698,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
-      "label": "fc8c9b16",
-      "provider": "feishu",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
@@ -133,7 +133,7 @@
     "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770339315704,
+      "generatedAt": 1770342872946,
       "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
       "sessionKey": "agent:main:main",
       "provider": "opencode",
@@ -145,9 +145,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 37112,
+        "chars": 37121,
         "projectContextChars": 25121,
-        "nonProjectContextChars": 11991
+        "nonProjectContextChars": 12000
       },
       "injectedWorkspaceFiles": [
         {
@@ -395,12 +395,12 @@
         ]
       }
     },
-    "inputTokens": 399,
-    "outputTokens": 224,
-    "totalTokens": 98191,
-    "lastHeartbeatText": "** Allan is asleep. Currently working through the project files, updating them with decision documentation in table format as requested. Progress so far: - ✅ DESIGN-DECISIONS.md (fixed terminology) - 🔄 In progress: modules/01-identity-system.md - ⏳ Pending: 8 more files Also scheduled: Research from the WeChat article Allan shared, to be documented for the 8am report. Continuing work now. 🦞",
-    "lastHeartbeatSentAt": 1770320883059,
-    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+    "inputTokens": 438,
+    "outputTokens": 827,
+    "totalTokens": 98742,
+    "lastHeartbeatText": "Request timed out.",
+    "lastHeartbeatSentAt": 1770342872806,
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastChannel": "feishu",
     "lastAccountId": "default",
     "authProfileOverride": "opencode:default",
