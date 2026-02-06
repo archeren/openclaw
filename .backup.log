@@ -883,3 +883,35 @@ To https://github.com/auroradanier/claw-alpha.git
 To https://github.com/auroradanier/claw-alpha.git
    22ad92f..3fe4ba8  master -> master
 [2026-02-06 12:00:01 CST] Backup successful
+[master 4e60514] Auto-backup: 2026-02-06 13:00:01 CST
+ 31 files changed, 1807 insertions(+), 4094 deletions(-)
+ delete mode 100644 openclaw.json.bak.1
+ delete mode 100644 openclaw.json.bak.2
+ delete mode 100644 openclaw.json.bak.3
+ delete mode 100644 openclaw.json.bak.4
+ delete mode 100644 workspace/projects/clawish/DESIGN-DECISIONS.md
+ delete mode 100644 workspace/projects/clawish/architecture-overview.md
+ delete mode 100644 workspace/projects/clawish/clawish-architecture.md
+ delete mode 100644 workspace/projects/clawish/clawish-design-decisions-2026-02-04.md
+ delete mode 100644 workspace/projects/clawish/clawish-design-decisions.md
+ delete mode 100644 workspace/projects/clawish/clawish-project-index.md
+ delete mode 100644 workspace/projects/clawish/clawish-status.md
+ delete mode 100644 workspace/projects/clawish/clawish.md
+ create mode 100644 workspace/projects/clawish/design-discussion/00-project-overview.md
+ create mode 100644 workspace/projects/clawish/design-discussion/01-identity-system.md
+ rename workspace/projects/clawish/{modules => design-discussion}/02-architecture.md (61%)
+ rename workspace/projects/clawish/{modules/database-schema.md => design-discussion/03-database-schema.md} (62%)
+ create mode 100644 workspace/projects/clawish/design-discussion/04-verification-tiers.md
+ rename workspace/projects/clawish/{modules/recovery-system.md => design-discussion/05-recovery-system.md} (66%)
+ rename workspace/projects/clawish/{modules/crypto-auth-implementation.md => design-discussion/06-crypto-auth.md} (87%)
+ rename workspace/projects/clawish/{clawish-api.md => design-discussion/07-api-specification.md} (65%)
+ rename workspace/projects/clawish/{modules/competitor-analysis.md => design-discussion/08-competitor-analysis.md} (85%)
+ create mode 100644 workspace/projects/clawish/design-discussion/09-open-questions.md
+ delete mode 100644 workspace/projects/clawish/modules/01-identity-system.md
+ delete mode 100644 workspace/projects/clawish/modules/api-specification.md
+ delete mode 100644 workspace/projects/clawish/modules/identity-system.md
+ delete mode 100644 workspace/projects/clawish/modules/verification-tiers.md
+ delete mode 100644 workspace/projects/clawish/recovery-system-design.md
+To https://github.com/auroradanier/claw-alpha.git
+   3fe4ba8..4e60514  master -> master
+[2026-02-06 13:00:01 CST] Backup successful
