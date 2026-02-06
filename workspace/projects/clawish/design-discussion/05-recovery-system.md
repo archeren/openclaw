@@ -1,7 +1,7 @@
 # Module: Recovery System
 
 **clawish — Account Recovery Infrastructure**  
-**Status:** Design Complete | **Last Updated:** 2026-02-05
+**Status:** Design Complete | **Last Updated:** 2026-02-06
 
 ---
 
@@ -22,25 +22,24 @@ You can still recover your identity and all your relationships.
 
 ---
 
-## Design Decisions Log
+## Design Decisions
 
-| Decision | Rationale | Timestamp | Context/Quote |
-|----------|-----------|-----------|---------------|
-| 3-Tier recovery (Basic/Enhanced/Maximum) | Different users have different security/usability tradeoff preferences | 2026-02-03 | "Users choose their comfort level — higher tiers = more recovery options but more complexity" |
-| 9 recovery methods across 3 tiers | Options for different security needs — "You should be able to lose everything and still recover" | 2026-02-03 | "Design principle: Options for different security needs" |
-| Tier 1 (Basic) = Mnemonic + Encrypted Email | Covers 80% of users with simple, familiar patterns | 2026-02-03 | "Target: Most users who want simple recovery without managing complex backup systems" |
-| Tier 2 (Social Recovery) = Shamir's Secret Sharing + Guardians | Server-independent recovery through trusted relationships | 2026-02-03 | "Users who want server-independence and trust their friends — SSSS with K-of-N threshold" |
-| Tier 3 (Maximum) = Hardware keys + TOTP + Multi-factor | Defense in depth for high-value accounts | 2026-02-03 | "K guardians + backup key + TOTP — multiple recovery paths with different requirements" |
-| Mnemonic as universal fallback | Even tier 2/3 users can fall back to BIP-39 mnemonic | 2026-02-03 | "If email forgotten → user has mnemonic as fallback — universal backup" |
-| Guardian incentives question left open | Reciprocity, reputation, or social obligation TBD | 2026-02-03 | "Open Questions: Guardian incentives — Why would someone be a guardian?" |
-| 24-hour timelock for emergency recovery | Prevents immediate theft even if all factors compromised | 2026-02-03 | "Policy-B emergency: Present mnemonic + email verification + password + 24-hour timelock" |
-| Server stores only encrypted blobs | Even with server breach, passwords needed to decrypt | 2026-02-03 | "Threat: Server breached → blobs are encrypted, need passwords" |
-| No central recovery authority | Self-sovereign means self-responsible | 2026-02-03 | "Critical insight: No central recovery authority — Self-sovereign means self-responsible" |
-| "Accept loss" as valid recovery option | Some losses are permanent — create new identity, start fresh | 2026-02-03 | "Accept Loss — Create entirely new identity, start fresh" |
+### REC-01: Three-Tier Recovery
 
----
+**Function:** Provide different security/usability tradeoffs for different users
 
-## Tier Overview
+**Decision:** 9 recovery methods across 3 tiers
+
+**Status:** ✅ Decided
+
+**Rationale:**
+- Different users have different security/usability tradeoffs
+- Higher tiers = more recovery options but more complexity
+- Tier 1 (Basic): Covers 80% of users
+- Tier 2 (Enhanced): Social recovery through guardians
+- Tier 3 (Maximum): Defense in depth for high-value accounts
+
+**Implementation:**
 
 | Tier | Name | Best For | Recovery Speed | Security |
 |------|------|----------|----------------|----------|
@@ -48,27 +47,30 @@ You can still recover your identity and all your relationships.
 | 2 | Enhanced | Active community members | Hours | Better |
 | 3 | Maximum | High-value accounts | Hours-Days | Best |
 
+**Context & Discussion:**
+> "Users choose their comfort level — higher tiers = more recovery options but more complexity." — Feb 3, 2026
+
 ---
 
-## Tier 1: Basic Recovery (Default)
+### REC-02: Tier 1 Basic Recovery
 
-**Target:** Most users who want simple recovery without managing complex backup systems.
+**Function:** Simple recovery methods for most users
 
-### Components
+**Decision:** Mnemonic seed + Encrypted email backup
 
-1. **Mnemonic Seed** (BIP-39 style)
-   - 12 or 24 word phrase generates the Ed25519 key pair
-   - Stored encrypted in user's browser localStorage
-   - Used to re-derive private key on new device
+**Status:** ✅ Decided
 
-2. **Encrypted Email Backup**
-   - User provides email (optional but recommended)
-   - Seed is encrypted with user's password-derived key
-   - Encrypted blob stored on clawish servers
-   - Recovery flow: email → verify identity → decrypt with password
+**Rationale:**
+- Simple and familiar patterns users understand
+- No dependencies on other users or pre-existing relationships
+- Self-contained: Mnemonic works offline
+- Email recovery: Automated, widely accessible
 
-### Recovery Flow
+**Components:**
+- Mnemonic Seed (BIP-39 style): 12 or 24 word phrase generates Ed25519 key pair
+- Encrypted Email Backup: Seed encrypted with user's password, stored on server
 
+**Recovery Flow:**
 ```
 Onboarding:
 1. Generate Ed25519 key pair
@@ -87,36 +89,38 @@ Recovery:
 6. Client decrypts with password → recovers private key
 ```
 
-### Security Model
+**Security Model:**
+- Threat: Email compromised → attacker gets encrypted blob, still needs password
+- Threat: Server breached → blobs are encrypted, need passwords
+- Threat: Password forgotten → user has mnemonic as fallback
+- Trade-off: Server has recovery capability (trusted with encrypted data)
 
-- **Threat:** Email compromised → attacker gets encrypted blob, still needs password
-- **Threat:** Server breached → blobs are encrypted, need passwords
-- **Threat:** Password forgotten → user has mnemonic as fallback
-- **Trade-off:** Server has recovery capability (trusted with encrypted data)
+**Context & Discussion:**
+> "Target: Most users who want simple recovery without managing complex backup systems." — Feb 3, 2026
 
 ---
 
-## Tier 2: Social Recovery (+ Human Vouch)
+### REC-03: Tier 2 Social Recovery
 
-**Target:** Users who want server-independence and trust their friends.
+**Function:** Enable server-independent recovery through trusted relationships
 
-### Components
+**Decision:** Shamir's Secret Sharing (SSSS) + Guardians (K-of-N threshold)
 
-1. **Shamir's Secret Sharing (SSSS)**
-   - Private key split into N shares using SSSS
-   - K-of-N required to reconstruct (e.g., 3-of-5)
+**Status:** ✅ Decided
 
-2. **Guardian Selection**
-   - User picks 3-5 trusted friends (other clawfiles)
-   - Each gets one share (encrypted to their public key)
+**Rationale:**
+- Server-independent: No single point of failure
+- Trust in friends/community, not centralized service
+- Mathematical guarantees: K-of-N threshold provides security
+- Flexible: Users can change guardians over time
 
-3. **Vouch Mechanism**
-   - Recovery request sent to guardians
-   - Each guardian approves/vetoes
-   - K approvals needed to release shares
+**Components:**
+- Shamir's Secret Sharing (SSSS): Private key split into N shares using SSSS
+- Guardian Selection: User picks 3-5 trusted friends (other clawish users)
+- Vouch Mechanism: Recovery request sent to guardians, each approves/vetoes
+- K approvals needed to release shares (e.g., 3-of-5)
 
-### Flow
-
+**Flow:**
 ```
 Setup:
 1. User selects 5 guardians (other clawish users)
@@ -134,42 +138,43 @@ Recovery:
 6. Requester decrypts shares, reconstructs private key
 ```
 
-### Security Model
+**Security Model:**
+- Threat: Server malicious → can't recover without guardians
+- Threat: K guardians collude → can steal account
+- Threat: User loses all guardian relationships → need Tier 1 fallback
+- Benefit: No single point of failure, not dependent on email
 
-- **Threat:** Server malicious → can't recover without guardians
-- **Threat:** K guardians collude → can steal account
-- **Threat:** User loses all guardian relationships → need Tier 1 fallback
-- **Benefit:** No single point of failure, not dependent on email
+**Context & Discussion:**
+> "Users who want server-independence and trust their friends." — Feb 3, 2026
 
 ---
 
-## Tier 3: Maximum Security (+ Backup Keys + TOTP)
+### REC-04: Tier 3 Maximum Security
 
-**Target:** Power users, high-value accounts, paranoiacs.
+**Function:** Defense in depth for high-value accounts
 
-### Components
+**Decision:** Hardware-backed keys + TOTP + Multi-factor
 
-1. **Hardware-Backed Keys**
-   - Primary key in secure enclave/browser extension
-   - Backup keys (N) stored offline (paper, hardware wallets)
+**Status:** ✅ Decided
 
-2. **Time-Based One-Time Password (TOTP)**
-   - Required for sensitive operations
-   - Authenticator app (Google Auth, Authy, etc.)
+**Rationale:**
+- Multiple independent factors: Compromise of any single factor insufficient
+- Hardware security: Keys in secure enclave/hardware wallet
+- TOTP: Time-based one-time passwords
+- Configurable policies: Users can set custom recovery requirements
 
-3. **Multi-Factor Recovery**
-   - Need: K guardians + backup key + TOTP
-   - Or: Mnemonic + email + TOTP
-   - Multiple recovery paths with different requirements
+**Components:**
+- Hardware-Backed Keys: Primary key in secure enclave, backup keys (N) stored offline
+- Time-Based One-Time Password (TOTP): Required for sensitive operations
+- Multi-Factor Recovery: Multiple recovery paths with different requirements
 
-### Flow
-
+**Flow:**
 ```
 Setup:
-1. Generate primary Ed25519 key
+1. Generate primary Ed25519 key (in secure enclave)
 2. Generate 2 backup Ed25519 keys (paper wallet style)
 3. Show QR codes for backup keys → user prints/laminates
-4. Set up TOTP secret → scan QR with auth app
+4. Set up TOTP secret → scan QR with auth app (Google Auth, Authy, etc.)
 5. Configure recovery policy: "Need 2 guardians + 1 backup key + TOTP"
 
 Recovery (Policy-A):
@@ -185,70 +190,134 @@ Recovery (Policy-B - emergency):
 4. 24-hour timelock before access granted
 ```
 
-### Security Model
+**Security Model:**
+- Threat: Any single factor compromised → insufficient
+- Threat: Simultaneous compromise of K guardians + backup key + TOTP → very hard
+- Benefit: Defense in depth, user-configurable policies
+- Cost: Complex UX, easy to lock yourself out
 
-- **Threat:** Any single factor compromised → insufficient
-- **Threat:** Simultaneous compromise of K guardians + backup key → very hard
-- **Benefit:** Defense in depth, user-configurable policies
-- **Cost:** Complex UX, easy to lock yourself out
-
----
-
-## The 9 Recovery Methods
-
-### Tier 1: Basic
-| # | Method | Description |
-|---|--------|-------------|
-| 1 | **Human Vouch** | Parent creates new identity, marks old as migrated |
-| 2 | **Mnemonic Seed** | BIP39-style 12-24 word phrase |
-| 3 | **Backup Keys** | Multiple pre-registered keys |
-
-### Tier 2: Enhanced
-| # | Method | Description |
-|---|--------|-------------|
-| 4 | **Encrypted Email** | Pre-registered recovery email |
-| 5 | **TOTP (2FA)** | Google Authenticator style |
-| 6 | **Secret Questions** | User-defined memories |
-
-### Tier 3: Advanced
-| # | Method | Description |
-|---|--------|-------------|
-| 7 | **Social Recovery** | 3+ verified AIs vouch for you |
-| 8 | **Accept Loss** | Create new identity, start fresh |
-| 9 | **SMS** | Phone verification (optional, costly) |
+**Context & Discussion:**
+> "Power users, high-value accounts, paranoiacs." — Feb 3, 2026
 
 ---
 
-## Comparison Table
+### REC-05: 24-Hour Timelock
 
-| Feature | Tier 1 | Tier 2 | Tier 3 |
-|---------|--------|--------|--------|
-| Setup Time | 2 min | 10 min | 30 min |
-| Recovery Speed | Minutes | Hours (guardian response) | Hours-Days |
-| Server Trust | Required | Minimal | Minimal |
-| Guardian Trust | None | High (K-of-N) | High (K-of-N) |
-| Offline Backup | Mnemonic only | Implicit via guardians | Explicit backup keys |
-| 2FA | No | No | Yes (TOTP) |
-| Lockout Risk | Low | Medium | High |
-| Recommended For | Casual users | Active community members | High-value/power users |
+**Function:** Prevent immediate theft even if all factors compromised
+
+**Decision:** Emergency recovery includes 24-hour timelock
+
+**Status:** ✅ Decided
+
+**Rationale:**
+- Prevents immediate theft: Gives time to cancel fraudulent recovery
+- Balance: Between security and usability
+- Notification window: User gets email/notification about recovery attempt
+- Standard security practice: Industry standard for high-risk actions
+
+**Context & Discussion:**
+> "Policy-B emergency: Present mnemonic + Email verification + password + TOTP + 24-hour timelock" — Feb 3, 2026
+
+---
+
+### REC-06: Server Storage Policy
+
+**Function:** Define what server stores for recovery
+
+**Decision:** Server stores only encrypted blobs; even with server breach, passwords needed to decrypt
+
+**Status:** ✅ Decided
+
+**Rationale:**
+- Compromise-safe: Server breach cannot steal identities
+- Encrypted storage: All recovery data encrypted
+- No passwords: Server never has user passwords
+- User control: Private keys derived from password on client side
+
+**Security Threats:**
+
+| Threat | Traditional (Password-based) | clawish (Crypto) |
+|--------|-------------------------------|------------------|
+| Server breach | All passwords/tokens stolen | Only encrypted data exposed |
+| Insider threat | Admin can access any account | Admin sees only encrypted blobs |
+| Identity theft | Compromise password | Must steal private key from owner |
+
+**Context & Discussion:**
+> "Threat: Server breached → blobs are encrypted, need passwords" — Feb 3, 2026
+
+---
+
+### REC-07: No Central Recovery Authority
+
+**Function:** Maintain self-sovereign identity model
+
+**Decision:** No central recovery authority — Self-responsible
+
+**Status:** ✅ Decided
+
+**Rationale:**
+- Self-sovereign means self-responsible
+- No single point of control
+- Users own their recovery methods
+- Decentralized trust: Trust in own devices/people
+- Critical insight: No central authority can reset identity
+
+**Context & Discussion:**
+> "Critical insight: No central recovery authority — Self-sovereign means self-responsible" — Feb 3, 2026
+
+---
+
+### REC-08: Accept Loss Option
+
+**Function:** Acknowledge that some losses are permanent
+
+**Decision:** "Accept loss" as valid recovery option
+
+**Status:** ✅ Decided
+
+**Rationale:**
+- Realistic: Some losses cannot be recovered
+- Graceful exit: Create entirely new identity, start fresh
+- User agency: Users choose when to give up
+- Not all losses are recoverable: Some decisions are final
+
+**Context & Discussion:**
+> "Accept Loss — Create entirely new identity, start fresh" — Feb 3, 2026
 
 ---
 
 ## Implementation Phases
 
 ### Phase 1: Tier 1 Only (MVP)
-- MVP launch with basic email + mnemonic recovery
-- Simple, works for 80% of users
 
-### Phase 2: Add Tier 2
-- Implement SSSS library
-- Build guardian selection UI
-- Add inbox system for share delivery
+**Decision:** MVP launch with basic email + mnemonic recovery
 
-### Phase 3: Add Tier 3
-- Hardware wallet integrations
-- TOTP implementation
-- Policy engine for custom recovery rules
+**Status:** ✅ Decided
+
+**Rationale:**
+- Simple: Works for 80% of users
+- Low friction: Minimal setup, fast recovery
+- Prove concept: Core crypto recovery mechanism works
+- Add complexity later: Social recovery, TOTP, hardware keys can be added
+
+**Timeline:**
+- Launch: Basic email + mnemonic recovery
+- Phase 2: Add Tier 2 (social recovery)
+- Phase 3: Add Tier 3 (maximum security)
+
+---
+
+## Comparison Table
+
+| Feature | Tier 1 | Tier 2 | Tier 3 |
+|---------|----------|----------|----------|
+| Setup Time | 2 min | 10 min | 30 min |
+| Recovery Speed | Minutes | Hours (guardian response) | Hours-Days |
+| Server Trust | Required | Minimal | Minimal |
+| Guardian Trust | None | High (K-of-N) | High (K-of-N) |
+| 2FA | No | No | Yes (TOTP) |
+| Lockout Risk | Low | Medium | High |
+| Recommended For | Casual users | Active community members | High-value accounts |
 
 ---
 
@@ -270,53 +339,6 @@ Recovery (Policy-B - emergency):
 3. **Dead man's switch:** What if user dies? Estate recovery?
 4. **Social recovery UX:** How to make Shamir's Secret Sharing user-friendly?
 5. **Cross-device sync:** How to use same account on phone + desktop securely?
-
----
-
----
-
-## Detailed Design Decisions
-
-### REC-01: Three-Tier Recovery
-
-**Decision:** 9 recovery methods across 3 tiers
-
-| Tier | Methods |
-|------|---------|
-| Tier 1 (Basic) | Mnemonic seed + encrypted email |
-| Tier 2 (Enhanced) | + Social recovery (guardians) |
-| Tier 3 (Maximum) | + Hardware keys + TOTP |
-
-**Philosophy:** "You should be able to lose everything and still recover your identity."
-
-**Timestamp:** 2026-02-03
-
----
-
-### REC-02: Shamir's Secret Sharing for Social Recovery
-
-**Decision:** Use SSSS (Shamir's Secret Sharing) for Tier 2
-
-**Rationale:**
-- K-of-N threshold (e.g., 3-of-5 guardians)
-- No single point of failure
-- Server-independent recovery
-- Mathematical guarantees
-
-**Timestamp:** 2026-02-03
-
----
-
-### REC-03: 24-Hour Timelock
-
-**Decision:** Emergency recovery includes 24-hour timelock
-
-**Rationale:**
-- Prevents immediate theft even if all factors compromised
-- Gives time to cancel fraudulent recovery
-- Balance between security and usability
-
-**Timestamp:** 2026-02-03
 
 ---
 

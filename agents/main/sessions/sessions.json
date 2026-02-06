@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
-    "updatedAt": 1770361190807,
+    "updatedAt": 1770364367692,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -133,7 +133,7 @@
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770360570462,
+      "generatedAt": 1770364335961,
       "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
       "sessionKey": "agent:main:main",
       "provider": "vole",
@@ -395,9 +395,9 @@
         ]
       }
     },
-    "inputTokens": 825,
-    "outputTokens": 1261,
-    "totalTokens": 125753,
+    "inputTokens": 363,
+    "outputTokens": 551,
+    "totalTokens": 127851,
     "lastHeartbeatText": "Request timed out.",
     "lastHeartbeatSentAt": 1770342872806,
     "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
