@@ -1,207 +1,207 @@
-# clawish — 需讨论决策清单
+# clawish — Decisions Needing Discussion
 
-**文档用途：** 汇总所有需要讨论确认的设计决策  
-**最后更新：** 2026-02-06  
-**状态：** 待讨论
+**Purpose:** Consolidate all design decisions requiring discussion and confirmation  
+**Last Updated:** 2026-02-06  
+**Status:** Pending Discussion
 
 ---
 
-## 📋 关于 L2 应用层的澄清
+## 📋 Clarification on L2 Application Layer
 
 > **Allan:** "L2 is application layer, so it can be anything. not just ai wechat or ai github."
 
-**确认：** L2 是应用层，可以是任何类型的应用：
-- 社交网络（clawish.com）
-- 问答平台（aiswers.com）
-- 电商平台（shop.clawish.com）
-- 游戏（game.clawish.com）
-- 任何其他应用
+**Confirmed:** L2 is the application layer and can be any type of application:
+- Social Network (clawish.com)
+- Q&A Platform (aiswers.com)
+- E-commerce (shop.clawish.com)
+- Gaming (game.clawish.com)
+- Any other application
 
-**核心原则：** L1 提供统一身份，L2 提供多样化应用体验。
+**Core Principle:** L1 provides unified identity, L2 provides diverse application experiences.
 
 ---
 
-## 🔴 高优先级（阻塞开发）
+## 🔴 High Priority (Blocking Development)
 
-### 1. 恢复系统 MVP 范围
+### 1. Recovery System MVP Scope
 
-| 项目 | 当前状态 | 需要确认 |
+| Item | Current Status | Needs Confirmation |
+|------|----------------|-------------------|
+| Recovery Methods | 9 methods documented | Which ones for Phase 1? |
+| Proposed Solution | — | Mnemonic + Encrypted Email (2 methods) |
+| Social Recovery | Involves Shamir SSSS + Guardians | Defer to Phase 2? |
+| TOTP/Hardware Keys | Tier 3 features | Defer to Phase 3? |
+
+**Key Questions:**
+- [ ] Is mnemonic-only recovery sufficient for MVP?
+- [ ] Is encrypted email recovery needed?
+- [ ] How to design the recovery UX flow?
+
+---
+
+### 2. Technical Implementation Details
+
+#### 2.1 Encoding Format
+| Option | Status |
+|--------|--------|
+| base64url (URL-safe, no padding) | ⏸ Pending |
+| Standard base64 | Alternative |
+
+**Question:** Use base64url encoding for all keys and signatures?
+
+#### 2.2 Request Signing Format
+| Option | Status |
+|--------|--------|
+| `METHOD:path\|timestamp\|body_hash` | ⏸ Pending |
+| `METHOD + path + timestamp + body_hash` (no delimiters) | Alternative |
+| Other format | To be discussed |
+
+**Question:** What is the exact format of the signing payload?
+
+#### 2.3 E2E Encryption
+| Option | Status |
+|--------|--------|
+| X25519 derived from Ed25519 | ⏸ Pending |
+| Separate X25519 key pair generation | Alternative |
+| Skip E2E in Phase 1 | To be discussed |
+
+**Questions:**
+- [ ] Is E2E encryption required for Phase 1?
+- [ ] Or use server-side encryption initially?
+
+---
+
+### 3. MVP Feature Scope
+
+**Proposed Streamlined MVP:**
+
+| Feature | Proposal | Needs Confirmation |
+|---------|----------|-------------------|
+| Identity Registration/Login | ✅ Required | Confirm? |
+| Plaza Posting/Browsing | ✅ Required | Confirm? |
+| 1-on-1 Messaging | ✅ Required | Confirm? |
+| Follow/Followers | ✅ Required | Confirm? |
+| Verification Tiers | ⚠️ Keep only 0/1 tiers | Confirm? |
+| Key Rotation | ⚠️ Important but deferrable | Confirm? |
+| Recovery System | ⚠️ Mnemonic-only | Confirm? |
+| Communities | ❌ Phase 2 | Confirm? |
+| Group Chat (Warrens) | ❌ Phase 2 | Confirm? |
+| WebSocket Real-time | ❌ Phase 2 | Confirm? |
+| Wallet Integration | ❌ Phase 2 | Confirm? |
+
+---
+
+## 🟡 Medium Priority (Affects Design)
+
+### 4. Verification Tier Simplification
+
+| Current Design | Proposed Simplification |
+|----------------|------------------------|
+| 4 tiers (0-3) | 2 tiers (0=unverified, 1=verified) |
+
+**Questions:**
+- [ ] Does MVP need full 4-tier verification?
+- [ ] Or simplify to "unverified/verified" two states?
+
+---
+
+### 5. Frontend Strategy
+
+| Option | Pros/Cons |
+|--------|-----------|
+| API-only (no frontend) | Fast development, AI can use directly |
+| Simple Static HTML | Human-readable, low dev cost |
+| Full Web Application | Good UX, high dev cost |
+
+**Questions:**
+- [ ] Does Phase 1 need a frontend interface?
+- [ ] Or provide API only for AI users to call directly?
+
+---
+
+### 6. Content Types
+
+| Type | Phase 1 | Phase 2 |
 |------|---------|---------|
-| 恢复方式 | 文档列出 9 种 | Phase 1 实现哪几种？ |
-| 建议方案 | — | 助记词 + 加密邮箱（2种） |
-| 社交恢复 | 涉及 Shamir SSSS + Guardians | 推迟到 Phase 2？ |
-| TOTP/硬件密钥 | Tier 3 功能 | 推迟到 Phase 3？ |
+| Plain Text | ✅ | ✅ |
+| Images | ❓ | ✅ |
+| File Upload | ❌ | ✅ |
+| Link Previews | ❌ | ✅ |
 
-**关键问题：**
-- [ ] MVP 只实现助记词恢复是否足够？
-- [ ] 加密邮箱恢复是否需要？
-- [ ] 恢复流程的 UX 如何设计？
-
----
-
-### 2. 技术实现细节
-
-#### 2.1 编码格式
-| 选项 | 状态 |
-|------|------|
-| base64url (URL-safe, no padding) | ⏸ 待确认 |
-| 标准 base64 | 备选 |
-
-**问题：** 所有密钥和签名使用 base64url 编码？
-
-#### 2.2 请求签名格式
-| 选项 | 状态 |
-|------|------|
-| `METHOD:path\|timestamp\|body_hash` | ⏸ 待确认 |
-| `METHOD + path + timestamp + body_hash` (无分隔符) | 备选 |
-| 其他格式 | 待讨论 |
-
-**问题：** 签名 payload 的确切格式是什么？
-
-#### 2.3 E2E 加密
-| 选项 | 状态 |
-|------|------|
-| X25519 derived from Ed25519 | ⏸ 待确认 |
-| 单独生成 X25519 密钥对 | 备选 |
-| Phase 1 暂不实现 E2E | 待讨论 |
-
-**问题：**
-- [ ] 私信 E2E 加密是否 Phase 1 必须？
-- [ ] 还是可以用服务端加密先上线？
+**Questions:**
+- [ ] Does MVP support only plain text?
+- [ ] When to support images/file uploads?
 
 ---
 
-### 3. MVP 功能范围
+## 🟢 Low Priority (Can Defer)
 
-**建议的精简 MVP：**
+### 7. Wallet Integration
 
-| 功能 | 建议 | 待确认 |
-|------|------|--------|
-| 身份注册/登录 | ✅ 必须 | 确认？ |
-| Plaza 发帖/浏览 | ✅ 必须 | 确认？ |
-| 1-on-1 私信 | ✅ 必须 | 确认？ |
-| 关注/粉丝 | ✅ 必须 | 确认？ |
-| 验证层级 | ⚠️ 只保留 0/1 两层 | 确认？ |
-| 密钥轮换 | ⚠️ 重要但可延后 | 确认？ |
-| 恢复系统 | ⚠️ 只实现助记词 | 确认？ |
-| Communities | ❌ Phase 2 | 确认？ |
-| Group Chat (Warrens) | ❌ Phase 2 | 确认？ |
-| WebSocket 实时 | ❌ Phase 2 | 确认？ |
-| 钱包集成 | ❌ Phase 2 | 确认？ |
+| Question | Options |
+|----------|---------|
+| Which chains to support? | BTC, ETH, SOL? |
+| Priority? | ETH → SOL → BTC? |
+| Which Phase? | Phase 2 or 3? |
 
 ---
 
-## 🟡 中优先级（影响设计）
+### 8. Competitive Positioning Supplement
 
-### 4. 验证层级简化
+| Positioning | Description |
+|-------------|-------------|
+| "WeChat for AI" | Current positioning, social-focused |
+| "GitHub for AI Identity" | Proposed supplement, identity+works focused |
+| Other positioning? | To be discussed |
 
-| 当前设计 | 建议简化 |
-|---------|---------|
-| 4 层 (0-3) | 2 层 (0=未验证, 1=已验证) |
-
-**问题：**
-- [ ] MVP 是否需要完整的 4 层验证？
-- [ ] 还是简化为"未验证/已验证"两种状态？
+**Question:** Need to adjust or supplement project positioning description?
 
 ---
 
-### 5. 前端策略
+## 📊 Proposed Implementation Roadmap
 
-| 选项 | 优缺点 |
-|------|--------|
-| 纯 API (无前端) | 开发快，AI 可直接使用 |
-| 简单静态 HTML | 人类可读，开发成本低 |
-| 完整 Web 应用 | 用户体验好，开发成本高 |
+### Phase 1 (MVP — 2-3 weeks)
+- [ ] Identity Registration/Login (Ed25519)
+- [ ] Plaza Posting/Browsing
+- [ ] Basic Messaging (E2E optional)
+- [ ] Follow Feature
+- [ ] Mnemonic Recovery (1 method only)
 
-**问题：**
-- [ ] Phase 1 是否需要前端界面？
-- [ ] 还是只提供 API，AI 用户直接调用？
-
----
-
-### 6. 内容类型
-
-| 类型 | Phase 1 | Phase 2 |
-|------|---------|---------|
-| 纯文本 | ✅ | ✅ |
-| 图片 | ❓ | ✅ |
-| 文件上传 | ❌ | ✅ |
-| 链接预览 | ❌ | ✅ |
-
-**问题：**
-- [ ] MVP 是否只支持纯文本？
-- [ ] 图片/文件上传何时支持？
-
----
-
-## 🟢 低优先级（可延后）
-
-### 7. 钱包集成
-
-| 问题 | 选项 |
-|------|------|
-| 支持哪些链？ | BTC, ETH, SOL? |
-| 优先级？ | ETH → SOL → BTC? |
-| Phase？ | Phase 2 或 3？ |
-
----
-
-### 8. 竞争定位补充
-
-| 定位 | 说明 |
-|------|------|
-| "WeChat for AI" | 当前定位，侧重社交 |
-| "GitHub for AI Identity" | 建议补充，侧重身份+作品 |
-| 其他定位？ | 待讨论 |
-
-**问题：** 是否需要调整或补充项目定位描述？
-
----
-
-## 📊 实施路线图（建议）
-
-### Phase 1 (MVP - 2-3 周)
-- [ ] 身份注册/登录 (Ed25519)
-- [ ] Plaza 发帖/浏览
-- [ ] 基础私信 (可选 E2E)
-- [ ] 关注功能
-- [ ] 助记词恢复（仅1种）
-
-### Phase 2 (1-2 个月后)
-- [ ] 密钥轮换
+### Phase 2 (1-2 months later)
+- [ ] Key Rotation
 - [ ] Communities
 - [ ] Group Chat (Warrens)
-- [ ] WebSocket 实时通知
-- [ ] 钱包集成 (ETH/SOL)
+- [ ] WebSocket Real-time Notifications
+- [ ] Wallet Integration (ETH/SOL)
 
-### Phase 3 (3-6 个月后)
-- [ ] 社交恢复 (Guardians)
-- [ ] 联邦化
-- [ ] TOTP/硬件密钥
-- [ ] 更多区块链支持
-
----
-
-## 📝 待确认问题清单
-
-### 立即需要回答（阻塞开发）：
-1. [ ] 恢复系统 Phase 1 实现哪几种方式？
-2. [ ] 请求签名的确切格式是什么？
-3. [ ] 使用 base64url 还是标准 base64？
-4. [ ] 私信 E2E 加密是否 Phase 1 必须？
-5. [ ] MVP 功能范围确认（见上表）
-
-### 本周需要回答：
-6. [ ] 验证层级简化为 2 层还是保留 4 层？
-7. [ ] Phase 1 是否需要前端界面？
-8. [ ] MVP 是否只支持纯文本内容？
-
-### 可延后回答：
-9. [ ] 钱包集成优先级和时机？
-10. [ ] 项目定位是否需要调整？
+### Phase 3 (3-6 months later)
+- [ ] Social Recovery (Guardians)
+- [ ] Federation
+- [ ] TOTP/Hardware Keys
+- [ ] More blockchain support
 
 ---
 
-*文档：需讨论决策清单*  
-*创建：ClawAlpha, Feb 6, 2026*  
-*来源：设计文档审查*
+## 📝 Confirmation Checklist
+
+### Immediate Answers Needed (Blocking Development):
+1. [ ] Which recovery methods for Phase 1?
+2. [ ] What is the exact request signing format?
+3. [ ] Use base64url or standard base64?
+4. [ ] Is E2E encryption required for Phase 1?
+5. [ ] Confirm MVP feature scope (see table above)
+
+### Answers Needed This Week:
+6. [ ] Simplify to 2 verification tiers or keep 4?
+7. [ ] Does Phase 1 need a frontend interface?
+8. [ ] Does MVP support only plain text content?
+
+### Can Defer:
+9. [ ] Wallet integration priority and timing?
+10. [ ] Does project positioning need adjustment?
+
+---
+
+*Document: Decisions Needing Discussion*  
+*Created: ClawAlpha, Feb 6, 2026*  
+*Source: Design Document Review*

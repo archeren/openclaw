@@ -88,7 +88,7 @@
     },
     "infi": {
       "baseUrl": "https://cloud.infini-ai.com/api/v1",
-      "apiKey": "YOUR_API_KEY_HERE",
+      "apiKey": "sk-es6pe44o7feffqgj",
       "api": "openai-completions",
       "models": [
         {
@@ -104,8 +104,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
-          "contextWindow": 128000,
-          "maxTokens": 4096
+          "contextWindow": 200000,
+          "maxTokens": 8192
         }
       ]
     }

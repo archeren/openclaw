@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
-    "updatedAt": 1770382745438,
+    "updatedAt": 1770386152850,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -128,16 +128,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "vole",
-    "model": "kimi-k2.5",
-    "contextTokens": 200000,
+    "modelProvider": "opencode",
+    "model": "kimi-k2.5-free",
+    "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770382723672,
+      "generatedAt": 1770386075694,
       "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
       "sessionKey": "agent:main:main",
-      "provider": "vole",
-      "model": "kimi-k2.5",
+      "provider": "opencode",
+      "model": "kimi-k2.5-free",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -145,9 +145,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 38151,
+        "chars": 38199,
         "projectContextChars": 26178,
-        "nonProjectContextChars": 11973
+        "nonProjectContextChars": 12021
       },
       "injectedWorkspaceFiles": [
         {
@@ -395,13 +395,18 @@
         ]
       }
     },
-    "inputTokens": 294,
-    "outputTokens": 272,
-    "totalTokens": 154918,
+    "inputTokens": 11597,
+    "outputTokens": 310,
+    "totalTokens": 168269,
     "lastHeartbeatText": "⚠️ Agent failed before reply: session file locked (timeout 10000ms): pid=385 /home/tauora/.openclaw/agents/main/sessions/0f444474-2093-4542-a090-90f60653f23e.jsonl.lock.\nLogs: openclaw logs --follow",
     "lastHeartbeatSentAt": 1770365620466,
     "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
     "lastChannel": "feishu",
-    "lastAccountId": "default"
+    "lastAccountId": "default",
+    "memoryFlushAt": 1770385578018,
+    "memoryFlushCompactionCount": 0,
+    "authProfileOverride": "opencode:default",
+    "authProfileOverrideSource": "auto",
+    "authProfileOverrideCompactionCount": 0
   }
 }
