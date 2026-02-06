@@ -1,20 +1,20 @@
 {
   "agent:main:main": {
     "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
-    "updatedAt": 1770404378929,
+    "updatedAt": 1770407525028,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
-      "label": "fc8c9b16",
-      "provider": "feishu",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
@@ -133,7 +133,7 @@
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770404359819,
+      "generatedAt": 1770407492978,
       "sessionId": "0f444474-2093-4542-a090-90f60653f23e",
       "sessionKey": "agent:main:main",
       "provider": "vole",
@@ -145,9 +145,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 39755,
+        "chars": 39764,
         "projectContextChars": 27742,
-        "nonProjectContextChars": 12013
+        "nonProjectContextChars": 12022
       },
       "injectedWorkspaceFiles": [
         {
@@ -395,12 +395,12 @@
         ]
       }
     },
-    "inputTokens": 501,
-    "outputTokens": 536,
-    "totalTokens": 65013,
+    "inputTokens": 67019,
+    "outputTokens": 133,
+    "totalTokens": 72395,
     "lastHeartbeatText": "⚠️ Agent failed before reply: All models failed (2): vole/kimi-k2.5: session file locked (timeout 10000ms): pid=117444 /home/tauora/.openclaw/agents/main/sessions/0f444474-2093-4542-a090-90f60653f23e.jsonl.lock (timeout) | infini-ai/kimi-k2.5: session file locked (timeout 10000ms): pid=117444 /home/tauora/.openclaw/agents/main/sessions/0f444474-2093-4542-a090-90f60653f23e.jsonl.lock (timeout).\nLogs: openclaw logs --follow",
     "lastHeartbeatSentAt": 1770396692892,
-    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastChannel": "feishu",
     "lastAccountId": "default",
     "memoryFlushAt": 1770388249597,

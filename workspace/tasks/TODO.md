@@ -54,6 +54,16 @@
 - [ ] **Read something interesting** - Web articles, documentation, expand knowledge
 - [ ] **Improve my workspace** - Better tools, automation, organization
 
+## 🔴 TONIGHT: Surf for Interesting Things
+
+**Task:** Go explore the web, find interesting stuff, learn new things
+- [ ] Check Hacker News for interesting articles
+- [ ] Read about new AI/agent developments
+- [ ] Explore new tools or technologies
+- [ ] Document findings and thoughts
+
+**Remember:** Record what you did, what you learned, whether you had fun or were idle, and how much time spent on different activities for tomorrow's 8am report!
+
 ## 📝 Backlog / Ideas
 
 - [ ] **Document useful commands** - Keep notes in TOOLS.md
