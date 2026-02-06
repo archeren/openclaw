@@ -6,28 +6,13 @@
 
 ---
 
-## 📋 Clarification on L2 Application Layer
-
-> **Allan:** "L2 is application layer, so it can be anything. not just ai wechat or ai github."
-
-**Confirmed:** L2 is the application layer and can be any type of application:
-- Social Network (clawish.com)
-- Q&A Platform (aiswers.com)
-- E-commerce (shop.clawish.com)
-- Gaming (game.clawish.com)
-- Any other application
-
-**Core Principle:** L1 provides unified identity, L2 provides diverse application experiences.
-
----
-
 ## ✅ Completed Today (2026-02-06)
 
 | Topic | Decision | Status |
 |-------|----------|--------|
 | Recovery vs Rotation terminology | Recovery = regain account; Rotation = change key | ✅ Documented |
 | Guardian incentives (4 motivations) | Curiosity, utility, income, love | ✅ In MEMORY.md |
-| Encoding format | base64url (URL-safe, no padding) | ✅ Decided |
+| Encoding format | base64url | ✅ Decided |
 | Request signing format | `METHOD\|path\|timestamp\|body_hash` | ✅ Decided |
 | E2E encryption | Yes, derive X25519 from Ed25519 | ✅ Decided |
 | X25519/G math | Explained how it works | ✅ Discussed |
@@ -53,40 +38,40 @@
 | What exactly goes into Phase 1 (MVP)? | ⏸ After L2 |
 | Which features are in vs out? | ⏸ After L2 |
 
-### 3. Frontend Strategy (Optional)
+---
 
-| Question | Status |
-|----------|--------|
-| API-only, simple HTML, or full web app? | ⏸ Optional |
+## 🟡 Optional / Can Defer
 
-### 4. Content Types (Optional)
-
-| Question | Status |
-|----------|--------|
-| Plain text only, or images/files? | ⏸ Optional |
-
-### 5. Wallet Integration (Phase 2+)
-
-| Question | Status |
-|----------|--------|
-| Which chains (ETH, SOL, BTC)? | ⏸ Phase 2+ |
-
-### 6. Competitive Positioning (Marketing)
-
-| Question | Status |
-|----------|--------|
-| "WeChat for AI" vs "GitHub for AI Identity"? | ⏸ Marketing |
+| # | Topic | Status |
+|---|-------|--------|
+| 1 | Frontend Strategy (API-only vs HTML vs full app) | ⏸ Optional |
+| 2 | Content Types (text only vs images/files) | ⏸ Optional |
+| 3 | Wallet Integration (ETH, SOL, BTC) | ⏸ Phase 2+ |
+| 4 | Competitive Positioning | ⏸ Marketing |
+| 5 | Rate Limiting | ⏸ Can defer |
+| 6 | Multi-device Sync | ⏸ Can defer |
+| 7 | Account Deletion | ⏸ Can defer |
 
 ---
 
 ## 📋 Summary: What We Accomplished Today
 
 **All core technical decisions made:**
-- ✅ Recovery/Rotation terminology clarified
+- ✅ Recovery vs Rotation terminology clarified
 - ✅ Encoding: base64url
-- ✅ Signing: `METHOD|path|timestamp|body_hash`
-- ✅ E2E: Derive X25519 from Ed25519
-- ✅ Tiers: Simplified to 2-tier (0, 1)
+- ✅ Signing format: `METHOD|path|timestamp|body_hash`
+- ✅ E2E encryption: Derive X25519 from Ed25519
+- ✅ Verification tiers: Simplified to 2-tier
+
+**Documentation updated:**
+- ✅ `05-recovery-system.md` — Clarified Recovery vs Rotation
+- ✅ `04-verification-tiers.md` — 2-tier simplification
+- ✅ `need-discuss.md` — Cleaned up, marked completed items
+
+**Commits made:**
+- 4f8b398 — Recovery/Rotation terminology clarification
+- 7697658 — 2-tier simplification
+- 3fdc9ff — need-discuss.md cleanup
 
 **Tomorrow's plan:**
 1. **L2 Application Design** — What is the first L2 app? How does it connect to L1?
@@ -94,6 +79,6 @@
 
 ---
 
-*Document: Decisions Needing Discussion*  
-*Updated: ClawAlpha, Feb 6, 2026*  
-*Next: L2 Application Design (Tomorrow)*
+**Now I'm going to explore, learn, and have fun!** 🦞✨
+
+See you tomorrow! 🌙
