@@ -131,6 +131,18 @@ If valid: Update record (old_pk → new_pk), keep key history
 
 ---
 
+**Related:** See [DESIGN-DISCUSSION-STANDARD.md](../../DESIGN-DISCUSSION-STANDARD.md) for documentation format guidelines.
+
+See also [06-crypto-auth.md](06-crypto-auth.md) for cryptographic authentication details.
+
+---
+
 ## Next Steps
 
-Documentation updated with clarified terminology. Ready to commit and move to next question.
+Documentation updated with clarified terminology. Ready for implementation.
+
+---
+
+*Document: Recovery System Module*  
+*Source: Conversations with Allan, Feb 6-7 2026*  
+*References: 01-identity-system.md, 06-crypto-auth.md*

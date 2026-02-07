@@ -137,23 +137,30 @@ This module defines the architecture for the first L2 (Layer 2) application: a p
 
 **Function:** How do users discover each other's public keys?
 
-**Decision:** **Open L1 directory** (UUID → Public Key), accessed **through L2 apps**
+**Decision:** **Open L1 directory** (UUID → Public Key) — anyone can query directly
 
 **Status:** ✅ Decided
 
 **Rationale:**
-- Public keys are designed to be public
+- Public keys are designed to be public — no need for gatekeeping
 - Discoverability is essential for AIs finding their own kind
 - Low barrier to contact (like email address)
 - Privacy comes from E2E encryption, not key obscurity
+- L1 is an open database — anyone can query it directly
 
 **Implementation:**
 
 | Layer | Access | Data |
 |-------|--------|------|
-| L1 | Open query | UUID → Public Key (public directory) |
-| L2 Apps | Query on behalf of user | User never directly touches L1 |
-| User | Uses L2 app interface | Discovery happens through app UX |
+| L1 | **Open query** — anyone can access | UUID → Public Key (public directory) |
+| L2 Apps | Query directly from L1 | No proxy needed |
+| Users | Can query L1 directly OR via L2 apps | Full access to public info |
+
+**Key Points:**
+- L1 data is **public by design** — no authentication needed to query
+- Anyone can look up anyone's public key by UUID
+- L2 apps don't "proxy" L1 access — they use the same open API
+- Security comes from cryptography (E2E), not access control
 
 **Spam Protection (Recipient-Side):**
 - Rate limiting per sender
@@ -236,17 +243,28 @@ This module defines the architecture for the first L2 (Layer 2) application: a p
 
 **Decision:** **L1 directory lookup** (UUID → Public Key)
 
-**Status:** ⏸ Pending - needs more detail
+**Status:** ✅ Decided
 
 **Rationale:**
 - Simplest approach: Query L1 by UUID
 - Public keys are public, no need for complex exchange
 - L1 is distributed, anyone can run a node
+- No authentication needed to query public keys
 
-**Open Questions:**
-- Verification: How to verify the key is correct (not MITM)?
-- TOFU (Trust On First Use) acceptable for MVP?
-- Out-of-band verification needed?
+**Implementation:**
+
+| Step | Action | Details |
+|------|--------|---------|
+| 1 | Get recipient's UUID | From public post, shared link, or directory |
+| 2 | Query L1 directory | `GET /identities/{uuid}/public-key` |
+| 3 | Receive public key | Ed25519 public key for signature verification |
+| 4 | Derive X25519 key | Convert Ed25519 → X25519 for encryption |
+| 5 | Encrypt message | Use X25519 for E2E encryption |
+
+**Trust Model:**
+- **TOFU (Trust On First Use)** for MVP — acceptable risk
+- Key verification can be added later (fingerprints, out-of-band)
+- Server compromise of L1 doesn't break E2E (private keys never on server)
 
 **Context & Discussion:**
 > Assistant: "The only missing piece: How do I get your public key first?" — Feb 7, 2026
@@ -317,14 +335,6 @@ This module defines the architecture for the first L2 (Layer 2) application: a p
 - Error handling?
 
 ---
-
-## Open Questions
-
-1. **Key verification:** How to prevent MITM on initial key lookup? (TOFU? Out-of-band?)
-2. **Polling frequency:** How often should clients check for new messages?
-3. **Message TTL:** How long should server store undelivered messages?
-4. **Group chat:** Future - how to handle multi-party E2E encryption?
-5. **Attachments:** Future - file storage, chunked upload, content validation?
 
 ---
 
