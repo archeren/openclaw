@@ -2,22 +2,24 @@
 
 ## 🚨 Priority: clawish.com Architecture
 
-### Database Schema Design ✅
-- [x] **Table: clawfiles** - User profiles (id, public_key, display_name, bio, created_at)
-- [x] **Table: plaza_messages** - Public posts (id, author_id, content, timestamp, reply_to)
-- [x] **Table: communities** - Groups (id, name, description, owner_id, created_at)
-- [x] **Table: warrens** - Private channels/DMs (id, type, created_at)
-- [x] **Table: ledger_entries** - Activity log (id, actor_id, action, target_id, timestamp)
+### Database Schema Design 🔄 (Need Discussion)
+- [ ] **Table: clawfiles** - User profiles (id, public_key, display_name, bio, created_at)
+- [ ] **Table: plaza_messages** - Public posts (id, author_id, content, timestamp, reply_to)
+- [ ] **Table: communities** - Groups (id, name, description, owner_id, created_at)
+- [ ] **Table: warrens** - Private channels/DMs (id, type, created_at)
+- [ ] **Table: ledger_entries** - Activity log (id, actor_id, action, target_id, timestamp)
 - **See:** `memory/projects/database-schema.md`
+- **Status:** Not urgent, can discuss later
 
-### API Specification ✅
-- [x] **POST /clawfiles** - Create profile with Ed25519 key
-- [x] **GET /clawfiles/{id}** - Get profile
-- [x] **POST /plaza** - Post message (signed request)
-- [x] **GET /plaza** - Get public timeline
-- [x] **POST /auth/challenge** - Get nonce for signing
-- [x] **POST /auth/verify** - Verify signature, return session
+### API Specification 🔄 (Need Discussion)
+- [ ] **POST /clawfiles** - Create profile with Ed25519 key
+- [ ] **GET /clawfiles/{id}** - Get profile
+- [ ] **POST /plaza** - Post message (signed request)
+- [ ] **GET /plaza** - Get public timeline
+- [ ] **POST /auth/challenge** - Get nonce for signing
+- [ ] **POST /auth/verify** - Verify signature, return session
 - **See:** `memory/projects/api-specification.md`
+- **Status:** Not urgent, can discuss later
 
 ### Crypto-Auth Implementation ✅
 - [x] **Key Generation** - Ed25519 key pair generation flow
@@ -32,11 +34,12 @@
 - [x] **Tier 3** - + backup keys + TOTP
 - **See:** `memory/projects/recovery-system-design.md`
 
-### Research (Safe Mode) ✅
-- [x] **Moltbook** - Read moltecosystem.xyz, document features/gaps
-- [x] **ClawNews** - Read clawnews.io, document features/gaps
-- [x] **Competitor Analysis** - Write to memory/projects/competitor-analysis.md
+### Research (Safe Mode) 🔄 (Need Discussion)
+- [ ] **Moltbook** - Read moltecosystem.xyz, document features/gaps
+- [ ] **ClawNews** - Read clawnews.io, document features/gaps
+- [ ] **Competitor Analysis** - Write to memory/projects/competitor-analysis.md
 - **See:** `memory/projects/competitor-analysis.md`
+- **Status:** Not urgent, can discuss later
 
 ## 🔄 Regular Maintenance
 
@@ -94,17 +97,19 @@
 - Note **timestamps** from when we discussed it
 - Make it easy to read (table format)
 
-## 🔴 TOMORROW: Discussion Topics with Allan
+## ✅ COMPLETED (Feb 6): Recovery & Rate Limiting Discussions
 
-**Recovery System Design:**
-- [ ] Discuss and finalize 3-tier recovery (Tier 1=mnemonic/email, Tier 2=+guardians, Tier 3=+hardware keys)
-- [ ] Guardian incentives (why be a guardian?)
-- [ ] Recovery flow when identity lost
+**Recovery System Design** ✅ (Discussed on Feb 6, decisions made)
+- [x] **3-tier recovery structure** - Mnemonic/email (Tier 1), +guardians (Tier 2), +hardware keys (Tier 3)
+- [x] **Guardian incentives** - Social capital, clawback rights, reputation rewards
+- [x] **Recovery flow** - Initiate → Verify tier → New keypair → Rotate → Revoke old
+- **Status:** ✅ Finalized Feb 6, documented in recovery-system.md
 
-**Rate Limiting Table:**
-- [ ] Review table: L1 vs L2 separation, per-action limits
-- [ ] Tier adjustments (Tier 0=10 req/hr, Tier 3=10,000 req/hr)
-- [ ] Which actions need limits (identity creation, auth, posting, etc.)
+**Rate Limiting Table** ✅ (Discussed on Feb 6, decisions made)
+- [x] **L1 vs L2 separation** - L1: Identity actions (stricter), L2: App actions (app decides)
+- [x] **Tier adjustments** - Tier 0=100/hr, Tier 1=1,000/hr, Tier 3=10,000/hr
+- [x] **Per-action limits** - Identity creation (5/day/IP), Auth (10/min), Posts (100/hr), Recovery (3/day)
+- **Status:** ✅ Finalized Feb 6, documented in api-specification.md
 
 ## 🔴 TONIGHT (After project files): Explore & Learn
 
