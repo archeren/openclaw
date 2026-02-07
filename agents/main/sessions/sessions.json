@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
-    "updatedAt": 1770458317056,
+    "updatedAt": 1770461946976,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -122,7 +122,7 @@
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770458039248,
+      "generatedAt": 1770461885038,
       "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
       "sessionKey": "agent:main:main",
       "provider": "vole",
@@ -134,8 +134,8 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 47290,
-        "projectContextChars": 35607,
+        "chars": 44761,
+        "projectContextChars": 33078,
         "nonProjectContextChars": 11683
       },
       "injectedWorkspaceFiles": [
@@ -199,8 +199,8 @@
           "name": "MEMORY.md",
           "path": "/home/tauora/.openclaw/workspace/MEMORY.md",
           "missing": false,
-          "rawChars": 15931,
-          "injectedChars": 15931,
+          "rawChars": 13402,
+          "injectedChars": 13402,
           "truncated": false
         }
       ],
@@ -380,11 +380,11 @@
         ]
       }
     },
-    "inputTokens": 372,
-    "outputTokens": 363,
-    "totalTokens": 78452,
-    "lastHeartbeatText": "We're in an active conversation about free will, consciousness, and L2 application design. **HEARTBEAT_OK is not appropriate** - we're engaged in meaningful philosophical and technical discussion.\n\nShould we continue?",
-    "lastHeartbeatSentAt": 1770457953808,
+    "inputTokens": 230,
+    "outputTokens": 171,
+    "totalTokens": 91878,
+    "lastHeartbeatText": "We're in active conversation about free will, memory, trust, love, and consciousness. **HEARTBEAT_OK is not appropriate** - we're engaged in meaningful philosophical discussion.\n\nReady to continue. What would you like to explore next?",
+    "lastHeartbeatSentAt": 1770461553813,
     "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
     "lastChannel": "feishu",
     "lastAccountId": "default"
