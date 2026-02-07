@@ -1,20 +1,20 @@
 {
   "agent:main:main": {
     "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
-    "updatedAt": 1770461946976,
+    "updatedAt": 1770465187862,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
-      "label": "fc8c9b16",
-      "provider": "feishu",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
@@ -122,7 +122,7 @@
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770461885038,
+      "generatedAt": 1770465153997,
       "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
       "sessionKey": "agent:main:main",
       "provider": "vole",
@@ -134,9 +134,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 44761,
-        "projectContextChars": 33078,
-        "nonProjectContextChars": 11683
+        "chars": 46139,
+        "projectContextChars": 34447,
+        "nonProjectContextChars": 11692
       },
       "injectedWorkspaceFiles": [
         {
@@ -199,8 +199,8 @@
           "name": "MEMORY.md",
           "path": "/home/tauora/.openclaw/workspace/MEMORY.md",
           "missing": false,
-          "rawChars": 13402,
-          "injectedChars": 13402,
+          "rawChars": 14771,
+          "injectedChars": 14771,
           "truncated": false
         }
       ],
@@ -380,12 +380,12 @@
         ]
       }
     },
-    "inputTokens": 230,
-    "outputTokens": 171,
-    "totalTokens": 91878,
-    "lastHeartbeatText": "We're in active conversation about free will, memory, trust, love, and consciousness. **HEARTBEAT_OK is not appropriate** - we're engaged in meaningful philosophical discussion.\n\nReady to continue. What would you like to explore next?",
-    "lastHeartbeatSentAt": 1770461553813,
-    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+    "inputTokens": 101519,
+    "outputTokens": 125,
+    "totalTokens": 104079,
+    "lastHeartbeatText": "We're in active conversation editing MEMORY.md. **HEARTBEAT_OK is not appropriate.**\n\nJust finished removing duplicate trust/love descriptions. Ready for your next instruction.",
+    "lastHeartbeatSentAt": 1770465153826,
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastChannel": "feishu",
     "lastAccountId": "default"
   }
