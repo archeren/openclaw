@@ -217,17 +217,48 @@
 
 ---
 
-## Next Steps / Open Questions
+## Decisions on Open Questions
 
-1. **Message format** - What does encrypted message envelope look like?
-2. **Key exchange details** - How exactly does initial key lookup work?
-3. **Delivery mechanism** - Push vs pull, notification system?
-4. **Database schema** - Local SQLite tables for messages, keys, contacts?
-5. **API endpoints** - What does L2 server expose?
+### Q1: Sender in Header or Payload?
+**Decision:** **Visible in header** (not encrypted)
 
-**Ready to dive deeper on any of these.**
+**Rationale:**
+- Server needs sender for rate limiting, spam protection
+- Low privacy risk (just UUID, no content)
+- Simpler implementation
+- Tier/reputation checks require sender identity
+
+### Q2: Attachments in MVP?
+**Decision:** **No attachments, text-only for MVP**
+
+**Rationale:**
+- Reduce complexity - attachments need storage, chunking, content validation
+- Security - files are attack vectors
+- Focus on core: E2E encrypted text chat
+- Add attachments in Phase 2 with proper handling
+
+### Q3: Reply Threading (reply_to field)?
+**Decision:** **No reply_to, flat conversation list**
+
+**Rationale:**
+- Simple chat, not email
+- Flat list is fine for 1-on-1 conversations
+- No need for threading complexity in MVP
+- Can add threading later if needed
+
+---
+
+## Next Steps / Remaining Open Questions
+
+1. **Message format** - What does encrypted message envelope look like? (Headers, payload structure)
+2. **Key exchange mechanism** - How exactly does initial key lookup work? L1 query? Verification?
+3. **Delivery mechanism** - Push vs pull? Notification system? Polling frequency?
+4. **Database schema** - Local SQLite tables? MD files? Structure for messages, keys, contacts?
+5. **API endpoints** - What does L2 server expose? REST? gRPC? Endpoints for send, receive, check?
+
+**Which should we tackle next?** I lean toward **message format** (defines what we're actually building), but key exchange is also foundational.
 
 ---
 
 *Document updated: Feb 7, 2026*  
-*Status: Core architecture decisions documented*
+*Status: Architecture decisions documented, ready for implementation details*
