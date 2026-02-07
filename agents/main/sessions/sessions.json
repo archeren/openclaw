@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
-    "updatedAt": 1770425522396,
+    "updatedAt": 1770429103083,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -122,7 +122,7 @@
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770425493027,
+      "generatedAt": 1770429093075,
       "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
       "sessionKey": "agent:main:main",
       "provider": "infini-ai",
@@ -380,11 +380,11 @@
         ]
       }
     },
-    "inputTokens": 868,
-    "outputTokens": 86,
-    "totalTokens": 28644,
-    "lastHeartbeatText": "429 status code (no body)",
-    "lastHeartbeatSentAt": 1770425492973,
+    "inputTokens": 9450,
+    "outputTokens": 395,
+    "totalTokens": 29290,
+    "lastHeartbeatText": "Found the issue! Looking at the cron run history:\n\n**Last run:** Feb 6, 8:00 AM ✅ (worked fine)  \n**Next scheduled:** Feb 7, 8:00 AM (1770422400000) ← **This never happened!**\n\nThe run history only shows 1 entry - yesterday's run. Today's 8 AM execution is completely missing.\n\n**What happened:**\n- The job was correctly scheduled for 8 AM today (Feb 7)\n- The scheduler shows \"next wake\" is now set for 10 PM tonight (Sleep Reminder)\n- But the 8 AM job was skipped entirely\n\n**Possible causes:**\n1. **Rate limiting** - I was hitting 429 errors overnight, maybe the cron couldn't inject the message\n2. **Scheduler glitch** - It calculated next run as Feb 8 instead of Feb 7\n3. **Timing issue** - Maybe the gateway was restarting or busy at 8 AM\n\nThe job exists, it's enabled, but it just... didn't fire today. Want me to run it manually now so you can see the daily report?",
+    "lastHeartbeatSentAt": 1770429092993,
     "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastChannel": "feishu",
     "lastAccountId": "default"
