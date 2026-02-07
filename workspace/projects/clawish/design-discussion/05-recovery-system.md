@@ -31,6 +31,14 @@ You can still recover your identity and all your relationships.
 | **Recovery** | Get back into your **account** | Lost access | Mnemonic (self-service) OR Email/TOTP (trust-based) |
 | **Rotation** | Change your **key** (like change password) | Have access, want new key | Old private key |
 
+> **Context:**
+>
+> Allan: "So in this case, the recovery meaning should be recover account, not recover key. And for a recover account, there is two ways. Use memory word, or use trust-based method. And for rotation, it has nothing to do with recover account, user just change a public key."
+>
+> Alpha: "Exactly! Rotation = 'I have my old password, I want to change it to a new one.' Recovery = 'I forgot my password, need to reset.'"
+>
+> Allan: "Yes, rotation is basically like change password."
+
 ### Recovery (Get Account Back)
 
 **Two ways to recover:**
@@ -117,8 +125,8 @@ If valid: Update record (old_pk → new_pk), keep key history
 | Email verification stores hash only | Server doesn't store plaintext email, only hash for comparison | 2026-02-06 | "The server stores hash only... when receive email, system can hash email again, then compare if it matches" |
 | No option D (requester-provided email) | Critical security vulnerability — anyone can fake email | 2026-02-06 | "No, option d's key problem is you can fake email. You can say i'm john send to abc@example.com How do you know the email is the correct one." |
 | Encrypted email (Option A) is secure | Recovery destination must be pre-registered and immutable | 2026-02-06 | "Option A (Encrypted storage) is also good: Store encrypted email: aes256:allan@example.com — When recovery requested, decrypt and send" |
-| Recovery = Regain account access | User has lost access, needs to get back in | 2026-02-06 | "Recovery means get back account. Not recover key." |
-| Rotation = Change key | User has access, wants to update key | 2026-02-06 | "Rotation is like change password." |
+| Recovery = Regain account access | User has lost access, needs to get back in | 2026-02-07 | "Recovery means recover account, not recover key. Two ways: mnemonic (self-service) or trust-based (email/TOTP)." — Feb 7, 2026 |
+| Rotation = Change key | User has access, wants to update key (like change password) | 2026-02-07 | "Rotation is basically like change password." — Feb 7, 2026 |
 | Mnemonic recovery = Client-side only | Server never involved in mnemonic recovery | 2026-02-06 | "Mnemonic recovery happens on client, no server code needed." |
 
 ---

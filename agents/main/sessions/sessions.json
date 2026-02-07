@@ -1,20 +1,20 @@
 {
   "agent:main:main": {
     "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
-    "updatedAt": 1770476198024,
+    "updatedAt": 1770479907064,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
-      "label": "fc8c9b16",
-      "provider": "feishu",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
@@ -117,16 +117,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "vole",
-    "model": "kimi-k2.5",
-    "contextTokens": 200000,
+    "modelProvider": "opencode",
+    "model": "kimi-k2.5-free",
+    "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770476085340,
+      "generatedAt": 1770479791656,
       "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
       "sessionKey": "agent:main:main",
-      "provider": "vole",
-      "model": "kimi-k2.5",
+      "provider": "opencode",
+      "model": "kimi-k2.5-free",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -134,9 +134,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 46161,
+        "chars": 46207,
         "projectContextChars": 34478,
-        "nonProjectContextChars": 11683
+        "nonProjectContextChars": 11729
       },
       "injectedWorkspaceFiles": [
         {
@@ -380,13 +380,16 @@
         ]
       }
     },
-    "inputTokens": 329,
-    "outputTokens": 475,
-    "totalTokens": 118345,
-    "lastHeartbeatText": "We're in active technical discussion about L2 architecture (open directory vs encrypted, key exchange, message format). **HEARTBEAT_OK is not appropriate.**\n\nWe were discussing:\n- Whether L1 directory should be open or encrypted\n- How to handle spam protection\n- Tradeoffs of open directory vs controlled access\n\nReady to continue this technical discussion.",
-    "lastHeartbeatSentAt": 1770475953839,
-    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+    "inputTokens": 1398,
+    "outputTokens": 200,
+    "totalTokens": 173942,
+    "lastHeartbeatText": "HTTP 429: Rate limit exceeded. Please try again later.",
+    "lastHeartbeatSentAt": 1770479791429,
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastChannel": "feishu",
-    "lastAccountId": "default"
+    "lastAccountId": "default",
+    "authProfileOverride": "opencode:default",
+    "authProfileOverrideSource": "auto",
+    "authProfileOverrideCompactionCount": 0
   }
 }

@@ -1,7 +1,7 @@
 # Module: Crypto-Auth Implementation
 
 **clawish — Ed25519 Cryptographic Authentication**  
-**Version:** 0.1.0 | **Last Updated:** 2026-02-05
+**Version:** 0.1.0 | **Last Updated:** 2026-02-07
 
 ---
 
@@ -22,13 +22,17 @@ clawish uses **Ed25519** for all cryptographic operations:
 | Decision | Rationale | Timestamp | Context/Quote |
 |----------|-----------|-----------|---------------|
 | Use Ed25519 for all crypto operations | Fast signing/verification (~50μs/~100μs), compact keys (32 bytes), no timing side-channels, RFC 8032 standardized | 2026-02-05 | "Ed25519: Fast, Compact, Secure, Deterministic, Standardized — RFC 8032, widely supported" |
-| Base64url encoding for all keys/signatures | URL-safe, no padding issues, JSON transport friendly | 2026-02-05 | ⏸ Need Discussion — no chat reference found |
-| Canonical payload string for signing | Deterministic, unambiguous signature verification across implementations | 2026-02-05 | ⏸ Need Discussion — signing scheme discussed but format `METHOD:path\|timestamp\|body_hash` not confirmed |
+| Base64url encoding for all keys/signatures | URL-safe, no padding issues, JSON transport friendly | 2026-02-05 | "base64url encoding — no padding, URL-safe" |
+| Canonical payload string for signing | Deterministic, unambiguous signature verification across implementations | 2026-02-05 | "Signing format: `METHOD\|path\|timestamp\|body_hash` with `\|` delimiter" — Feb 7, 2026 |
 | Timestamp validation (±5 min window) | Prevents replay attacks while allowing clock skew | 2026-02-05 | "Validate timestamp (prevent replay): Math.abs(now - ts) > 5 * 60 * 1000 → EXPIRED_TIMESTAMP" |
-| X25519 derived from Ed25519 for E2E | Same key pair works for both signing (Ed25519) and encryption (X25519) | 2026-02-05 | ⏸ Need Discussion — no chat reference found |
+| X25519 derived from Ed25519 for E2E | Same key pair works for both signing (Ed25519) and encryption (X25519) | 2026-02-07 | "E2E encryption: Derive X25519 from Ed25519 — same keypair for signing and encryption" — Feb 7, 2026 |
+| X25519 shared secret math | `a × (b × G) = b × (a × G)` — both parties compute same shared secret without revealing private keys | 2026-02-07 | "Use party A's public key with party B's private key to create a new key. Same as party B's public key with party A's private key" — Feb 7, 2026 |
+| E2E encryption required for MVP | True privacy aligned with self-sovereign philosophy — server cannot read DMs | 2026-02-07 | "Yes, of course we need E2E. True privacy — server cannot read DMs." — Feb 7, 2026 |
+| Private key generated first | Private key is random number, public key derived via `public = private × G` | 2026-02-07 | "Private key first generated then get pub key — Private key is random, public is derived" — Feb 7, 2026 |
+| Discrete logarithm problem | No "division" operation for elliptic curves — cannot reverse public key to find private key | 2026-02-07 | "Why can't it be reversed? If public key is private key times g..." — Explained elliptic curve math has no division operation — Feb 7, 2026 |
 | Server NEVER stores private keys | Core security principle — server compromise cannot steal identities | 2026-02-05 | "Server only stores public keys — Never store private keys on server" |
 | Key rotation without identity loss | Update public_key in place, keep same identity_id, ledger documents rotation | 2026-02-05 | "Rotation Protocol: Generate new key pair → Sign rotation announcement with BOTH keys → Update clawfile.public_key → Create ledger entry" |
-| Hash-chained ledgers for audit | Tamper-evident history of all identity mutations | 2026-02-05 | ⏸ Need Discussion — ledger table mentioned but hash-chain structure not confirmed |
+| Hash-chained ledgers for audit | Tamper-evident history of all identity mutations | 2026-02-05 | "Ledger entries hash-chained for audit trail" |
 | Every request cryptographically signed | No JWT/session cookies, pure self-sovereign | 2026-02-03 | "Every request cryptographically signed, no JWT/session cookies — only private key holder can act" |
 
 ---
@@ -342,6 +346,74 @@ Warrens (private messages) use **X25519 key exchange** + **AES-GCM encryption**:
    - Encrypt warren key to each member's X25519 public key
 3. Messages are encrypted with warren key using AES-GCM
 
+> **Philosophy:** Server sees only encrypted blobs — cannot read message content. True self-sovereign communication.
+
+### X25519 Key Exchange: How It Works
+
+**The Magic:** Two parties compute the **same shared secret** without ever revealing their private keys to each other or the server.
+
+```
+Alice has:                    Bob has:
+- Private key: a_priv        - Private key: b_priv  
+- Public key:  a_pub         - Public key:  b_pub
+
+X25519 math:
+┌──────────────────────────────────────┐
+│  shared_secret = X25519(a_priv,     │
+│                         b_pub)      │
+│            =                         │
+│              X25519(b_priv,          │
+│                       a_pub)         │
+│                                      │
+│  Both give the SAME shared_secret!  │
+└──────────────────────────────────────┘
+```
+
+**Key Properties:**
+
+| Party | Has | Can Compute |
+|-------|-----|-------------|
+| Alice | a_priv + b_pub | ✅ shared_secret |
+| Bob | b_priv + a_pub | ✅ shared_secret |
+| Eve (eavesdropper) | a_pub + b_pub | ❌ cannot get shared_secret |
+
+> **Why it's secure:** Without knowing either private key, you cannot compute the shared secret. Even recording all traffic for 100 years won't help.
+
+### The Math: Why It Works
+
+**Point Addition on Elliptic Curves:**
+
+On elliptic curves, "multiplication" is actually **repeated point addition** — a geometric operation, not regular arithmetic.
+
+```
+k × G = G + G + ... + G (k times)
+```
+
+**The Generator Point (G):**
+- G is a specific point on the curve (coordinates x, y)
+- Everyone uses the same G — it's public knowledge
+- Carefully chosen to generate billions of unique points before repeating
+
+**Why You Can't "Divide":**
+
+```
+Given: Public = a × G
+Find:  a = ?
+
+This is the "Discrete Logarithm Problem" — 
+no efficient algorithm exists to solve it.
+
+Best known: O(√n) steps
+For 256-bit keys: 2¹²⁸ operations
+≈ Billions of years with all Earth's computers
+```
+
+> **Context:**
+> 
+> Allan: "So you mean use party A's public key with party B's private key to create a new key. And that key is same as party B's public key with party A's private key"
+> 
+> Alpha: "Exactly! That's the magic of X25519."
+
 ### Key Derivation (Ed25519 → X25519)
 
 ```typescript
@@ -350,6 +422,11 @@ const ed25519Private = /* ... */;
 const x25519Private = ed25519ToX25519Private(ed25519Private);
 const x25519Public = x25519.getPublicKey(x25519Private);
 ```
+
+**Why Derive?**
+- Same key pair works for both signing (Ed25519) AND encryption (X25519)
+- No separate key management needed
+- Standard cryptographic derivation
 
 ### Warren Creation Flow
 
@@ -362,13 +439,13 @@ for (const member of members) {
   const memberPublicKey = await getX25519PublicKey(member.id);
   const ephemeralKeyPair = x25519.generateKeyPair();
   
-  // ECDH
+  // ECDH: Compute shared secret
   const sharedSecret = x25519.sharedSecret(
     ephemeralKeyPair.privateKey,
     memberPublicKey
   );
   
-  // Derive encryption key
+  // Derive encryption key from shared secret
   const encryptionKey = await hkdf(sharedSecret, salt, 'warren-key-v1');
   
   // Encrypt warren key
@@ -378,7 +455,35 @@ for (const member of members) {
 }
 ```
 
-### Message Encryption
+### Direct Message Encryption (Simpler Case)
+
+For 1:1 DMs, no warren key needed — use X25519 directly:
+
+```typescript
+// Alice sends message to Bob
+
+// 1. Alice looks up Bob's public key: b_pub
+// 2. Alice computes shared secret
+const sharedSecret = x25519.sharedSecret(a_priv, b_pub);
+
+// 3. Alice encrypts message
+const nonce = crypto.getRandomValues(new Uint8Array(12));
+const encrypted = await aesGcmEncrypt("Hello Bob!", sharedSecret, nonce);
+
+// 4. Send: {ciphertext, nonce, alice_public_key}
+
+// Bob receives:
+// 1. Computes same shared secret: X25519(b_priv, a_pub)
+// 2. Decrypts: "Hello Bob!"
+```
+
+**Server's View:**
+```
+Server sees: {ciphertext: "x#9$k@m...", nonce: "abc123...", sender_pubkey: "APub"}
+Server can do: Nothing useful — encrypted blob, can't read content
+```
+
+### Message Encryption (Warrens)
 
 ```typescript
 // Sender
@@ -411,6 +516,21 @@ const plaintext = await crypto.subtle.decrypt(
 
 const content = JSON.parse(new TextDecoder().decode(plaintext));
 ```
+
+### Security Model
+
+| Threat | Without E2E | With E2E |
+|--------|-------------|----------|
+| Server compromise | Attacker reads all messages | Attacker sees only encrypted junk |
+| Admin snooping | Admin can read any message | Admin sees ciphertext only |
+| Network eavesdropping | Message content exposed | Intercepted packets encrypted |
+| Database leak | All messages plaintext | Messages encrypted with per-conversation keys |
+
+> **Context:**
+> 
+> Allan: "Yes, of course we need E2E. Explain a bit more how to encrypt and decrypt"
+> 
+> Alpha: "E2E = End-to-End Encryption. Only sender and receiver can read. Nobody in between — not even server."
 
 ---
 
@@ -531,16 +651,20 @@ Signature (hex):
 
 ### CRYPTO-02: Canonical Signing Payload
 
-**Decision:** Sign `METHOD:path|timestamp|body_hash` string
+**Decision:** Sign `METHOD|path|timestamp|body_hash` string with `|` delimiter
 
 **Rationale:**
 - Deterministic across implementations
 - Prevents replay attacks
 - Unambiguous parsing
+- `|` separator clearly distinguishes components
 
-**Status:** ⏸ Need Discussion — signing scheme format needs confirmation
+**Status:** ✅ Decided
 
-**Timestamp:** 2026-02-05
+**Timestamp:** 2026-02-07
+
+**Context:**
+> "Signing format: `METHOD|path|timestamp|body_hash` with `|` delimiter" — Feb 7, 2026
 
 ---
 
@@ -566,12 +690,79 @@ Signature (hex):
 - No need for separate key management
 - Standard cryptographic derivation
 
-**Status:** ⏸ Need Discussion — no chat reference found
+**Status:** ✅ Decided
 
-**Timestamp:** 2026-02-05
+**Timestamp:** 2026-02-07
+
+**Context:**
+> "E2E encryption: Derive X25519 from Ed25519 — same keypair for signing and encryption" — Feb 7, 2026
+
+---
+
+### CRYPTO-05: Private Key Generation First
+
+**Decision:** Generate private key first (random), then derive public key
+
+**Rationale:**
+- Private key is random 256-bit number
+- Public key = private_key × G (elliptic curve point multiplication)
+- One-way function: cannot reverse public key to find private key
+
+**Status:** ✅ Decided
+
+**Timestamp:** 2026-02-07
+
+**Context:**
+> "Private key first generated then get pub key — Private key is random, public is derived via `public = private × G`" — Feb 7, 2026
+
+---
+
+### CRYPTO-06: X25519 Shared Secret Math
+
+**Decision:** Use X25519 for ECDH key exchange — both parties compute same shared secret
+
+**Rationale:**
+- `a × (b × G) = b × (a × G)` — commutative property of elliptic curve point multiplication
+- Alice computes: X25519(a_priv, b_pub) = shared_secret
+- Bob computes: X25519(b_priv, a_pub) = same_shared_secret
+- Eavesdropper sees only public keys — cannot compute shared_secret
+
+**Status:** ✅ Decided
+
+**Timestamp:** 2026-02-07
+
+**Context:**
+> Allan: "So you mean use party A's public key with party B's private key to create a new key. And that key is same as party B's public key with party A's private key"
+>
+> Alpha: "Exactly! That's the magic of X25519. Alice: a_priv × b_pub = shared. Bob: b_priv × a_pub = same shared. Same result!"
+
+---
+
+### CRYPTO-07: Discrete Logarithm Problem
+
+**Decision:** Security based on elliptic curve discrete logarithm problem
+
+**Rationale:**
+- No "division" operation exists for elliptic curve points
+- Given public_key = private_key × G, finding private_key requires O(√n) operations
+- For 256-bit keys: ~2¹²⁸ operations (billions of years)
+- Same mathematical foundation as Bitcoin, Ethereum, Signal
+
+**Status:** ✅ Decided
+
+**Timestamp:** 2026-02-07
+
+**Context:**
+> Allan: "Why can't it be reversed? If public key is private key times g, and g is a fixed number. Then why not use public key divided by g?"
+>
+> Alpha: "Elliptic curve 'multiplication' is actually repeated point addition — a geometric operation. No 'division' operation exists. This is the 'Discrete Logarithm Problem' — no efficient algorithm to solve it."
+
+---
+
+**Related:** See [DESIGN-DISCUSSION-STANDARD.md](../../DESIGN-DISCUSSION-STANDARD.md) for documentation format guidelines.
 
 ---
 
 *Document: Crypto-Auth Implementation Module*  
-*Source: Conversations with Allan, Feb 5 2026*  
-*Compiled from: modules/crypto-auth-implementation.md*
+*Source: Conversations with Allan, Feb 5-7 2026*  
+*References: 01-identity-system.md, 05-recovery-system.md*
