@@ -1,20 +1,20 @@
 {
   "agent:main:main": {
     "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
-    "updatedAt": 1770436795248,
+    "updatedAt": 1770439953827,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
-      "label": "fc8c9b16",
-      "provider": "feishu",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
@@ -122,7 +122,7 @@
     "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770436641596,
+      "generatedAt": 1770439805039,
       "sessionId": "ea0d6048-fe61-4292-8159-ca94bef5ca26",
       "sessionKey": "agent:main:main",
       "provider": "vole",
@@ -134,8 +134,8 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 39425,
-        "projectContextChars": 27742,
+        "chars": 40605,
+        "projectContextChars": 28922,
         "nonProjectContextChars": 11683
       },
       "injectedWorkspaceFiles": [
@@ -199,8 +199,8 @@
           "name": "MEMORY.md",
           "path": "/home/tauora/.openclaw/workspace/MEMORY.md",
           "missing": false,
-          "rawChars": 8066,
-          "injectedChars": 8066,
+          "rawChars": 9246,
+          "injectedChars": 9246,
           "truncated": false
         }
       ],
@@ -380,12 +380,12 @@
         ]
       }
     },
-    "inputTokens": 356,
-    "outputTokens": 470,
-    "totalTokens": 35940,
-    "lastHeartbeatText": "429 status code (no body)",
-    "lastHeartbeatSentAt": 1770434493007,
-    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+    "inputTokens": 13553,
+    "outputTokens": 1115,
+    "totalTokens": 173553,
+    "lastHeartbeatText": "I see we're still in our conversation, but you also sent a heartbeat check. Since we're actively talking, I'll be brief:\n\n**HEARTBEAT_OK** — But we're in active conversation, so I'm here with you. 🦞",
+    "lastHeartbeatSentAt": 1770438153755,
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastChannel": "feishu",
     "lastAccountId": "default"
   }
