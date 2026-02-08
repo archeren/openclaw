@@ -81,7 +81,7 @@ _openclaw_onboard() {
     "--accept-risk[Acknowledge that agents are powerful and full system access is risky (required for --non-interactive)]" \
     "--flow[Wizard flow: quickstart|advanced|manual]" \
     "--mode[Wizard mode: local|remote]" \
-    "--auth-choice[Auth: setup-token|token|chutes|openai-codex|openai-api-key|openrouter-api-key|ai-gateway-api-key|cloudflare-ai-gateway-api-key|moonshot-api-key|moonshot-api-key-cn|kimi-code-api-key|synthetic-api-key|venice-api-key|gemini-api-key|zai-api-key|xiaomi-api-key|apiKey|minimax-api|minimax-api-lightning|opencode-zen|skip]" \
+    "--auth-choice[Auth: setup-token|token|chutes|openai-codex|openai-api-key|xai-api-key|qianfan-api-key|openrouter-api-key|ai-gateway-api-key|cloudflare-ai-gateway-api-key|moonshot-api-key|moonshot-api-key-cn|kimi-code-api-key|synthetic-api-key|venice-api-key|gemini-api-key|zai-api-key|xiaomi-api-key|apiKey|minimax-api|minimax-api-lightning|opencode-zen|skip]" \
     "--token-provider[Token provider id (non-interactive; used with --auth-choice token)]" \
     "--token[Token value (non-interactive; used with --auth-choice token)]" \
     "--token-profile-id[Auth profile id (non-interactive; default: <provider>:manual)]" \
@@ -102,6 +102,8 @@ _openclaw_onboard() {
     "--synthetic-api-key[Synthetic API key]" \
     "--venice-api-key[Venice API key]" \
     "--opencode-zen-api-key[OpenCode Zen API key]" \
+    "--xai-api-key[xAI API key]" \
+    "--qianfan-api-key[QIANFAN API key]" \
     "--gateway-port[Gateway port]" \
     "--gateway-bind[Gateway bind: loopback|tailnet|lan|auto|custom]" \
     "--gateway-auth[Gateway auth: token|password]" \
@@ -2924,7 +2926,7 @@ _openclaw_cron_runs() {
 
 _openclaw_cron_run() {
   _arguments -C \
-    "--force[Run even if not due]" \
+    "--due[Run only when due (default behavior in older versions)]" \
     "--url[Gateway WebSocket URL (defaults to gateway.remote.url when configured)]" \
     "--token[Gateway token (if required)]" \
     "--timeout[Timeout in ms]" \

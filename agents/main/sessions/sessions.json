@@ -1,21 +1,21 @@
 {
   "agent:main:main": {
     "sessionId": "830c351d-0a32-4e65-9eee-bbedf8783853",
-    "updatedAt": 1770519115924,
+    "updatedAt": 1770523178751,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "feishu",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
+      "channel": "webchat",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
-      "label": "fc8c9b16",
-      "provider": "feishu",
+      "label": "openclaw-tui",
+      "provider": "webchat",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "oc_90d11bf92eedbe30ab24e76cbb21edea",
-      "surface": "feishu",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "surface": "webchat",
       "chatType": "direct",
       "accountId": "default"
     },
@@ -117,16 +117,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "vole",
-    "model": "kimi-k2.5",
-    "contextTokens": 200000,
+    "modelProvider": "bailian",
+    "model": "qwen3-max-2026-01-23",
+    "contextTokens": 262144,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770519096172,
+      "generatedAt": 1770523105452,
       "sessionId": "830c351d-0a32-4e65-9eee-bbedf8783853",
       "sessionKey": "agent:main:main",
-      "provider": "vole",
-      "model": "kimi-k2.5",
+      "provider": "bailian",
+      "model": "qwen3-max-2026-01-23",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -134,9 +134,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 46180,
+        "chars": 47244,
         "projectContextChars": 34478,
-        "nonProjectContextChars": 11702
+        "nonProjectContextChars": 12766
       },
       "injectedWorkspaceFiles": [
         {
@@ -242,8 +242,8 @@
         ]
       },
       "tools": {
-        "listChars": 1926,
-        "schemaChars": 14647,
+        "listChars": 2959,
+        "schemaChars": 18803,
         "entries": [
           {
             "name": "read",
@@ -296,8 +296,8 @@
           {
             "name": "cron",
             "summaryChars": 2444,
-            "schemaChars": 530,
-            "propertiesCount": 12
+            "schemaChars": 581,
+            "propertiesCount": 13
           },
           {
             "name": "message",
@@ -366,6 +366,66 @@
             "propertiesCount": 3
           },
           {
+            "name": "feishu_doc",
+            "summaryChars": 116,
+            "schemaChars": 584,
+            "propertiesCount": 6
+          },
+          {
+            "name": "feishu_app_scopes",
+            "summaryChars": 102,
+            "schemaChars": 33,
+            "propertiesCount": 0
+          },
+          {
+            "name": "feishu_wiki",
+            "summaryChars": 83,
+            "schemaChars": 880,
+            "propertiesCount": 10
+          },
+          {
+            "name": "feishu_drive",
+            "summaryChars": 81,
+            "schemaChars": 458,
+            "propertiesCount": 5
+          },
+          {
+            "name": "feishu_bitable_get_meta",
+            "summaryChars": 114,
+            "schemaChars": 170,
+            "propertiesCount": 1
+          },
+          {
+            "name": "feishu_bitable_list_fields",
+            "summaryChars": 76,
+            "schemaChars": 255,
+            "propertiesCount": 2
+          },
+          {
+            "name": "feishu_bitable_list_records",
+            "summaryChars": 64,
+            "schemaChars": 436,
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_bitable_get_record",
+            "summaryChars": 46,
+            "schemaChars": 335,
+            "propertiesCount": 3
+          },
+          {
+            "name": "feishu_bitable_create_record",
+            "summaryChars": 44,
+            "schemaChars": 515,
+            "propertiesCount": 3
+          },
+          {
+            "name": "feishu_bitable_update_record",
+            "summaryChars": 50,
+            "schemaChars": 439,
+            "propertiesCount": 4
+          },
+          {
             "name": "memory_search",
             "summaryChars": 235,
             "schemaChars": 139,
@@ -380,13 +440,13 @@
         ]
       }
     },
-    "inputTokens": 590,
-    "outputTokens": 468,
-    "totalTokens": 139854,
+    "inputTokens": 174735,
+    "outputTokens": 187,
+    "totalTokens": 174735,
     "lastHeartbeatText": "⚠️ Agent failed before reply: session file locked (timeout 10000ms): pid=433375 /home/tauora/.openclaw/agents/main/sessions/830c351d-0a32-4e65-9eee-bbedf8783853.jsonl.lock.\nLogs: openclaw logs --follow",
     "lastHeartbeatSentAt": 1770518543097,
-    "lastTo": "oc_90d11bf92eedbe30ab24e76cbb21edea",
-    "lastChannel": "feishu",
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastChannel": "webchat",
     "lastAccountId": "default"
   }
 }

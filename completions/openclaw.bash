@@ -15,7 +15,7 @@ _openclaw_completion() {
         return 0
         ;;
       onboard)
-        opts=" --workspace --reset --non-interactive --accept-risk --flow --mode --auth-choice --token-provider --token --token-profile-id --token-expires-in --anthropic-api-key --openai-api-key --openrouter-api-key --ai-gateway-api-key --cloudflare-ai-gateway-account-id --cloudflare-ai-gateway-gateway-id --cloudflare-ai-gateway-api-key --moonshot-api-key --kimi-code-api-key --gemini-api-key --zai-api-key --xiaomi-api-key --minimax-api-key --synthetic-api-key --venice-api-key --opencode-zen-api-key --gateway-port --gateway-bind --gateway-auth --gateway-token --gateway-password --remote-url --remote-token --tailscale --tailscale-reset-on-exit --install-daemon --no-install-daemon --skip-daemon --daemon-runtime --skip-channels --skip-skills --skip-health --skip-ui --node-manager --json"
+        opts=" --workspace --reset --non-interactive --accept-risk --flow --mode --auth-choice --token-provider --token --token-profile-id --token-expires-in --anthropic-api-key --openai-api-key --openrouter-api-key --ai-gateway-api-key --cloudflare-ai-gateway-account-id --cloudflare-ai-gateway-gateway-id --cloudflare-ai-gateway-api-key --moonshot-api-key --kimi-code-api-key --gemini-api-key --zai-api-key --xiaomi-api-key --minimax-api-key --synthetic-api-key --venice-api-key --opencode-zen-api-key --xai-api-key --qianfan-api-key --gateway-port --gateway-bind --gateway-auth --gateway-token --gateway-password --remote-url --remote-token --tailscale --tailscale-reset-on-exit --install-daemon --no-install-daemon --skip-daemon --daemon-runtime --skip-channels --skip-skills --skip-health --skip-ui --node-manager --json"
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         return 0
         ;;
