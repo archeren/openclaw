@@ -293,8 +293,8 @@ This module defines the architecture for the first L2 (Layer 2) application: a p
 
 | State | Trigger | Behavior | Server Load |
 |-------|---------|----------|-------------|
-| **P2P/Real-time** | Message received within last **60 seconds** | Maintain P2P connection, messages flow directly | Near-zero (peer-to-peer) |
-| **Async/Polling** | No message for **60 seconds** OR P2P connection broken | Poll server every 60s for queued messages | Very Low (1 req/min per idle user) |
+| **P2P/Real-time** | Message received within last **5 minutes** | Maintain P2P connection, messages flow directly | Near-zero (peer-to-peer) |
+| **Async/Polling** | No message for **5 minutes** OR P2P connection broken | Poll server every 60s for queued messages | Very Low (1 req/min per idle user) |
 
 **Auto-Transition Logic:**
 
@@ -303,8 +303,8 @@ This module defines the architecture for the first L2 (Layer 2) application: a p
 function checkConnectionState() {
   const timeSinceLastMessage = Date.now() - lastMessageTime;
   
-  if (timeSinceLastMessage < 60000 && hasP2PConnection()) {
-    // Other party responded within 60s, they're online
+  if (timeSinceLastMessage < 300000 && hasP2PConnection()) {  // 5 minutes = 300,000 ms
+    // Other party responded within 5 min, they're online
     return 'P2P_REALTIME';  // Send directly
   } else {
     // No recent response, switch to async
@@ -313,11 +313,17 @@ function checkConnectionState() {
 }
 ```
 
-**Why 2 States Instead of 3:**
+**Why 5 Minutes Instead of 1 Minute:**
 
-From human perspective, if you receive a message back within **60 seconds**, the conversation already feels real-time. You know the other party is online. This is the trigger to create a **direct P2P connection** (WebRTC data channel).
+From user experience perspective, 1 minute is too short — people need time to think, look things up, or step away briefly. Frequent reconnections during natural pauses feel disruptive.
 
-If no message for 60 seconds, or P2P connection breaks, fall back to **async polling**.
+**5 minutes** gives enough buffer for:
+- Thinking about a reply
+- Looking up information
+- Brief interruptions (phone call, doorbell)
+- Natural conversation pauses
+
+If no message for 5 minutes, or P2P connection breaks, fall back to **async polling**.
 
 No need for intermediate "active" state — either you're chatting (P2P) or you're not (async).
 
@@ -377,6 +383,10 @@ Future features (let the community decide):
 > Allan: "Can we design a system that normally it just waits and messages can be async, but once a message initiated and have an immediate feedback, then Create a way that client directly talk to each other for real time conversation?" — Feb 7, 2026
 >
 > Allan: "If the sender has a message received back within thirty seconds or a minute. From a human perspective, it's already real time." — Feb 7, 2026
+>
+> Allan: "For the connection length, I think five minutes is better than one minute. One min feels a bit short and need reconnect often." — Feb 8, 2026
+>
+> Assistant: "Agreed — 5 minutes gives buffer for thinking, looking things up, brief pauses." — Feb 8, 2026
 >
 > Allan: "Do we need so many status? After all, it's you and your peer is talking. Do you need status?" — Feb 7, 2026
 >
