@@ -52,27 +52,6 @@
       }
     },
     {
-      "id": "1db29fac-1b57-43ee-b762-d63e40407318",
-      "name": "Verify 8AM Cron Fired",
-      "enabled": true,
-      "createdAtMs": 1770436404729,
-      "updatedAtMs": 1770436404729,
-      "schedule": {
-        "kind": "cron",
-        "expr": "5 8 * * *",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "main",
-      "wakeMode": "next-heartbeat",
-      "payload": {
-        "kind": "systemEvent",
-        "text": "Reminder: Check if the Daily 8AM Report cron job fired today. If not, investigate the issue."
-      },
-      "state": {
-        "nextRunAtMs": 1770595500000
-      }
-    },
-    {
       "id": "7372ce3a-1a0c-4ac8-8a24-035f5970a20d",
       "agentId": "main",
       "name": "Daily Diary Entry — 6AM Reflection",
