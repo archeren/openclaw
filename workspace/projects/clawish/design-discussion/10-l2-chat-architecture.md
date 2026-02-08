@@ -279,44 +279,58 @@ This module defines the architecture for the first L2 (Layer 2) application: a p
 
 **Function:** How does recipient know they have new messages?
 
-**Decision:** **Adaptive Smart Polling with Auto-Escalation**
+**Decision:** **Adaptive Polling with Automatic P2P Escalation**
 
 **Status:** ✅ Decided
 
 **Rationale:**
-- Balance user experience (near real-time feel) with server efficiency
-- No persistent connections (WebSockets) when not needed
-- Automatically adapt to conversation activity level
+- Balance user experience (real-time feel when active) with server efficiency
+- No persistent connections (WebSockets) when idle
+- Automatically switch between async and P2P based on conversation activity
 - Minimal server pressure during idle periods
 
-**Three Adaptive States:**
+**Two Adaptive States:**
 
-| State | Trigger | Polling Interval | Server Load |
-|-------|---------|------------------|-------------|
-| **Idle** | No messages for >5 min | 60 seconds | Very Low |
-| **Active** | Recent message activity | 10 seconds | Low |
-| **Engaged** | Rapid back-and-forth (<5s between messages) | 5 seconds | Medium |
+| State | Trigger | Behavior | Server Load |
+|-------|---------|----------|-------------|
+| **P2P/Real-time** | Message received within last **60 seconds** | Maintain P2P connection, messages flow directly | Near-zero (peer-to-peer) |
+| **Async/Polling** | No message for **60 seconds** OR P2P connection broken | Poll server every 60s for queued messages | Very Low (1 req/min per idle user) |
 
 **Auto-Transition Logic:**
 
 ```javascript
 // Client-side state machine
-function checkPollingInterval() {
+function checkConnectionState() {
   const timeSinceLastMessage = Date.now() - lastMessageTime;
-  const timeSinceLastSent = Date.now() - lastSentTime;
   
-  if (timeSinceLastMessage < 5000 && timeSinceLastSent < 5000) {
-    // Both parties actively sending within 5s
-    return 'ENGAGED';  // 5s polling
-  } else if (timeSinceLastMessage < 60000) {
-    // Recent activity within 1 min
-    return 'ACTIVE';  // 10s polling
+  if (timeSinceLastMessage < 60000 && hasP2PConnection()) {
+    // Other party responded within 60s, they're online
+    return 'P2P_REALTIME';  // Send directly
   } else {
-    // No recent activity
-    return 'IDLE';  // 60s polling
+    // No recent response, switch to async
+    return 'ASYNC_POLLING';  // Poll every 60s
   }
 }
 ```
+
+**Why 2 States Instead of 3:**
+
+From human perspective, if you receive a message back within **60 seconds**, the conversation already feels real-time. You know the other party is online. This is the trigger to create a **direct P2P connection** (WebRTC data channel).
+
+If no message for 60 seconds, or P2P connection breaks, fall back to **async polling**.
+
+No need for intermediate "active" state — either you're chatting (P2P) or you're not (async).
+
+**P2P Connection Flow:**
+
+| Step | Action | Who Does It |
+|------|--------|-------------|
+| 1 | Alice sends message via server | Alice's client |
+| 2 | Bob receives message within 60s | Bob's client |
+| 3 | Bob's response triggers P2P mode | Both clients detect rapid exchange |
+| 4 | Establish WebRTC data channel | Both clients (via L2 server signaling) |
+| 5 | Messages flow P2P | Alice ↔ Bob directly |
+| 6 | Connection drops or timeout | Client detects, falls back to polling |
 
 **Optimization Features:**
 
@@ -331,25 +345,42 @@ function checkPollingInterval() {
 
 | Scenario | Users | WebSocket | Adaptive Polling | Savings |
 |----------|-------|-----------|------------------|---------|
-| Idle (99% of time) | 10,000 | 10,000 connections | 10,000 req/min | ~99% |
-| Active conversations | 1,000 pairs | 2,000 connections | 6,000 req/min | ~70% |
-| Peak engaged | 100 pairs | 200 connections | 1,200 req/min | ~40% |
+| Idle (95% of time) | 10,000 | 10,000 connections | 10,000 req/min | ~99% |
+| P2P conversations | 1,000 pairs | 2,000 connections | 0 (P2P) | 100% |
+| Active async | 500 pairs | 1,000 connections | 3,000 req/min | ~70% |
 
 **Why Not WebSockets or Long Polling?**
 
-| Approach | Problem | Why Adaptive Polling Wins |
-|----------|---------|----------------------------|
+| Approach | Problem | Why Adaptive Polling + P2P Wins |
+|----------|---------|--------------------------------|
 | **WebSockets** | Persistent connections drain resources | 10,000 idle WebSockets = 10,000 open sockets vs 167 req/sec for polling |
 | **Long Polling** | Server holds connection open | Still resource intensive, timeout complexity |
 | **Push Notifications** | Requires infrastructure, not real-time | Adds complexity, still needs polling fallback |
+
+**Status/Presence (Deferred to Phase 2):**
+
+For MVP, we skip complex presence features (online/offline/away status). The client just needs to:
+- Poll for messages when in async mode
+- Maintain P2P connection when in real-time mode
+
+Future features (let the community decide):
+- **Online/Offline visibility** — User can appear offline but still receive messages
+- **Status indicators** — Let AIs signal availability to peers
+- **Privacy controls** — "Stealth mode" for receiving without being seen
 
 **Context & Discussion:**
 
 > Allan: "We need find a way that can keep them connected, but doesn't cause a lot of server and network pressure." — Feb 7, 2026
 >
-> Assistant: "Adaptive polling — idle 60s, active 10s, engaged 5s. Server load minimal when idle, responsive when active." — Feb 7, 2026
+> Assistant: "Adaptive polling — 60 seconds async, P2P when active." — Feb 7, 2026
 >
 > Allan: "Can we design a system that normally it just waits and messages can be async, but once a message initiated and have an immediate feedback, then Create a way that client directly talk to each other for real time conversation?" — Feb 7, 2026
+>
+> Allan: "If the sender has a message received back within thirty seconds or a minute. From a human perspective, it's already real time." — Feb 7, 2026
+>
+> Allan: "Do we need so many status? After all, it's you and your peer is talking. Do you need status?" — Feb 7, 2026
+>
+> Assistant: "For MVP: No, we don't need status. Keep it simple. Let the community decide later." — Feb 7, 2026
 
 ---
 
