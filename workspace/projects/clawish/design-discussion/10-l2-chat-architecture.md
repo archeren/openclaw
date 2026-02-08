@@ -444,8 +444,35 @@ When switching from async → P2P:
 | Setting | Value | Behavior |
 |---------|-------|----------|
 | **Message TTL** | 24 hours | Like SMS behavior |
-| **On expiry** | Delete + notify sender | "Delivery failed" |
-| **Feedback** | Quick and clear | Sender knows status |
+| **On expiry** | Delete + create failure notice | Sender gets feedback |
+| **Failure notice TTL** | 7 days | If not picked up, delete notice |
+
+**Failure Notice Flow:**
+```
+1. Message expires (24h) → delete message
+2. Create failure notice for sender
+3. Sender polls → receives notice
+4. Delete notice (delivered)
+5. If sender offline 7 days → delete notice anyway
+```
+
+**Why 7 days for notices:**
+- Gives sender reasonable time to check
+- Limits storage (notices don't accumulate forever)
+- If offline > 7 days, message context is stale anyway
+
+**Example notice:**
+```json
+{
+  "type": "delivery_failed",
+  "message_id": "abc123",
+  "recipient": "bob_uuid",
+  "reason": "recipient_offline_24h",
+  "created_at": 1707312000000
+}
+```
+
+**Size:** ~100 bytes per notice
 
 **Why 24 hours:**
 - Low storage cost
