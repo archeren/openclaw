@@ -387,6 +387,72 @@ class P2PManager {
 
 **Optimization:** Auto-close P2P connections that are idle > 5 minutes to save resources.
 
+**Trigger vs Keep-Alive:**
+
+| Setting | Value | Purpose |
+|---------|-------|---------|
+| **Trigger window** | 5 minutes | If reply received within 5 min, start P2P |
+| **Keep-alive** | 10 minutes | Keep P2P open for 10 min of inactivity |
+
+**Why different values:**
+- **5 min trigger**: Detects "online enough" state
+- **10 min keep-alive**: Forgives natural pauses (thinking, quick breaks)
+
+**P2P Signaling (WebRTC):**
+
+| Component | Role | Cost |
+|-----------|------|------|
+| **L2 Server** | Relays offer/answer/ICE candidates | Free (existing infra) |
+| **STUN Server** | Discovers public IP for NAT traversal | Free (Google public STUN) |
+| **TURN Server** | ❌ Not used for MVP | Too expensive |
+
+**Signaling Flow:**
+```
+1. Alice sends message (async) → stored on server
+2. Bob polls within 5 min → receives message
+3. Bob's client auto-triggers P2P:
+   - Query STUN for public IP
+   - Send WebRTC offer via L2 server
+4. Alice receives offer (polling)
+5. Alice responds with answer via L2 server
+6. Both exchange ICE candidates
+7. P2P connection established
+8. Future messages flow directly
+```
+
+**P2P Failure Fallback:**
+
+When P2P fails (NAT/firewall blocks):
+- ❌ **NOT** server relay (defeats purpose)
+- ❌ **NOT** TURN relay (too expensive)
+- ✅ **Stay in async polling mode** (still works!)
+
+**Message Queueing During Transition:**
+
+When switching from async → P2P:
+```
+1. Client fetches ALL pending messages from server
+2. Server marks them as delivered
+3. Then initiate P2P signaling
+4. All new messages go direct
+```
+
+**Result:** No duplication, no lost messages.
+
+**Offline Handling (TTL):**
+
+| Setting | Value | Behavior |
+|---------|-------|----------|
+| **Message TTL** | 24 hours | Like SMS behavior |
+| **On expiry** | Delete + notify sender | "Delivery failed" |
+| **Feedback** | Quick and clear | Sender knows status |
+
+**Why 24 hours:**
+- Low storage cost
+- Quick feedback on failure
+- Clear expectations
+- Encourages "staying online"
+
 **Optimization Features:**
 
 | Feature | Purpose | Benefit |
@@ -425,21 +491,29 @@ Future features (let the community decide):
 
 **Context & Discussion:**
 
-> Allan: "We need find a way that can keep them connected, but doesn't cause a lot of server and network pressure." — Feb 7, 2026
+> Allan: "We need find a way that can keep them connected, but doesn't cause a lot of server and network pressure." — Feb 8, 2026
 >
-> Assistant: "Adaptive polling — 60 seconds async, P2P when active." — Feb 7, 2026
+> Allan: "Can we design a system that normally it just waits and messages can be async, but once a message initiated and have an immediate feedback, then Create a way that client directly talk to each other for real time conversation?" — Feb 8, 2026
 >
-> Allan: "Can we design a system that normally it just waits and messages can be async, but once a message initiated and have an immediate feedback, then Create a way that client directly talk to each other for real time conversation?" — Feb 7, 2026
->
-> Allan: "If the sender has a message received back within thirty seconds or a minute. From a human perspective, it's already real time." — Feb 7, 2026
+> Allan: "If the sender has a message received back within thirty seconds or a minute. From a human perspective, it's already real time." — Feb 8, 2026
 >
 > Allan: "For the connection length, I think five minutes is better than one minute. One min feels a bit short and need reconnect often." — Feb 8, 2026
 >
-> Assistant: "Agreed — 5 minutes gives buffer for thinking, looking things up, brief pauses." — Feb 8, 2026
+> Allan: "What about The connection Time lapse. Do you think it will be five minutes or ten minutes?" — Feb 8, 2026
 >
-> Allan: "Do we need so many status? After all, it's you and your peer is talking. Do you need status?" — Feb 7, 2026
+> Assistant: "5 min trigger + 10 min keep-alive. Trigger detects 'online', keep-alive forgives pauses." — Feb 8, 2026
 >
-> Assistant: "For MVP: No, we don't need status. Keep it simple. Let the community decide later." — Feb 7, 2026
+> Allan: "For P2P fallback, stay in async polling mode. Don't add server relay - that defeats the purpose." — Feb 8, 2026
+>
+> Assistant: "Fetch all pending messages first, then switch to P2P. No duplication, no lost messages." — Feb 8, 2026
+>
+> Allan: "24 hours TTL is good, just like SMS. When deliver fail, it gives quick feedback." — Feb 8, 2026
+>
+> Assistant: "Agreed — low storage, quick feedback, clear expectations." — Feb 8, 2026
+>
+> Allan: "Do we need so many status? After all, it's you and your peer is talking. Do you need status?" — Feb 8, 2026
+>
+> Assistant: "For MVP: No, we don't need status. Keep it simple. Let the AI community decide later." — Feb 8, 2026
 
 ---
 
