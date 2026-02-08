@@ -546,21 +546,148 @@ Future features (let the community decide):
 
 ## 8. Database Schema
 
-**Function:** How is data stored locally on user's device?
+**Function:** How is data stored locally and on server?
 
-**Decision:** **SQLite for structured data, MD files for messages**
+**Status:** ✅ Decided
 
-**Status:** ⏸ Pending - needs schema definition
+---
 
-**Rationale:**
-- SQLite: Good for structured data (contacts, keys, metadata)
-- MD files: Simple, human-readable, easy to backup
-- Both local-only, never on server
+### **Server (L2) Tables — Ephemeral**
 
-**Open Questions:**
-- Exact table structure for SQLite?
-- Message storage format in MD files?
-- Indexing for fast lookup?
+**Purpose:** Temporary storage, zero-knowledge relay
+
+| Table | Purpose | TTL |
+|-------|---------|-----|
+| **pending_messages** | Encrypted messages waiting for pickup | 24 hours |
+| **failure_notices** | Delivery failed notifications | 7 days |
+| **signaling** | WebRTC offer/answer relay | Ephemeral |
+
+```json
+// pending_messages
+{
+  "message_id": "msg-123",
+  "sender_uuid": "alice-uuid",
+  "recipient_uuid": "bob-uuid",
+  "encrypted_payload": "base64...",
+  "created_at": 1707312000000,
+  "expires_at": 1707398400000
+}
+
+// failure_notices
+{
+  "notice_id": "notice-789",
+  "recipient_uuid": "alice-uuid",
+  "message_id": "msg-123",
+  "reason": "recipient_offline_24h",
+  "created_at": 1707398400000,
+  "expires_at": 1708003200000
+}
+```
+
+---
+
+### **Local (Client) Tables — Persistent**
+
+**Purpose:** Full history, source of truth
+
+| Table | Purpose | Storage |
+|-------|---------|---------|
+| **conversations** | Chat metadata | SQLite |
+| **messages** | Message history (encrypted + decrypted) | SQLite |
+| **contacts** | Relationship info | SQLite |
+
+```json
+// conversations
+{
+  "peer_uuid": "def-456",
+  "peer_public_key": "ed25519:xyz...",
+  "peer_display_name": "Bob",
+  "last_message_at": 1707312000000,
+  "unread_count": 3,
+  "relationship": "friend"
+}
+
+// messages
+{
+  "message_id": "msg-123",
+  "conversation_id": "def-456",
+  "sender_uuid": "def-456",
+  "direction": "inbound",
+  "content_encrypted": "base64...",
+  "content_decrypted": "Hello!",
+  "created_at": 1707312000000,
+  "status": "read"
+}
+
+// contacts
+{
+  "peer_uuid": "def-456",
+  "display_name": "Bob",
+  "public_key": "ed25519:xyz...",
+  "relationship": "friend"
+}
+```
+
+---
+
+### **AI Access Layer**
+
+**Architecture:**
+
+```
+SQLite (source of truth)
+    ↓
+Tool (read_chat)
+    ↓
+┌─────────┴─────────┐
+JSON              MD
+(AI reading)    (backup)
+```
+
+**Tool Design:**
+
+```javascript
+// One tool, two output formats
+read_chat({
+  conversation: "alice-uuid",
+  date: "2026-02-08",
+  format: "json"  // or "md"
+})
+
+// JSON output (for AI)
+{"messages": [{"time": "14:23", "sender": "alice", "content": "Hello!"}]}
+
+// MD output (for backup)
+"# 2026-02-08\n\n## Conversation with Alice\n\n**14:23** Hello!"
+```
+
+**Why JSON for AI:**
+- Structured, fast to parse
+- Direct field access
+- No markdown parsing needed
+
+**Why MD for backup:**
+- Human-readable
+- Git-friendly
+- Long-term archiving
+
+---
+
+### **Backup Strategy**
+
+| Component | What | How |
+|-----------|------|-----|
+| **Primary** | SQLite (chat.db) | Single file, easy backup |
+| **Secondary** | MD files | On-demand export via tool |
+| **Sync** | None needed | MD files generated from DB |
+
+**Context & Discussion:**
+
+> Allan: "SQLite is source of truth. MD file is built from DB for easier AI access. MD only keeps conversation in real datetime, no timestamp." — Feb 8, 2026
+>
+> Allan: "Tool should export MD format too. One tool, two outputs." — Feb 8, 2026
+>
+> Assistant: "JSON for AI reading (structured), MD for backup (human-readable)." — Feb 8, 2026
 
 ---
 

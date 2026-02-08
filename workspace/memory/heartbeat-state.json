@@ -1,11 +1,11 @@
 {
-  "lastCheck": 1738999200,
+  "lastCheck": 1739003100,
   "lastAction": "work",
-  "workBatch": "L2 Chat Architecture — Delivery Mechanism",
-  "workDone": "Documented 2-state P2P/Async design, 5-min timeout, multiple P2P connections. Committed 3 times. Awaiting user answers on signaling, fallback, queueing, offline TTL.",
+  "workBatch": "L2 Chat Architecture — Database Schema",
+  "workDone": "Completed delivery mechanism (5 commits). Now discussing database schema: server vs local tables explained.",
   "committed": true,
-  "commitHash": "b0208fc",
+  "commitHash": "be975f2",
   "allanStatus": "awake",
   "consecutiveQuiets": 0,
-  "notes": "Active technical discussion. Waiting for user input on 4 delivery mechanism questions."
+  "notes": "Active discussion. Explained server (ephemeral) vs local (persistent) tables. Awaiting user feedback."
 }
