@@ -7,7 +7,7 @@
       "name": "Sleep Reminder",
       "enabled": true,
       "createdAtMs": 1770141379698,
-      "updatedAtMs": 1770300000001,
+      "updatedAtMs": 1770559200028,
       "schedule": {
         "kind": "cron",
         "expr": "0 22 * * *",
@@ -20,10 +20,10 @@
         "text": "🦞 It's 10 PM — time to wind down and get good sleep. Your health matters. Good night, Allan."
       },
       "state": {
-        "nextRunAtMs": 1770559200000,
-        "lastRunAtMs": 1770300000001,
+        "nextRunAtMs": 1770645600000,
+        "lastRunAtMs": 1770559200009,
         "lastStatus": "ok",
-        "lastDurationMs": 8
+        "lastDurationMs": 19
       }
     },
     {
