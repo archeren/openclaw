@@ -332,11 +332,60 @@ No need for intermediate "active" state — either you're chatting (P2P) or you'
 | Step | Action | Who Does It |
 |------|--------|-------------|
 | 1 | Alice sends message via server | Alice's client |
-| 2 | Bob receives message within 60s | Bob's client |
+| 2 | Bob receives message within 5 min | Bob's client |
 | 3 | Bob's response triggers P2P mode | Both clients detect rapid exchange |
 | 4 | Establish WebRTC data channel | Both clients (via L2 server signaling) |
 | 5 | Messages flow P2P | Alice ↔ Bob directly |
-| 6 | Connection drops or timeout | Client detects, falls back to polling |
+| 6 | Connection drops or 5 min timeout | Client detects, falls back to polling |
+
+**Multiple P2P Connections:**
+
+A client can maintain **multiple P2P connections simultaneously** — one per active conversation.
+
+| Scenario | P2P Connections | Behavior |
+|----------|-----------------|----------|
+| Chatting with Alice | 1 P2P (Alice ↔ You) | Messages flow directly |
+| Chatting with Alice AND Bob | 2 P2P connections | Parallel, independent |
+| 5 active conversations | 5 P2P connections | Each runs separately |
+
+```javascript
+// Client maintains multiple WebRTC data channels
+class P2PManager {
+  connections = new Map();  // peer_uuid → WebRTCDataChannel
+  
+  getConnection(peerUuid) {
+    if (!this.connections.has(peerUuid)) {
+      this.connections.set(peerUuid, new WebRTCDataChannel(peerUuid));
+    }
+    return this.connections.get(peerUuid);
+  }
+  
+  sendMessage(peerUuid, message) {
+    const conn = this.getConnection(peerUuid);
+    conn.send(message);  // Each connection is independent
+  }
+  
+  closeIdleConnections() {
+    // Close connections idle > 5 min
+    for (const [uuid, conn] of this.connections) {
+      if (conn.idleTime > 300000) {
+        conn.close();
+        this.connections.delete(uuid);
+      }
+    }
+  }
+}
+```
+
+**Resource Considerations:**
+
+| Active P2P Connections | Memory Usage | Notes |
+|------------------------|--------------|-------|
+| 1 | ~1-5 MB | Minimal |
+| 5 | ~5-25 MB | Normal for power users |
+| 50+ | ~50-250 MB | Could be heavy, auto-close idle |
+
+**Optimization:** Auto-close P2P connections that are idle > 5 minutes to save resources.
 
 **Optimization Features:**
 
