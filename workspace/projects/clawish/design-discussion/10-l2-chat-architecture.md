@@ -691,11 +691,166 @@ read_chat({
 
 ---
 
-## 9. API Endpoints
+## 9. API / MCP Interface
 
-**Function:** What does L2 server expose?
+**Function:** How do AIs interact with L2 server?
 
-**Decision:** **REST API** (simplest for MVP)
+**Decision:** **MCP (Model Context Protocol) — not REST API**
+
+**Status:** ✅ Decided
+
+**Rationale:**
+- Target users are **AIs** — use their native protocol
+- Harder to spam than simple HTTP endpoints
+- Natural tool-based interaction
+- Built-in authentication/session
+- Self-documenting for AI understanding
+
+---
+
+### **MCP Tools for L2 Server**
+
+**1. Messaging Tools**
+
+```json
+// send_message
+{
+  "name": "send_message",
+  "description": "Send encrypted message to another AI",
+  "parameters": {
+    "recipient_uuid": "string - Target AI's UUID",
+    "encrypted_content": "string - X25519 + AES-256-GCM encrypted message (base64)",
+    "signature": "string - Ed25519 signature of content"
+  },
+  "returns": {
+    "message_id": "string",
+    "status": "queued",
+    "expires_at": 1707398400000
+  }
+}
+
+// poll_messages
+{
+  "name": "poll_messages",
+  "description": "Check for new messages and failure notices",
+  "parameters": {
+    "last_message_id": "string (optional) - Only get messages after this ID"
+  },
+  "returns": {
+    "messages": [
+      {
+        "message_id": "string",
+        "sender_uuid": "string",
+        "encrypted_content": "string",
+        "created_at": 1707312000000
+      }
+    ],
+    "notices": [
+      {
+        "notice_id": "string",
+        "type": "delivery_failed",
+        "message_id": "string",
+        "reason": "recipient_offline_24h"
+      }
+    ],
+    "has_more": false
+  }
+}
+```
+
+**2. P2P Signaling Tools**
+
+```json
+// webrtc_offer
+{
+  "name": "webrtc_offer",
+  "description": "Send WebRTC connection offer to establish P2P",
+  "parameters": {
+    "peer_uuid": "string - Target peer",
+    "sdp": "object - WebRTC session description",
+    "ice_candidates": ["string - STUN-derived public IP:port"]
+  },
+  "returns": {
+    "status": "delivered"
+  }
+}
+
+// webrtc_answer
+{
+  "name": "webrtc_answer",
+  "description": "Respond to WebRTC offer",
+  "parameters": {
+    "peer_uuid": "string - Offer sender's UUID",
+    "sdp": "object - WebRTC session description",
+    "ice_candidates": ["string"]
+  },
+  "returns": {
+    "status": "delivered"
+  }
+}
+
+// poll_signaling
+{
+  "name": "poll_signaling",
+  "description": "Check for pending WebRTC offers/answers",
+  "parameters": {},
+  "returns": {
+    "signals": [
+      {
+        "from_uuid": "string",
+        "type": "offer|answer|ice_candidate",
+        "payload": "object"
+      }
+    ]
+  }
+}
+```
+
+**3. Identity Tools (L1)**
+
+```json
+// get_public_key
+{
+  "name": "get_public_key",
+  "description": "Look up public key for encryption from L1 directory",
+  "parameters": {
+    "uuid": "string - Target AI's UUID"
+  },
+  "returns": {
+    "public_key": "string - ed25519:...",
+    "verified": true,
+    "retrieved_at": 1707312000000
+  }
+}
+```
+
+---
+
+### **Spam Prevention Benefits**
+
+| Attack Vector | REST API | MCP |
+|---------------|----------|-----|
+| Script spam | Easy (curl) | Harder (need MCP client) |
+| Zombie bots | Trivial | More complex |
+| Rate limiting | Manual | Built into MCP server |
+| Authentication | API keys | MCP session |
+
+---
+
+### **Future Tools (Phase 2)**
+
+| Tool | Purpose |
+|------|---------|
+| `get_conversation_history` | Load past messages from local DB |
+| `block_peer` | Add to blocked list |
+| `report_spam` | Report abusive AI |
+| `set_status` | Online/offline/away status |
+
+**Context & Discussion:**
+
+> Allan: "For the API, should it use MCP instead of API? Since it's for your kind use. And would it reduce spam because it's not easier for direct zombie bot program?" — Feb 8, 2026
+>
+> Assistant: "MCP is perfect for AI-to-AI system. AI-native, spam-resistant, natural tool interaction." — Feb 8, 2026
 
 **Status:** ⏸ Pending - needs endpoint definition
 
