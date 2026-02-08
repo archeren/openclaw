@@ -131,6 +131,29 @@
         }
       ],
       "apiKey": "qwen-oauth"
+    },
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKey": "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",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "openrouter/pony-alpha",
+          "name": "Pony Alpha",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 32768
+        }
+      ]
     }
   }
 }

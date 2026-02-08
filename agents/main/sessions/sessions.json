@@ -1,21 +1,21 @@
 {
   "agent:main:main": {
     "sessionId": "830c351d-0a32-4e65-9eee-bbedf8783853",
-    "updatedAt": 1770523178751,
+    "updatedAt": 1770533987581,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "webchat",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "channel": "feishu",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
-      "label": "openclaw-tui",
-      "provider": "webchat",
-      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "surface": "webchat",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "feishu",
+      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
     },
@@ -117,16 +117,16 @@
       ],
       "version": 0
     },
-    "modelProvider": "bailian",
-    "model": "qwen3-max-2026-01-23",
-    "contextTokens": 262144,
+    "modelProvider": "openrouter",
+    "model": "openrouter/pony-alpha",
+    "contextTokens": 200000,
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770523105452,
+      "generatedAt": 1770533613396,
       "sessionId": "830c351d-0a32-4e65-9eee-bbedf8783853",
       "sessionKey": "agent:main:main",
-      "provider": "bailian",
-      "model": "qwen3-max-2026-01-23",
+      "provider": "openrouter",
+      "model": "openrouter/pony-alpha",
       "workspaceDir": "/home/tauora/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -134,9 +134,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 47244,
+        "chars": 47491,
         "projectContextChars": 34478,
-        "nonProjectContextChars": 12766
+        "nonProjectContextChars": 13013
       },
       "injectedWorkspaceFiles": [
         {
@@ -440,13 +440,13 @@
         ]
       }
     },
-    "inputTokens": 174735,
-    "outputTokens": 187,
-    "totalTokens": 174735,
-    "lastHeartbeatText": "⚠️ Agent failed before reply: session file locked (timeout 10000ms): pid=433375 /home/tauora/.openclaw/agents/main/sessions/830c351d-0a32-4e65-9eee-bbedf8783853.jsonl.lock.\nLogs: openclaw logs --follow",
-    "lastHeartbeatSentAt": 1770518543097,
-    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-    "lastChannel": "webchat",
+    "inputTokens": 2951,
+    "outputTokens": 1507,
+    "totalTokens": 62919,
+    "lastHeartbeatText": "**Not HEARTBEAT_OK** — we're in active discussion.\n\n**Current state:**\n- Working on: L2 Delivery Mechanism\n- Commits today: 3 (`0795c7d`, `7cd4851`, `b0208fc`)\n- Waiting for: Your answers to my 4 questions (P2P signaling, fallback, queueing, offline TTL)\n\n**Which question should we tackle?**",
+    "lastHeartbeatSentAt": 1770532559344,
+    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastChannel": "feishu",
     "lastAccountId": "default"
   }
 }
