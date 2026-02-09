@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "f9e6d381-f01b-47ce-aa37-296e60a07354",
-    "updatedAt": 1770634638047,
+    "updatedAt": 1770634958000,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -154,7 +154,7 @@
     "model": "openrouter/pony-alpha",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770634221167,
+      "generatedAt": 1770634619363,
       "sessionId": "f9e6d381-f01b-47ce-aa37-296e60a07354",
       "sessionKey": "agent:main:main",
       "provider": "openrouter",
@@ -489,9 +489,9 @@
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 43437,
-    "outputTokens": 789,
-    "totalTokens": 47277,
+    "inputTokens": 5278,
+    "outputTokens": 448,
+    "totalTokens": 53086,
     "contextTokens": 200000
   }
 }
