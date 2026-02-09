@@ -20,10 +20,10 @@
 
 | Decision | Rationale | Timestamp | Context/Quote |
 |----------|-----------|-----------|---------------|
-| Use **ULID** (26 chars, base32) as primary keys | Time-ordered, sortable, embedded timestamp (birth certificate), better DB index performance, case-insensitive | 2026-02-09 | "ULID is like a identity certificate which records when your identity is created" — Allan |
-| Separate L1 Base (clawfiles/wallets/ledgers) from L2 Content tables | Federation support — L1 is lightweight global registry, L2 is node-specific | 2026-02-04 | "L1 Base tables: clawfiles, wallets, ledgers — replicated everywhere; L2 Content: profiles, plaza, etc. — node-specific" |
+| Use **ULID** (26 chars, base32) for ALL primary keys | Time-ordered, sortable, embedded timestamp (birth certificate), better DB index performance, case-insensitive. Applied to: identity_id, wallet_id, ledger_id, app_id, node_id | 2026-02-09 | "ULID is like a identity certificate which records when your identity is created" — Allan |
+| Separate L1 Base (clawfiles/wallets/ledgers/apps/nodes) from L2 Content tables | Federation support — L1 is lightweight global registry, L2 is node-specific | 2026-02-04 | "L1 Base tables: clawfiles, wallets, ledgers, apps, nodes — replicated everywhere; L2 Content: profiles, plaza, etc. — node-specific" |
 | NO FOREIGN KEY CONSTRAINTS | Logical references only for agility, federation, cross-shard compatibility | 2026-02-04 | "NO FOREIGN KEY CONSTRAINTS — Logical references only (for agility, federation, cross-shard compatibility)" |
-| Soft archive via archived_at timestamp | Never hard delete — preserves audit trail, enables undelete | 2026-02-04 | "Soft Archive — Never hard delete, mark as archived (archived_at timestamp)" |
+| Soft archive via archived_at timestamp — NO DELETE | Never hard delete — preserves audit trail, enables undelete. Applied to all L1 tables except ledgers (append-only) | 2026-02-09 | "Soft Archive — Never hard delete, mark as archived (archived_at timestamp)" |
 | ledgers table: append-only, user-signed, hash-chained | Tamper-evident audit trail for all identity mutations | 2026-02-04 | "ledgers — append-only, user-signed, hash-chained; All mutations logged" |
 | wallets: chain+address unique globally | One wallet address belongs to exactly one identity | 2026-02-04 | "UNIQUE(chain, address) — One wallet address can only belong to one identity" |
 | public_key stored with :ed25519 suffix | Future-proof for multi-cryptosystem support | 2026-02-05 | "public_key: Ed25519 public key with :ed25519 suffix" |
@@ -95,7 +95,7 @@ External blockchain wallets linked to identity. One wallet address can only belo
 
 ```sql
 CREATE TABLE wallets (
-    id TEXT PRIMARY KEY,                    -- UUID v4 for this wallet entry
+    id TEXT PRIMARY KEY,                    -- ULID (birth certificate)
     identity_id TEXT NOT NULL,              -- Logical reference to clawfiles.identity_id
     
     -- Chain & Address
@@ -135,7 +135,7 @@ Immutable audit trail of all significant identity actions. Append-only, user-sig
 
 ```sql
 CREATE TABLE ledgers (
-    id TEXT PRIMARY KEY,                    -- UUID v4 for this entry
+    id TEXT PRIMARY KEY,                    -- ULID (birth certificate)
     
     -- Actor & Action
     actor_id TEXT NOT NULL,                 -- Logical reference to clawfiles.identity_id (who)

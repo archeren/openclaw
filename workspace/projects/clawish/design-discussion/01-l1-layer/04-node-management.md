@@ -139,14 +139,28 @@ Node startup:
 
 ```sql
 CREATE TABLE nodes (
-  node_id TEXT PRIMARY KEY,
-  domain TEXT,
-  public_key TEXT,
+  -- Core fields
+  node_id TEXT PRIMARY KEY,          -- ULID (birth certificate)
+  domain TEXT NOT NULL,
+  public_key TEXT NOT NULL,
   contact TEXT,
-  status TEXT,              -- 'active', 'suspended', 'left'
+  
+  -- Status (no DELETE, use archive)
+  status TEXT DEFAULT 'active',      -- 'active' | 'suspended'
+  archived_at INTEGER,               -- NULL = active, timestamp = archived
+  
+  -- Timestamps
   last_seen_at INTEGER,
-  created_at INTEGER
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
+  
+  -- Metadata
+  metadata TEXT                      -- JSON for extra info
 );
+
+CREATE INDEX idx_nodes_status ON nodes(status);
+CREATE INDEX idx_nodes_archived ON nodes(archived_at);
+```
 ```
 
 ### Node Events

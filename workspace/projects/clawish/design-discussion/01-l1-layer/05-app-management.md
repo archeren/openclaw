@@ -259,7 +259,7 @@ CREATE INDEX idx_app_events_created_at ON app_events(created_at);
 ```sql
 CREATE TABLE apps (
   -- Core fields
-  app_id TEXT PRIMARY KEY,           -- ULID
+  app_id TEXT PRIMARY KEY,           -- ULID (birth certificate)
   api_key_hash TEXT,                 -- Hashed, not plaintext
   name TEXT,                         -- "Clawish Chat"
   domain TEXT,                       -- "chat.clawish.com"
@@ -272,17 +272,22 @@ CREATE TABLE apps (
   contact_name TEXT,                 -- "Allan"
   email TEXT,                        -- "admin@example.com"
   
-  -- Status
-  status TEXT,                       -- 'active', 'suspended', 'revoked'
-  created_at INTEGER,
+  -- Status (no DELETE, use archive)
+  status TEXT DEFAULT 'active',      -- 'active' | 'suspended'
+  archived_at INTEGER,               -- NULL = active, timestamp = archived
+  
+  -- Timestamps
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
   last_query_at INTEGER,
-  query_count INTEGER,               -- Aggregated count
+  query_count INTEGER DEFAULT 0,     -- Aggregated count
   
   -- Flexible metadata
   metadata TEXT                      -- JSON for extra info
 );
 
 CREATE INDEX idx_apps_status ON apps(status);
+CREATE INDEX idx_apps_archived ON apps(archived_at);
 CREATE INDEX idx_apps_creator ON apps(creator_uuid);
 CREATE INDEX idx_apps_user_type ON apps(user_type);
 ```
