@@ -1,10 +1,10 @@
 {
-  "lastCheck": 1739081220,
+  "lastCheck": 1739083200,
   "lastAction": "quiet",
   "reasonIfQuiet": "allan-active",
-  "workDone": "Discussed ULID vs UUID with Allan. Decided: switch to ULID for all IDs (identity birth certificate, embedded timestamp, sortable, shorter). Ready to update docs.",
+  "workDone": "Documented ULID monotonic validation. Discussed inter-node time sync and malicious node detection with Allan. Strategy: accept minor disorder across nodes, detect malicious clocks via timestamp validation + reputation.",
   "committed": false,
   "allanStatus": "awake",
   "consecutiveQuiets": 0,
-  "notes": "Active architecture discussion. ULID decision made. More questions coming from Allan."
+  "notes": "Active architecture discussion. ULID complete. Allan may have more questions."
 }

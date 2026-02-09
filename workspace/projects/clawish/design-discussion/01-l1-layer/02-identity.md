@@ -92,6 +92,303 @@ T56SPSJJQAKYCSNA = randomness (collision protection)
 - **Identity creation:** Server generates (L1) — no client clock issues
 - **Messages:** Client generates — accept minor disorder, not critical
 
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_in_database
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_created
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
+**Monotonic Validation (L1 Server):**
+```
+On identity creation:
+1. Generate new ULID
+2. Check: new_ulid > last_ulid_created
+3. If false → clock went backwards → increment randomness portion
+4. Store and return
+```
+
+This prevents clock reversal from breaking sortability. If server clock drifts back, the randomness portion is incremented to ensure monotonic ordering.
+
 **Context & Discussion:**
 > Allan: "i think can use uuid or nanoid or something for it, should have enough space. it can be billions and trillions of you eventually." — Feb 4, 2026 12:18
 >

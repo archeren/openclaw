@@ -237,6 +237,8 @@ Every L1 data record:
 | How to handle malicious nodes? | ✅ Decided | Hash API keys, sign data |
 | What sync interval? | ⏳ Pending | 5 min default? |
 | How many initial seeds? | ⏳ Pending | 3-5? |
+| Time sync across nodes? | ✅ Noted | Gossip protocol handles time sync via PING/PONG (Phase 2/3) |
+| Malicious clock detection? | ✅ Noted | Reject ULIDs too far from network time, peer comparison, reputation slashing |
 
 ---
 
