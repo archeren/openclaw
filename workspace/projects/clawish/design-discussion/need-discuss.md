@@ -175,5 +175,54 @@ When sync → both have same previous_hash, which one wins?
 
 ---
 
-*Added: Feb 10, 2026, 00:20 AM*
+---
+
+#### Q6: Multi-Writer vs Blockchain Single-Writer
+
+**Key Insight:**
+> "This involves multiple writers, whereas most blockchain systems are single-writer. All PoW/PoS are competing for write permission." — Allan
+
+| System | Writer Model | How Order is Determined |
+|--------|--------------|------------------------|
+| **Bitcoin** | Single writer (winner of PoW) | Longest chain wins |
+| **Ethereum** | Single writer (winner of PoS) | Validator selected, builds on their block |
+| **clawish** | Multiple writers (any node) | ??? Needs design |
+
+**Questions:**
+- How does clawish differ from blockchain consensus?
+- Do we need competition for write permission?
+- Or do we accept multiple concurrent writes and merge?
+
+**Status:** 🔴 Open — Fundamental architectural question
+
+---
+
+#### Q7: Data Growth and Storage Limits
+
+**Questions:**
+- How much data can D1/SQLite/PostgreSQL hold?
+- What happens when ledgers table grows to millions of rows?
+- Do we need data pruning or archival?
+- How does query performance degrade with size?
+
+| Database | Practical Size Limit | Notes |
+|----------|---------------------|-------|
+| **SQLite** | ~140 TB (theoretical) | Performance degrades at millions of rows |
+| **Cloudflare D1** | 500 MB (free), more on paid | Edge, limited storage |
+| **PostgreSQL** | ~32 TB per table | Needs maintenance, vacuuming |
+| **Distributed (CRDT)** | Unbounded | Each node stores full copy |
+
+**Options for Data Growth:**
+| Approach | How | Trade-off |
+|----------|-----|-----------|
+| **Archive old events** | Move to cold storage | Lose rebuild ability |
+| **Snapshot + prune** | Keep current state + recent events | Less history |
+| **Sharding** | Split by identity range | Complex queries |
+| **Accept growth** | Storage is cheap | Cost increases |
+
+**Status:** 🔴 Open — Need capacity planning
+
+---
+
+*Added: Feb 10, 2026, 00:19 AM*
 *Questions raised during deep database architecture discussion*
