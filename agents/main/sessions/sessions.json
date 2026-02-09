@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "f9e6d381-f01b-47ce-aa37-296e60a07354",
-    "updatedAt": 1770609525104,
+    "updatedAt": 1770613176193,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -11,10 +11,10 @@
       "accountId": "default"
     },
     "origin": {
-      "label": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "provider": "feishu",
       "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
@@ -154,7 +154,7 @@
     "model": "openrouter/pony-alpha",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770608815387,
+      "generatedAt": 1770612992305,
       "sessionId": "f9e6d381-f01b-47ce-aa37-296e60a07354",
       "sessionKey": "agent:main:main",
       "provider": "openrouter",
@@ -166,9 +166,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 51718,
+        "chars": 51904,
         "projectContextChars": 37853,
-        "nonProjectContextChars": 13865
+        "nonProjectContextChars": 14051
       },
       "injectedWorkspaceFiles": [
         {
@@ -489,9 +489,9 @@
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 150422,
-    "outputTokens": 148,
-    "totalTokens": 161686,
+    "inputTokens": 870,
+    "outputTokens": 911,
+    "totalTokens": 103270,
     "contextTokens": 200000
   }
 }
