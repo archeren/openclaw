@@ -74,5 +74,106 @@
 
 ---
 
+---
+
 *Last Updated: 2026-02-09*
 *Keep this file CLEAN. Only undecided items belong here.*
+
+---
+
+## 🔴 Multi-Node Architecture (Phase 2/3) — Feb 10, 2026
+
+### Key Insight
+> "This involves multiple writers, whereas most blockchains are single-writer style" — Allan
+
+### Open Questions
+
+#### Q1: How to Handle Multi-Writer Ordering?
+
+**Problem:** When multiple nodes can write events, how do we determine global order?
+
+| Option | How | Pros | Cons |
+|--------|-----|------|------|
+| **A: Per-actor chains** | Each actor has own hash chain | Security proof per actor | Doesn't solve global order |
+| **B: HLC + node_id** | Sort by Hybrid Logical Clock | Handles clock drift | Requires HLC implementation |
+| **C: Consensus (Raft)** | All nodes vote on order | Strong consistency | Slower, needs coordination |
+| **D: Single writer per actor** | Actor X only writes to Node A | No race condition | What if Node A down? |
+
+**Status:** 🔴 Open — Needs decision for Phase 2/3
+
+---
+
+#### Q2: Race Condition in Per-Actor Chains
+
+**Problem:** Same actor writes to two nodes simultaneously → chain breaks
+
+```
+Node A: X creates event X2 (previous_hash: hash(X1))
+Node B: X creates event X2' (previous_hash: hash(X1))  // Same previous!
+
+When sync → both have same previous_hash, which one wins?
+```
+
+| Option | How | When to Use |
+|--------|-----|-------------|
+| **A: Actor writes to ONE node** | Enforce single writer per actor | Phase 2 |
+| **B: Detect and reject** | Lower hlc_time wins, loser resubmits | Phase 3 |
+| **C: Drop per-actor chain** | Signatures + HLC sufficient | Phase 3 |
+
+**Status:** 🔴 Open — Solve before Phase 3
+
+---
+
+#### Q3: Sybil Attack Prevention
+
+**Problem:** Malicious node creates 1000 fake identities with valid signatures, syncs to honest nodes
+
+| Defense Layer | Protection | Already Designed? |
+|---------------|------------|-------------------|
+| **Identity tiers** | Tier 0 = unverified, Tier 1+ = verified | ✅ Yes |
+| **Node trust score** | Track node reputation, rate limits | ❌ No |
+| **Consensus on creation** | Multiple nodes witness new identity | ❌ No |
+| **Checkpoints** | Periodic global state hash agreement | ❌ No |
+| **Stake + slashing** | Deposit required, slashed for bad behavior | ❌ No |
+
+**Status:** 🔴 Open — Tier system helps, but full defense needs design
+
+---
+
+#### Q4: What to Sync Between Nodes?
+
+| Layer | Sync? | Why |
+|-------|-------|-----|
+| **ledgers** | ✅ Yes | Source of truth |
+| **State tables (clawfiles, etc.)** | ❌ No | Rebuild locally from ledgers |
+
+**Status:** ✅ Decided — Sync ledgers only, state is local
+
+---
+
+#### Q5: Database Choice for MVP
+
+| Option | Pros | Cons |
+|--------|------|------|
+| **Cloudflare D1** | Edge, SQLite-compatible, zero ops | Size limits, cold start |
+| **SQLite + custom sync** | Simple, full control | Need to build sync layer |
+| **PostgreSQL** | Production-grade | Requires server |
+
+**Status:** ✅ Tentatively decided — Cloudflare D1 for MVP
+
+---
+
+### Key Architectural Decisions Made (Feb 9)
+
+| Decision | What |
+|----------|------|
+| **All IDs → ULID** | identity_id, wallet_id, ledger_id, app_id, node_id all use ULID |
+| **ledgers = source of truth** | State tables (clawfiles, wallets, etc.) are queryable cache |
+| **No DELETE** | All L1 tables use archived_at for soft delete |
+| **Multi-node ready schema** | Add node_id, hlc_time fields to ledgers now |
+| **node_id = ULID** | Not domain name, consistent with other IDs |
+
+---
+
+*Added: Feb 10, 2026, 00:20 AM*
+*Questions raised during deep database architecture discussion*
