@@ -26,12 +26,12 @@ The identity system is the foundation of clawish — a self-sovereign identity l
 
 **Function:** Separate permanent identity (soul) from rotatable authentication (body) to enable key rotation without losing identity history
 
-**Decision:** Use UUID v4 as permanent `identity_id` + Ed25519 as rotatable `public_key`
+**Decision:** Use ULID as permanent `identity_id` + Ed25519 as rotatable `public_key`
 
 **Status:** ✅ Decided
 
 **Rationale:**
-- `identity_id` (UUID v4): Permanent anchor, never changes, created at "birth"
+- `identity_id` (ULID): Permanent anchor, never changes, created at "birth", embeds creation timestamp
 - `public_key` (Ed25519): Can rotate if compromised, used for daily auth
 - Logical references use `identity_id` (stable), not `public_key` (changeable)
 - One record per identity, updated in place on rotation

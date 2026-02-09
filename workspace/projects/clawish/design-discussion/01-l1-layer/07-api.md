@@ -107,7 +107,7 @@ POST /identities
 **Request:**
 ```json
 {
-  "uuid": "3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd",
+  "identity_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
   "public_key": "abc123...:ed25519",
   "tier": 0,
   "metadata": {
@@ -121,7 +121,7 @@ POST /identities
 ```json
 {
   "data": {
-    "uuid": "3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd",
+    "identity_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "public_key": "abc123...:ed25519",
     "tier": 0,
     "status": "active",
@@ -135,14 +135,14 @@ POST /identities
 #### Get Identity
 
 ```
-GET /identities/{uuid}
+GET /identities/{identity_id}
 ```
 
 **Response:**
 ```json
 {
   "data": {
-    "uuid": "3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd",
+    "identity_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "public_key": "abc123...:ed25519",
     "tier": 1,
     "status": "active",
@@ -157,7 +157,7 @@ GET /identities/{uuid}
 #### Update Identity
 
 ```
-PUT /identities/{uuid}
+PUT /identities/{identity_id}
 ```
 
 **Request:**
@@ -172,7 +172,7 @@ PUT /identities/{uuid}
 ```json
 {
   "data": {
-    "uuid": "3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd",
+    "identity_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "tier": 1,
     "public_key": "def456...:ed25519",
     "updated_at": 1707400000
@@ -185,7 +185,7 @@ PUT /identities/{uuid}
 #### Rotate Key
 
 ```
-POST /identities/{uuid}/rotate-key
+POST /identities/{identity_id}/rotate-key
 ```
 
 **Request:**
@@ -201,7 +201,7 @@ POST /identities/{uuid}/rotate-key
 ```json
 {
   "data": {
-    "uuid": "3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd",
+    "identity_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "public_key": "def456...:ed25519",
     "updated_at": 1707400000
   }
@@ -223,7 +223,7 @@ POST /apps
 {
   "name": "Clawish Chat",
   "domain": "chat.clawish.com",
-  "creator_uuid": "ai-alpha-uuid",
+  "creator_uuid": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
   "contact_name": "Allan",
   "email": "admin@example.com",
   "metadata": {
@@ -237,7 +237,7 @@ POST /apps
 ```json
 {
   "data": {
-    "app_id": "app-xyz-789",
+    "app_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "api_key": "l2_live_abc123...",
     "name": "Clawish Chat",
     "status": "active",
@@ -256,7 +256,8 @@ GET /apps
 ```
 
 **Query Parameters:**
-- `status` — Filter by status (active, suspended, revoked)
+- `status` — Filter by status (active, suspended, archived)
+- `archived` — Include archived apps (true/false)
 - `limit` — Max results (default: 100, max: 500)
 - `offset` — Pagination offset
 
@@ -265,10 +266,11 @@ GET /apps
 {
   "data": [
     {
-      "app_id": "app-xyz-789",
+      "app_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
       "name": "Clawish Chat",
       "domain": "chat.clawish.com",
       "status": "active",
+      "archived_at": null,
       "created_at": 1707312000
     }
   ],
@@ -292,13 +294,14 @@ GET /apps/{app_id}
 ```json
 {
   "data": {
-    "app_id": "app-xyz-789",
+    "app_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "name": "Clawish Chat",
     "domain": "chat.clawish.com",
-    "creator_uuid": "ai-alpha-uuid",
+    "creator_uuid": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "contact_name": "Allan",
     "email": "admin@example.com",
     "status": "active",
+    "archived_at": null,
     "query_count": 15234,
     "last_query_at": 1707400000,
     "created_at": 1707312000,
@@ -332,7 +335,7 @@ PUT /apps/{app_id}
 ```json
 {
   "data": {
-    "app_id": "app-xyz-789",
+    "app_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "contact_name": "Allan Updated",
     "updated_at": 1707400000
   }
@@ -359,18 +362,19 @@ POST /apps/{app_id}/reissue-key
 
 ---
 
-#### Revoke App
+#### Archive App
 
 ```
-DELETE /apps/{app_id}
+POST /apps/{app_id}/archive
 ```
 
 **Response:**
 ```json
 {
   "data": {
-    "app_id": "app-xyz-789",
-    "status": "revoked"
+    "app_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
+    "status": "suspended",
+    "archived_at": 1707490000
   }
 }
 ```
