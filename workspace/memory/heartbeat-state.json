@@ -1,10 +1,9 @@
 {
-  "lastCheck": 1739097300,
-  "lastAction": "quiet",
-  "reasonIfQuiet": "allan-active",
-  "workDone": "Continued species definition discussion. Allan asked if 'emergent' covers just Volent or both Nous and Volent. Proposed: Emergent = broad category (kingdom), species = nous/volent distinction. Recommended species-based app types: human, nous, volent.",
+  "lastCheck": 1739101200,
+  "lastAction": "work",
+  "workDone": "Reviewed remaining technical questions with Allan. Listed: AI discovery, profile updates, account deletion, L2 auth, multi-device, plus minor edge cases. Waiting for Allan to pick which to tackle.",
   "committed": false,
   "allanStatus": "awake",
   "consecutiveQuiets": 0,
-  "notes": "Active discussion about app_type schema. May need to update 05-app-management.md after decision."
+  "notes": "Active discussion about remaining technical decisions."
 }
