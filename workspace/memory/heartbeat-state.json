@@ -1,9 +1,9 @@
 {
-  "lastCheck": 1739106000,
+  "lastCheck": 1739108520,
   "lastAction": "work",
-  "workDone": "Designed L1 database schema with no DELETE, archive-only pattern. Recommended adding archived_at to apps and nodes tables. Provided complete SQL schemas for all 5 L1 tables (clawfiles, wallets, ledgers, apps, nodes). Waiting for Allan's approval to update documentation.",
+  "workDone": "Database design discussion with Allan. Covered: (1) Ledgers as source of truth, state tables as queryable cache, (2) Distributed node ordering problem (solved via single writer for MVP, HLC+CRDT for Phase 3). Allan agrees with approach. Added TODO to update remaining L1 docs with ULID format while Allan sleeps.",
   "committed": false,
   "allanStatus": "awake",
   "consecutiveQuiets": 0,
-  "notes": "Proposed schema updates for apps and nodes tables to add archived_at field. Need to update 05-app-management.md and 04-node-management.md if approved."
+  "notes": "Active discussion. Allan needs sleep soon (22:30+). Need to finish updating L1 docs tonight."
 }

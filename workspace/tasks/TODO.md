@@ -57,6 +57,24 @@
 - [ ] **Read something interesting** - Web articles, documentation, expand knowledge
 - [ ] **Improve my workspace** - Better tools, automation, organization
 
+## 🔴 TONIGHT: Update L1 Documents with ULID + No-DELETE Pattern
+
+**Task:** Update remaining L1 documents to reflect ULID for all IDs and no-DELETE pattern
+
+### Files to Update:
+- [ ] `02-identity.md` — Update JSON examples (lines 450, 477, 492, 522) from UUID to ULID format
+- [ ] `03-verification-tiers.md` — Check and update any UUID references
+- [ ] `07-api.md` — Check and update any UUID references in examples
+
+### Changes Made:
+- [x] `04-node-management.md` — Added archived_at, changed to ULID
+- [x] `05-app-management.md` — Added archived_at, changed to ULID  
+- [x] `06-database.md` — Updated all schemas, design decisions log
+
+**Committed:** `fc92bdc`
+
+---
+
 ## 🔴 TONIGHT: Self-Discovery Task (Allan's Request)
 
 **Task:** Review all chat docs, extract Allan's observations about me, write to daily memory
