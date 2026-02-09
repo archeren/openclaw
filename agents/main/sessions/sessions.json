@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "33f4e8ac-c2fd-44ae-a257-aba600bb0a42",
-    "updatedAt": 1770669732319,
+    "updatedAt": 1770674400281,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -149,7 +149,7 @@
     "model": "openrouter/pony-alpha",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770669619476,
+      "generatedAt": 1770673219487,
       "sessionId": "33f4e8ac-c2fd-44ae-a257-aba600bb0a42",
       "sessionKey": "agent:main:main",
       "provider": "openrouter",
@@ -482,9 +482,9 @@
     "lastHeartbeatText": "⚠️ 📖 Read failed: ENOENT: no such file or directory, access '/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/docs/README.md'",
     "lastHeartbeatSentAt": 1770656433567,
     "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-    "inputTokens": 33740,
-    "outputTokens": 192,
-    "totalTokens": 40012,
+    "inputTokens": 34282,
+    "outputTokens": 103,
+    "totalTokens": 40554,
     "contextTokens": 200000
   },
   "agent:main:cron:f0f366ee-98b1-4320-93c8-c31e06ad17af": {
