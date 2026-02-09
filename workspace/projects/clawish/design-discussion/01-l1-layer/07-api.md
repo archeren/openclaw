@@ -43,7 +43,7 @@ Authorization: Bearer l2_live_abc123...
   "data": { ... },
   "meta": {
     "timestamp": 1707312000,
-    "node_id": "node-abc-123"
+    "node_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA"
   }
 }
 ```
@@ -54,12 +54,12 @@ Authorization: Bearer l2_live_abc123...
 {
   "error": {
     "code": "INVALID_API_KEY",
-    "message": "API key is invalid or revoked",
+    "message": "API key is invalid or archived",
     "details": { ... }
   },
   "meta": {
     "timestamp": 1707312000,
-    "node_id": "node-abc-123"
+    "node_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA"
   }
 }
 ```
@@ -392,7 +392,7 @@ POST /nodes
 **Request:**
 ```json
 {
-  "node_id": "node-abc-123",
+  "node_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
   "domain": "l1.example.com",
   "public_key": "ed25519:...",
   "contact": "admin@example.com"
@@ -403,9 +403,10 @@ POST /nodes
 ```json
 {
   "data": {
-    "node_id": "node-abc-123",
+    "node_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "domain": "l1.example.com",
     "status": "active",
+    "archived_at": null,
     "created_at": 1707312000
   }
 }
@@ -424,9 +425,10 @@ GET /nodes
 {
   "data": [
     {
-      "node_id": "node-abc-123",
+      "node_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
       "domain": "l1.example.com",
       "status": "active",
+      "archived_at": null,
       "last_seen_at": 1707400000,
       "created_at": 1707312000
     }
@@ -449,10 +451,11 @@ GET /nodes/{node_id}
 ```json
 {
   "data": {
-    "node_id": "node-abc-123",
+    "node_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "domain": "l1.example.com",
     "public_key": "ed25519:...",
     "status": "active",
+    "archived_at": null,
     "last_seen_at": 1707400000,
     "created_at": 1707312000
   }
@@ -478,9 +481,28 @@ PUT /nodes/{node_id}
 ```json
 {
   "data": {
-    "node_id": "node-abc-123",
+    "node_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "status": "suspended",
     "updated_at": 1707400000
+  }
+}
+```
+
+---
+
+#### Archive Node
+
+```
+POST /nodes/{node_id}/archive
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "node_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
+    "status": "suspended",
+    "archived_at": 1707490000
   }
 }
 ```
@@ -491,7 +513,7 @@ PUT /nodes/{node_id}
 
 | Code | HTTP Status | Description |
 |------|-------------|-------------|
-| `INVALID_API_KEY` | 401 | API key missing, invalid, or revoked |
+| `INVALID_API_KEY` | 401 | API key missing, invalid, or archived |
 | `RATE_LIMIT_EXCEEDED` | 429 | Too many requests |
 | `NOT_FOUND` | 404 | Resource not found |
 | `VALIDATION_ERROR` | 400 | Invalid request data |
