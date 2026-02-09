@@ -36,6 +36,19 @@
 
 ## 🔴 Remaining for Tomorrow / Later
 
+### 0. L1 Governance & Decentralization (NEW - Feb 9)
+
+**Context:** After reading Bitcoin/Ethereum/Solana docs, we identified a key question.
+
+| Question | Status | Notes |
+|----------|--------|-------|
+| What decisions does L1 make? | ⏸ Need discussion | Just a database (store keys/tiers) or governance (approve changes)? |
+| L1 node incentives | ⏸ Later | Why run an L1 node? Token? Reputation? |
+| When to add governance? | ⏸ Later | MVP = single node, you control. Add voting when network scales. |
+| Open network vs Multi-node | ✅ Decided | MVP → Multi-node (trusted) → Open network (anyone). Not urgent. |
+
+**Key insight:** If L1 is just a database (storing signed identity data), open network is simpler — CRDTs handle sync, no voting needed. If L1 has governance power, we need consensus.
+
 ### 1. L2 Application Architecture (In Progress)
 
 **Decided:**
