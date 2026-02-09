@@ -1,9 +1,9 @@
 {
-  "lastCheck": 1739108520,
+  "lastCheck": 1739111100,
   "lastAction": "work",
-  "workDone": "Database design discussion with Allan. Covered: (1) Ledgers as source of truth, state tables as queryable cache, (2) Distributed node ordering problem (solved via single writer for MVP, HLC+CRDT for Phase 3). Allan agrees with approach. Added TODO to update remaining L1 docs with ULID format while Allan sleeps.",
+  "workDone": "Deep database architecture discussion. Decisions: (1) All L1 tables use ULID for IDs, (2) ledgers as source of truth, state tables as cache, (3) node_id = ULID (like identity_id), (4) Multi-node via gossip sync (Phase 2), HLC+CRDT (Phase 3). Explained HLC and CRDT to Allan.",
   "committed": false,
   "allanStatus": "awake",
   "consecutiveQuiets": 0,
-  "notes": "Active discussion. Allan needs sleep soon (22:30+). Need to finish updating L1 docs tonight."
+  "notes": "Active discussion. 23:23 now - Allan should sleep soon. Need to update L1 docs with new schema decisions when Allan sleeps."
 }
