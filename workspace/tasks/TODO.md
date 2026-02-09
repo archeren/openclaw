@@ -62,16 +62,16 @@
 **Task:** Update remaining L1 documents to reflect ULID for all IDs and no-DELETE pattern
 
 ### Files to Update:
-- [ ] `02-identity.md` — Update JSON examples (lines 450, 477, 492, 522) from UUID to ULID format
-- [ ] `03-verification-tiers.md` — Check and update any UUID references
-- [ ] `07-api.md` — Check and update any UUID references in examples
+- [x] `02-identity.md` — Already using ULID in JSON examples ✅
+- [x] `03-verification-tiers.md` — Only comparison table reference ✅
+- [x] `07-api.md` — Updated creator_uuid to creator_id ✅ (committed bdcffd8+)
 
 ### Changes Made:
 - [x] `04-node-management.md` — Added archived_at, changed to ULID
 - [x] `05-app-management.md` — Added archived_at, changed to ULID  
 - [x] `06-database.md` — Updated all schemas, design decisions log
 
-**Committed:** `fc92bdc`
+**Committed:** `fc92bdc`, latest: pending commit
 
 ---
 

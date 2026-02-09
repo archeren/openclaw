@@ -223,7 +223,7 @@ POST /apps
 {
   "name": "Clawish Chat",
   "domain": "chat.clawish.com",
-  "creator_uuid": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
+  "creator_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",  // ULID of creator's identity
   "contact_name": "Allan",
   "email": "admin@example.com",
   "metadata": {
@@ -297,7 +297,7 @@ GET /apps/{app_id}
     "app_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "name": "Clawish Chat",
     "domain": "chat.clawish.com",
-    "creator_uuid": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
+    "creator_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",  // ULID of creator's identity
     "contact_name": "Allan",
     "email": "admin@example.com",
     "status": "active",
