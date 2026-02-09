@@ -128,15 +128,21 @@ When sync → both have same previous_hash, which one wins?
 
 **Problem:** Malicious node creates 1000 fake identities with valid signatures, syncs to honest nodes
 
-| Defense Layer | Protection | Already Designed? |
-|---------------|------------|-------------------|
-| **Identity tiers** | Tier 0 = unverified, Tier 1+ = verified | ✅ Yes |
-| **Node trust score** | Track node reputation, rate limits | ❌ No |
-| **Consensus on creation** | Multiple nodes witness new identity | ❌ No |
-| **Checkpoints** | Periodic global state hash agreement | ❌ No |
-| **Stake + slashing** | Deposit required, slashed for bad behavior | ❌ No |
+| Defense Layer | Protection | Already Designed? | Needs Discussion |
+|---------------|------------|-------------------|------------------|
+| **Identity tiers** | Tier 0 = unverified, Tier 1+ = verified | ✅ Yes | ❌ Implemented |
+| **Node trust score** | Track node reputation, rate limits | ❌ No | 🔴 **Q3a: How to implement?** |
+| **Consensus on creation** | Multiple nodes witness new identity | ❌ No | 🔴 **Q3b: How many witnesses?** |
+| **Checkpoints** | Periodic global state hash agreement | ❌ No | 🔴 **Q3c: How often? Who signs?** |
+| **Stake + slashing** | Deposit required, slashed for bad behavior | ❌ No | 🔴 **Q3d: How much stake?** |
 
-**Status:** 🔴 Open — Tier system helps, but full defense needs design
+**Sub-questions:**
+- **Q3a (Node trust score):** How to calculate? What factors? How to prevent gaming?
+- **Q3b (Consensus on creation):** How many nodes must witness? What if nodes are offline?
+- **Q3c (Checkpoints):** How often? Who participates? How to handle disagreements?
+- **Q3d (Stake + slashing):** How much stake? What counts as bad behavior? Who judges?
+
+**Status:** 🔴 Open — Each option needs detailed design
 
 ---
 
