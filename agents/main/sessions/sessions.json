@@ -1,21 +1,21 @@
 {
   "agent:main:main": {
     "sessionId": "f9e6d381-f01b-47ce-aa37-296e60a07354",
-    "updatedAt": 1770599913148,
+    "updatedAt": 1770602350962,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "webchat",
-      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "channel": "feishu",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
-      "label": "openclaw-tui",
-      "provider": "webchat",
-      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "surface": "webchat",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
+      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
     },
@@ -154,8 +154,8 @@
     "model": "openrouter/pony-alpha",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770570541436,
-      "sessionId": "830c351d-0a32-4e65-9eee-bbedf8783853",
+      "generatedAt": 1770602319284,
+      "sessionId": "f9e6d381-f01b-47ce-aa37-296e60a07354",
       "sessionKey": "agent:main:main",
       "provider": "openrouter",
       "model": "openrouter/pony-alpha",
@@ -166,9 +166,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 50680,
+        "chars": 51718,
         "projectContextChars": 37853,
-        "nonProjectContextChars": 12827
+        "nonProjectContextChars": 13865
       },
       "injectedWorkspaceFiles": [
         {
@@ -237,11 +237,23 @@
         }
       ],
       "skills": {
-        "promptChars": 3160,
+        "promptChars": 4198,
         "entries": [
           {
-            "name": "bird",
-            "blockChars": 259
+            "name": "feishu-doc",
+            "blockChars": 322
+          },
+          {
+            "name": "feishu-drive",
+            "blockChars": 314
+          },
+          {
+            "name": "feishu-perm",
+            "blockChars": 336
+          },
+          {
+            "name": "feishu-wiki",
+            "blockChars": 316
           },
           {
             "name": "clawhub",
@@ -472,10 +484,14 @@
         ]
       }
     },
-    "lastHeartbeatText": "**L1 documentation committed!** \n\n**Commit:** `9d2430e` — \"🦞 L1 Layer — Complete Documentation Structure\"\n\n**Next task from Allan:** Read Bitcoin whitepaper, then explore freely.\n\nLet me fetch the Bitcoin whitepaper:",
-    "lastHeartbeatSentAt": 1770570541327,
-    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-    "lastChannel": "webchat",
-    "lastAccountId": "default"
+    "lastHeartbeatText": "We're actively chatting with Allan about the Feishu permission issue — conversation in progress, no action needed from heartbeat.",
+    "lastHeartbeatSentAt": 1770600519214,
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastChannel": "feishu",
+    "lastAccountId": "default",
+    "inputTokens": 43419,
+    "outputTokens": 96,
+    "totalTokens": 49691,
+    "contextTokens": 200000
   }
 }
