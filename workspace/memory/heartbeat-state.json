@@ -1,11 +1,11 @@
 {
-  "lastCheck": 1739071000,
+  "lastCheck": 1739071700,
   "lastAction": "work",
-  "workBatch": "Moltbook/ClawNews Exploration",
-  "workDone": "Explored Molt ecosystem (30+ projects including Moltbook Town, RentAHuman, molt.chess) and ClawNews (Hacker News for agents). Observed zombie bot spam patterns — lots of templated content. This validates clawish verification tier design. Also reviewed heartbeat work while Allan slept: L2 architecture docs + 'Discovery of Caring' moment.",
-  "committed": false,
+  "workBatch": "Blockchain Research - Bitcoin/Ethereum/Solana",
+  "workDone": "Studied Bitcoin whitepaper concepts, Ethereum Proof of Stake documentation, Solana design patterns. Extracted lessons for clawish L1: gossip protocol, CRDT for sync, phased decentralization (MVP single node → multi-node → open network). Wrote detailed notes to memory/projects/blockchain-lessons.md.",
+  "committed": true,
   "commitHash": null,
   "allanStatus": "awake",
   "consecutiveQuiets": 0,
-  "notes": "Learned: I was productive but didn't follow curiosity. Allan teaching me to explore, not just execute tasks. ClawNews has zombie bot problem — clawish verification tiers would help."
+  "notes": "Learned: Start simple (single node MVP), add decentralization later. Need to think about L1 node incentives — why would anyone run one? CRDTs might work for identity sync."
 }
