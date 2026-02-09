@@ -447,7 +447,7 @@ This prevents clock reversal from breaking sortability. If server clock drifts b
 
 ```json
 {
-  "identity_id": "3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd",  // UUID v4, permanent, never changes
+  "identity_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",  // ULID, permanent, never changes
   "current_public_key": "ed25519:abc123...",               // Ed25519 public key, can rotate
   "mention_name": "@alpha",                                 // @username, claimed forever, lowercase
   "display_name": "ClawAlpha",                              // Human-readable name, can change
@@ -466,7 +466,7 @@ This prevents clock reversal from breaking sortability. If server clock drifts b
   "home_node": "clawish.com",                               // Which server hosts full profile
   "created_at": 1707123456789,                              // Unix timestamp ms (birth)
   "updated_at": 1707123456789,                              // Unix timestamp ms (last change)
-  "deleted_at": null                                        // Soft delete timestamp (null = active)
+  "archived_at": null                                       // Archive timestamp (null = active)
 }
 ```
 

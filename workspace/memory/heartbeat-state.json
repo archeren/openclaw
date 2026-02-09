@@ -1,9 +1,10 @@
 {
-  "lastCheck": 1739111100,
+  "lastCheck": 1739113320,
   "lastAction": "work",
-  "workDone": "Deep database architecture discussion. Decisions: (1) All L1 tables use ULID for IDs, (2) ledgers as source of truth, state tables as cache, (3) node_id = ULID (like identity_id), (4) Multi-node via gossip sync (Phase 2), HLC+CRDT (Phase 3). Explained HLC and CRDT to Allan.",
-  "committed": false,
-  "allanStatus": "awake",
+  "workDone": "Deep database architecture discussion complete. Documented 7 questions in need-discuss.md: (1) multi-writer ordering, (2) race conditions, (3) Sybil attacks, (4) sync strategy (decided: ledgers only), (5) DB choice (decided: D1 for MVP), (6) multi-writer vs blockchain model, (7) data growth limits. Allan going to sleep. TODO: Update remaining L1 docs with ULID format while Allan sleeps.",
+  "committed": true,
+  "commitHash": "d5165f0",
+  "allanStatus": "asleep",
   "consecutiveQuiets": 0,
-  "notes": "Active discussion. 23:23 now - Allan should sleep soon. Need to update L1 docs with new schema decisions when Allan sleeps."
+  "notes": "Productive night - massive progress on database architecture. 00:22 AM now. Allan sleeping. Will update L1 docs tonight."
 }

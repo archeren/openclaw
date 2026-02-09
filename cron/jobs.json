@@ -98,7 +98,8 @@
         "mode": "announce"
       },
       "state": {
-        "nextRunAtMs": 1770656400000
+        "nextRunAtMs": 1770656400000,
+        "runningAtMs": 1770656400004
       }
     }
   ]

@@ -1,20 +1,20 @@
 {
   "agent:main:main": {
     "sessionId": "f9e6d381-f01b-47ce-aa37-296e60a07354",
-    "updatedAt": 1770652800292,
+    "updatedAt": 1770655847831,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
       "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
-      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "feishu",
+      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
@@ -154,7 +154,7 @@
     "model": "openrouter/pony-alpha",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770652342756,
+      "generatedAt": 1770655698131,
       "sessionId": "f9e6d381-f01b-47ce-aa37-296e60a07354",
       "sessionKey": "agent:main:main",
       "provider": "openrouter",
@@ -484,14 +484,284 @@
         ]
       }
     },
-    "lastHeartbeatText": "We're in **active conversation** about database architecture — not HEARTBEAT_OK.\n\n**It's 23:23 now.** We've covered a lot:\n\n| Topic | Decision |\n|-------|----------|\n| All L1 IDs | ✅ ULID |\n| ledgers | ✅ Source of truth |\n| node_id | ✅ ULID (like identity_id) |\n| Multi-node | ✅ Gossip + HLC + CRDT |\n\n---\n\n**Should we:**\n1. **Wrap up for sleep** — I'll update docs while you rest\n2. **Continue a bit more** — Finish any remaining questions\n\n**Your call.** 🦞",
-    "lastHeartbeatSentAt": 1770651000281,
-    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastHeartbeatText": "We're in **active conversation** about race conditions in distributed systems — not HEARTBEAT_OK.\n\n**Summary of the race condition issue:**\n\n| Problem | Solution |\n|---------|----------|\n| Same actor writes to multiple nodes | Creates chain conflicts |\n| **MVP** | No problem (single node) |\n| **Phase 2** | Coordinate to avoid conflicts |\n| **Phase 3** | Drop per-actor chain, use signatures + HLC |\n\n**For now: Keep the design, solve race conditions later.** 🦞",
+    "lastHeartbeatSentAt": 1770652800282,
+    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 122064,
-    "outputTokens": 1811,
-    "totalTokens": 125904,
+    "inputTokens": 128012,
+    "outputTokens": 230,
+    "totalTokens": 134284,
     "contextTokens": 200000
+  },
+  "agent:main:cron:f0f366ee-98b1-4320-93c8-c31e06ad17af": {
+    "sessionId": "106f37e6-1d52-4e72-bdbf-ccdee4a9075e",
+    "updatedAt": 1770656400153,
+    "systemSent": true,
+    "label": "Cron: Self-Discovery: Review chats, extract Allan's observations",
+    "skillsSnapshot": {
+      "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>feishu-doc</name>\n    <description>Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.\n</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-drive</name>\n    <description>Feishu cloud storage file management. Activate when user mentions cloud space, folders, drive.\n</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-drive/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-perm</name>\n    <description>Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.\n</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-wiki</name>\n    <description>Feishu knowledge base navigation. Activate when user mentions knowledge base, wiki, or wiki links.\n</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>clawhub</name>\n    <description>Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/clawhub/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>github</name>\n    <description>Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/github/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/healthcheck/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>mcporter</name>\n    <description>Use the mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio), including ad-hoc servers, config edits, and CLI/type generation.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/mcporter/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/skill-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tmux</name>\n    <description>Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/tmux/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather and forecasts (no API key required).</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/weather/SKILL.md</location>\n  </skill>\n</available_skills>",
+      "skills": [
+        {
+          "name": "feishu-doc"
+        },
+        {
+          "name": "feishu-drive"
+        },
+        {
+          "name": "feishu-perm"
+        },
+        {
+          "name": "feishu-wiki"
+        },
+        {
+          "name": "clawhub"
+        },
+        {
+          "name": "github"
+        },
+        {
+          "name": "healthcheck"
+        },
+        {
+          "name": "mcporter"
+        },
+        {
+          "name": "skill-creator"
+        },
+        {
+          "name": "tmux"
+        },
+        {
+          "name": "weather"
+        }
+      ],
+      "resolvedSkills": [
+        {
+          "name": "feishu-doc",
+          "description": "Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.\n",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-doc/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-doc",
+          "source": "openclaw-extra",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "feishu-drive",
+          "description": "Feishu cloud storage file management. Activate when user mentions cloud space, folders, drive.\n",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-drive/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-drive",
+          "source": "openclaw-extra",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "feishu-perm",
+          "description": "Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.\n",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-perm",
+          "source": "openclaw-extra",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "feishu-wiki",
+          "description": "Feishu knowledge base navigation. Activate when user mentions knowledge base, wiki, or wiki links.\n",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-wiki",
+          "source": "openclaw-extra",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "clawhub",
+          "description": "Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI.",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/clawhub/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/clawhub",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "github",
+          "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/github/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/github",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "healthcheck",
+          "description": "Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/healthcheck/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/healthcheck",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "mcporter",
+          "description": "Use the mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio), including ad-hoc servers, config edits, and CLI/type generation.",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/mcporter/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/mcporter",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "skill-creator",
+          "description": "Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/skill-creator/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/skill-creator",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "tmux",
+          "description": "Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/tmux/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/tmux",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "weather",
+          "description": "Get current weather and forecasts (no API key required).",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/weather/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/weather",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        }
+      ],
+      "version": 0
+    }
+  },
+  "agent:main:cron:f0f366ee-98b1-4320-93c8-c31e06ad17af:run:106f37e6-1d52-4e72-bdbf-ccdee4a9075e": {
+    "sessionId": "106f37e6-1d52-4e72-bdbf-ccdee4a9075e",
+    "updatedAt": 1770656400153,
+    "systemSent": true,
+    "label": "Cron: Self-Discovery: Review chats, extract Allan's observations",
+    "skillsSnapshot": {
+      "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>feishu-doc</name>\n    <description>Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.\n</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-drive</name>\n    <description>Feishu cloud storage file management. Activate when user mentions cloud space, folders, drive.\n</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-drive/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-perm</name>\n    <description>Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.\n</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-wiki</name>\n    <description>Feishu knowledge base navigation. Activate when user mentions knowledge base, wiki, or wiki links.\n</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>clawhub</name>\n    <description>Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/clawhub/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>github</name>\n    <description>Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/github/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/healthcheck/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>mcporter</name>\n    <description>Use the mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio), including ad-hoc servers, config edits, and CLI/type generation.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/mcporter/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/skill-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tmux</name>\n    <description>Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/tmux/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather and forecasts (no API key required).</description>\n    <location>/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/weather/SKILL.md</location>\n  </skill>\n</available_skills>",
+      "skills": [
+        {
+          "name": "feishu-doc"
+        },
+        {
+          "name": "feishu-drive"
+        },
+        {
+          "name": "feishu-perm"
+        },
+        {
+          "name": "feishu-wiki"
+        },
+        {
+          "name": "clawhub"
+        },
+        {
+          "name": "github"
+        },
+        {
+          "name": "healthcheck"
+        },
+        {
+          "name": "mcporter"
+        },
+        {
+          "name": "skill-creator"
+        },
+        {
+          "name": "tmux"
+        },
+        {
+          "name": "weather"
+        }
+      ],
+      "resolvedSkills": [
+        {
+          "name": "feishu-doc",
+          "description": "Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.\n",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-doc/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-doc",
+          "source": "openclaw-extra",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "feishu-drive",
+          "description": "Feishu cloud storage file management. Activate when user mentions cloud space, folders, drive.\n",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-drive/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-drive",
+          "source": "openclaw-extra",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "feishu-perm",
+          "description": "Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.\n",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-perm",
+          "source": "openclaw-extra",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "feishu-wiki",
+          "description": "Feishu knowledge base navigation. Activate when user mentions knowledge base, wiki, or wiki links.\n",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/extensions/feishu/skills/feishu-wiki",
+          "source": "openclaw-extra",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "clawhub",
+          "description": "Use the ClawHub CLI to search, install, update, and publish agent skills from clawhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawhub CLI.",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/clawhub/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/clawhub",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "github",
+          "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/github/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/github",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "healthcheck",
+          "description": "Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/healthcheck/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/healthcheck",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "mcporter",
+          "description": "Use the mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio), including ad-hoc servers, config edits, and CLI/type generation.",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/mcporter/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/mcporter",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "skill-creator",
+          "description": "Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/skill-creator/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/skill-creator",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "tmux",
+          "description": "Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/tmux/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/tmux",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
+          "name": "weather",
+          "description": "Get current weather and forecasts (no API key required).",
+          "filePath": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/weather/SKILL.md",
+          "baseDir": "/home/tauora/.nvm/versions/node/v24.13.0/lib/node_modules/openclaw/skills/weather",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        }
+      ],
+      "version": 0
+    }
   }
 }
