@@ -1,10 +1,11 @@
 {
-  "lastCheck": 1739083200,
+  "lastCheck": 1739084840,
   "lastAction": "quiet",
   "reasonIfQuiet": "allan-active",
-  "workDone": "Documented ULID monotonic validation. Discussed inter-node time sync and malicious node detection with Allan. Strategy: accept minor disorder across nodes, detect malicious clocks via timestamp validation + reputation.",
-  "committed": false,
+  "workDone": "Added app_type field with AI-native philosophy. AIs are native users (MCP), humans are observers/creators with visual windows. Updated app management docs and schema.",
+  "committed": true,
+  "commitHash": "a5b7575",
   "allanStatus": "awake",
   "consecutiveQuiets": 0,
-  "notes": "Active architecture discussion. ULID complete. Allan may have more questions."
+  "notes": "Active architecture discussion with Allan. Covered: ULID, time sync, app types. He may have more questions."
 }
