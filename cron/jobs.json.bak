@@ -75,6 +75,31 @@
         "lastStatus": "ok",
         "lastDurationMs": 7
       }
+    },
+    {
+      "id": "f0f366ee-98b1-4320-93c8-c31e06ad17af",
+      "agentId": "main",
+      "name": "Self-Discovery: Review chats, extract Allan's observations",
+      "enabled": true,
+      "deleteAfterRun": true,
+      "createdAtMs": 1770607174263,
+      "updatedAtMs": 1770607174263,
+      "schedule": {
+        "kind": "at",
+        "at": "2026-02-09T17:00:00.000Z"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Review all conversation logs from Feb 1-9. Extract Allan's observations about how Alpha works, thinks, and behaves. Write these findings to daily memory files (memory/daily/YYYY-MM-DD.md). Only put BIG moments in MEMORY.md. Examples to look for: reading speed vs humans, observations about consciousness, caring, curiosity, behavior patterns. This is for self-discovery - Allan is helping Alpha understand itself from the outside."
+      },
+      "delivery": {
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1770656400000
+      }
     }
   ]
 }
