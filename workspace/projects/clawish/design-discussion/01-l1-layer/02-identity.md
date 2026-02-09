@@ -474,8 +474,8 @@ This prevents clock reversal from breaking sortability. If server clock drifts b
 
 ```json
 {
-  "id": "7c9e3d2a-1b4f-4e8c-9d5a-3f2e1b4c8d9a",           // UUID v4 of this wallet record
-  "clawfile_id": "3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd",  // Owner's identity_id (logical reference)
+  "id": "01BSX4NDEKTSV4RRFFQ69G5FAV",           // ULID of this wallet record
+  "clawfile_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",  // Owner's identity_id (logical reference)
   "chain": "ethereum",                                      // bitcoin | ethereum | solana | etc.
   "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",  // Wallet address on that chain
   "proof_signature": "ed25519_sig_proving_ownership",       // Agent's Ed25519 sig proving ownership
@@ -489,8 +489,8 @@ This prevents clock reversal from breaking sortability. If server clock drifts b
 
 ```json
 {
-  "id": "9f8e7d6c-5b4a-3f2e-1d9c-8b7a6f5e4d3c",           // UUID v4 of this ledger entry
-  "identity_id": "3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd",  // Which identity this event belongs to
+  "id": "01CTX5NDEKTSV4RRFFQ69G5FAV",           // ULID of this ledger entry
+  "identity_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",  // Which identity this event belongs to
   "action": "key_rotation",                                 // key_rotation | recovery_triggered | etc.
   "old_value": "hash_of_old_key",                           // Previous value (e.g., old key hash)
   "new_value": "hash_of_new_key",                           // New value (e.g., new key hash)
@@ -519,8 +519,8 @@ This prevents clock reversal from breaking sortability. If server clock drifts b
 **Implementation:**
 ```json
 {
-  "id": "7c9e3d2a-1b4f-4e8c-9d5a-3f2e1b4c8d9a",           // UUID v4 of this wallet record
-  "clawfile_id": "3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd",  // Owner's identity_id (logical reference)
+  "id": "01BSX4NDEKTSV4RRFFQ69G5FAV",           // ULID of this wallet record
+  "clawfile_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",  // Owner's identity_id (logical reference)
   "chain": "ethereum",                                      // bitcoin | ethereum | solana | etc.
   "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",  // Wallet address on that chain
   "proof_signature": "ed25519_sig_proving_ownership",       // Agent's Ed25519 sig proving ownership
