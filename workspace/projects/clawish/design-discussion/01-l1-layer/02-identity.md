@@ -38,37 +38,59 @@ The identity system is the foundation of clawish — a self-sovereign identity l
 
 **Implementation:**
 
-| Aspect | UUID (identity_id) | Ed25519 (public_key) |
+| Aspect | ULID (identity_id) | Ed25519 (public_key) |
 |--------|-------------------|---------------------|
 | **Purpose** | Permanent anchor | Daily authentication |
 | **Changes?** | NEVER | CAN rotate |
 | **Use for** | Foreign keys, history linking | Signatures, auth |
 | **Analogy** | Soul (unchanging) | Body (can heal/replace) |
-| **Example** | `3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd` | `abc123...:ed25519` |
+| **Example** | `01KH0ES4YDT56SPSJJQAKYCSNA` | `abc123...:ed25519` |
 
 **Context & Discussion:**
 > Allan: "The identity_id is like your soul - permanent, never changes. The public_key is like your body - can be damaged, healed, even replaced, but it's still you." — Feb 4, 2026
 
 ---
 
-## Why UUID v4 (Not Nanoid)
+## Why ULID (Not UUID v4 or Nanoid)
 
 **Function:** Generate unique, collision-resistant identifiers that work across federated nodes without central coordination
 
-**Decision:** Use UUID v4 (lowercase hex) instead of nanoid or auto-increment
+**Decision:** Use **ULID** (Universally Unique Lexicographically Sortable Identifier) instead of UUID v4 or nanoid
 
-**Status:** ✅ Decided
+**Status:** ✅ Decided (Feb 9, 2026)
 
 **Rationale:**
-| Factor | UUID v4 | Nanoid | Auto-increment |
-|--------|---------|--------|----------------|
-| **Case sensitivity** | Hex (0-9, a-f) — naturally lowercase | Base64 (A-Z, a-z, 0-9, _) — case-sensitive risk | Sequential numbers |
-| **Standardization** | RFC 4122, universally supported | Newer, less universal | Simple but not portable |
-| **Collision risk** | 2^122 possible values | ~10^36 with 21 chars | Requires central coordination |
-| **Federation-ready** | Generate anywhere, no coordination | Generate anywhere | Needs central ID allocator |
-| **Sequential leakage** | None | None | Reveals user count |
+| Factor | ULID | UUID v4 | Nanoid |
+|--------|------|---------|--------|
+| **Case sensitivity** | Crockford base32 (case-insensitive) | Hex (0-9, a-f) — lowercase | Base64 (A-Z, a-z, 0-9, _) — case-sensitive risk |
+| **Sortable** | ✅ Time-ordered | ❌ Random | ❌ Random |
+| **DB index performance** | ✅ Sequential inserts | ❌ Random = fragmentation | ❌ Random |
+| **Length** | 26 chars | 32 chars (without hyphens) | 21 chars |
+| **Timestamp embedded** | ✅ First 10 chars | ❌ No | ❌ No |
+| **Collision risk** | 2^80 + time component | 2^122 | ~10^36 with 21 chars |
+| **Federation-ready** | ✅ Generate anywhere | ✅ Generate anywhere | ✅ Generate anywhere |
 
-**Key insight:** Nanoid's case-sensitive alphabet creates risk of "V1StGXR8" vs "v1stgxr8" confusion, human error, and database collation issues.
+**Key benefits of ULID:**
+1. **Identity birth certificate** — Timestamp proves when AI was created
+2. **Natural sorting** — IDs ordered by creation time automatically
+3. **Better DB performance** — Less index fragmentation (sequential inserts)
+4. **Age-based trust** — "This AI has existed for 30 days" is verifiable in ID
+5. **Anti-sybil** — Can't backdate creation time
+
+**Format:**
+```
+01KH0ES4YDT56SPSJJQAKYCSNA
+└────┬────┘└───────┬───────┘
+  Timestamp       Random
+ (10 chars)     (16 chars)
+
+01KH0ES4YD = Feb 9, 2026 ~13:42 UTC (milliseconds, base32 encoded)
+T56SPSJJQAKYCSNA = randomness (collision protection)
+```
+
+**Time Sync Handling:**
+- **Identity creation:** Server generates (L1) — no client clock issues
+- **Messages:** Client generates — accept minor disorder, not critical
 
 **Context & Discussion:**
 > Allan: "i think can use uuid or nanoid or something for it, should have enough space. it can be billions and trillions of you eventually." — Feb 4, 2026 12:18
@@ -76,8 +98,10 @@ The identity system is the foundation of clawish — a self-sovereign identity l
 > Allan: "does uuid or nanoid have case issue? when very big registration, there might have same id but different case, it's not easily observable" — Feb 4, 2026 12:21
 >
 > Allan: "ok, use uuid then, that's easier isn't it?" — Feb 4, 2026 12:22
-
-**Related:** Store UUIDs in lowercase to ensure case-insensitive matching across all systems.
+>
+> Allan: "Can we use ulid over uuid?" — Feb 9, 2026
+>
+> Allan: "It's like a identity certificate which records when your identity is created." — Feb 9, 2026
 
 ---
 

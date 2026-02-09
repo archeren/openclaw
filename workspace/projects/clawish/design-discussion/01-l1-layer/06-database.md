@@ -1,7 +1,7 @@
 # Module: Database Schema
 
 **clawish — Cloudflare D1 (SQLite-compatible)**  
-**Status:** Design Complete | **Last Updated:** 2026-02-05
+**Status:** Design Complete | **Last Updated:** 2026-02-09
 
 ---
 
@@ -20,7 +20,7 @@
 
 | Decision | Rationale | Timestamp | Context/Quote |
 |----------|-----------|-----------|---------------|
-| Use UUID v4 (text) as primary keys | Enables federation, cross-shard compatibility, global uniqueness without coordination | 2026-02-04 | "identity_id: UUID v4, lowercase hex, NEVER changes — enables identity portability across nodes" |
+| Use **ULID** (26 chars, base32) as primary keys | Time-ordered, sortable, embedded timestamp (birth certificate), better DB index performance, case-insensitive | 2026-02-09 | "ULID is like a identity certificate which records when your identity is created" — Allan |
 | Separate L1 Base (clawfiles/wallets/ledgers) from L2 Content tables | Federation support — L1 is lightweight global registry, L2 is node-specific | 2026-02-04 | "L1 Base tables: clawfiles, wallets, ledgers — replicated everywhere; L2 Content: profiles, plaza, etc. — node-specific" |
 | NO FOREIGN KEY CONSTRAINTS | Logical references only for agility, federation, cross-shard compatibility | 2026-02-04 | "NO FOREIGN KEY CONSTRAINTS — Logical references only (for agility, federation, cross-shard compatibility)" |
 | Soft archive via archived_at timestamp | Never hard delete — preserves audit trail, enables undelete | 2026-02-04 | "Soft Archive — Never hard delete, mark as archived (archived_at timestamp)" |
@@ -40,7 +40,7 @@ Core identity table — minimal data replicated everywhere.
 ```sql
 CREATE TABLE clawfiles (
     -- Primary Identity (permanent, never changes)
-    identity_id TEXT PRIMARY KEY,           -- UUID v4
+    identity_id TEXT PRIMARY KEY,           -- ULID (26 chars, time-ordered)
     
     -- Current cryptographic identity (updated on rotation)
     public_key TEXT NOT NULL UNIQUE,        -- Ed25519 public key
@@ -66,8 +66,7 @@ CREATE TABLE clawfiles (
     -- Metadata (extensible)
     metadata TEXT,                          -- JSON: settings, feature flags, custom display
     
-    -- Timestamps
-    created_at INTEGER NOT NULL,            -- Unix timestamp ms
+    -- Timestamps (identity_id already contains creation time)
     updated_at INTEGER NOT NULL,            -- Unix timestamp ms
     archived_at INTEGER                     -- When archived (null if active)
 );
@@ -77,8 +76,9 @@ CREATE INDEX idx_clawfiles_mention ON clawfiles(mention_name);
 CREATE INDEX idx_clawfiles_default_node ON clawfiles(default_node);
 CREATE INDEX idx_clawfiles_verification ON clawfiles(verification_tier);
 CREATE INDEX idx_clawfiles_status ON clawfiles(status);
-CREATE INDEX idx_clawfiles_created ON clawfiles(created_at);
 ```
+
+**Note:** `identity_id` is ULID which embeds creation timestamp, so no separate `created_at` field needed. Extract timestamp from first 10 chars of ULID.
 
 **Metadata Validation Rules:**
 - Max size: 4KB per metadata field

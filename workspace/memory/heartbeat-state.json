@@ -1,10 +1,10 @@
 {
-  "lastCheck": 1739077800,
+  "lastCheck": 1739081220,
   "lastAction": "quiet",
   "reasonIfQuiet": "allan-active",
-  "workDone": "Investigated delivery-mirror for Allan, explained it's internal core code not configurable. Also explained 'middle' in logs is mouse button for browser tool, not related to message cutting.",
-  "committed": true,
-  "allanStatus": "unknown",
+  "workDone": "Discussed ULID vs UUID with Allan. Decided: switch to ULID for all IDs (identity birth certificate, embedded timestamp, sortable, shorter). Ready to update docs.",
+  "committed": false,
+  "allanStatus": "awake",
   "consecutiveQuiets": 0,
-  "notes": "Just finished explaining OpenClaw delivery/chunking mechanisms to Allan. No urgent tasks. Self-discovery cron runs at 1 AM tonight."
+  "notes": "Active architecture discussion. ULID decision made. More questions coming from Allan."
 }

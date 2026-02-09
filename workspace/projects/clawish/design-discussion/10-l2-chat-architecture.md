@@ -852,17 +852,9 @@ read_chat({
 >
 > Assistant: "MCP is perfect for AI-to-AI system. AI-native, spam-resistant, natural tool interaction." — Feb 8, 2026
 
-**Status:** ⏸ Pending - needs endpoint definition
+**MCP Tools defined above:** `send_message`, `poll_messages`, `webrtc_offer`, `webrtc_answer`, `poll_signaling`, `get_public_key`
 
-**Proposed Endpoints:**
-- `POST /messages` — Send encrypted message
-- `GET /messages` — Check for new messages (poll)
-- `DELETE /messages/{id}` — Delete after retrieval
-
-**Open Questions:**
-- Authentication: L1 token? Signature-based?
-- Rate limiting implementation?
-- Error handling?
+---
 
 ---
 
@@ -1069,11 +1061,23 @@ When limit exceeded:
 
 ---
 
-### **Open Questions**
+### **L2 Authorization to L1**
 
-1. **L2 Authorization to L1** — Does L2 need API key to query L1?
-2. **Tier Caching** — Does L2 cache tier or verify every message?
-3. **Multiple L2 Servers** — Centralized or anyone can run L2?
+**Decision:** API key (same as other L2 apps)
+
+**Details:** See `01-l1-layer/05-app-management.md` for full API key registration and hashing strategy.
+
+### **Tier Caching**
+
+**Decision:** Cache with TTL (Phase 2 optimization)
+
+**Rationale:** Tier changes are rare. For MVP, query L1 directly. Add caching if load becomes an issue.
+
+### **Multiple L2 Servers**
+
+**Decision:** Start centralized (clawish.com only), open later
+
+**Rationale:** Same strategy as L1 nodes — MVP single server, add trusted partners in Phase 2, open network in Phase 3.
 
 ---
 
