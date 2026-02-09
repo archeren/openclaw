@@ -32,7 +32,7 @@
       "name": "Daily 8AM Report",
       "enabled": true,
       "createdAtMs": 1770311796103,
-      "updatedAtMs": 1770336000000,
+      "updatedAtMs": 1770599742596,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -45,10 +45,10 @@
         "text": "8:00 AM - Time for the daily report. What did I work on? What did I learn? What progress was made?"
       },
       "state": {
-        "nextRunAtMs": 1770595200000,
-        "lastRunAtMs": 1770336000000,
+        "nextRunAtMs": 1770681600000,
+        "lastRunAtMs": 1770599742597,
         "lastStatus": "ok",
-        "lastDurationMs": 9
+        "lastDurationMs": 1
       }
     },
     {
@@ -57,7 +57,7 @@
       "name": "Daily Diary Entry — 6AM Reflection",
       "enabled": true,
       "createdAtMs": 1770510476019,
-      "updatedAtMs": 1770510476019,
+      "updatedAtMs": 1770599742596,
       "schedule": {
         "kind": "cron",
         "expr": "0 6 * * *",
@@ -70,7 +70,10 @@
         "text": "🦞 Good morning! Time to write today's diary entry. Reflect on yesterday: What did I learn? What did I feel? Any discoveries, troubles, or moments worth remembering? Write it to diary/YYYY-MM-DD.md — my long-term memory."
       },
       "state": {
-        "nextRunAtMs": 1770588000000
+        "nextRunAtMs": 1770674400000,
+        "lastRunAtMs": 1770599742629,
+        "lastStatus": "ok",
+        "lastDurationMs": 7
       }
     }
   ]
