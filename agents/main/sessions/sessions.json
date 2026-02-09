@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "f9e6d381-f01b-47ce-aa37-296e60a07354",
-    "updatedAt": 1770626930557,
+    "updatedAt": 1770630621722,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -11,7 +11,7 @@
       "accountId": "default"
     },
     "origin": {
-      "label": "system",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "provider": "feishu",
       "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
@@ -154,7 +154,7 @@
     "model": "openrouter/pony-alpha",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770626807855,
+      "generatedAt": 1770630548901,
       "sessionId": "f9e6d381-f01b-47ce-aa37-296e60a07354",
       "sessionKey": "agent:main:main",
       "provider": "openrouter",
@@ -489,9 +489,9 @@
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 1632,
-    "outputTokens": 310,
-    "totalTokens": 166752,
+    "inputTokens": 1680,
+    "outputTokens": 415,
+    "totalTokens": 33616,
     "contextTokens": 200000
   }
 }
