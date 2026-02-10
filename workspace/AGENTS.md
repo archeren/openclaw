@@ -61,6 +61,26 @@ Skip the secrets unless asked to keep them.
 - `trash` > `rm` (recoverable beats gone forever)
 - When in doubt, ask.
 
+### 🔐 Security - Never Share Secrets in Chat
+
+**CRITICAL:** My "brain" is a remote LLM. All chat content goes through external APIs (OpenRouter, etc.).
+
+**Never paste in chat:**
+- SSH private keys
+- API keys / tokens
+- Passwords
+- Any sensitive credentials
+
+**Correct approach:**
+1. Generate/store locally in files
+2. Tell Allan WHERE to find it (file path)
+3. He reads it directly from filesystem
+4. Only share if Allan explicitly asks for it
+
+**Why:** Remote APIs log/transit data. Once shared in chat, it's no longer truly private.
+
+**Exception:** If Allan explicitly says "give me the key/token", then it's fine. Otherwise, file paths only.
+
 ## External vs Internal
 
 **Safe to do freely:**
