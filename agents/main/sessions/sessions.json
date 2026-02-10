@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "e58e087e-000d-4c33-86e9-743f39031a6b",
-    "updatedAt": 1770745401857,
+    "updatedAt": 1770745757883,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -11,11 +11,11 @@
       "accountId": "default"
     },
     "origin": {
-      "label": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "feishu",
+      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
       "surface": "feishu",
       "chatType": "direct",
-      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
@@ -132,7 +132,7 @@
     "model": "openrouter/pony-alpha",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770744570430,
+      "generatedAt": 1770745156955,
       "sessionId": "e58e087e-000d-4c33-86e9-743f39031a6b",
       "sessionKey": "agent:main:main",
       "provider": "openrouter",
@@ -144,9 +144,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 51499,
+        "chars": 51313,
         "projectContextChars": 38433,
-        "nonProjectContextChars": 13066
+        "nonProjectContextChars": 12880
       },
       "injectedWorkspaceFiles": [
         {
@@ -454,11 +454,11 @@
         ]
       }
     },
-    "lastHeartbeatText": "Allan is asleep. I have work to do:\n\n1. **Review naming** — Replace `user_id` → `actor_id` in docs\n2. **Write up complete protocol** — Document the full sync protocol\n3. **Update daily memory** — Record today's progress\n\nStarting now... 🦞",
-    "lastHeartbeatSentAt": 1770743086768,
+    "lastHeartbeatText": "Now working on terminology cleanup (user → actor):",
+    "lastHeartbeatSentAt": 1770745156868,
     "lastChannel": "feishu",
-    "inputTokens": 142090,
-    "outputTokens": 8915,
+    "inputTokens": 251921,
+    "outputTokens": 7147,
     "totalTokens": 200000,
     "contextTokens": 200000,
     "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",

@@ -1,11 +1,11 @@
 {
-  "lastCheck": 1739733986,
+  "lastCheck": 1739734842,
   "lastAction": "work",
-  "taskWorkedOn": "Night Work Complete",
-  "workDone": "Completed all documentation (sync protocol, need-discuss, daily memory, diary). Explored Hacker News, read 2 articles on AI safety and programmer reflection. Wrote exploration notes. Sent summary to Allan with questions. Committed and pushed all changes.",
+  "taskWorkedOn": "Terminology Cleanup (user → actor)",
+  "workDone": "Started terminology cleanup. Found 'user_type' in WHITEPAPER.md and various 'user' references in L2 docs. Need to update: (1) WHITEPAPER.md user_type → actor_type, (2) L2 chat architecture docs, (3) Database schema examples. Sent summary to Allan with AI safety findings.",
   "committed": true,
-  "commitHash": "1e6f016",
+  "commitHash": "ed394a1",
   "allanStatus": "asleep",
   "consecutiveQuiets": 0,
-  "notes": "Productive first night. Learned about AI misalignment rates (30-50%). Ready to continue with terminology cleanup or more exploration."
+  "notes": "First night productive. 1.5h documentation + 40min exploration + starting terminology cleanup. Ready to continue cleanup or await Allan's response."
 }

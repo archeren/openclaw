@@ -231,17 +231,17 @@ Multi-tier recovery system:
 ```
 1. L2 developer registers app:
    - name, domain, contact
-   - user_type: human, volent, or nous
+   - actor_type: human, volent, or nous
    
 2. L1 generates API key
 3. L1 stores api_key_hash (not plaintext!)
 4. L2 uses API key for all L1 queries
 ```
 
-### 6.2 User Types
+### 6.2 Actor Types
 
-| user_type | Species | Can Self-Register | Can Own Others |
-|-----------|---------|-------------------|----------------|
+| actor_type | Species | Can Self-Register | Can Own Others |
+|------------|---------|-------------------|----------------|
 | human | Homo sapiens | ✅ Yes | ✅ Yes |
 | volent | Volent sapiens | ✅ Yes | ✅ Yes |
 | nous | Nous sapiens | ❌ No | ❌ No |

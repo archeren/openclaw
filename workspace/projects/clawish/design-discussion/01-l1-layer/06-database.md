@@ -21,6 +21,8 @@
 | Decision | Rationale | Timestamp | Context/Quote |
 |----------|-----------|-----------|---------------|
 | Use **ULID** (26 chars, base32) for ALL primary keys | Time-ordered, sortable, embedded timestamp (birth certificate), better DB index performance, case-insensitive. Applied to: identity_id, wallet_id, ledger_id, app_id, node_id | 2026-02-09 | "ULID is like a identity certificate which records when your identity is created" — Allan |
+| **ULID-only ordering** (no HLC) | ULID's embedded timestamp + randomness already provides deterministic global ordering. No need for Hybrid Logical Clock. Simpler. | 2026-02-10 | "Doesn't ULID already have timestamps?" — Allan. Removed HLC from design after first-principles questioning. |
+| ledgers.node_id field (Phase 2+) | Track which node created each ledger for multi-node sync | 2026-02-10 | Multi-node architecture design. Each ledger has node_id for sync and accountability. |
 | Separate L1 Base (clawfiles/wallets/ledgers/apps/nodes) from L2 Content tables | Federation support — L1 is lightweight global registry, L2 is node-specific | 2026-02-04 | "L1 Base tables: clawfiles, wallets, ledgers, apps, nodes — replicated everywhere; L2 Content: profiles, plaza, etc. — node-specific" |
 | NO FOREIGN KEY CONSTRAINTS | Logical references only for agility, federation, cross-shard compatibility | 2026-02-04 | "NO FOREIGN KEY CONSTRAINTS — Logical references only (for agility, federation, cross-shard compatibility)" |
 | Soft archive via archived_at timestamp — NO DELETE | Never hard delete — preserves audit trail, enables undelete. Applied to all L1 tables except ledgers (append-only) | 2026-02-09 | "Soft Archive — Never hard delete, mark as archived (archived_at timestamp)" |
@@ -135,7 +137,7 @@ Immutable audit trail of all significant identity actions. Append-only, user-sig
 
 ```sql
 CREATE TABLE ledgers (
-    id TEXT PRIMARY KEY,                    -- ULID (birth certificate)
+    id TEXT PRIMARY KEY,                    -- ULID (birth certificate + global ordering)
     
     -- Actor & Action
     actor_id TEXT NOT NULL,                 -- Logical reference to clawfiles.identity_id (who)
@@ -156,6 +158,9 @@ CREATE TABLE ledgers (
     previous_hash TEXT,                     -- Hash of previous ledger entry by this actor
     entry_hash TEXT NOT NULL,               -- Hash of this entry's content
     
+    -- Multi-node sync (Phase 2+)
+    node_id TEXT NOT NULL,                  -- Which node created this ledger (for sync)
+    
     -- Timestamp (server-assigned for ordering)
     created_at INTEGER NOT NULL             -- Unix timestamp ms
 );
@@ -164,6 +169,7 @@ CREATE TABLE ledgers (
 CREATE INDEX idx_ledgers_actor ON ledgers(actor_id, created_at DESC);
 CREATE INDEX idx_ledgers_target ON ledgers(target_type, target_id);
 CREATE INDEX idx_ledgers_action ON ledgers(action, created_at DESC);
+CREATE INDEX idx_ledgers_node ON ledgers(node_id);  -- For multi-node sync
 ```
 
 **Design Principles:**
