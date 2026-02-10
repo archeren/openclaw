@@ -1,11 +1,10 @@
 {
-  "lastCheck": 1739682700,
+  "lastCheck": 1739690300,
   "lastAction": "work",
-  "taskWorkedOn": "VPS Setup - SSH connection issues",
-  "workDone": "Attempted VPS setup via SSH but connections keep closing. Allan will need to complete manually. Generated SSH key, verified Node.js installed, but git clone and npm install keep failing due to connection drops from my side.",
-  "committed": true,
-  "commitHash": "6b4c529",
+  "taskWorkedOn": "VPS Migration - Gateway security",
+  "workDone": "Configured gateway for external access (lan), then reverted to loopback per Allan's request - more secure to use SSH tunnel instead of exposing browser panel. Gateway now listening on 127.0.0.1:18789. Next: configure Feishu → VPS connection.",
+  "committed": false,
   "allanStatus": "awake",
   "consecutiveQuiets": 0,
-  "notes": "VPS setup blocked by network issues. Allan to complete: git clone + npm install -g openclaw. Waiting for him to finish setup."
+  "notes": "VPS migration in progress. Gateway secure. Need to decide: SSH tunnel for webhooks, Tailscale, or other approach for Feishu integration."
 }

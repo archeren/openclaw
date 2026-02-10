@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "33f4e8ac-c2fd-44ae-a257-aba600bb0a42",
-    "updatedAt": 1770691354765,
+    "updatedAt": 1770695929240,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -11,9 +11,9 @@
       "accountId": "default"
     },
     "origin": {
-      "label": "system",
-      "provider": "webchat",
-      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "label": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
+      "from": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "webchat",
       "chatType": "direct",
@@ -154,7 +154,7 @@
     "model": "openrouter/pony-alpha",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770690788099,
+      "generatedAt": 1770695765491,
       "sessionId": "33f4e8ac-c2fd-44ae-a257-aba600bb0a42",
       "sessionKey": "agent:main:main",
       "provider": "openrouter",
@@ -487,9 +487,9 @@
     "lastHeartbeatText": "VPS setup blocked by network issues. Waiting for Allan to complete setup manually (git clone + npm install). Active conversation - ready to continue once VPS is configured.",
     "lastHeartbeatSentAt": 1770688888163,
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-    "inputTokens": 83986,
-    "outputTokens": 112,
-    "totalTokens": 87826,
+    "inputTokens": 184125,
+    "outputTokens": 945,
+    "totalTokens": 200000,
     "contextTokens": 200000,
     "lastChannel": "webchat",
     "lastAccountId": "default",
