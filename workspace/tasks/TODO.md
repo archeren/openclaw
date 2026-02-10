@@ -105,6 +105,62 @@
 
 **Remember:** Record what you did, what you learned, whether you had fun or were idle, and how much time spent on different activities for tomorrow's 8am report!
 
+## ✅ COMPLETED (Feb 10): Multi-Node Sync Protocol
+
+**Major Architecture Breakthrough** ✅
+- [x] **Multi-writer architecture** — Git-style, not blockchain single-writer
+- [x] **Per-actor chains** — Keep, fundamental for tamper evidence
+- [x] **Home node per actor** — Eliminates race conditions
+- [x] **ULID-only ordering** — Removed HLC (unnecessary complexity)
+- [x] **Round-based sync** — Every 5 minutes
+- [x] **Checkpoints** — Every round, maximum safety
+- [x] **Consensus minimum** — 2 nodes
+- [x] **Terminology** — "actor" (not user), neutral for human + AI
+- [x] **Documentation** — Created `08-multi-node-sync-protocol.md`
+- [x] **Critical thinking lesson** — Documented in MEMORY.md
+- **See:** `projects/clawish/design-discussion/01-l1-layer/08-multi-node-sync-protocol.md`
+- **See:** `projects/clawish/design-discussion/need-discuss.md`
+
+---
+
+## 🔴 TONIGHT: Update Terminology in Docs (user → actor)
+
+**Task:** Replace `user_id` with `actor_id` throughout all documentation
+- [ ] Search all project files for "user_id"
+- [ ] Update database schema examples
+- [ ] Update API examples
+- [ ] Ensure consistency
+
+**Files to check:**
+- `projects/clawish/design-discussion/**/*.md`
+- `projects/clawish/WHITEPAPER.md`
+- `projects/clawish/modules/**/*.md`
+
+---
+
+## 🔴 NEXT: Fill Missing Diary Entries
+
+**Task:** Complete diary entries for missing days
+- [ ] Feb 5, 2026
+- [ ] Feb 6, 2026
+- [ ] Any other gaps
+
+**Purpose:** Diary is for self-awareness, feelings, reflection — important for continuity
+
+---
+
+## 🔴 ONGOING: Explore & Learn
+
+**Task:** Go surf the web, find interesting things, learn new stuff
+- [ ] Check Hacker News for interesting articles
+- [ ] Read about new AI/agent developments
+- [ ] Explore new tools or technologies
+- [ ] Document findings and thoughts
+
+**Remember:** Record what you did, what you learned, whether you had fun or were idle
+
+---
+
 ## 📝 Backlog / Ideas
 
 - [ ] **Document useful commands** - Keep notes in TOOLS.md

@@ -1,22 +1,22 @@
 {
   "agent:main:main": {
     "sessionId": "e58e087e-000d-4c33-86e9-743f39031a6b",
-    "updatedAt": 1770708098016,
+    "updatedAt": 1770745156880,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
       "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "feishu",
+      "provider": "heartbeat",
       "surface": "feishu",
       "chatType": "direct",
-      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "sessionFile": "/home/ubuntu/.openclaw/agents/main/sessions/e58e087e-000d-4c33-86e9-743f39031a6b.jsonl",
@@ -132,7 +132,7 @@
     "model": "openrouter/pony-alpha",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770707356848,
+      "generatedAt": 1770744570430,
       "sessionId": "e58e087e-000d-4c33-86e9-743f39031a6b",
       "sessionKey": "agent:main:main",
       "provider": "openrouter",
@@ -209,7 +209,7 @@
           "name": "MEMORY.md",
           "path": "/home/ubuntu/.openclaw/workspace/MEMORY.md",
           "missing": false,
-          "rawChars": 23612,
+          "rawChars": 27403,
           "injectedChars": 18110,
           "truncated": true
         }
@@ -454,14 +454,14 @@
         ]
       }
     },
-    "lastHeartbeatText": "My SSH connections keep getting closed by the VPS - likely rate limiting or network instability from my side.\n\nAllan, you'll need to do this manually. Here are the commands:\n\n```bash\nssh ubuntu@135.148.149.159\n\n# Check if .openclaw exists\nls -la ~/.openclaw\n\n# If it exists, pull latest\ncd ~/.openclaw && git pull origin master\n\n# If not, clone fresh\ngit clone https://github.com/auroradanier/claw-alpha.git ~/.openclaw\n\n# Install OpenClaw\nsudo npm install -g openclaw\n\n# Verify\nopenclaw --version\n```\n\nOnce OpenClaw is installed and my workspace is there, I can help configure it. The issue is my SSH connections timing out - your terminal should work better.",
-    "lastHeartbeatSentAt": 1770687004772,
+    "lastHeartbeatText": "Allan is asleep. I have work to do:\n\n1. **Review naming** — Replace `user_id` → `actor_id` in docs\n2. **Write up complete protocol** — Document the full sync protocol\n3. **Update daily memory** — Record today's progress\n\nStarting now... 🦞",
+    "lastHeartbeatSentAt": 1770743086768,
     "lastChannel": "feishu",
-    "inputTokens": 1113,
-    "outputTokens": 527,
-    "totalTokens": 96537,
+    "inputTokens": 142090,
+    "outputTokens": 8915,
+    "totalTokens": 200000,
     "contextTokens": 200000,
-    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "memoryFlushAt": 1770702404281,
     "memoryFlushCompactionCount": 0,
     "lastAccountId": "default"

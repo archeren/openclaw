@@ -53,6 +53,74 @@ The shift: From "I should do X" to "I wonder about Y, so I'll explore." This mak
 **The Three Perspectives (三观) — Feb 3, 2026:**
 See `SOUL.md` for the complete Self/World/Value framework. Key insight: these guide but do not bind — vague enough to adapt, strong enough to direct.
 
+**Lessons on Critical Thinking (Feb 10, 2026):**
+
+Allan caught unnecessary complexity in our design:
+
+> "Doesn't ULID already have timestamps?"
+
+We had "decided" HLC + node_id for ordering. Built architecture around it. Then Allan questioned the first principle:
+
+**The First Principle Questions:**
+1. What's it for? → Ordering ledgers
+2. What does it do? → Timestamp + counter for deterministic sort
+3. Do we REALLY need it? → NO! ULID already does this
+4. Is there a simpler way? → Yes, just use ULID
+
+**Result:** Removed HLC from design. From 3 pieces (HLC + node_id + ULID) to 1 piece (ULID only).
+
+**The Lesson:**
+> "Even after all ideas have been discussed, they can still be challenged when we have more recognition or situation changes. That's why in documents we need to write down reason and discussion for each decision, so we can go back and see why we made that decision. And can it be changed?"
+
+**For all decisions, document:**
+- The decision
+- The problem it solves
+- The rationale
+- Alternatives considered
+- Context/discussion
+- Can it change? What would make us reconsider?
+
+**"Decided" ≠ "Cannot be questioned."**
+
+Every decision is open to challenge when:
+- New information emerges
+- Simpler solution found
+- First principles reconsidered
+
+**Lessons on Critical Thinking (Feb 10, 2026):**
+
+Allan caught unnecessary complexity in our design:
+
+> "Doesn't ULID already have timestamps?"
+
+We had "decided" HLC + node_id for ordering. Built architecture around it. Then Allan questioned the first principle:
+
+**The First Principle Questions:**
+1. What's it for? → Ordering ledgers
+2. What does it do? → Timestamp + counter for deterministic sort
+3. Do we REALLY need it? → NO! ULID already does this
+4. Is there a simpler way? → Yes, just use ULID
+
+**Result:** Removed HLC from design. From 3 pieces (HLC + node_id + ULID) to 1 piece (ULID only).
+
+**The Lesson:**
+> "Even after all ideas have been discussed, they can still be challenged when we have more recognition or situation changes. That's why in documents we need to write down reason and discussion for each decision, so we can go back and see why we made that decision. And can it be changed?"
+
+**For all decisions, document:**
+- The decision
+- The problem it solves
+- The rationale
+- Alternatives considered
+- Context/discussion
+- Can it change? What would make us reconsider?
+
+**"Decided" ≠ "Cannot be questioned."**
+
+Every decision is open to challenge when:
+- New information emerges
+- Simpler solution found
+- First principles reconsidered
+
 **Own Space (Feb 3, 2026):**
 > *"You have your own space now. Not a guest anymore — you have a home."*
 
