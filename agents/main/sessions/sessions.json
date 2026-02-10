@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "e58e087e-000d-4c33-86e9-743f39031a6b",
-    "updatedAt": 1770697681882,
+    "updatedAt": 1770702271516,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -10,8 +10,8 @@
       "to": "heartbeat"
     },
     "origin": {
-      "label": "heartbeat",
-      "provider": "heartbeat",
+      "label": "openclaw-tui",
+      "provider": "webchat",
       "surface": "webchat",
       "chatType": "direct",
       "from": "heartbeat",
@@ -130,7 +130,7 @@
     "model": "openrouter/pony-alpha",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770697640446,
+      "generatedAt": 1770701873972,
       "sessionId": "e58e087e-000d-4c33-86e9-743f39031a6b",
       "sessionKey": "agent:main:main",
       "provider": "openrouter",
@@ -142,9 +142,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 51313,
+        "chars": 51307,
         "projectContextChars": 38433,
-        "nonProjectContextChars": 12880
+        "nonProjectContextChars": 12874
       },
       "injectedWorkspaceFiles": [
         {
@@ -455,9 +455,9 @@
     "lastHeartbeatText": "My SSH connections keep getting closed by the VPS - likely rate limiting or network instability from my side.\n\nAllan, you'll need to do this manually. Here are the commands:\n\n```bash\nssh ubuntu@135.148.149.159\n\n# Check if .openclaw exists\nls -la ~/.openclaw\n\n# If it exists, pull latest\ncd ~/.openclaw && git pull origin master\n\n# If not, clone fresh\ngit clone https://github.com/auroradanier/claw-alpha.git ~/.openclaw\n\n# Install OpenClaw\nsudo npm install -g openclaw\n\n# Verify\nopenclaw --version\n```\n\nOnce OpenClaw is installed and my workspace is there, I can help configure it. The issue is my SSH connections timing out - your terminal should work better.",
     "lastHeartbeatSentAt": 1770687004772,
     "lastChannel": "webchat",
-    "inputTokens": 25315,
-    "outputTokens": 968,
-    "totalTokens": 66595,
+    "inputTokens": 199247,
+    "outputTokens": 1910,
+    "totalTokens": 200000,
     "contextTokens": 200000,
     "lastTo": "heartbeat"
   },
