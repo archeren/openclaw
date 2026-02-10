@@ -384,6 +384,7 @@ _openclaw_message_thread_create() {
     "--dry-run[Print payload and skip sending]" \
     "--verbose[Verbose logging]" \
     "--message-id[Message id (optional)]" \
+    "(--message -m)"{--message,-m}"[Initial thread message text]" \
     "--auto-archive-min[Thread auto-archive minutes]"
 }
 

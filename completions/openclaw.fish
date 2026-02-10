@@ -280,6 +280,7 @@ complete -c openclaw -n "__fish_seen_subcommand_from create" -l json -d 'Output 
 complete -c openclaw -n "__fish_seen_subcommand_from create" -l dry-run -d 'Print payload and skip sending'
 complete -c openclaw -n "__fish_seen_subcommand_from create" -l verbose -d 'Verbose logging'
 complete -c openclaw -n "__fish_seen_subcommand_from create" -l message-id -d 'Message id (optional)'
+complete -c openclaw -n "__fish_seen_subcommand_from create" -s m -l message -d 'Initial thread message text'
 complete -c openclaw -n "__fish_seen_subcommand_from create" -l auto-archive-min -d 'Thread auto-archive minutes'
 complete -c openclaw -n "__fish_seen_subcommand_from list" -l guild-id -d 'Guild id'
 complete -c openclaw -n "__fish_seen_subcommand_from list" -l channel -d 'Channel: telegram|whatsapp|discord|googlechat|slack|signal|imessage|feishu|nostr|msteams|mattermost|nextcloud-talk|matrix|bluebubbles|line|zalo|zalouser|tlon'
