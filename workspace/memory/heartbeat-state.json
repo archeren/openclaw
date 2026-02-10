@@ -1,10 +1,10 @@
 {
-  "lastCheck": 1739690300,
+  "lastCheck": 1739695800,
   "lastAction": "work",
-  "taskWorkedOn": "VPS Migration - Gateway security",
-  "workDone": "Configured gateway for external access (lan), then reverted to loopback per Allan's request - more secure to use SSH tunnel instead of exposing browser panel. Gateway now listening on 127.0.0.1:18789. Next: configure Feishu → VPS connection.",
+  "taskWorkedOn": "VPS Migration - Tailscale Serve Complete",
+  "workDone": "Tailscale Serve configured and running! URL: https://vps-7303abe5.tailc16031.ts.net:18789/. Gateway accessible via Tailscale network. Next: Configure Feishu webhook to point to this URL for full migration.",
   "committed": false,
   "allanStatus": "awake",
   "consecutiveQuiets": 0,
-  "notes": "VPS migration in progress. Gateway secure. Need to decide: SSH tunnel for webhooks, Tailscale, or other approach for Feishu integration."
+  "notes": "VPS migration 95% complete. Tailscale serve active. Feishu needs webhook reconfiguration to use Tailscale URL. SSH connections unstable but gateway is running."
 }
