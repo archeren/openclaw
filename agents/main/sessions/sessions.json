@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "e58e087e-000d-4c33-86e9-743f39031a6b",
-    "updatedAt": 1770745156880,
+    "updatedAt": 1770745401857,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -11,11 +11,11 @@
       "accountId": "default"
     },
     "origin": {
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
+      "label": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "feishu",
       "surface": "feishu",
       "chatType": "direct",
-      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
