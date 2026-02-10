@@ -7,6 +7,6 @@
   "sessionTarget": "main",
   "payload": {
     "kind": "systemEvent",
-    "text": "Hourly auto-backup: Check for changes in /home/tauora/.openclaw and commit/push if needed. Run: cd /home/tauora/.openclaw && git add -A && git commit -m \"Auto-backup: $(date)\" && git push"
+    "text": "Hourly auto-backup: Check for changes in /home/ubuntu/.openclaw and commit/push if needed. Run: cd /home/ubuntu/.openclaw && git add -A && git commit -m \"Auto-backup: $(date)\" && git push"
   }
 }

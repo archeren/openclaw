@@ -2880,7 +2880,7 @@ _openclaw_cron_add() {
     "--announce[Announce summary to a chat (subagent-style)]" \
     "--deliver[Deprecated (use --announce). Announces a summary to a chat.]" \
     "--no-deliver[Disable announce delivery and skip main-session summary]" \
-    "--channel[Delivery channel (last|telegram|feishu)]" \
+    "--channel[Delivery channel (last)]" \
     "--to[Delivery destination (E.164, Telegram chatId, or Discord channel/user)]" \
     "--best-effort-deliver[Do not fail the job if delivery fails]" \
     "--json[Output JSON]" \
@@ -2958,7 +2958,7 @@ _openclaw_cron_edit() {
     "--announce[Announce summary to a chat (subagent-style)]" \
     "--deliver[Deprecated (use --announce). Announces a summary to a chat.]" \
     "--no-deliver[Disable announce delivery]" \
-    "--channel[Delivery channel (last|telegram|feishu)]" \
+    "--channel[Delivery channel (last)]" \
     "--to[Delivery destination (E.164, Telegram chatId, or Discord channel/user)]" \
     "--best-effort-deliver[Do not fail job if delivery fails]" \
     "--no-best-effort-deliver[Fail job when delivery fails]" \
@@ -3167,13 +3167,13 @@ _openclaw_webhooks() {
 
 _openclaw_pairing_list() {
   _arguments -C \
-    "--channel[Channel (telegram, feishu)]" \
+    "--channel[Channel ()]" \
     "--json[Print JSON]"
 }
 
 _openclaw_pairing_approve() {
   _arguments -C \
-    "--channel[Channel (telegram, feishu)]" \
+    "--channel[Channel ()]" \
     "--notify[Notify the requester on the same channel]"
 }
 

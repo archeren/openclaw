@@ -10,8 +10,8 @@ const fs = require('fs');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
-const SESSIONS_DIR = '/home/tauora/.openclaw/agents/main/sessions';
-const OUTPUT_DIR = '/home/tauora/.openclaw/workspace/chat';
+const SESSIONS_DIR = '/home/ubuntu/.openclaw/agents/main/sessions';
+const OUTPUT_DIR = '/home/ubuntu/.openclaw/workspace/chat';
 const DB_PATH = path.join(OUTPUT_DIR, 'conversations.db');
 
 function formatTimeShanghai(ts) {

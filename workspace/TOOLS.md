@@ -87,7 +87,7 @@ git show --stat HEAD
 
 ```bash
 # Go to workspace
-cd /home/tauora/.openclaw/workspace
+cd /home/ubuntu/.openclaw/workspace
 
 # List memory files
 ls -la memory/projects/

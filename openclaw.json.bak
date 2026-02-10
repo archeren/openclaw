@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.6-3",
-    "lastTouchedAt": "2026-02-08T12:00:00.000Z"
+    "lastTouchedVersion": "2026.2.9",
+    "lastTouchedAt": "2026-02-10T02:44:44.069Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -164,8 +164,8 @@
   "agents": {
     "defaults": {
       "model": {
-        "fallbacks": [],
-        "primary": "vole/kimi-k2.5"
+        "primary": "openrouter/openrouter/pony-alpha",
+        "fallbacks": []
       },
       "models": {
         "vole/kimi-k2.5": {
@@ -195,7 +195,7 @@
           "alias": "Pony Alpha"
         }
       },
-      "workspace": "/home/tauora/.openclaw/workspace",
+      "workspace": "/home/ubuntu/.openclaw/workspace",
       "memorySearch": {
         "enabled": true,
         "experimental": {
@@ -262,7 +262,8 @@
       "appSecret": "mHJx508IWhMPN1utYW6hSfiiWtVexvkz",
       "enabled": true,
       "domain": "feishu",
-      "blockStreaming": true
+      "blockStreaming": true,
+      "groupPolicy": "allowlist"
     }
   },
   "gateway": {

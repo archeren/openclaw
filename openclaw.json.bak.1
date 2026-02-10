@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.6-3",
-    "lastTouchedAt": "2026-02-08T03:58:00.306Z"
+    "lastTouchedAt": "2026-02-08T04:39:44.824Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-02T03:15:33.541Z",
@@ -34,6 +34,10 @@
       "opencode:manual": {
         "provider": "opencode",
         "mode": "token"
+      },
+      "openrouter:default": {
+        "provider": "openrouter",
+        "mode": "api_key"
       }
     }
   },
@@ -131,6 +135,29 @@
             "maxTokens": 65536
           }
         ]
+      },
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1",
+        "apiKey": "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",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "openrouter/pony-alpha",
+            "name": "Pony Alpha",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 32768
+          }
+        ]
       }
     }
   },
@@ -138,7 +165,7 @@
     "defaults": {
       "model": {
         "fallbacks": [],
-        "primary": "bailian/qwen3-max-2026-01-23"
+        "primary": "openrouter/openrouter/pony-alpha"
       },
       "models": {
         "vole/kimi-k2.5": {
@@ -163,6 +190,9 @@
         },
         "bailian/qwen3-max-2026-01-23": {
           "alias": "qwen3-max-thinking"
+        },
+        "openrouter/openrouter/pony-alpha": {
+          "alias": "Pony Alpha"
         }
       },
       "workspace": "/home/tauora/.openclaw/workspace",

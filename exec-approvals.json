@@ -1,7 +1,7 @@
 {
   "version": 1,
   "socket": {
-    "path": "/home/tauora/.openclaw/exec-approvals.sock",
+    "path": "/home/ubuntu/.openclaw/exec-approvals.sock",
     "token": "2xz_4hnwMJLwstafj9IAsgBympCmEJTP"
   },
   "defaults": {},
