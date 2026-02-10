@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "e58e087e-000d-4c33-86e9-743f39031a6b",
-    "updatedAt": 1770745757883,
+    "updatedAt": 1770760800272,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -12,7 +12,7 @@
     },
     "origin": {
       "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
+      "provider": "cron-event",
       "surface": "feishu",
       "chatType": "direct",
       "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
@@ -132,7 +132,7 @@
     "model": "openrouter/pony-alpha",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770745156955,
+      "generatedAt": 1770760157979,
       "sessionId": "e58e087e-000d-4c33-86e9-743f39031a6b",
       "sessionKey": "agent:main:main",
       "provider": "openrouter",
@@ -454,12 +454,12 @@
         ]
       }
     },
-    "lastHeartbeatText": "Now working on terminology cleanup (user → actor):",
-    "lastHeartbeatSentAt": 1770745156868,
+    "lastHeartbeatText": "Provider returned error\nERROR",
+    "lastHeartbeatSentAt": 1770758357878,
     "lastChannel": "feishu",
-    "inputTokens": 251921,
-    "outputTokens": 7147,
-    "totalTokens": 200000,
+    "inputTokens": 75632,
+    "outputTokens": 417,
+    "totalTokens": 163376,
     "contextTokens": 200000,
     "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
     "memoryFlushAt": 1770702404281,

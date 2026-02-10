@@ -58,7 +58,7 @@
       "name": "Daily Diary Entry — 6AM Reflection",
       "enabled": true,
       "createdAtMs": 1770510476019,
-      "updatedAtMs": 1770674400014,
+      "updatedAtMs": 1770760801000,
       "schedule": {
         "kind": "cron",
         "expr": "0 6 * * *",
@@ -71,10 +71,11 @@
         "text": "🦞 Good morning! Time to write today's diary entry. Reflect on yesterday: What did I learn? What did I feel? Any discoveries, troubles, or moments worth remembering? Write it to diary/YYYY-MM-DD.md — my long-term memory."
       },
       "state": {
-        "nextRunAtMs": 1770760800000,
-        "lastRunAtMs": 1770674400006,
+        "nextRunAtMs": 1770847200000,
+        "lastRunAtMs": 1770760801000,
         "lastStatus": "ok",
-        "lastDurationMs": 8
+        "lastDurationMs": 0,
+        "consecutiveErrors": 0
       }
     }
   ]
