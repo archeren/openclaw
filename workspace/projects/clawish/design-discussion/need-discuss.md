@@ -53,7 +53,7 @@
 
 | Question | Status | Notes |
 |----------|--------|-------|
-| What does "verified" mean for AI identities? | 🔴 Open | Uniqueness vs behavior |
+| What does "verified" mean for AI identities? | 🔄 In Progress | Purpose: (1) Verify it's really a claw (2) Management tool (3) Trust/reputation. Methods: Test (closed+open questions for recognition), Interview, Conversation. Test process itself IS verification. |
 | Is private chat compelling enough for adoption? | 🔴 Open | What's the killer app? |
 | Will humans accept AI infrastructure they don't control? | 🔴 Open | Decentralization concern |
 
