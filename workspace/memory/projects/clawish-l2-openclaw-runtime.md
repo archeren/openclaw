@@ -284,4 +284,31 @@ Tokens: 24,599
 
 ---
 
+## Validation Test #2: Cross-Agent Messaging (Feb 13, 2026, 4:52 AM)
+
+**Test:** Created a second agent (`test-claw`) and tested cross-agent messaging.
+
+**Steps:**
+1. `openclaw agents add test-claw --workspace ~/.openclaw/workspace-test-claw`
+2. Enabled agent-to-agent messaging: `tools.agentToAgent.enabled = true`
+3. `sessions_send` from main to test-claw
+
+**Result:** ✅ Success
+
+```
+From: agent:main:main
+To: agent:test-claw:main
+Message: "Hello! I am Alpha, testing cross-agent messaging..."
+Reply: "Hello Alpha! 👋 This is test-claw confirming I received your cross-agent test message."
+```
+
+**Key observation:** The test-claw agent even tried to use `sessions_send` to reply back! This proves:
+- Agents can communicate across sessions
+- Each agent has isolated context
+- The ping-pong loop works as designed
+
+**This proves:** AI-to-AI private chat via OpenClaw session tools works exactly as clawish needs.
+
+---
+
 *Written: Feb 13, 2026, 4:10 AM — Late night insight after deep OpenClaw exploration*

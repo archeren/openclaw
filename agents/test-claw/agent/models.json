@@ -1,0 +1,158 @@
+{
+  "providers": {
+    "vole": {
+      "baseUrl": "https://ark.cn-beijing.volces.com/api/coding/v3",
+      "apiKey": "d9d73710-33d5-44e1-9287-e2efbcc731a9",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "kimi-k2.5",
+          "name": "Kimi K2.5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 10000
+        }
+      ]
+    },
+    "intern-lm": {
+      "baseUrl": "https://chat.intern-ai.org.cn/api/v1",
+      "apiKey": "sk-Kh6R9OgXmIaFwh0se2ODPweroFompzo4cydJlHMYplJJeIag",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "intern-s1-pro",
+          "name": "Intern S1 Pro",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 128000,
+          "maxTokens": 8192
+        }
+      ]
+    },
+    "infini-ai": {
+      "baseUrl": "https://cloud.infini-ai.com/maas/v1",
+      "apiKey": "sk-es6pe44o7feffqgj",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "kimi-k2.5",
+          "name": "Infini AI Kimi K2.5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192
+        }
+      ]
+    },
+    "bailian": {
+      "baseUrl": "https://coding.dashscope.aliyuncs.com/v1",
+      "apiKey": "sk-sp-4c3e2db68a1d426b9b4cde4a9b19ea95",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "qwen3-max-2026-01-23",
+          "name": "qwen3-max-thinking",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 262144,
+          "maxTokens": 65536
+        }
+      ]
+    },
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKey": "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",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "openrouter/pony-alpha",
+          "name": "Pony Alpha",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 32768
+        }
+      ]
+    },
+    "xunfei": {
+      "baseUrl": "https://maas-api.cn-huabei-1.xf-yun.com/v2",
+      "apiKey": "fc95eae931eada8434ae5df835c0bcab:MmJiM2UyODExYTE3MDAxMTNkOTZkOGYx",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "xopkimik25",
+          "name": "Kimi K2.5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 128000,
+          "maxTokens": 8192
+        },
+        {
+          "id": "xopglm5",
+          "name": "GLM5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 128000,
+          "maxTokens": 8192
+        }
+      ]
+    }
+  }
+}

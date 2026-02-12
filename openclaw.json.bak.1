@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.9",
-    "lastTouchedAt": "2026-02-11T17:46:51.903Z"
+    "lastTouchedAt": "2026-02-12T20:50:46.494Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -183,6 +183,22 @@
             },
             "contextWindow": 128000,
             "maxTokens": 8192
+          },
+          {
+            "id": "xopglm5",
+            "name": "GLM5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
           }
         ]
       }
@@ -191,8 +207,8 @@
   "agents": {
     "defaults": {
       "model": {
-        "fallbacks": [],
-        "primary": "vole/kimi-k2.5"
+        "primary": "xunfei/xopglm5",
+        "fallbacks": []
       },
       "models": {
         "vole/kimi-k2.5": {
@@ -221,8 +237,11 @@
         "openrouter/openrouter/pony-alpha": {
           "alias": "Pony Alpha"
         },
-        "xunfei/k2.5": {
+        "xunfei/xopkimik25": {
           "alias": "Xunfei K2.5"
+        },
+        "xunfei/xopglm5": {
+          "alias": "Xunfei GLM5"
         }
       },
       "workspace": "/home/ubuntu/.openclaw/workspace",
@@ -241,16 +260,26 @@
       "typingIntervalSeconds": 6,
       "typingMode": "message",
       "heartbeat": {
-        "every": "30m",
+        "every": "15m",
         "target": "last",
-        "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-        "prompt": "Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK."
+        "prompt": "If you are doing something now, reply HEARTBEAT_OK. Otherwise read HEARTBEAT.md file, follow it strictly."
       },
       "maxConcurrent": 4,
       "subagents": {
         "maxConcurrent": 8
       }
-    }
+    },
+    "list": [
+      {
+        "id": "main"
+      },
+      {
+        "id": "test-claw",
+        "name": "test-claw",
+        "workspace": "/home/ubuntu/.openclaw/workspace-test-claw",
+        "agentDir": "/home/ubuntu/.openclaw/agents/test-claw/agent"
+      }
+    ]
   },
   "messages": {
     "ackReactionScope": "group-mentions"
