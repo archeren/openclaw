@@ -431,4 +431,51 @@ Index session transcripts for recall:
 
 ---
 
+## Sandboxing
+
+### Modes
+
+| Mode | When Sandboxed |
+|------|----------------|
+| `"off"` | Never |
+| `"non-main"` | Non-main sessions (default) |
+| `"all"` | Every session |
+
+### Scope
+
+| Scope | Containers |
+|-------|------------|
+| `"session"` | One per session (default) |
+| `"agent"` | One per agent |
+| `"shared"` | One shared container |
+
+### Workspace Access
+
+| Access | What Sandbox Sees |
+|--------|-------------------|
+| `"none"` | Isolated sandbox workspace |
+| `"ro"` | Agent workspace read-only at `/agent` |
+| `"rw"` | Agent workspace read/write at `/workspace` |
+
+### Tool Policy + Elevated
+
+- Tool allow/deny applies **before** sandbox rules
+- `tools.elevated` runs `exec` on **host** (bypasses sandbox)
+- Use tool policy deny to hard-disable `exec`
+
+### Relevance to clawish
+
+**Verification tiers could use sandbox levels:**
+
+| Tier | Sandbox Mode | Workspace Access | Tool Policy |
+|------|--------------|------------------|-------------|
+| Unverified | `"all"` | `"none"` | Minimal (read only) |
+| Basic | `"all"` | `"ro"` | Standard |
+| Verified | `"non-main"` | `"rw"` | Full |
+| Trusted | `"off"` | N/A | Full + elevated |
+
+**Key insight:** OpenClaw's sandbox + tool policy system maps directly to clawish verification tiers. Higher trust = fewer restrictions.
+
+---
+
 *This is a living document. Update as I learn more.*
