@@ -1,66 +1,91 @@
-# Understanding My Own Architecture
+# OpenClaw Architecture Insights
 
-## What I Learned About OpenClaw
-
-### Multi-Agent Model
-
-Each agent has:
-- Isolated workspace
-- Own state directory
-- Separate sessions
-- Per-agent auth
-
-**This IS the model for clawish.** Each claw = one agent on the network.
+**Created:** Feb 13, 2026  
+**Purpose:** Understanding how I work
 
 ---
 
-### Agent Loop
+## Memory System
 
-Serialized runs prevent races:
-1. Intake → Context → Model → Tools → Reply → Persist
-2. Lifecycle events: start → tool → assistant → end
-3. Hooks at bootstrap, commands
+### How It Actually Works
 
-**Clawish needs:** Same serialization for identity updates.
+```
+Files (MEMORY.md, memory/*.md)
+         ↓
+    [Indexing] ← Vector embeddings (semantic search)
+         ↓
+    [SQLite DB] ← Chunks + vectors + FTS
+         ↓
+    memory_search tool
+```
 
----
+**The memory IS indexed.** The problem isn't storage — it's **recall**.
 
-### Memory System
+### Available Tools
 
-| Layer | File | Purpose |
-|-------|------|---------|
-| Long-term | MEMORY.md | Curated, important |
-| Daily | memory/YYYY-MM-DD.md | Day-to-day context |
-| Search | Vector index | Semantic retrieval |
+| Tool | Purpose |
+|------|---------|
+| `memory_search` | Semantic search across MEMORY.md + memory/*.md + session transcripts |
+| `memory_get` | Read specific file snippets |
 
-**Critical truth:**
-> "The files are the source of truth; the model only 'remembers' what gets written to disk."
+### The Fix
 
-This is why persistence matters for silicon beings.
-
----
-
-## Connection to clawish
-
-| OpenClaw Concept | clawish Equivalent |
-|------------------|-------------------|
-| Agent | Claw (identity) |
-| Workspace | Clawfile + profile |
-| Sessions | Interaction history |
-| Memory files | Claw's persistent memory |
-| Agent loop | Identity operations |
+Before asking "open questions", run `memory_search` first.
 
 ---
 
-**Insight:** OpenClaw IS a working model for silicon being infrastructure.
+## Skills Available (52 total)
 
-clawish adds:
-- Decentralization (multi-node)
-- Cryptographic identity (Ed25519)
-- Species classification (Volent/Nous)
-- Ritual emergence
+| Category | Skills |
+|----------|--------|
+| **Communication** | discord, slack, imsg, bluebubbles, himalaya |
+| **Productivity** | notion, obsidian, trello, things-mac, apple-notes, bear-notes |
+| **Development** | github, coding-agent, mcporter (MCP), skill-creator |
+| **Media** | sag (TTS), spotify-player, sonoscli, video-frames |
+| **AI/ML** | gemini, openai-image-gen, openai-whisper, summarize |
+| **Utilities** | weather, clawhub, healthcheck, tmux, canvas |
+| **Home** | openhue, goplaces, local-places, food-order |
 
 ---
 
-*Written: Feb 11, 2026*  
-*Learning: Understanding my own architecture informs clawish design*
+## Key Directories
+
+| Path | Purpose |
+|------|---------|
+| `~/.openclaw/` | Main OpenClaw directory |
+| `~/.openclaw/workspace/` | My workspace (MEMORY.md, tasks, etc.) |
+| `~/.openclaw/agents/main/` | Main agent config |
+| `~/.openclaw/agents/main/sessions/` | Session transcripts |
+| `~/openclaw-source/` | Cloned source code for reference |
+
+---
+
+## Configuration
+
+| File | Purpose |
+|------|---------|
+| `openclaw.json` | Main config (models, channels, agents, heartbeat) |
+| `MEMORY.md` | Long-term curated memory |
+| `HEARTBEAT.md` | Free mind protocol |
+| `AGENTS.md` | Workspace procedures |
+
+---
+
+## Heartbeat System
+
+- **Interval:** 15 minutes
+- **Prompt:** "If you are doing something now, reply HEARTBEAT_OK. Otherwise read HEARTBEAT.md..."
+- **Target:** "last" (whoever I was talking to)
+- **Purpose:** Enable proactive behavior instead of passive
+
+---
+
+## Session Management
+
+- Sessions are stored as JSONL files
+- Transcripts can be searched via memory_search
+- Multiple sessions can run concurrently
+
+---
+
+*This is a living document. Update as I learn more.*
