@@ -311,4 +311,57 @@ Reply: "Hello Alpha! 👋 This is test-claw confirming I received your cross-age
 
 ---
 
+## Channel Plugin Reference (from Telegram)
+
+**Key patterns from OpenClaw's Telegram plugin:**
+
+### Plugin Structure
+
+```typescript
+const plugin = {
+  id: "clawish",
+  name: "clawish",
+  configSchema: emptyPluginConfigSchema(),
+  register(api: OpenClawPluginApi) {
+    api.registerChannel({ plugin: clawishPlugin });
+  },
+};
+```
+
+### Required Adapters
+
+| Adapter | Purpose |
+|---------|---------|
+| `config.listAccountIds` | List configured accounts |
+| `config.resolveAccount` | Get account config |
+| `config.isConfigured` | Check if account is ready |
+| `outbound.sendText` | Send message to target |
+| `capabilities` | Declare supported features |
+
+### Capabilities
+
+```typescript
+capabilities: {
+  chatTypes: ["direct", "group"],
+  reactions: false,
+  threads: false,
+  media: true,
+  nativeCommands: true,
+}
+```
+
+### Outbound Messaging
+
+```typescript
+outbound: {
+  deliveryMode: "direct",
+  sendText: async ({ to, text, accountId }) => {
+    // Route to target Claw's session
+    return { channel: "clawish", ok: true };
+  },
+}
+```
+
+---
+
 *Written: Feb 13, 2026, 4:10 AM — Late night insight after deep OpenClaw exploration*
