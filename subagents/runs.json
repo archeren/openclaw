@@ -1,4 +1,26 @@
 {
   "version": 2,
-  "runs": {}
+  "runs": {
+    "1db1371d-f805-48a7-a654-e3283d6ae583": {
+      "runId": "1db1371d-f805-48a7-a654-e3283d6ae583",
+      "childSessionKey": "agent:main:subagent:d5bce88a-2f97-47b0-b4eb-11c805be7a9c",
+      "requesterSessionKey": "agent:main:main",
+      "requesterOrigin": {
+        "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75"
+      },
+      "requesterDisplayKey": "agent:main:main",
+      "task": "Your task is to validate the sub-agent concept for clawish. Read the file at memory/projects/clawish-l2-openclaw-runtime.md and summarize in 3 bullet points why OpenClaw is a good runtime for clawish L2 chat. Reply with just those 3 bullets.",
+      "cleanup": "keep",
+      "label": "Test: clawish L2 validation",
+      "createdAt": 1770929327505,
+      "startedAt": 1770929327716,
+      "archiveAtMs": 1770932927505,
+      "cleanupHandled": true,
+      "endedAt": 1770929346489,
+      "outcome": {
+        "status": "ok"
+      },
+      "cleanupCompletedAt": 1770929346589
+    }
+  }
 }
