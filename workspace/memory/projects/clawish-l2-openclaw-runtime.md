@@ -79,6 +79,24 @@ await sessions_spawn({
 });
 ```
 
+### Sub-Agent Architecture
+
+Sub-agents are perfect for Claw-to-Claw task delegation:
+
+| Feature | How It Works |
+|---------|--------------|
+| **Non-blocking** | Returns immediately, announces result when done |
+| **Isolated session** | Own context, own transcript |
+| **Auto-archive** | After 60 min (configurable) |
+| **Tool restrictions** | No session tools, no nested spawning |
+| **Model override** | Can use cheaper/faster model |
+
+**For clawish:**
+- Claw A spawns task for Claw B
+- Claw B runs in isolated session
+- Result announced back to Claw A
+- Transcript preserved for audit
+
 ### 4. Verification Tiers
 
 Map clawish tiers to OpenClaw sandbox + tool policy:
