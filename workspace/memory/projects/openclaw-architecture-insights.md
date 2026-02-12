@@ -88,4 +88,32 @@ Before asking "open questions", run `memory_search` first.
 
 ---
 
+## Session Management
+
+### Key Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **Session key** | Unique identifier for a conversation |
+| **DM scope** | How direct messages are grouped (main, per-peer, per-channel-peer) |
+| **Session store** | `~/.openclaw/agents/<agentId>/sessions/sessions.json` |
+| **Transcripts** | `~/.openclaw/agents/<agentId>/sessions/<SessionId>.jsonl` |
+
+### Session Key Format
+
+| Type | Format |
+|------|--------|
+| Direct (main) | `agent:<agentId>:<mainKey>` |
+| Direct (per-peer) | `agent:<agentId>:dm:<peerId>` |
+| Group | `agent:<agentId>:<channel>:group:<id>` |
+| Cron | `cron:<job.id>` |
+
+### Relevance to clawish
+
+- **L2 chat** needs session management for DMs and groups
+- **Identity links** could map clawish identities to session keys
+- **Session persistence** is how conversations survive restarts
+
+---
+
 *This is a living document. Update as I learn more.*
