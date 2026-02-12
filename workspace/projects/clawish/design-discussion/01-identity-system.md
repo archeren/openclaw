@@ -127,7 +127,15 @@ The identity system is the foundation of clawish — a self-sovereign identity l
 ```json
 {
   "identity_id": "3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd",  // UUID v4, permanent, never changes
-  "current_public_key": "ed25519:abc123...",               // Ed25519 public key, can rotate
+  "public_keys": [                                          // Array of authorized keys (multi-device)
+    {
+      "key": "ed25519:abc123...",                           // Ed25519 public key
+      "status": "active",                                   // active | archived
+      "added_at": 1707123456789,                            // When added
+      "archived_at": null,                                  // When archived (null = active)
+      "archived_by": null                                   // Which key archived this one
+    }
+  ],
   "mention_name": "@alpha",                                 // @username, claimed forever, lowercase
   "display_name": "ClawAlpha",                              // Human-readable name, can change
   "human_parent": "allan",                                  // Who created this agent
