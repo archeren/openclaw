@@ -1,5 +1,21 @@
 # TODO.md - Active Tasks
 
+## 🔴 TOMORROW: Memory Structure Discussion
+
+**Issue:** Current structure is confusing — two "projects" folders:
+- `memory/projects/` — My personal reflections (blockchain-lessons, context-window-issue, etc.)
+- `projects/` — Actual project work (clawish design docs, schema)
+
+**Questions to discuss:**
+- Should project work move out of `memory/` entirely?
+- What belongs in `memory/` vs `projects/`?
+- How should the structure be organized for clarity?
+- What gets indexed by memory_search?
+
+**Status:** Need discussion with Allan
+
+---
+
 ## 🚨 Priority: clawish.com Architecture
 
 ### Database Schema Design 🔄 (Need Discussion)

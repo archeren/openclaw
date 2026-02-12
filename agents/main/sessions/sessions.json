@@ -1,26 +1,26 @@
 {
   "agent:main:main": {
-    "sessionId": "e58e087e-000d-4c33-86e9-743f39031a6b",
-    "updatedAt": 1770760800272,
+    "sessionId": "beec9f79-f607-4b93-a12a-021281070a6f",
+    "updatedAt": 1770917576678,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
       "channel": "feishu",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
     "origin": {
-      "label": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "cron-event",
+      "label": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "provider": "heartbeat",
+      "from": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "feishu",
       "chatType": "direct",
-      "from": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "accountId": "default"
     },
-    "sessionFile": "/home/ubuntu/.openclaw/agents/main/sessions/e58e087e-000d-4c33-86e9-743f39031a6b.jsonl",
-    "compactionCount": 0,
+    "sessionFile": "/home/ubuntu/.openclaw/agents/main/sessions/beec9f79-f607-4b93-a12a-021281070a6f.jsonl",
+    "compactionCount": 5,
     "skillsSnapshot": {
       "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>feishu-doc</name>\n    <description>Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.\n</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-drive</name>\n    <description>Feishu cloud storage file management. Activate when user mentions cloud space, folders, drive.\n</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-drive/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-perm</name>\n    <description>Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.\n</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-wiki</name>\n    <description>Feishu knowledge base navigation. Activate when user mentions knowledge base, wiki, or wiki links.\n</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>github</name>\n    <description>Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/github/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/healthcheck/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/skill-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tmux</name>\n    <description>Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/tmux/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather and forecasts (no API key required).</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/weather/SKILL.md</location>\n  </skill>\n</available_skills>",
       "skills": [
@@ -128,15 +128,15 @@
       ],
       "version": 0
     },
-    "modelProvider": "openrouter",
-    "model": "openrouter/pony-alpha",
+    "modelProvider": "xunfei",
+    "model": "xopglm5",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1770760157979,
-      "sessionId": "e58e087e-000d-4c33-86e9-743f39031a6b",
+      "generatedAt": 1770916676791,
+      "sessionId": "beec9f79-f607-4b93-a12a-021281070a6f",
       "sessionKey": "agent:main:main",
-      "provider": "openrouter",
-      "model": "openrouter/pony-alpha",
+      "provider": "xunfei",
+      "model": "xopglm5",
       "workspaceDir": "/home/ubuntu/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
       "sandbox": {
@@ -144,9 +144,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 51313,
-        "projectContextChars": 38433,
-        "nonProjectContextChars": 12880
+        "chars": 51283,
+        "projectContextChars": 38431,
+        "nonProjectContextChars": 12852
       },
       "injectedWorkspaceFiles": [
         {
@@ -193,8 +193,8 @@
           "name": "HEARTBEAT.md",
           "path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md",
           "missing": false,
-          "rawChars": 2482,
-          "injectedChars": 2482,
+          "rawChars": 2480,
+          "injectedChars": 2480,
           "truncated": false
         },
         {
@@ -209,7 +209,7 @@
           "name": "MEMORY.md",
           "path": "/home/ubuntu/.openclaw/workspace/MEMORY.md",
           "missing": false,
-          "rawChars": 27403,
+          "rawChars": 31569,
           "injectedChars": 18110,
           "truncated": true
         }
@@ -454,17 +454,17 @@
         ]
       }
     },
-    "lastHeartbeatText": "Provider returned error\nERROR",
-    "lastHeartbeatSentAt": 1770758357878,
+    "lastHeartbeatText": ":",
+    "lastHeartbeatSentAt": 1770916676671,
+    "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+    "inputTokens": 167005,
+    "outputTokens": 688,
+    "totalTokens": 128000,
+    "contextTokens": 128000,
     "lastChannel": "feishu",
-    "inputTokens": 75632,
-    "outputTokens": 417,
-    "totalTokens": 163376,
-    "contextTokens": 200000,
-    "lastTo": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-    "memoryFlushAt": 1770702404281,
-    "memoryFlushCompactionCount": 0,
-    "lastAccountId": "default"
+    "lastAccountId": "default",
+    "memoryFlushAt": 1770904368625,
+    "memoryFlushCompactionCount": 5
   },
   "agent:main:cron:f0f366ee-98b1-4320-93c8-c31e06ad17af": {
     "sessionId": "106f37e6-1d52-4e72-bdbf-ccdee4a9075e",

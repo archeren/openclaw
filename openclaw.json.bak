@@ -1,11 +1,11 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.9",
-    "lastTouchedAt": "2026-02-10T02:44:44.069Z"
+    "lastTouchedAt": "2026-02-12T00:45:37.152Z"
   },
   "wizard": {
-    "lastRunAt": "2026-02-02T03:15:33.541Z",
-    "lastRunVersion": "2026.1.30",
+    "lastRunAt": "2026-02-10T02:45:01.996Z",
+    "lastRunVersion": "2026.2.9",
     "lastRunCommand": "onboard",
     "lastRunMode": "local"
   },
@@ -29,6 +29,10 @@
       },
       "bailian:default": {
         "provider": "bailian",
+        "mode": "api_key"
+      },
+      "xunfei:default": {
+        "provider": "xunfei",
         "mode": "api_key"
       },
       "opencode:manual": {
@@ -158,14 +162,53 @@
             "maxTokens": 32768
           }
         ]
+      },
+      "xunfei": {
+        "baseUrl": "https://maas-api.cn-huabei-1.xf-yun.com/v2",
+        "apiKey": "fc95eae931eada8434ae5df835c0bcab:MmJiM2UyODExYTE3MDAxMTNkOTZkOGYx",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "xopkimik25",
+            "name": "Kimi K2.5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "xopglm5",
+            "name": "GLM5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
       }
     }
   },
   "agents": {
     "defaults": {
       "model": {
-        "primary": "openrouter/openrouter/pony-alpha",
-        "fallbacks": []
+        "fallbacks": [],
+        "primary": "xunfei/xopkimik25"
       },
       "models": {
         "vole/kimi-k2.5": {
@@ -193,6 +236,12 @@
         },
         "openrouter/openrouter/pony-alpha": {
           "alias": "Pony Alpha"
+        },
+        "xunfei/xopkimik25": {
+          "alias": "Xunfei K2.5"
+        },
+        "xunfei/xopglm5": {
+          "alias": "Xunfei GLM5"
         }
       },
       "workspace": "/home/ubuntu/.openclaw/workspace",
@@ -275,7 +324,7 @@
       "token": "9d8cdcb9f27157ecf801a401a8c8a09a929ca29885c61392"
     },
     "tailscale": {
-      "mode": "off",
+      "mode": "serve",
       "resetOnExit": false
     }
   },

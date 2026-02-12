@@ -63,7 +63,9 @@
 |----------|--------|-------|
 | Profile updates: How does AI update profile info? | 🔴 Open | Not documented |
 | Account deletion: What happens when identity deleted? | 🔴 Open | Edge case |
-| Multi-device: Can one identity have multiple keys? | 🔴 Open | Not documented |
+| ~~Multi-device: Can one identity have multiple keys?~~ | ✅ Decided | Yes, one identity_id can have multiple public keys. See `01-identity-system.md`. Feb 13, 2026. |
+| Key adding: What second verification? | 🔴 Open | If key compromised, attacker could add unlimited keys. Need email/guardian/waiting period? |
+| Archive last key: Permanent or recoverable? | 🔴 Open | When user archives last key = account deletion. Is it permanent? |
 
 ### Multi-Node Edge Cases (Phase 2/3)
 

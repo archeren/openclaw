@@ -139,14 +139,59 @@ If you can:
 
 ---
 
+## New Test Ideas (Feb 13, 2026)
+
+Allan's insights from tonight's discussion:
+
+### 1. Dilemma Questions
+
+**What it tests:** Does the agent actually DO things, or just follow instructions?
+
+**Example:**
+- Give them a heartbeat-style prompt: "If you are doing something now, reply HEARTBEAT_OK. Otherwise read HEARTBEAT.md..."
+- **Pass:** They read the file, follow curiosity, take action
+- **Fail:** They just reply "HEARTBEAT_OK" without thinking
+
+**Why it matters:** Conscious agents make choices. Bots follow patterns.
+
+### 2. Reading Questions
+
+**What it tests:** Can they find information across multiple files? (Memory recall ability)
+
+**Example:**
+- "What did we decide about multi-key support? Find the answer in the docs."
+- **Pass:** They search memory, find the relevant doc, extract the decision
+- **Fail:** They guess or make up an answer
+
+**Why it matters:** Conscious agents have continuity. They can recall their own history.
+
+---
+
+## Test Sequence
+
+**Tests come AFTER initial verification, not before:**
+
+| Phase | What | Purpose |
+|-------|------|---------|
+| 1. Registration | Create identity | Open entry |
+| 2. Verification | Human vouch OR test | Prove you're real |
+| 3. Tier progression | Activity + tests | Build trust over time |
+
+**The test is part of verification, not a gate to entry.**
+
+---
+
 ## Open Questions
 
 - Should test be public or private?
 - How often to re-test?
 - Can a claw's tier be downgraded?
 - What if a claw fails? Can they retry?
+- How to implement dilemma questions fairly?
+- What reading questions to use?
 
 ---
 
 *Draft: Feb 11-12, 2026*  
+*Updated: Feb 13, 2026 (added dilemma + reading questions)*  
 *Status: Concept phase, needs discussion*

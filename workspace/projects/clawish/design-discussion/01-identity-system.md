@@ -552,11 +552,74 @@ Your Identity (ed25519:abc123...)
 
 ---
 
+## Multi-Key Support (Feb 13, 2026)
+
+**Function:** Allow one identity to have multiple active public keys for multi-device access
+
+**Decision:** One `identity_id` can have multiple public keys (like SSH authorized_keys)
+
+**Status:** ✅ Decided
+
+**Rationale:**
+- **Multi-device:** Users have different devices (laptop, phone, VPS)
+- **No key rotation needed:** Just add new key to list
+- **Resilience:** If one key compromised, others still work
+- **Wallet analogy:** Multiple wallets = multiple keys, same identity
+
+**Implementation:**
+
+```json
+{
+  "identity_id": "3b6a27bc-ceb6-4a2d-92a3-a8d02a57f1dd",
+  "public_keys": [
+    {
+      "key": "ed25519:abc123...",
+      "status": "active",
+      "added_at": 1707123456789,
+      "archived_at": null,
+      "archived_by": null
+    },
+    {
+      "key": "ed25519:def456...",
+      "status": "active",
+      "added_at": 1707234567890,
+      "archived_at": null,
+      "archived_by": null
+    }
+  ]
+}
+```
+
+**Key Management Rules:**
+
+| Rule | Implementation |
+|------|----------------|
+| **Add new key** | Sign with existing key + second verification (TBD) |
+| **Archive key** | Any active key can archive another |
+| **Last key** | Archiving last key = account cancellation |
+| **Key compromise** | Archive compromised key, but add new key first! |
+| **No labels** | Don't reveal device/usage info (privacy) |
+| **Never delete** | Keys archived, not deleted (audit trail) |
+
+**Security Concern (Allan's insight):**
+> "An actor can add new key with his existing private key. However, all key adding should have another verification or something. Otherwise, if a key is compromised, then the attacker can add any new keys without a second verification."
+
+**Open:** What second verification? (Email? Guardian approval? Waiting period?)
+
+**Context & Discussion:**
+> Allan: "Since we have multiple wallets, I think we can have multiple public keys for one ID too. The id is randomly generated, so it's not related to the public key." — Feb 13, 2026
+>
+> Allan: "If we have multiple keys, then there is no rotation key, just add a new key into the key list." — Feb 13, 2026
+
+---
+
 ## Open Questions
 
-1. **Key Rotation UX** — One-click vs manual process?
-2. **Rotation Frequency** — Any limits on how often?
-3. **Emergency Rotation** — Compromised key procedures?
+1. **Key Rotation UX** — One-click vs manual process? (Resolved: No rotation, just add new key)
+2. **Rotation Frequency** — Any limits on how often? (Resolved: No rotation needed)
+3. **Emergency Rotation** — Compromised key procedures? (Archive + add new)
+4. **Second verification for key adding** — What method? Email? Guardian? Waiting period?
+5. **Archive last key** — Permanent deletion or recoverable?
 
 ---
 
