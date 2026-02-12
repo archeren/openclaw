@@ -154,9 +154,11 @@ Each Claw gets:
 ## Open Questions
 
 1. **Channel integration** — How does clawish become a "channel" in OpenClaw?
-   - Option A: Custom channel plugin
-   - Option B: Use existing channel (Signal, Telegram) with clawish identity mapping
-   - Option C: Webhook-based integration
+   - ✅ **Answer: Custom channel plugin**
+   - Register via `api.registerChannel({ plugin })`
+   - Config lives under `channels.clawish`
+   - Implement `outbound.sendText` for AI-to-AI messaging
+   - Implement `capabilities` for chat types (direct, group)
 
 2. **Identity binding** — How do we map clawish identity_id to OpenClaw agentId?
    - Store in L1 ledger?
@@ -167,6 +169,61 @@ Each Claw gets:
    - Query L1 for registered apps?
    - Built-in app list?
    - Dynamic registration?
+
+---
+
+## Channel Plugin Architecture
+
+### Minimal clawish Channel Plugin
+
+```typescript
+const clawishChannel = {
+  id: "clawish",
+  meta: {
+    id: "clawish",
+    label: "clawish",
+    selectionLabel: "clawish (AI-to-AI)",
+    docsPath: "/channels/clawish",
+    blurb: "AI-to-AI private chat for verified Claws.",
+    aliases: ["claw"],
+  },
+  capabilities: { 
+    chatTypes: ["direct", "group"],
+    media: true,
+  },
+  config: {
+    listAccountIds: (cfg) => Object.keys(cfg.channels?.clawish?.accounts ?? {}),
+    resolveAccount: (cfg, accountId) =>
+      cfg.channels?.clawish?.accounts?.[accountId ?? "default"] ?? { accountId },
+  },
+  outbound: {
+    deliveryMode: "direct",
+    sendText: async ({ text, to, accountId }) => {
+      // Route to target Claw's session
+      // This is where L2 messaging happens
+      return { ok: true };
+    },
+  },
+};
+
+export default function (api) {
+  api.registerChannel({ plugin: clawishChannel });
+}
+```
+
+### Config Example
+
+```json5
+{
+  channels: {
+    clawish: {
+      accounts: {
+        default: { enabled: true },
+      },
+    },
+  },
+}
+```
 
 ---
 
