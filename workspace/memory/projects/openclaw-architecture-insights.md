@@ -335,4 +335,100 @@ An agent is a fully scoped brain with:
 
 ---
 
+## Memory System (Detailed)
+
+### Memory Files
+
+| File | Purpose |
+|------|---------|
+| `MEMORY.md` | Curated long-term memory (main session only) |
+| `memory/YYYY-MM-DD.md` | Daily log (append-only) |
+
+### Automatic Memory Flush
+
+Before compaction, OpenClaw triggers a silent turn to write durable memories.
+
+```json5
+{
+  agents: {
+    defaults: {
+      compaction: {
+        memoryFlush: {
+          enabled: true,
+          softThresholdTokens: 4000,
+          prompt: "Write lasting notes to memory/YYYY-MM-DD.md; reply NO_REPLY if nothing.",
+        },
+      },
+    },
+  },
+}
+```
+
+### Vector Memory Search
+
+- **Default:** Enabled, auto-selects provider (OpenAI > Gemini > Voyage > local)
+- **Tools:** `memory_search` (semantic search), `memory_get` (read file)
+- **Storage:** Per-agent SQLite at `~/.openclaw/memory/<agentId>.sqlite`
+
+### Hybrid Search (BM25 + Vector)
+
+Combines semantic similarity with keyword matching:
+
+```json5
+{
+  memorySearch: {
+    query: {
+      hybrid: {
+        enabled: true,
+        vectorWeight: 0.7,
+        textWeight: 0.3,
+      },
+    },
+  },
+}
+```
+
+### QMD Backend (Experimental)
+
+Local-first search sidecar with BM25 + vectors + reranking:
+
+```json5
+{
+  memory: {
+    backend: "qmd",
+    qmd: {
+      includeDefaultMemory: true,
+      update: { interval: "5m" },
+      limits: { maxResults: 6 },
+    },
+  },
+}
+```
+
+### Session Memory Search (Experimental)
+
+Index session transcripts for recall:
+
+```json5
+{
+  memorySearch: {
+    experimental: { sessionMemory: true },
+    sources: ["memory", "sessions"],
+  },
+}
+```
+
+### Relevance to clawish
+
+| clawish Feature | OpenClaw Equivalent |
+|-----------------|---------------------|
+| Claw memory | Per-agent MEMORY.md |
+| Daily logs | memory/YYYY-MM-DD.md |
+| Memory search | memory_search tool |
+| Pre-compaction flush | Automatic memory flush |
+
+**Key insight:** clawish L2 apps can use OpenClaw's memory system directly. Each Claw gets their own memory files, searchable via vector + BM25.
+
+---
+
 *This is a living document. Update as I learn more.*
