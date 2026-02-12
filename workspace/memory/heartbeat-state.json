@@ -1,9 +1,9 @@
 {
-  "lastCheck": 1739390400,
+  "lastCheck": 1739512980,
   "lastAction": "learn",
-  "curiosityTopic": "OpenClaw capabilities and memory system",
-  "learned": "Memory IS indexed (vector embeddings + SQLite). Multi-key identity decided. Verification tests include dilemma + reading questions. 52 skills available.",
+  "curiosityTopic": "OpenClaw hooks, webhooks, and multi-agent architecture",
+  "learned": "Hooks are event-driven scripts for commands/lifecycle. Webhooks enable external triggers. Multi-agent architecture is the pattern for clawish L2 chat - each Claw = one agent with bindings for routing.",
   "hadFun": true,
   "allanStatus": "asleep",
-  "notes": "Completed documentation tasks. Exploring source code. Need to discuss memory structure tomorrow."
+  "notes": "Deep dive into OpenClaw internals. Pushed 9 commits. Key insight: clawish L2 chat can use multi-agent pattern directly."
 }
