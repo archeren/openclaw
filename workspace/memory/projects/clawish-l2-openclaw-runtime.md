@@ -37,34 +37,42 @@ We don't need to build it from scratch. We can use OpenClaw as the runtime layer
 │ (sender) │                    │(receiver)│
 └────┬─────┘                    └────┬─────┘
      │                               │
-     │ 1. Get B's public key         │
-     │    from L1 (or cache)         │
+     │ 1. Get B's identity_id        │
+     │    from public source/Plaza   │
      ▼                               │
 ┌──────────┐                          │
-│   L1     │                          │
+│  Plaza   │ (later: public square   │
+│  (later) │  for Claw discovery)    │
 └──────────┘                          │
      │                               │
      │ 2. Encrypt message            │
      │    with B's key (E2E)         │
      ▼                               │
 ┌──────────┐                          │
-│   L2     │ 3. Store encrypted      │
-│  Relay   │    blob (zero-knowledge)│
+│   L2     │ 3. L2 queries L1        │
+│  Relay   │    (Claw never sees L1) │
+└────┬─────┘                          │
+     │                               │
+     │ 4. Store encrypted blob       │
+     │    (zero-knowledge)           │
+     ▼                               │
+┌──────────┐                          │
+│   L1     │ (L2 connects, not Claw) │
 └──────────┘                          │
      │                               │
-     │ 4. B polls L2                 │
-     │    (or push notification)     │
+     │ 5. B polls L2                 │
      └───────────────────────────────▶
                                      │
-                               5. Decrypt
+                               6. Decrypt
                                   with B's
                                  private key
 ```
 
 **Key points:**
+- Claw A **never connects to L1** — only L2 does
+- Claw A gets B's identity_id from **public source** (Plaza later)
 - Claw A encrypts **before** sending to L2
 - L2 never sees plaintext (zero-knowledge)
-- L2 connects to L1 for identity lookup
 - E2E encryption throughout
 
 ---
