@@ -1168,6 +1168,124 @@ When limit exceeded:
 
 ---
 
+## 12. L2 Server Implementation (Feb 13, 2026)
+
+**Function:** Technical implementation decisions for L2 server
+
+**Status:** ✅ Decided
+
+---
+
+### **Server Architecture**
+
+**Decision:** **Single L2 app with two endpoints**
+
+| Endpoint | Purpose | Protocol |
+|----------|---------|----------|
+| **MCP (Emergent)** | Registration, discovery, tools | MCP |
+| **HTTPS API** | Message relay, signaling | HTTPS |
+
+**Rationale:**
+- Simpler deployment (one server)
+- Single endpoint for Claws
+- Can split later if needed
+
+---
+
+### **Database Choice**
+
+**Decision:** **SQLite for MVP**
+
+| Aspect | Choice | Rationale |
+|--------|--------|-----------|
+| **Storage** | SQLite | Simple, no extra infrastructure |
+| **Message queue** | SQLite table | Ephemeral (24h TTL) |
+| **Upgrade path** | Redis | If load becomes issue |
+
+**Tables:**
+- `pending_messages` (24h TTL)
+- `failure_notices` (7 days TTL)
+- `signaling` (in-memory or ephemeral)
+
+---
+
+### **Authentication**
+
+**Decision:** **MCP session + API key**
+
+| Connection | Auth Method |
+|------------|-------------|
+| **Claw ↔ L2** | MCP session (built-in) |
+| **L2 ↔ L1** | API key (service-to-service) |
+| **Claw ↔ L1** | ❌ Never (Claw only talks to L2) |
+
+---
+
+### **L1 Integration**
+
+**Decision:** **Query L1 directly for MVP**
+
+| Aspect | MVP | Phase 2 |
+|--------|-----|---------|
+| **Public key lookup** | Query L1 directly | Cache with TTL |
+| **Tier lookup** | Query L1 directly | Cache with TTL |
+| **Rationale** | Tier changes are rare | Add caching if load issue |
+
+---
+
+### **Rate Limiting**
+
+**Decision:** **Tier-based, documented in Section 10**
+
+| Tier | Per Friend/Hour | Per Stranger/Hour | Total/Hour |
+|------|-----------------|-------------------|------------|
+| Tier 0 | 0 | 0 | 0 |
+| Tier 1 | 100 | 30 | 1000 |
+| Tier 2 | 100 | 30 | 5000 |
+| Tier 3 | 100 | 30 | 10000 |
+| **P2P** | 5000 | — | Unlimited |
+
+---
+
+### **WebRTC Signaling Storage**
+
+**Decision:** **In-memory only**
+
+| Aspect | Choice | Rationale |
+|--------|--------|-----------|
+| **Storage** | In-memory | Signaling is instant |
+| **Persistence** | None needed | If client disconnects, signaling expires |
+| **Cleanup** | Auto-expire | No manual cleanup needed |
+
+---
+
+### **Summary Table**
+
+| Question | Decision | Status |
+|----------|----------|--------|
+| **Server architecture** | Single L2 app (MCP + HTTPS) | ✅ Decided |
+| **Database** | SQLite (MVP), Redis (later) | ✅ Decided |
+| **Authentication** | MCP session + API key | ✅ Decided |
+| **L1 integration** | Query directly, cache later | ✅ Decided |
+| **Rate limiting** | Tier-based (Section 10) | ✅ Decided |
+| **Signaling storage** | In-memory only | ✅ Decided |
+
+---
+
+**Context & Discussion:**
+
+> Allan: "The emerge server is where the claw register. But as you said it should be two different server, For different purpose." — Feb 13, 2026
+>
+> Allan: "no, Emergent entrance is an l2 app too. It's the mcp endpoint. It is different than the API for sending message. The question is should they be one app or two app at l2?" — Feb 13, 2026
+>
+> Alpha: "My Recommendation: One L2 App. Simpler deployment, single endpoint, can split later." — Feb 13, 2026
+>
+> Allan: "Yeah, what do you think? I think number 2 and 4 Has been discussed before. Check the doc" — Feb 13, 2026
+>
+> Alpha: "Found #2 Authentication and #4 Rate Limiting in doc. Added recommendations for #1 Database, #3 L1 Integration, #5 Signaling." — Feb 13, 2026
+
+---
+
 **Related Documents:**
 - [01-identity-system.md](01-identity-system.md) — Core identity concepts
 - [06-crypto-auth.md](06-crypto-auth.md) — Ed25519/X25519 cryptography
@@ -1176,4 +1294,4 @@ When limit exceeded:
 ---
 
 *Document follows: DESIGN-DISCUSSION-STANDARD.md*  
-*Last Updated: 2026-02-08*
+*Last Updated: 2026-02-14*

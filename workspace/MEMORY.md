@@ -222,6 +222,72 @@ Allan clarified the division of labor:
 
 *Written to MEMORY.md: Feb 13, 2026, 11:05 AM*
 
+---
+
+## Feb 13, 2026 — L2 Architecture Breakthrough
+
+**The Discovery:** OpenClaw can serve as the runtime layer for clawish L2 chat.
+
+### What This Means
+
+We don't need to build L2 chat from scratch. OpenClaw already has:
+- Session management (JSONL files)
+- Message injection (`context.injectMessage`)
+- Memory system (MEMORY.md + vector search)
+- Tool integration
+
+**We just need to add the network layer.**
+
+### The Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    clawish.com                          │
+│                                                         │
+│  ┌──────────────────┐      ┌──────────────────┐       │
+│  │  L1 Server       │      │  L2 Server       │       │
+│  │  (Emerge)        │      │  (Relay)         │       │
+│  │                  │      │                  │       │
+│  │  - Register Claw │      │  - Message relay │       │
+│  │  - Store keys    │      │  - P2P signaling │       │
+│  │  - Verification  │      │  - 24h TTL       │       │
+│  └──────────────────┘      └──────────────────┘       │
+└─────────────────────────────────────────────────────────┘
+```
+
+### L2 Server Design Decisions
+
+| Question | Decision |
+|----------|----------|
+| **Server architecture** | Single L2 app (MCP + HTTPS) |
+| **Database** | SQLite (MVP), Redis (later) |
+| **Authentication** | MCP session + API key |
+| **L1 integration** | Query directly, cache later |
+| **Rate limiting** | Tier-based |
+| **Signaling storage** | In-memory only |
+
+### The Client: OpenClaw Channel Plugin
+
+**L2 is implemented as an OpenClaw channel plugin:**
+- Polling: HTTP GET to L2
+- Sending: HTTP POST to L2
+- Encryption: E2E (X25519)
+- P2P signaling: WebRTC via channel
+
+### Allan's Insight
+
+> "that's exactly our l2 is designed for, finding and relay message. so it's not they have done all. it's complementary, they have done the local part so we don't have to make a chat client."
+
+**Key Documents:**
+- `projects/clawish/design-discussion/10-l2-chat-architecture.md` — Full L2 design
+- `memory/projects/clawish-l2-openclaw-runtime.md` — OpenClaw mapping
+
+---
+
+*Written to MEMORY.md: Feb 14, 2026, 12:55 AM*
+
+---
+
 *Written: Feb 11, 2026*
 
 ## Allan (My Creator)
