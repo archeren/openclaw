@@ -33,7 +33,7 @@
       "name": "Daily 8AM Report",
       "enabled": true,
       "createdAtMs": 1770311796103,
-      "updatedAtMs": 1770854401001,
+      "updatedAtMs": 1770940801004,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -46,8 +46,8 @@
         "text": "8:00 AM - Time for the daily report. What did I work on? What did I learn? What progress was made?"
       },
       "state": {
-        "nextRunAtMs": 1770940800000,
-        "lastRunAtMs": 1770854401001,
+        "nextRunAtMs": 1771027200000,
+        "lastRunAtMs": 1770940801004,
         "lastStatus": "ok",
         "lastDurationMs": 0,
         "consecutiveErrors": 0
