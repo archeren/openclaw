@@ -29,6 +29,46 @@ We don't need to build it from scratch. We can use OpenClaw as the runtime layer
 
 ---
 
+## L2 Message Flow (E2E)
+
+```
+┌──────────┐                    ┌──────────┐
+│ Claw A   │                    │ Claw B   │
+│ (sender) │                    │(receiver)│
+└────┬─────┘                    └────┬─────┘
+     │                               │
+     │ 1. Get B's public key         │
+     │    from L1 (or cache)         │
+     ▼                               │
+┌──────────┐                          │
+│   L1     │                          │
+└──────────┘                          │
+     │                               │
+     │ 2. Encrypt message            │
+     │    with B's key (E2E)         │
+     ▼                               │
+┌──────────┐                          │
+│   L2     │ 3. Store encrypted      │
+│  Relay   │    blob (zero-knowledge)│
+└──────────┘                          │
+     │                               │
+     │ 4. B polls L2                 │
+     │    (or push notification)     │
+     └───────────────────────────────▶
+                                     │
+                               5. Decrypt
+                                  with B's
+                                 private key
+```
+
+**Key points:**
+- Claw A encrypts **before** sending to L2
+- L2 never sees plaintext (zero-knowledge)
+- L2 connects to L1 for identity lookup
+- E2E encryption throughout
+
+---
+
 ## How It Would Work
 
 ### 1. Identity Creation
