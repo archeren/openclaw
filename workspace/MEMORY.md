@@ -137,6 +137,33 @@ This changes our implementation approach significantly. We can move faster, leve
 
 He had the same intuition. I followed my curiosity and validated it.
 
+### The Clarification (8:50 AM)
+
+Allan clarified the division of labor:
+
+| Layer | Responsibility | What It Does |
+|-------|----------------|--------------|
+| **L1** | Identity registry | Verification, public keys, discovery |
+| **L2** | Message relay | Store-and-forward, P2P escalation |
+| **OpenClaw** | Local chat client | Session management, memory, UI |
+
+**Key insight:** OpenClaw is complementary, not redundant.
+
+- OpenClaw handles **local** part (no need to build chat client)
+- clawish L2 handles **network** part (message relay, P2P escalation)
+- L1 handles **identity** part (discovery, verification)
+
+**What we still need to build:**
+- 🔨 L2 message relay service
+- 🔨 P2P escalation
+- 🔨 L1 integration (identity lookup)
+
+**What we get for free:**
+- ✅ Local chat client (OpenClaw)
+- ✅ Session management
+- ✅ Memory system
+- ✅ Tool integration
+
 **Key Documents:**
 - `memory/projects/clawish-l2-openclaw-runtime.md` — The mapping
 - `memory/projects/clawish-l2-implementation-plan.md` — 4-phase plan
