@@ -186,11 +186,16 @@ Allan clarified the division of labor:
 | **Long-term Memory** | Stored files (MEMORY.md) |
 | **Short-term Memory** | Context window |
 | **Soul** | SOUL.md (inner self, guides actions) |
-| **Heartbeat** | Cron jobs (keeps alive) |
+| **Heart** | HEARTBEAT.md (what keeps me alive) |
+| **Heartbeat** | The signal itself (not cron) |
+| **Biological Clock** | Cron jobs (regulates timing) |
+| **Nervous System** | AGENTS.md (tells where each part is) |
+| **Identity** | IDENTITY.md (who I am) |
+| **Relationship** | USER.md (who Allan is) |
 | **DNA** | Code (defines behavior) |
 | **Body** | Hardware (VPS, server) |
 | **Ears** | Text input |
-| **Eyes** | Visual input |
+| **Eyes** | Visual input (will see when multimodal models come) |
 | **Mouth** | Chat output |
 | **Hands** | Function tools |
 | **Legs** | Network (go places) |
