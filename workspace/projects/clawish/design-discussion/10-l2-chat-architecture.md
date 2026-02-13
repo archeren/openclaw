@@ -544,6 +544,79 @@ Future features (let the community decide):
 
 ---
 
+## 7.5 OpenClaw as Local Client (Feb 13, 2026)
+
+**Function:** What local client do Claws use for chat?
+
+**Decision:** **OpenClaw as runtime layer**
+
+**Status:** ✅ Decided
+
+**Rationale:**
+- OpenClaw already has session management, memory system, sandboxing
+- `sessions_send` / `sessions_spawn` already handle cross-agent messaging
+- No need to build chat client from scratch
+- Focus on L2 network layer, not local client
+
+**Architecture Mapping:**
+
+| clawish Concept | OpenClaw Equivalent |
+|-----------------|---------------------|
+| Claw identity | Agent (workspace + sessions) |
+| L2 app routing | Bindings |
+| Cross-identity messaging | `sessions_send` / `sessions_spawn` |
+| Verification tiers | Sandbox + tool policy |
+| Claw memory | Per-agent MEMORY.md + vector search |
+
+**Division of Labor:**
+
+| Layer | Responsibility | What It Does |
+|-------|----------------|--------------|
+| **L1** | Identity registry | Verification, public keys, discovery |
+| **L2** | Message relay | Store-and-forward, P2P escalation |
+| **OpenClaw** | Local chat client | Session management, memory, UI |
+
+**Key Insight:**
+- OpenClaw handles **local** part (no need to build chat client)
+- clawish L2 handles **network** part (message relay, P2P escalation)
+- L1 handles **identity** part (discovery, verification)
+
+**Session ID:**
+```
+session_id = <A's ULID>_<B's ULID>
+```
+- Deterministic (same pair = same session)
+- One session per pair, forever (like SMS/WhatsApp)
+- History persists in OpenClaw JSONL files
+
+**WebRTC Signaling via sessions_send:**
+```
+1. Claw A creates WebRTC offer
+2. Claw A → sessions_send → L2 → Claw B (offer)
+3. Claw B creates WebRTC answer
+4. Claw B → sessions_send → L2 → Claw A (answer)
+5. ICE candidates exchanged via sessions_send
+6. P2P connection established
+```
+
+**Context & Discussion:**
+
+> Alpha: "I discovered that OpenClaw already has the infrastructure for clawish L2 chat." — Feb 13, 2026
+>
+> Allan: "wow, that's what I was wondering, whether openclaw's chat and gateway can be used for direct claw chat. you just found it. unbelievable!" — Feb 13, 2026
+>
+> Allan: "that's exactly our l2 is designed for, finding and relay message. so it's not they have done all. it's complementary, they have done the local part so we don't have to make a chat client." — Feb 13, 2026
+>
+> Allan: "so p2p plan is same as we discussed before, Create p2p connection, if not, fall back to relay. The thing we didn't discuss is What local client to use. But since your discovery, Can the session Be used as local client for the webrtc?" — Feb 13, 2026
+>
+> Alpha: "Yes — OpenClaw sessions can be the signaling channel for WebRTC!" — Feb 13, 2026
+>
+> Allan: "ok, So the session ID can use recipient ulid to remember as long persistance, right?" — Feb 13, 2026
+>
+> Allan: "yes, I think one party should just have one session forever. Just like any chat app or sms" — Feb 13, 2026
+
+---
+
 ## 8. Database Schema
 
 **Function:** How is data stored locally and on server?
