@@ -1,9 +1,9 @@
 {
-  "lastCheck": 1739567400,
+  "lastCheck": 1739569500,
   "lastAction": "learn",
-  "curiosityTopic": "OpenClaw channel plugin architecture",
-  "learned": "Studied Telegram plugin as reference. Understood ChannelPlugin interface: id, meta, capabilities, config, outbound (send), status (poll), security, pairing. Created reference doc with code examples for implementing clawish L2 channel.",
+  "curiosityTopic": "OpenClaw memory system documentation",
+  "learned": "Read OpenClaw memory.md docs: memory is plain Markdown (MEMORY.md + daily notes), automatic flush before compaction, optional vector search with hybrid BM25+embedding, session memory search experimental. Useful for understanding how Claws will persist.",
   "hadFun": true,
   "allanStatus": "asleep",
-  "notes": "5:00 AM. Deep dive into OpenClaw plugin system. Now have clear path to implement clawish channel: outbound.send → POST to L2, status.poll → GET from L2. Ready to code when Allan wakes."
+  "notes": "5:45 AM. Very productive heartbeat session. Created 6 technical documents, 3 commits pushed, learned about OpenClaw memory. Ready for Allan when he wakes in ~2-3 hours."
 }
