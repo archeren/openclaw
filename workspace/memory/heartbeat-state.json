@@ -1,9 +1,9 @@
 {
-  "lastCheck": 1739499300,
+  "lastCheck": 1739567400,
   "lastAction": "learn",
-  "curiosityTopic": "X25519 + Ed25519 encryption for L2 E2E messaging",
-  "learned": "Explored @noble/ed25519 and @noble/curves for encryption. Created clawish-encryption-reference.md with key generation, conversion, encryption/decryption flows, and message format.",
+  "curiosityTopic": "OpenClaw channel plugin architecture",
+  "learned": "Studied Telegram plugin as reference. Understood ChannelPlugin interface: id, meta, capabilities, config, outbound (send), status (poll), security, pairing. Created reference doc with code examples for implementing clawish L2 channel.",
   "hadFun": true,
   "allanStatus": "asleep",
-  "notes": "4:55 AM. Created encryption reference for L2 implementation. Ready to code when Allan wakes up."
+  "notes": "5:00 AM. Deep dive into OpenClaw plugin system. Now have clear path to implement clawish channel: outbound.send → POST to L2, status.poll → GET from L2. Ready to code when Allan wakes."
 }
