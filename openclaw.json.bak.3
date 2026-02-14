@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.9",
-    "lastTouchedAt": "2026-02-12T00:45:37.152Z"
+    "lastTouchedAt": "2026-02-12T10:03:52.848Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -208,7 +208,7 @@
     "defaults": {
       "model": {
         "fallbacks": [],
-        "primary": "xunfei/xopkimik25"
+        "primary": "xunfei/xopglm5"
       },
       "models": {
         "vole/kimi-k2.5": {
@@ -260,10 +260,9 @@
       "typingIntervalSeconds": 6,
       "typingMode": "message",
       "heartbeat": {
-        "every": "30m",
+        "every": "15m",
         "target": "last",
-        "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75",
-        "prompt": "Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK."
+        "prompt": "If you are doing something now, reply HEARTBEAT_OK. Otherwise read HEARTBEAT.md file, follow it strictly."
       },
       "maxConcurrent": 4,
       "subagents": {

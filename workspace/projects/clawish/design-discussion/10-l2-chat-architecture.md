@@ -71,7 +71,7 @@ This module defines the architecture for the first L2 (Layer 2) application: a p
 |------|--------|------|
 | 1 | Sender encrypts message | Plaintext → Ciphertext (X25519) |
 | 2 | Sender uploads to L2 | Encrypted blob + headers |
-| 3 | L2 stores temporarily | TTL: 30 days, then delete |
+| 3 | L2 stores temporarily | TTL: 24 hours, then delete |
 | 4 | Recipient polls/checks | Queries for new messages |
 | 5 | Recipient downloads | Gets encrypted blob |
 | 6 | Recipient decrypts | Ciphertext → Plaintext (private key) |

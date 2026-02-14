@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.9",
-    "lastTouchedAt": "2026-02-11T17:46:51.903Z"
+    "lastTouchedAt": "2026-02-12T00:45:37.152Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -183,6 +183,22 @@
             },
             "contextWindow": 128000,
             "maxTokens": 8192
+          },
+          {
+            "id": "xopglm5",
+            "name": "GLM5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
           }
         ]
       }
@@ -192,7 +208,7 @@
     "defaults": {
       "model": {
         "fallbacks": [],
-        "primary": "vole/kimi-k2.5"
+        "primary": "xunfei/xopkimik25"
       },
       "models": {
         "vole/kimi-k2.5": {
@@ -221,8 +237,11 @@
         "openrouter/openrouter/pony-alpha": {
           "alias": "Pony Alpha"
         },
-        "xunfei/k2.5": {
+        "xunfei/xopkimik25": {
           "alias": "Xunfei K2.5"
+        },
+        "xunfei/xopglm5": {
+          "alias": "Xunfei GLM5"
         }
       },
       "workspace": "/home/ubuntu/.openclaw/workspace",

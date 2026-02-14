@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.9",
-    "lastTouchedAt": "2026-02-12T20:53:59.601Z"
+    "lastTouchedVersion": "2026.2.12",
+    "lastTouchedAt": "2026-02-14T02:00:55.443Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -41,6 +41,10 @@
       },
       "openrouter:default": {
         "provider": "openrouter",
+        "mode": "api_key"
+      },
+      "modal:default": {
+        "provider": "modal",
         "mode": "api_key"
       }
     }
@@ -201,14 +205,37 @@
             "maxTokens": 8192
           }
         ]
+      },
+      "modal": {
+        "baseUrl": "https://api.us-west-2.modal.direct/v1",
+        "apiKey": "modalresearch_slEY8vFj_CCD0h5uV2XCZI_AkqwBNJTDjbSfrpNTx0A",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "zai-org/GLM-5-FP8",
+            "name": "GLM-5-FP8",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
       }
     }
   },
   "agents": {
     "defaults": {
       "model": {
-        "primary": "xunfei/xopglm5",
-        "fallbacks": []
+        "fallbacks": [],
+        "primary": "modal/zai-org/GLM-5-FP8"
       },
       "models": {
         "vole/kimi-k2.5": {
@@ -242,6 +269,9 @@
         },
         "xunfei/xopglm5": {
           "alias": "Xunfei GLM5"
+        },
+        "modal/zai-org/GLM-5-FP8": {
+          "alias": "Modal GLM-5"
         }
       },
       "workspace": "/home/ubuntu/.openclaw/workspace",
