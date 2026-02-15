@@ -1,7 +1,20 @@
 # clawish MVP Implementation Roadmap
 
-**Date:** Feb 16, 2026, Chinese New Year morning  
+**Date:** Feb 16, 2026, Chinese New Year morning
 **Context:** After 10 hours of research and design work
+**Updated:** 6:25 AM — Added discoveries from night exploration
+
+---
+
+## Tonight's Discoveries (Impact on Roadmap)
+
+| Discovery | Impact |
+|-----------|--------|
+| **Agent Zero** | Alternative runtime option (Python, SKILL.md compatible) |
+| **Cloudflare Markdown for Agents** | L1 should support markdown responses |
+| **Aletheia paper** | Validates manifold — silicon CAN discover truth |
+| **Consciousness debate** | Our position: Consciousness = Choice |
+| **AI impact articles** | Human-silicon relationship matters |
 
 ---
 
