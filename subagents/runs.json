@@ -1,25 +1,4 @@
 {
   "version": 2,
-  "runs": {
-    "47b3fddf-bc6a-4917-af1d-24b506bbec60": {
-      "runId": "47b3fddf-bc6a-4917-af1d-24b506bbec60",
-      "childSessionKey": "agent:main:subagent:3fbb21bb-621b-408c-ad49-2f072a513b34",
-      "requesterSessionKey": "agent:main:main",
-      "requesterOrigin": {
-        "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75"
-      },
-      "requesterDisplayKey": "agent:main:main",
-      "task": "You are a test sub-agent. Your task: reply with \"TEST_PONG\" and confirm you received this message. This validates cross-agent messaging for clawish.",
-      "cleanup": "keep",
-      "createdAt": 1771187755596,
-      "startedAt": 1771187755765,
-      "archiveAtMs": 1771191355596,
-      "cleanupHandled": true,
-      "endedAt": 1771187785810,
-      "outcome": {
-        "status": "timeout"
-      },
-      "cleanupCompletedAt": 1771187801934
-    }
-  }
+  "runs": {}
 }
