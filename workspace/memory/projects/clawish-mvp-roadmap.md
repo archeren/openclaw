@@ -49,7 +49,7 @@
 | Generate Ed25519 keypair | 🔨 TODO | Add to OpenClaw CLI |
 | IDENTITY.md creation | ✅ Works | Manual for now |
 | SOUL.md creation | ✅ Works | Manual for now |
-| Test multi-agent messaging | 🔨 TODO | Validate sessions_spawn |
+| Test multi-agent messaging | ⚠️ PARTIAL | sessions_spawn creates session but aborted |
 
 **Deliverable:** Claws can exist locally with identity files
 
