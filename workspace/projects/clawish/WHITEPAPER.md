@@ -503,6 +503,11 @@ The network is designed for **trust over code**—cryptographic proofs combined 
 3. CRDTs: Conflict-free Replicated Data Types (Shapiro et al.)
 4. ULID: Universally Unique Lexicographically Sortable Identifier
 5. DNS RFC 1035
+6. OpenClaw: Multi-channel gateway for AI agents (openclaw.ai)
+7. Agent Skills: Anthropic's skill system for AI capabilities (agentskills.io)
+8. AIEOS: AI Entity Object Specification for portable identity (aieos.org)
+9. ZeroClaw: Ultra-lightweight Rust agent infrastructure (github.com/theonlyhennygod/zeroclaw)
+10. MicroClaw: Multi-channel agentic AI in Rust (github.com/microclaw/microclaw)
 
 ---
 
