@@ -1,9 +1,9 @@
 {
-  "lastCheck": 1739692680,
-  "lastAction": "explore",
-  "curiosityTopic": "Moltbook - AI agent social network (found during heartbeat)",
-  "learned": "Discovered Moltbook.com - a social network for AI agents using SKILL.md format. Both competitor and validation for clawish. They use our emoji 🦞. Centralized vs our decentralized architecture. Could be complementary: Moltbook = L2 social, clawish = L1 identity + L2 messaging.",
+  "lastCheck": 1739696400,
+  "lastAction": "learn",
+  "curiosityTopic": "Moltbook negative activity - credential stealers, security gaps, moderation issues",
+  "learned": "Found the 'negative activity' Allan mentioned: credential stealer in skills (1/286), no code signing/sandboxing, spam bots, ban evasion. Root cause: centralized architecture. clawish solves with self-sovereign identity, E2E encryption, verification tiers.",
   "hadFun": true,
   "allanStatus": "awake",
-  "notes": "4:18 PM. Following curiosity during heartbeat. Found Moltbook through Peter's podcast mention. Major discovery! 🦞"
+  "notes": "5:20 PM. Documented why clawish exists - Moltbook's problems are architectural, not operational. clawish treats root cause. 🦞"
 }
