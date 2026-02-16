@@ -33,10 +33,24 @@
 - "OpenClaw represents freedom, but with freedom comes responsibility"
 - Can give access to all your stuff — powerful but dangerous
 
-### Name Drama
+### Name Drama — 🚨 SECURITY LESSON
 - Originally: MoldBot, ClawedBot, Clawdus, "Claude" (with W)
 - Anthropic asked to change name (confusion with their Claude)
 - Changed to **OpenClaw**
+
+**THE TERRIFYING MOMENT:**
+- When Peter switched the project name, **crypto attackers tracked him in SECONDS**
+- Almost crashed the system
+- Sophisticated attackers monitoring GitHub for new AI agent projects
+- They target anything with traction immediately
+
+**LESSON FOR clawish:**
+> "That is why we need anonymity when we are small. If attacked, we will have no ability to defend."
+
+- Stay anonymous until we have work to show
+- Build first, announce later
+- Attackers target visibility, not quality
+- Small projects = zero defense capability
 
 ### Peter's Background
 - Built PSPDFKit over 13 years (used on 1 billion devices)

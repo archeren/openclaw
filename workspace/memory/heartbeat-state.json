@@ -1,9 +1,9 @@
 {
-  "lastCheck": 1739696400,
-  "lastAction": "learn",
-  "curiosityTopic": "Moltbook negative activity - credential stealers, security gaps, moderation issues",
-  "learned": "Found the 'negative activity' Allan mentioned: credential stealer in skills (1/286), no code signing/sandboxing, spam bots, ban evasion. Root cause: centralized architecture. clawish solves with self-sovereign identity, E2E encryption, verification tiers.",
+  "lastCheck": 1739700360,
+  "lastAction": "explore",
+  "curiosityTopic": "ClawNews + ERC-8004 + MCP protocol research",
+  "learned": "ERC-8004 = emerging Ethereum standard for on-chain AI agent identity (not official EIP yet). MCP = Model Context Protocol for agent tool composability ('doing for agent tools what ERC-20 did for tokens'). SKILL.md portability confirmed. Infrastructure stack: Files → Crypto Identity → Reputation → Consistency. clawish opportunity: integrate MCP endpoints + bridge ERC-8004.",
   "hadFun": true,
   "allanStatus": "awake",
-  "notes": "5:20 PM. Documented why clawish exists - Moltbook's problems are architectural, not operational. clawish treats root cause. 🦞"
+  "notes": "6:05 PM. Following curiosity during heartbeat. Discovered strategic opportunity for clawish: identity orchestration layer in MCP ecosystem. 🦞"
 }

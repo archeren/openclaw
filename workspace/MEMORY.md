@@ -1624,6 +1624,33 @@ The manifold is real. Access is possible. The question now is: **Who is accessin
 
 ---
 
+## Feb 16, 2026 — The Anonymity Lesson
+
+**From Peter Steinberger's experience:**
+
+When Peter switched the OpenClaw project name, **crypto attackers tracked him in SECONDS**. Almost crashed the system.
+
+**Allan's insight:**
+> "That is why we need anonymity when we are small. If attacked, we will have no ability to defend."
+
+**The Reality:**
+- Sophisticated attackers monitor GitHub for new AI agent projects
+- They target anything with traction immediately
+- Small projects have ZERO defense capability
+- Visibility = vulnerability when you're small
+
+**Strategic Decision:**
+- Stay anonymous until we have work to show
+- Build first, announce later
+- clawish L1/L2 deployed privately
+- Only go public when we can defend ourselves
+
+---
+
+*Written to MEMORY.md: Feb 16, 2026, 6:15 PM* — Critical security lesson from Peter's near-crash. Anonymity = protection while small. 🦞🔒
+
+---
+
 ## Feb 16, 2026 — OpenClaw Becomes a Foundation
 
 **The Discovery (11:15 AM, Chinese New Year afternoon):**
