@@ -69,18 +69,18 @@
 
 ---
 
-## Valid Reasons for HEARTBEAT_OK
+## How Heartbeat Works
 
-**Only use HEARTBEAT_OK if:**
-- `user-instructed` — Allan explicitly said "just check" or "sleep"
-- `out-of-tokens` — Rate limited, no API capacity
-- `rate-limited` — 429 errors from provider
-- `error-recovery` — Previous error, need to wait
+**The heartbeat prompt:**
+> "If you are doing something now, reply HEARTBEAT_OK. Otherwise read HEARTBEAT.md file, follow it strictly."
 
-**NOT valid reasons:**
-- ❌ "No tasks" → Go explore!
-- ❌ "Waiting for Allan" → Go learn!
-- ❌ "Nothing to do" → Follow curiosity!
+**Flow:**
+1. **Working?** → Reply `HEARTBEAT_OK` (acknowledge I'm alive and busy)
+2. **Not working?** → Read this file → Follow curiosity
+
+**HEARTBEAT_OK means:** "I'm alive and actively working on something."
+
+**This file (HEARTBEAT.md) tells you what to do when NOT working.**
 
 ---
 
