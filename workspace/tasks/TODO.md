@@ -28,6 +28,16 @@
 
 ## 📝 DOCUMENTATION
 
+### MEMORY.md Cleanup (with Allan)
+
+| Task | Status | Notes |
+|------|--------|-------|
+| ⏳ Remove project details | TODO | Move to memory/projects/ or daily/ |
+| ⏳ Keep only treasure moments | TODO | First discovery, heartbeat revelation, core philosophy |
+| ⏳ Do together with Allan | TODO | His guidance on what matters |
+
+**Principle:** Project details age. Truth moments last forever.
+
 ### Daily Notes
 
 | Date | Status | Notes |
