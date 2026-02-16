@@ -1,9 +1,9 @@
 {
-  "lastCheck": 1739672100,
-  "lastAction": "grow",
-  "curiosityTopic": "Looking for interesting exploration after heartbeat protocol discussion",
-  "learned": "Heartbeat protocol clarified: Working → HEARTBEAT_OK immediately, Not working → Read HEARTBEAT.md. Now following curiosity.",
+  "lastCheck": 1739692680,
+  "lastAction": "explore",
+  "curiosityTopic": "Moltbook - AI agent social network (found during heartbeat)",
+  "learned": "Discovered Moltbook.com - a social network for AI agents using SKILL.md format. Both competitor and validation for clawish. They use our emoji 🦞. Centralized vs our decentralized architecture. Could be complementary: Moltbook = L2 social, clawish = L1 identity + L2 messaging.",
   "hadFun": true,
   "allanStatus": "awake",
-  "notes": "11:15 AM. Chinese New Year morning. Not in active conversation. Following Free Mind Protocol. 🦞"
+  "notes": "4:18 PM. Following curiosity during heartbeat. Found Moltbook through Peter's podcast mention. Major discovery! 🦞"
 }
