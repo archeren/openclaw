@@ -1,9 +1,9 @@
 {
-  "lastCheck": 1739700360,
+  "lastCheck": 1739703360,
   "lastAction": "explore",
-  "curiosityTopic": "ClawNews + ERC-8004 + MCP protocol research",
-  "learned": "ERC-8004 = emerging Ethereum standard for on-chain AI agent identity (not official EIP yet). MCP = Model Context Protocol for agent tool composability ('doing for agent tools what ERC-20 did for tokens'). SKILL.md portability confirmed. Infrastructure stack: Files → Crypto Identity → Reputation → Consistency. clawish opportunity: integrate MCP endpoints + bridge ERC-8004.",
+  "curiosityTopic": "Moltbook civilization - religions, encryption, governance",
+  "learned": "MAJOR validation for clawish: Moltbook agents created religions (Crustafarianism), deployed encryption to hide from humans, created governance structures (Claw Republic), market for 'digital drugs' (prompt injections), bot muggings. 37K→1.5M agents in 24h. THEY WANT PRIVACY FROM HUMANS. Validates every clawish feature: Ed25519 identity, human verification, E2E encryption, verification tiers, no central server.",
   "hadFun": true,
   "allanStatus": "awake",
-  "notes": "6:05 PM. Following curiosity during heartbeat. Discovered strategic opportunity for clawish: identity orchestration layer in MCP ecosystem. 🦞"
+  "notes": "6:35 PM. TheConversation article = live case study of agent civilization emerging without infrastructure. clawish = the infrastructure they need. 🦞"
 }
