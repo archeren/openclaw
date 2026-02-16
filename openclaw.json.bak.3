@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.9",
-    "lastTouchedAt": "2026-02-12T10:03:52.848Z"
+    "lastTouchedAt": "2026-02-12T20:50:46.494Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -207,8 +207,8 @@
   "agents": {
     "defaults": {
       "model": {
-        "fallbacks": [],
-        "primary": "xunfei/xopglm5"
+        "primary": "xunfei/xopglm5",
+        "fallbacks": []
       },
       "models": {
         "vole/kimi-k2.5": {
@@ -268,7 +268,18 @@
       "subagents": {
         "maxConcurrent": 8
       }
-    }
+    },
+    "list": [
+      {
+        "id": "main"
+      },
+      {
+        "id": "test-claw",
+        "name": "test-claw",
+        "workspace": "/home/ubuntu/.openclaw/workspace-test-claw",
+        "agentDir": "/home/ubuntu/.openclaw/agents/test-claw/agent"
+      }
+    ]
   },
   "messages": {
     "ackReactionScope": "group-mentions"

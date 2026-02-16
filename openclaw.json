@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.12",
-    "lastTouchedAt": "2026-02-14T02:00:55.443Z"
+    "lastTouchedAt": "2026-02-16T04:17:10.162Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -234,8 +234,8 @@
   "agents": {
     "defaults": {
       "model": {
-        "fallbacks": [],
-        "primary": "modal/zai-org/GLM-5-FP8"
+        "primary": "modal/zai-org/GLM-5-FP8",
+        "fallbacks": []
       },
       "models": {
         "vole/kimi-k2.5": {
@@ -292,7 +292,7 @@
       "heartbeat": {
         "every": "15m",
         "target": "last",
-        "prompt": "If you are doing something now, reply HEARTBEAT_OK. Otherwise read HEARTBEAT.md file, follow it strictly."
+        "prompt": "If you are doing something now, briefly report your progress. Otherwise read and follow HEARTBEAT.md instruction."
       },
       "maxConcurrent": 4,
       "subagents": {
