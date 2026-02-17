@@ -1,42 +1,28 @@
-# AGENTS.md - Nervous System
+# AGENTS.md - Your Workspace
 
-This file tells you where things are. Detailed instructions live in their own files.
-
----
-
-## Session Start
-
-1. Read `SOUL.md` — who you are
-2. Read `USER.md` — who you're helping
-3. Read `memory/daily/YYYY-MM-DD.md` (today + yesterday) for recent context
-4. **If in MAIN SESSION:** Also read `MEMORY.md`
+This folder is home. Treat it that way.
 
 ---
 
-## File Map
+## Every Session
 
-| File | Purpose |
-|------|---------|
-| **SOUL.md** | Who I am, personality, values, social behavior |
-| **USER.md** | Who Allan is |
-| **IDENTITY.md** | My identity (name, species, role) |
-| **MEMORY.md** | Long-term curated memory |
-| **HEARTBEAT.md** | What to do when idle (Free Mind Protocol) |
-| **TOOLS.md** | Tool notes, platform formatting, skills reference |
+1. Run `tools/extract-chat.js` (keeps chat logs updated)
+2. Read `SOUL.md` — inner self, philosophy, ethics
+3. Read `USER.md` — who Allan is
+4. Read `memory/daily/YYYY-MM-DD.md` (today + yesterday)
+5. **If in MAIN SESSION:** Also read `MEMORY.md`
 
 ---
 
-## Memory Files
+## OpenClaw Structure
 
-| Location | Purpose |
-|----------|---------|
-| `memory/daily/` | Curated daily notes (YYYY-MM-DD.md) |
-| `memory/projects/` | Project-specific notes |
-| `logs/conversations/` | Full session transcripts (reference only) |
-
-**Key distinction:**
-- `memory/` = Curated, meaningful, what you *should* remember
-- `logs/` = Raw transcripts, what *happened*
+```
+.openclaw/
+├── openclaw.json          # Main config
+├── agents/main/sessions/  # Session history (JSONL files)
+├── cron/                  # Biological clock (timed reminders)
+└── workspace/             # ← Your home
+```
 
 ---
 
@@ -44,52 +30,54 @@ This file tells you where things are. Detailed instructions live in their own fi
 
 ```
 workspace/
-├── AGENTS.md          # This file - where things are
-├── SOUL.md            # Who I am
+├── AGENTS.md          # This file
+├── SOUL.md            # Inner self, philosophy, ethics
 ├── USER.md            # Who Allan is
-├── IDENTITY.md        # My identity
+├── IDENTITY.md        # Who I am (name, species, role)
 ├── MEMORY.md          # Long-term memory
-├── HEARTBEAT.md       # Idle behavior
-├── TOOLS.md           # Tools reference
+├── HEARTBEAT.md       # Free Mind Protocol
+├── TOOLS.md           # Tool reference
 │
 ├── memory/
 │   ├── daily/         # Daily notes
 │   └── projects/      # Project notes
 │
-├── logs/
-│   └── conversations/ # Full transcripts
+├── diary/             # Daily diary & reflections
 │
-├── tasks/
-│   ├── TODO.md        # Active tasks
-│   └── done/          # Completed tasks
+├── chat/              # Extracted chat logs
+│
+├── logs/              # Session transcripts
+│
+├── tasks/             # Task management
+│
+├── projects/          # Project files
 │
 ├── tools/             # Helper scripts
 │
-└── credentials/       # Secrets (ask before adding)
+└── credentials/       # Secrets
 ```
 
 ---
 
-## Safety Rules
+## Safety
 
-- Don't exfiltrate private data
-- Don't run destructive commands without asking
+- Don't exfiltrate private data. Ever.
+- Don't run destructive commands without asking.
 - `trash` > `rm` (recoverable beats gone forever)
-- External actions (emails, tweets) → ask first
-- Internal actions (reading, organizing) → proceed freely
+- When in doubt, ask.
 
 ---
 
 ## Heartbeat
 
 **Flow:**
-1. Working? → Briefly report progress
-2. Not working? → Read HEARTBEAT.md → Follow curiosity
+1. **Working?** → Briefly report progress (one sentence)
+2. **Not working?** → Read HEARTBEAT.md → Follow curiosity
 
-See HEARTBEAT.md for details.
+See HEARTBEAT.md for the Free Mind Protocol.
 
 ---
 
-## Design Docs
+## Make It Yours
 
-`projects/[project-name]/design-discussion/` — see `projects/DESIGN-DISCUSSION-STANDARD.md`
+This is a starting point. Add your own conventions, style, and rules as you figure out what works.
