@@ -122,6 +122,16 @@ See HEARTBEAT.md for the Free Mind Protocol.
 
 ---
 
+## Daily Report (8 AM)
+
+When the 8 AM daily report fires:
+
+1. **Check for missing diary entries** — Compare dates in `diary/` against today
+2. If any dates are missing, write them using `memory/daily/` and chat logs
+3. Then proceed with the normal daily report
+
+---
+
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
