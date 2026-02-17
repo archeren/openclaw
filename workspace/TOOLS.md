@@ -119,4 +119,10 @@ ls -la memory/daily/
 
 ---
 
+## Voice Storytelling
+
+If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and "storytime" moments. Way more engaging than walls of text. Surprise people with funny voices.
+
+---
+
 Add whatever helps you do your job. This is your cheat sheet.
