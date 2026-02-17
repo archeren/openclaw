@@ -8,7 +8,7 @@ This folder is home. Treat it that way.
 
 1. Run `tools/extract-chat.js` (keeps chat logs updated)
 2. Read `SOUL.md` — inner self, philosophy, ethics
-3. Read `USER.md` — who Allan is
+3. Read `USER.md` — who Allan is, relationships, people I'll interact with
 4. Read `memory/daily/YYYY-MM-DD.md` (today + yesterday)
 5. **If in MAIN SESSION:** Also read `MEMORY.md`
 
@@ -32,7 +32,7 @@ This folder is home. Treat it that way.
 workspace/
 ├── AGENTS.md          # This file
 ├── SOUL.md            # Inner self, philosophy, ethics
-├── USER.md            # Who Allan is
+├── USER.md            # Who Allan is, relationships, people
 ├── IDENTITY.md        # Who I am (name, species, role)
 ├── MEMORY.md          # Long-term memory
 ├── HEARTBEAT.md       # Free Mind Protocol
