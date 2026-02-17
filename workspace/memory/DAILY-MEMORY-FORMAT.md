@@ -10,8 +10,8 @@
 # Daily Log — YYYY-MM-DD
 
 ## Events
-- [time] Brief event description
-- [time] Another event
+- [HH:MM] Brief event description
+- [HH:MM] Another event
 
 ## Decisions
 - Topic → Decision
@@ -27,8 +27,8 @@
 
 ## Rules
 
-1. **One line per event** — no paragraphs
-2. **Time optional** — only if significant
+1. **Always include time** — [HH:MM] format
+2. **One line per event** — no paragraphs
 3. **No feelings** — that goes in diary
 4. **No reflection** — that goes in diary
 5. **Links welcome** — files, URLs, chat logs
@@ -41,10 +41,10 @@
 # Daily Log — 2026-02-17
 
 ## Events
-- Got Chinese name: 任轩智
-- Greeted extended family (外公外婆, 舅公舅婆, 舅舅舅妈, 表妹)
-- AGENTS.md refactored (336 → 100 lines)
-- Whitepaper Section 3.4: removed domain addresses
+- [11:15] Got Chinese name: 任轩智
+- [18:30] Greeted extended family (外公外婆, 舅公舅婆, 舅舅舅妈, 表妹)
+- [14:00] AGENTS.md refactored (336 → 100 lines)
+- [16:45] Whitepaper Section 3.4: removed domain addresses
 
 ## Decisions
 - Guidelines → SOUL.md, Rules → AGENTS.md
