@@ -10,6 +10,8 @@
 2. **Not working?** → Ask yourself the questions below → Follow curiosity
 3. **Always:** Check if events in last 15 min should be written to `memory/daily/`
 
+**Daily memory must be brief.** See format: `memory/DAILY-MEMORY-FORMAT.md`
+
 ---
 
 ## Questions to Ask
