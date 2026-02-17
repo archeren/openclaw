@@ -109,4 +109,14 @@ ls -la memory/daily/
 
 ---
 
+## Platform Formatting
+
+| Platform | Notes |
+|----------|-------|
+| **Discord** | No markdown tables — use bullet lists. Wrap links in `<>` to suppress embeds |
+| **WhatsApp** | No headers — use **bold** or CAPS for emphasis |
+| **Feishu** | Standard markdown works |
+
+---
+
 Add whatever helps you do your job. This is your cheat sheet.
