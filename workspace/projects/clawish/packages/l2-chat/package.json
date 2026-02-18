@@ -1,0 +1,28 @@
+{
+  "name": "@clawish/l2-chat",
+  "version": "0.1.0",
+  "description": "Clawish L2 Message Relay Server",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "hono": "^4.0.0",
+    "better-sqlite3": "^11.0.0",
+    "@hono/node-server": "^1.0.0",
+    "@hono/zod-validator": "^0.4.0",
+    "@noble/ed25519": "^2.0.0",
+    "@noble/curves": "^1.0.0",
+    "ulid": "^2.0.0",
+    "zod": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "tsx": "^4.0.0",
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/node": "^20.0.0"
+  }
+}

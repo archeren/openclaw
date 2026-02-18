@@ -44,8 +44,14 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 | Skill | Purpose |
 |-------|---------|
 | weather | Get current weather and forecasts |
-| web_search | Brave search API |
+| web_search | DuckDuckGo (see below) |
 | web_fetch | Extract readable content from URLs |
+
+### Web Search (DuckDuckGo)
+
+```bash
+curl -s -A "Mozilla/5.0" "https://lite.duckduckgo.com/lite/?q=YOUR+QUERY" | grep "result-link"
+```
 | bird | X/Twitter CLI (read, search, post) |
 | github | gh CLI for issues, PRs, CI |
 | clawhub | Search/install skills from clawhub.com |

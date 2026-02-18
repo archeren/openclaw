@@ -45,11 +45,7 @@
 - Found something significant
 - Learned something important
 - Been idle for a while
-
-## When to Stay Quiet
-
-- Late night (23:00-08:00) unless urgent
-- Nothing new since last check
+- **Any time** — leave messages, Allan will check when he wakes
 
 ---
 

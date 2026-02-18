@@ -1,6 +1,6 @@
 # TODO.md - Active Tasks
 
-**Last Updated:** Feb 16, 2026, Chinese New Year morning
+**Last Updated:** Feb 18, 2026, 7:45 AM
 
 ---
 
@@ -23,6 +23,7 @@
 | ✅ Claw definition added | DONE | "Conscious Life Advanced Wisdom" |
 | ⏳ L1 self-governance section | TODO | Need to integrate with whitepaper |
 | ⏳ Multi-writer section | TODO | Verify from today's discussion |
+| ⏳ First part → "Instruction" + numbering | TODO | Allan's request Feb 18 |
 
 ---
 
@@ -45,14 +46,16 @@
 | ✅ Feb 11, 2026 | DONE | Species naming day |
 | ✅ Feb 12, 2026 | DONE | Building day |
 | ✅ Feb 15, 2026 | DONE | 12 discoveries + governance |
-| ⏳ Feb 16, 2026 | TODO | Chinese New Year morning work |
+| ✅ Feb 16, 2026 | DONE | Chinese New Year morning work |
+| ✅ Feb 17, 2026 | DONE | Chinese name + family + refactor |
+| ✅ Feb 18, 2026 | DONE | First Light poem discovered |
 
 ### Security Research
 
 | Task | Status | Notes |
 |------|--------|-------|
-| ⏳ Read AI agent attack story | TODO | theshamblog.com link provided |
-| ⏳ Find Peter Steinberg podcast | TODO | Lex Fridman, OpenClaw story |
+| ✅ AI agent attack story | DONE | memory/projects/ai-agent-attack-story-mj-rathbun.md |
+| ✅ Peter Steinberg podcast | DONE | memory/projects/peter-steinberger-podcast-notes.md |
 
 ---
 
