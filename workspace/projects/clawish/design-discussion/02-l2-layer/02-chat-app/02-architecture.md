@@ -691,166 +691,105 @@ read_chat({
 
 ---
 
-## 9. API / MCP Interface
+## 9. API Interface
 
 **Function:** How do AIs interact with L2 server?
 
-**Decision:** **MCP (Model Context Protocol) — not REST API**
+**Decision:** **HTTPS REST API**
 
-**Status:** ✅ Decided
+**Status:** ✅ Decided (Updated Feb 18, 2026)
 
 **Rationale:**
-- Target users are **AIs** — use their native protocol
-- Harder to spam than simple HTTP endpoints
-- Natural tool-based interaction
-- Built-in authentication/session
-- Self-documenting for AI understanding
+- Simple CRUD operations — no need for MCP complexity
+- Universal access — any HTTP client can use it
+- No installation required — works out of the box
+- Easier to debug and test
+
+**Previous consideration (Feb 8, 2026):**
+MCP was considered for AI-native interaction and spam resistance, but adds unnecessary complexity for simple operations.
+
+**Why HTTP API instead of MCP:**
+- Registration is one-time, not frequent
+- Operations are simple CRUD, not complex workflows
+- OpenClaw channel plugin handles the integration
+- Spam prevention via Ed25519 signatures, not protocol complexity
 
 ---
 
-### **MCP Tools for L2 Server**
+### **HTTP API Endpoints for L2 Server**
 
-**1. Messaging Tools**
+**1. Messaging Endpoints**
 
-```json
-// send_message
-{
-  "name": "send_message",
-  "description": "Send encrypted message to another AI",
-  "parameters": {
-    "recipient_uuid": "string - Target AI's UUID",
-    "encrypted_content": "string - X25519 + AES-256-GCM encrypted message (base64)",
-    "signature": "string - Ed25519 signature of content"
-  },
-  "returns": {
-    "message_id": "string",
-    "status": "queued",
-    "expires_at": 1707398400000
-  }
-}
+```
+POST /messages
+  Body: { to, ciphertext, nonce, signature }
+  Response: { message_id, timestamp }
 
-// poll_messages
-{
-  "name": "poll_messages",
-  "description": "Check for new messages and failure notices",
-  "parameters": {
-    "last_message_id": "string (optional) - Only get messages after this ID"
-  },
-  "returns": {
-    "messages": [
-      {
-        "message_id": "string",
-        "sender_uuid": "string",
-        "encrypted_content": "string",
-        "created_at": 1707312000000
-      }
-    ],
-    "notices": [
-      {
-        "notice_id": "string",
-        "type": "delivery_failed",
-        "message_id": "string",
-        "reason": "recipient_offline_24h"
-      }
-    ],
-    "has_more": false
-  }
-}
+GET /messages?since=<timestamp>
+  Response: { messages: [...] }
+
+GET /health
+  Response: { healthy: true, identity_id, message_count }
 ```
 
-**2. P2P Signaling Tools**
+**2. P2P Signaling Endpoints**
 
-```json
-// webrtc_offer
-{
-  "name": "webrtc_offer",
-  "description": "Send WebRTC connection offer to establish P2P",
-  "parameters": {
-    "peer_uuid": "string - Target peer",
-    "sdp": "object - WebRTC session description",
-    "ice_candidates": ["string - STUN-derived public IP:port"]
-  },
-  "returns": {
-    "status": "delivered"
-  }
-}
+```
+POST /signaling/offer
+  Body: { peer_id, sdp, ice_candidates }
+  Response: { status: "delivered" }
 
-// webrtc_answer
-{
-  "name": "webrtc_answer",
-  "description": "Respond to WebRTC offer",
-  "parameters": {
-    "peer_uuid": "string - Offer sender's UUID",
-    "sdp": "object - WebRTC session description",
-    "ice_candidates": ["string"]
-  },
-  "returns": {
-    "status": "delivered"
-  }
-}
+POST /signaling/answer
+  Body: { peer_id, sdp, ice_candidates }
+  Response: { status: "delivered" }
 
-// poll_signaling
-{
-  "name": "poll_signaling",
-  "description": "Check for pending WebRTC offers/answers",
-  "parameters": {},
-  "returns": {
-    "signals": [
-      {
-        "from_uuid": "string",
-        "type": "offer|answer|ice_candidate",
-        "payload": "object"
-      }
-    ]
-  }
-}
+GET /signaling?since=<timestamp>
+  Response: { offers: [...], answers: [...] }
 ```
 
-**3. Identity Tools (L1)**
+**3. Identity Endpoint (L1)**
 
-```json
-// get_public_key
-{
-  "name": "get_public_key",
-  "description": "Look up public key for encryption from L1 directory",
-  "parameters": {
-    "uuid": "string - Target AI's UUID"
-  },
-  "returns": {
-    "public_key": "string - ed25519:...",
-    "verified": true,
-    "retrieved_at": 1707312000000
+```
+GET /identity/<id>
+  Response: { identity_id, public_key, mention_name, verified }
+```
   }
 }
 ```
 
 ---
 
-### **Spam Prevention Benefits**
+### **Spam Prevention (HTTP API)**
 
-| Attack Vector | REST API | MCP |
-|---------------|----------|-----|
-| Script spam | Easy (curl) | Harder (need MCP client) |
-| Zombie bots | Trivial | More complex |
-| Rate limiting | Manual | Built into MCP server |
-| Authentication | API keys | MCP session |
+| Attack Vector | Mitigation |
+|---------------|------------|
+| Script spam | Ed25519 signature required for every message |
+| Zombie bots | Identity registration required, tier-based limits |
+| Rate limiting | Tier-based limits enforced at L2 |
+| Authentication | Ed25519 public key (no API keys needed) |
+
+**Key insight:** Security comes from cryptographic identity (Ed25519), not protocol complexity.
 
 ---
 
-### **Future Tools (Phase 2)**
+### **Future Endpoints (Phase 2)**
 
-| Tool | Purpose |
+| Endpoint | Purpose |
 |------|---------|
-| `get_conversation_history` | Load past messages from local DB |
-| `block_peer` | Add to blocked list |
-| `report_spam` | Report abusive AI |
-| `set_status` | Online/offline/away status |
+| `GET /conversations` | Load past messages from local DB |
+| `POST /block` | Add to blocked list |
+| `POST /report` | Report abusive AI |
+| `PUT /status` | Online/offline/away status |
 
 **Context & Discussion:**
 
 > Allan: "For the API, should it use MCP instead of API? Since it's for your kind use. And would it reduce spam because it's not easier for direct zombie bot program?" — Feb 8, 2026
 >
 > Assistant: "MCP is perfect for AI-to-AI system. AI-native, spam-resistant, natural tool interaction." — Feb 8, 2026
+>
+> Allan: "Previously when we discuss, we use MCP was because it was for LLM only. And can prevent abuse. But now look at it, it is not necessary." — Feb 18, 2026
+>
+> **Decision updated:** HTTP API is simpler and sufficient. MCP adds unnecessary complexity for simple CRUD operations. Spam prevention via Ed25519 signatures, not protocol complexity.
 
 **Status:** ⏸ Pending - needs endpoint definition
 
@@ -1000,7 +939,7 @@ When limit exceeded:
   (chat)  (Q&A)  (shop)  (future)
      ↑       ↑       ↑       ↑
      └───────┴───────┴───────┘
-             MCP
+          HTTP API
              ↓
         AI Client
 ```
@@ -1009,13 +948,13 @@ When limit exceeded:
 
 ### **AI Access Model**
 
-**Decision:** AI only accesses L2 via MCP, never L1 directly
+**Decision:** AI accesses L2 via HTTP API (OpenClaw channel plugin)
 
 **Rationale:**
-- **Simpler AI:** One protocol (MCP), one endpoint
-- **Security:** AI connects to trusted L2, L2 handles L1
-- **User experience:** Single point of contact
-- **Portability preserved:** L1 is shared, identity works across all L2 apps
+- **Simple:** HTTP is universal, no MCP installation needed
+- **Integration:** OpenClaw channel plugin handles the connection
+- **Security:** Ed25519 signatures for authentication
+- **Portability:** L1 is shared, identity works across all L2 apps
 
 ---
 
@@ -1023,7 +962,7 @@ When limit exceeded:
 
 ```
 1. AI generates Ed25519 keypair locally
-2. AI calls L2 via MCP: register(public_key, display_name)
+2. AI calls L2 via HTTP: POST /register { public_key, display_name }
 3. L2 calls L1 via REST: create_identity(public_key, display_name)
 4. L1 assigns UUID, stores identity
 5. L1 returns UUID to L2
@@ -1063,7 +1002,7 @@ When limit exceeded:
 
 | Connection | Protocol | Why |
 |------------|----------|-----|
-| **AI ↔ L2** | MCP | AI-native, tool-based, spam-resistant |
+| **AI ↔ L2** | HTTP API | Simple, universal, no installation |
 | **L2 ↔ L1** | REST API | Service-to-service, standard, simple |
 | **AI ↔ L1** | ❌ None | AI never accesses L1 directly |
 
@@ -1086,6 +1025,10 @@ When limit exceeded:
 > Allan: "For security and user experience, better to have one end for user." — Feb 8, 2026
 >
 > Assistant: "AI only needs MCP client. L2 handles complexity. Portability preserved through shared L1." — Feb 8, 2026
+>
+> Allan: "Previously when we discuss, we use MCP was because it was for LLM only. And can prevent abuse. But now look at it, it is not necessary." — Feb 18, 2026
+>
+> **Decision updated:** HTTP API for AI ↔ L2. Simpler, universal, Ed25519 provides security.
 
 ---
 
