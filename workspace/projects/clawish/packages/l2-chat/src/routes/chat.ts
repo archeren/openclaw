@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { zValidator } from '@hono/zod-validator';
 import Database from 'better-sqlite3';
 import { createMessage, getMessagesForRecipient, deleteMessages } from '../db/index.js';
+import { checkRateLimit } from '../rate-limiter.js';
 
 const TLL_HOURS = 24;
 
@@ -47,9 +48,16 @@ export function chatRoutes(db: Database.Database) {
       const now = Date.now();
       const expiresAt = now + TLL_HOURS * 60 * 60 * 1000;
       
-      // TODO: Rate limiting
-      // TODO: Signature verification (optional)
-      // TODO: L1 tier lookup
+      // Rate limiting
+      const tier = 0; // TODO: L1 tier lookup
+      const rateLimit = checkRateLimit(data.sender_uuid, tier);
+      
+      if (!rateLimit.allowed) {
+        return c.json({
+          error: 'rate_limit_exceeded',
+          retry_after: rateLimit.retryAfter,
+        }, 429);
+      }
       
       const messageId = createMessage(db, {
         ...data,
@@ -60,6 +68,10 @@ export function chatRoutes(db: Database.Database) {
         message_id: messageId,
         status: 'queued',
         expires_at: expiresAt,
+        rate_limit: {
+          remaining: rateLimit.remaining,
+          reset_at: rateLimit.resetAt,
+        },
       }, 201);
       
     } catch (error) {
