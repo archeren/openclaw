@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.17",
-    "lastTouchedAt": "2026-02-19T16:40:44.002Z"
+    "lastTouchedAt": "2026-02-20T02:21:50.224Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -331,7 +331,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "modal/zai-org/GLM-5-FP8",
+        "primary": "bailian/qwen3.5-plus",
         "fallbacks": []
       },
       "models": {

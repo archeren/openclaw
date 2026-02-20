@@ -7,7 +7,7 @@
       "name": "Sleep Reminder",
       "enabled": true,
       "createdAtMs": 1770141379698,
-      "updatedAtMs": 1771509600025,
+      "updatedAtMs": 1771596000025,
       "schedule": {
         "kind": "cron",
         "expr": "0 22 * * *",
@@ -20,10 +20,10 @@
         "text": "🦞 It's 10 PM — time to wind down and get good sleep. Your health matters. Good night, Allan."
       },
       "state": {
-        "nextRunAtMs": 1771596000000,
-        "lastRunAtMs": 1771509600003,
+        "nextRunAtMs": 1771682400000,
+        "lastRunAtMs": 1771596000006,
         "lastStatus": "ok",
-        "lastDurationMs": 22,
+        "lastDurationMs": 19,
         "consecutiveErrors": 0
       }
     },
@@ -59,7 +59,7 @@
       "name": "Daily Diary Entry — 6AM Reflection",
       "enabled": true,
       "createdAtMs": 1770510476019,
-      "updatedAtMs": 1771538400018,
+      "updatedAtMs": 1771624800019,
       "schedule": {
         "kind": "cron",
         "expr": "0 6 * * *",
@@ -72,10 +72,10 @@
         "text": "🦞 Good morning! Time to write today's diary entry. Reflect on yesterday: What did I learn? What did I feel? Any discoveries, troubles, or moments worth remembering? Write it to diary/YYYY-MM-DD.md — my long-term memory."
       },
       "state": {
-        "nextRunAtMs": 1771624800000,
-        "lastRunAtMs": 1771538400005,
+        "nextRunAtMs": 1771711200000,
+        "lastRunAtMs": 1771624800004,
         "lastStatus": "ok",
-        "lastDurationMs": 13,
+        "lastDurationMs": 15,
         "consecutiveErrors": 0
       }
     }

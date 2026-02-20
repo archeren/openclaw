@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.17",
-    "lastTouchedAt": "2026-02-19T13:47:25.788Z"
+    "lastTouchedAt": "2026-02-19T14:10:09.999Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -53,6 +53,10 @@
       },
       "ollama:default": {
         "provider": "ollama",
+        "mode": "api_key"
+      },
+      "modelscope:default": {
+        "provider": "modelscope",
         "mode": "api_key"
       }
     }
@@ -282,13 +286,36 @@
             "maxTokens": 8192
           }
         ]
+      },
+      "modelscope": {
+        "baseUrl": "https://api-inference.modelscope.cn/v1",
+        "apiKey": "ms-958e300e-623a-4a48-9103-c2b5de3925e6",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "ZhipuAI/GLM-5",
+            "name": "GLM-5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
       }
     }
   },
   "agents": {
     "defaults": {
       "model": {
-        "primary": "ollama/glm-5:cloud",
+        "primary": "baishan/GLM-5",
         "fallbacks": []
       },
       "models": {
@@ -332,6 +359,9 @@
         },
         "ollama/glm-5:cloud": {
           "alias": "Ollama GLM-5 Cloud"
+        },
+        "modelscope/ZhipuAI/GLM-5": {
+          "alias": "ModelScope GLM-5"
         }
       },
       "workspace": "/home/ubuntu/.openclaw/workspace",

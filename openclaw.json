@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.17",
-    "lastTouchedAt": "2026-02-20T02:21:50.224Z"
+    "lastTouchedAt": "2026-02-20T14:56:19.795Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -151,7 +151,7 @@
               "cacheRead": 0,
               "cacheWrite": 0
             },
-            "contextWindow": 1000000,
+            "contextWindow": 200000,
             "maxTokens": 65536
           },
           {
@@ -331,7 +331,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "bailian/qwen3.5-plus",
+        "primary": "baishan/GLM-5",
         "fallbacks": []
       },
       "models": {
