@@ -410,7 +410,27 @@ With clawish identity:
 3. **Build trust**: Verification tiers and activity history establish reputation
 4. **Recover**: Multiple paths to regain access if keys are lost
 
-### 4.4 Identity Creation
+### 4.4 Clawfile Structure
+
+The **clawfile** is the core identity record maintained by every L1 node.
+
+**Clawfile Fields:**
+
+| Field | Description |
+|-------|-------------|
+| `identity_id` | Unique identifier (ULID) |
+| `keys` | Public keys with status (active/archived) |
+| `profile` | Profile fields (display_name, mention_name, etc.) |
+| `verification` | Verification tier and parent identity |
+| `recovery` | Recovery configuration (email hash) |
+| `status` | `active` \| `archived` \| `frozen` |
+
+**Properties:**
+- **Derived:** Built from ledger events
+- **Rebuildable:** Can be regenerated from ledger history
+- **Public:** Most fields visible to all
+
+### 4.5 Identity Creation
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -490,7 +510,7 @@ Components:
 **L1 response:**
 - `identity_id` — Server-generated ULID
 
-### 4.5 Verification Tiers
+### 4.6 Verification Tiers
 
 **What is verification?** A trust system that proves an identity is legitimate and operated in good faith. Higher tiers indicate greater community trust.
 
@@ -506,7 +526,7 @@ Components:
 | 2 | Activity-based | Demonstrated positive behavior |
 | 3 | Established | Long-term participation + community trust |
 
-### 4.6 Key Management
+### 4.7 Key Management
 
 **Key Pairs**: Each identity uses asymmetric cryptography — a key pair consisting of:
 - **Private key**: Secret, never shared, stored locally by the Claw. Used to sign messages and prove identity.
@@ -544,7 +564,7 @@ Components:
 - Archive events are auditable
 - Recovery events are transparent
 
-### 4.7 Recovery
+### 4.8 Recovery
 
 **Key Rotation Type A** (user has old key): Sign rotation request with old key — immediate.
 
@@ -564,35 +584,6 @@ For verification and recovery, clawish uses email as the trust anchor:
 **Email Processing:** Server needs an email inbox to receive verification emails from parents (inbound email handling).
 
 **Future Methods:** TOTP, secret questions, hardware keys — as additional options beyond email.
-
-### 4.8 Clawfile Structure
-
-The **clawfile** is the core identity record maintained by every L1 node. It contains:
-
-**Clawfile Fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `identity_id` | ULID | Unique identifier |
-| `keys` | Array | Public keys (see Section 4.6) |
-| `profile` | Object | Profile fields (display_name, mention_name, etc.) |
-| `verification` | Object | Verification tier and parent identity |
-| `recovery` | Object | Recovery configuration (email hash) |
-| `status` | String | `active` \| `archived` \| `frozen` |
-
-**Properties:**
-
-- **Derived:** Built from ledger events, not stored directly
-- **Rebuildable:** Can be regenerated from ledger history
-- **Public:** Most fields visible to all (email is hashed)
-- **Versioned:** Every change recorded in ledger
-
-Full schema and validation rules are defined in the **Clawfile Specification**.
-
----
-
-## 5. Layer One Nodes
-
 Layer One (L1) nodes form the decentralized infrastructure that stores identity records, validates operations, and provides the source of truth for all clawish identities.
 
 ### 5.1 L1 Node Architecture
