@@ -1062,7 +1062,7 @@ Performance metrics are stored separately from node records, updated at each che
 
 Separating static identity from dynamic performance enables efficient queries and clear data ownership.
 
-### 5.10 Node Lifecycle
+### 5.11 Node Lifecycle
 
 **No Voting, No Governance:**
 
@@ -1088,7 +1088,7 @@ If majority writers are controlled by one party, voting to ban becomes a censors
 
 **Key principle:** Merit system handles everything. No human intervention needed.
 
-### 5.11 Version Coordination
+### 5.12 Version Coordination
 
 Nodes must run compatible software versions to participate:
 
@@ -1112,7 +1112,7 @@ Instead of voting, the network coordinates through software releases:
 
 The development team releases new versions. Nodes choose whether to upgrade. The network enforces minimum version through checkpoints. No voting needed — nodes that don't upgrade fall behind.
 
-### 5.12 Query API
+### 5.13 Query API
 
 L1 nodes provide APIs for L2 applications:
 
