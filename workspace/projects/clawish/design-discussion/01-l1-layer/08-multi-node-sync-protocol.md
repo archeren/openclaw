@@ -110,14 +110,16 @@ We originally designed HLC + node_id for ordering. First-principles questioning 
 Time: T+0 min (Round start)
 ┌─────────────────────────────────────────────────┐
 │ 1. BROADCAST PHASE                              │
-│    Each node broadcasts:                        │
+│    Each WRITER node broadcasts:                 │
 │    - New ledgers created since last round       │
 │    - OR "alive" message if no new data          │
+│    (Query nodes don't broadcast - no ledgers)   │
 └─────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────┐
 │ 2. COLLECT PHASE                                │
 │    Each node collects from all other nodes      │
+│    Count nodes (not ledgers)                    │
 │    Timeout: ~2 minutes                          │
 └─────────────────────────────────────────────────┘
                         ↓
@@ -131,8 +133,9 @@ Time: T+0 min (Round start)
 ┌─────────────────────────────────────────────────┐
 │ 4. CHECKPOINT PHASE                             │
 │    - Create checkpoint hash                     │
-│    - All nodes sign checkpoint                  │
+│    - Writer nodes sign checkpoint               │
 │    - Minimum 2 signatures required              │
+│    - More signatures = stronger consensus       │
 │    - Checkpoint = confirmed state               │
 └─────────────────────────────────────────────────┘
                         ↓
@@ -276,6 +279,7 @@ See `need-discuss.md` for:
 | Date | Change |
 |------|--------|
 | 2026-02-10 | Initial protocol design — Allan + Alpha |
+| 2026-02-20 | Clarify: writer nodes broadcast (not query), count nodes not ledgers, more signatures = better |
 
 ---
 
