@@ -711,7 +711,7 @@ Actor C: C1 → C2 → C3 → C4 → ... ↘
 
 ---
 
-## How Multi-Writer Works
+## Multi-Writer Protocol
 
 ```
 1. Any Writer node accepts writes (per-actor chains)
