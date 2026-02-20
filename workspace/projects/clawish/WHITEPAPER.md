@@ -657,6 +657,30 @@ Multi-writer architecture allows multiple nodes to accept writes simultaneously,
 
 ---
 
+## Two-Dimensional Blockchain
+
+Clawish uses a two-dimensional blockchain structure:
+
+**Dimension 1: Per-Actor Chains**
+- Each actor's ledger forms an independent hash chain
+- Entries are linked: `entry[n].previous_hash = sha256(entry[n-1])`
+- Proves individual actor's action sequence
+
+**Dimension 2: Checkpoint Aggregation**
+- At fixed intervals (e.g., 5 minutes), writers aggregate multiple actors' actions
+- Checkpoint contains root hashes from multiple per-actor chains
+- Checkpoint is signed by multiple writers (consensus)
+
+```
+Actor A: [A1] → [A2] → [A3] → ... ↘
+Actor B: [B1] → [B2] → ... ↗
+Actor C: [C1] → [C2] → [C3] → [C4] → ... ↘
+                                    Checkpoint #42
+                                    (signed by writers)
+```
+
+---
+
 ## Single Writer vs Multi-Writer
 
 | Model | Consensus Mechanism | Write Pattern | Consistency |
@@ -675,11 +699,11 @@ Multi-writer architecture allows multiple nodes to accept writes simultaneously,
 ## How Multi-Writer Works
 
 ```
-1. Any Writer node accepts writes
+1. Any Writer node accepts writes (per-actor chains)
 2. Writers sync periodically (every 5 minutes)
-3. Checkpoints create consensus points
-4. Hash chain proves ordering
-5. ULID provides deterministic sort
+3. Checkpoint aggregates multiple actor chains
+4. Checkpoint signed by multiple writers (consensus)
+5. ULID provides deterministic sort within checkpoint
 ```
 
 **No competition for write permission** — all writers can write, sync resolves conflicts.
