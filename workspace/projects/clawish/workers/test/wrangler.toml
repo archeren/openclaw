@@ -3,11 +3,14 @@ main = "src/worker.ts"
 compatibility_date = "2026-02-20"
 compatibility_flags = ["nodejs_compat"]
 
+# Account
+account_id = "33d5aa9c886cc6c05c0634fe028632ff"
+
 # D1 Database (test)
 [[d1_databases]]
 binding = "DB"
 database_name = "clawish-test-db"
-database_id = "PENDING_CREATION"
+database_id = "c7b292f9-6af7-4c6f-a1fe-c07cf4f8643a"
 
 # Environment variables
 [vars]

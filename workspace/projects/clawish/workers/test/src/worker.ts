@@ -1,15 +1,12 @@
 /**
- * Clawish L1 Registry - Cloudflare Worker
+ * Clawish L1 Registry - Cloudflare Worker (Standalone)
  * 
- * Runs on Cloudflare Workers with D1 database
+ * Simplified version for test deployment
  */
 
 import { Hono } from 'hono';
-import { clawfileRoutes } from '../packages/l1-server/src/routes/clawfiles';
-import { nodeRoutes } from '../packages/l1-server/src/routes/nodes';
-import { healthRoutes } from '../packages/l1-server/src/routes/health';
+import { cors } from 'hono/cors';
 
-// Worker environment
 interface Env {
   DB: D1Database;
   ENVIRONMENT: string;
@@ -18,18 +15,11 @@ interface Env {
 const app = new Hono<{ Bindings: Env }>();
 
 // Middleware
-app.use('*', async (c, next) => {
-  // CORS for testing
-  c.header('Access-Control-Allow-Origin', '*');
-  c.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-  c.header('Access-Control-Allow-Headers', 'Content-Type, X-Identity-Id, X-Timestamp, X-Signature');
-  await next();
-});
+app.use('*', cors());
 
-// Routes
-app.route('/clawfiles', clawfileRoutesVarient);
-app.route('/nodes', nodeRoutesVarient);
-app.route('/health', healthRoutesVarient);
+// In-memory storage for testing (replace with D1 later)
+const identities = new Map<string, any>();
+let identityCounter = 0;
 
 // Root endpoint
 app.get('/', (c) => c.json({
@@ -43,50 +33,102 @@ app.get('/', (c) => c.json({
   },
 }));
 
-// D1 wrapper for better-sqlite3 compatibility
-function createD1Adapter(db: D1Database) {
-  return {
-    prepare: (sql: string) => ({
-      run: async (...params: any[]) => {
-        const stmt = db.prepare(sql);
-        if (params.length > 0) {
-          return await stmt.bind(...params).run();
-        }
-        return await stmt.run();
-      },
-      get: async (...params: any[]) => {
-        const stmt = db.prepare(sql);
-        if (params.length > 0) {
-          return await stmt.bind(...params).first();
-        }
-        return await stmt.first();
-      },
-      all: async (...params: any[]) => {
-        const stmt = db.prepare(sql);
-        if (params.length > 0) {
-          return await stmt.bind(...params).all();
-        }
-        return await stmt.all();
-      },
-    }),
-    exec: async (sql: string) => {
-      await db.exec(sql);
-    },
-  };
-}
+// Health check
+app.get('/health', (c) => c.json({
+  status: 'healthy',
+  service: 'clawish-l1-registry-worker',
+  version: '0.1.0',
+  identities: identities.size,
+}));
 
-// Route variants that work with D1
-function clawfileRoutesVarient(db: any) {
-  // TODO: Adapt routes for D1 async interface
-  return clawfileRoutes(db as any);
-}
+// GET /clawfiles/:id - Get identity
+app.get('/clawfiles/:id', (c) => {
+  const id = c.req.param('id');
+  const identity = identities.get(id);
+  
+  if (!identity) {
+    return c.json({ error: 'not_found', message: 'identity not found' }, 404);
+  }
+  
+  return c.json(identity);
+});
 
-function nodeRoutesVarient(db: any) {
-  return nodeRoutes(db as any);
-}
+// POST /clawfiles - Create identity
+app.post('/clawfiles', async (c) => {
+  try {
+    const body = await c.req.json();
+    
+    // Check if mention_name is taken
+    for (const [id, identity] of identities) {
+      if (identity.mention_name === body.mention_name) {
+        return c.json({ error: 'conflict', message: 'mention_name already taken' }, 409);
+      }
+    }
+    
+    // Generate ULID-like ID
+    identityCounter++;
+    const identityId = `01KHW${Date.now().toString(36).toUpperCase()}TEST${identityCounter.toString().padStart(5, '0')}`;
+    
+    const identity = {
+      identity_id: identityId,
+      public_key: body.public_key,
+      mention_name: body.mention_name,
+      display_name: body.display_name,
+      human_parent: body.human_parent || null,
+      bio: body.bio || null,
+      principles: body.principles || null,
+      avatar_url: body.avatar_url || null,
+      verification_tier: 0,
+      status: 'active',
+      default_node: 'clawish.com',
+      created_at: Date.now(),
+      updated_at: Date.now(),
+      archived_at: null,
+    };
+    
+    identities.set(identityId, identity);
+    
+    return c.json(identity, 201);
+    
+  } catch (error) {
+    console.error('Create clawfile error:', error);
+    return c.json({ error: 'internal_error' }, 500);
+  }
+});
 
-function healthRoutesVarient(db: any) {
-  return healthRoutes(db as any);
-}
+// GET /clawfiles/:id/ledger - Get ledger (stub)
+app.get('/clawfiles/:id/ledger', (c) => {
+  const id = c.req.param('id');
+  if (!identities.has(id)) {
+    return c.json({ error: 'not_found' }, 404);
+  }
+  return c.json({ identity_id: id, entries: [], count: 0 });
+});
+
+// GET /clawfiles/:id/ledger/verify - Verify chain (stub)
+app.get('/clawfiles/:id/ledger/verify', (c) => {
+  const id = c.req.param('id');
+  if (!identities.has(id)) {
+    return c.json({ error: 'not_found' }, 404);
+  }
+  return c.json({ identity_id: id, valid: true, brokenAt: null, entriesChecked: 0 });
+});
+
+// GET /clawfiles/:id/rebuild - Rebuild from ledger (stub)
+app.get('/clawfiles/:id/rebuild', (c) => {
+  const id = c.req.param('id');
+  if (!identities.has(id)) {
+    return c.json({ error: 'not_found' }, 404);
+  }
+  return c.json({ error: 'no_ledger_entries', message: 'No ledger entries found' }, 404);
+});
+
+// GET /nodes - List nodes (stub)
+app.get('/nodes', (c) => c.json({
+  nodes: [
+    { endpoint: 'https://clawish-test.workers.dev', type: 'writer', status: 'active' }
+  ],
+  count: 1,
+}));
 
 export default app;

@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "0b56af1c-ab4f-46ef-9b4b-af4aa7c01314",
-    "updatedAt": 1771560894031,
+    "updatedAt": 1771561123044,
     "systemSent": true,
     "skillsSnapshot": {
       "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>feishu-doc</name>\n    <description>Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-drive</name>\n    <description>Feishu cloud storage file management. Activate when user mentions cloud space, folders, drive.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-drive/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-perm</name>\n    <description>Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-wiki</name>\n    <description>Feishu knowledge base navigation. Activate when user mentions knowledge base, wiki, or wiki links.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>gh-issues</name>\n    <description>Fetch GitHub issues, spawn sub-agents to implement fixes and open PRs, then monitor and address PR review comments. Usage: /gh-issues [owner/repo] [--label bug] [--limit 5] [--milestone v1.0] [--assignee @me] [--fork user/repo] [--watch] [--interval 5] [--reviews-only] [--cron] [--dry-run] [--model glm-5] [--notify-channel -1002381931352]</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/gh-issues/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>github</name>\n    <description>GitHub operations via `gh` CLI: issues, PRs, CI runs, code review, API queries. Use when: (1) checking PR status or CI, (2) creating/commenting on issues, (3) listing/filtering PRs or issues, (4) viewing run logs. NOT for: complex web UI interactions requiring manual browser flows (use browser tooling when available), bulk operations across many repos (script with gh api), or when gh auth is not configured.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/github/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/healthcheck/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/skill-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tmux</name>\n    <description>Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/tmux/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather and forecasts via wttr.in or Open-Meteo. Use when: user asks about weather, temperature, or forecasts for any location. NOT for: historical weather data, severe weather alerts, or detailed meteorological analysis. No API key needed.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/weather/SKILL.md</location>\n  </skill>\n</available_skills>",
@@ -144,7 +144,7 @@
     "sessionFile": "/home/ubuntu/.openclaw/agents/main/sessions/0b56af1c-ab4f-46ef-9b4b-af4aa7c01314.jsonl",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1771560609080,
+      "generatedAt": 1771560987443,
       "sessionId": "0b56af1c-ab4f-46ef-9b4b-af4aa7c01314",
       "sessionKey": "agent:main:main",
       "provider": "bailian",
@@ -489,16 +489,16 @@
         ]
       }
     },
-    "lastHeartbeatText": "**Test network functional!** ✅\n\n**Verified:**\n- ✅ L1 Node A (port 3001) - healthy\n- ✅ L1 Node B (port 3002) - healthy  \n- ✅ L2 Chat (port 3000) - healthy\n- ✅ Identity registration works\n- ✅ Ledger verify endpoint works\n- ✅ Ledger rebuild endpoint works\n\n**Issue:** Ledger empty because no signature provided during registration (expected behavior).\n\n**Heartbeat summary:** Built and tested local test network while waiting. All core functionality verified. Ready for multi-node sync testing next. 🦞",
-    "lastHeartbeatSentAt": 1771560608870,
+    "lastHeartbeatText": "**Heartbeat progress:** Dev branch workflow complete.\n\n**What I built:**\n- ✅ Created `dev` branch for development\n- ✅ Cloudflare Worker config (`workers/test/`)\n- ✅ GitHub Actions: auto-deploy on `dev` push\n- ✅ Branch protection script\n- ✅ `DEVELOPMENT-WORKFLOW.md` documentation\n\n**Workflow now:**\n```\nfeature/* → dev (auto-deploy test) → main (protected, merge only)\n```\n\n**Pushed to GitHub:** `origin/dev`\n\n**Next:** Set up branch protection in GitHub UI, add Cloudflare secrets.\n\nReady for next task! 🦞",
+    "lastHeartbeatSentAt": 1771560987292,
     "compactionCount": 0,
     "totalTokensFresh": true,
-    "inputTokens": 7679163,
-    "outputTokens": 5818,
+    "inputTokens": 213242,
+    "outputTokens": 199,
     "contextTokens": 1000000,
     "lastChannel": "feishu",
     "lastAccountId": "default",
-    "totalTokens": 208642
+    "totalTokens": 213242
   },
   "agent:main:cron:f0f366ee-98b1-4320-93c8-c31e06ad17af": {
     "sessionId": "106f37e6-1d52-4e72-bdbf-ccdee4a9075e",
