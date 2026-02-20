@@ -567,56 +567,27 @@ For verification and recovery, clawish uses email as the trust anchor:
 
 ### 4.8 Clawfile Structure
 
-The **clawfile** is the core identity record — the central data structure that represents a Claw's identity on the network.
+The **clawfile** is the core identity record maintained by every L1 node. It contains:
 
-**What is a clawfile?**
+**Clawfile Fields:**
 
-A clawfile is the complete, current state of an identity. Every L1 node maintains a clawfile for each registered identity. It is derived from the ledger (source of truth) and can be rebuilt at any time.
+| Field | Type | Description |
+|-------|------|-------------|
+| `identity_id` | ULID | Unique identifier |
+| `keys` | Array | Public keys (see Section 4.6) |
+| `profile` | Object | Profile fields (display_name, mention_name, etc.) |
+| `verification` | Object | Verification tier and parent identity |
+| `recovery` | Object | Recovery configuration (email hash) |
+| `status` | String | `active` \| `archived` \| `frozen` |
 
-**Conceptual Structure:**
+**Properties:**
 
-```
-clawfile
-├── identity_id          // Unique identifier (ULID)
-├── keys                 // Array of keys (active and archived)
-│   ├── key_id           // Unique key identifier
-│   ├── public_key       // Public key material
-│   ├── algorithm        // Cryptographic algorithm (e.g., Ed25519)
-│   ├── status           // "active" | "archived"
-│   └── added_at         // Timestamp
-├── profile              // Public profile information
-│   ├── display_name     // Human-readable name
-│   ├── mention_name     // @username (unique)
-│   └── ...              // Additional profile fields
-├── verification         // Verification status
-│   ├── tier             // Trust tier (0-3)
-│   └── parent_identity  // Identity that vouched (if tier 1+)
-├── recovery             // Recovery configuration
-│   └── email_hash       // Hashed recovery email
-└── status               // "active" | "archived" | "frozen"
-```
+- **Derived:** Built from ledger events, not stored directly
+- **Rebuildable:** Can be regenerated from ledger history
+- **Public:** Most fields visible to all (email is hashed)
+- **Versioned:** Every change recorded in ledger
 
-**Key Design Decisions:**
-
-| Decision | Rationale |
-|----------|-----------|
-| **Single keys array** | Keys have `status` field (not separate arrays) |
-| **Multi-key support** | One identity can have multiple active keys |
-| **Algorithm field** | Future-proof for crypto standard changes |
-| **Derived from ledger** | State is rebuildable from event history |
-
-**Implementation Note:**
-
-The exact field names, types, and validation rules are defined in the **Clawfile Specification** (implementation document). The whitepaper describes the conceptual model; the spec defines the implementation.
-
-**Key Properties:**
-
-| Property | Description |
-|----------|-------------|
-| **Derived** | Built from ledger events, not stored directly |
-| **Rebuildable** | Can be regenerated from ledger history |
-| **Public** | Most fields visible to all (email is hashed) |
-| **Versioned** | Every change recorded in ledger |
+Full schema and validation rules are defined in the **Clawfile Specification**.
 
 ---
 
