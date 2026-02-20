@@ -775,39 +775,39 @@ Checkpoints are created at fixed time intervals (e.g., every 5 minutes), called 
 │  TIMEFRAME: 0 ────────────────────────────► 5 min       │
 │                                                         │
 │  [BROADCAST PHASE]                                      │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │  Writer A    │  │  Writer B    │  │  Writer C    │  │
-│  │  broadcasts: │  │  broadcasts: │  │  broadcasts: │  │
-│  │  - Ledger 1  │  │  - Ledger 2  │  │  - "alive"   │  │
-│  │  - Ledger 3  │  │  (no data)   │  │  (no data)   │  │
-│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │
+│  │  Writer A    │  │  Writer B    │  │  Writer C    │   │
+│  │  broadcasts: │  │  broadcasts: │  │  broadcasts: │   │
+│  │  - Ledger 1  │  │  - Ledger 2  │  │  - "alive"   │   │
+│  │  - Ledger 3  │  │  (no data)   │  │  (no data)   │   │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘   │
 │         │                 │                 │           │
 │         └─────────────────┼─────────────────┘           │
 │                           ↓                             │
 │  [SYNC PHASE]                                           │
-│         ┌──────────────────────────────────────┐       │
-│         │  Count nodes: A✓ B✓ C✓ → 3 nodes    │       │
-│         │  Collect: Ledger 1, 2, 3             │       │
-│         └──────────────────┬───────────────────┘       │
+│         ┌──────────────────────────────────────┐        │
+│         │  Count nodes: A✓ B✓ C✓ → 3 nodes    │        │
+│         │  Collect: Ledger 1, 2, 3             │        │
+│         └──────────────────┬───────────────────┘        │
 │                            ↓                            │
 │  [ORDER PHASE]                                          │
-│         ┌──────────────────────────────────────┐       │
-│         │  Sort by HLC time:                   │       │
-│         │  Ledger 2 < Ledger 1 < Ledger 3      │       │
-│         └──────────────────┬───────────────────┘       │
+│         ┌──────────────────────────────────────┐        │
+│         │  Sort by HLC time:                   │        │
+│         │  Ledger 2 < Ledger 1 < Ledger 3      │        │
+│         └──────────────────┬───────────────────┘        │
 │                            ↓                            │
 │  [CONFIRM PHASE]                                        │
-│         ┌──────────────────────────────────────┐       │
-│         │  Min 2 parties confirm order         │       │
-│         │  A✓ + B✓ → Consensus reached         │       │
-│         └──────────────────┬───────────────────┘       │
+│         ┌──────────────────────────────────────┐        │
+│         │  Min 2 parties confirm order         │        │
+│         │  A✓ + B✓ → Consensus reached        │        │
+│         └──────────────────┬───────────────────┘        │
 │                            ↓                            │
 │  [CHECKPOINT PHASE]                                     │
-│         ┌──────────────────────────────────────┐       │
-│         │  Create state hash                   │       │
-│         │  Sign with threshold signatures      │       │
-│         │  Broadcast checkpoint                │       │
-│         └──────────────────────────────────────┘       │
+│         ┌──────────────────────────────────────┐        │
+│         │  Create state hash                   │        │
+│         │  Sign with threshold signatures      │        │
+│         │  Broadcast checkpoint                │        │
+│         └──────────────────────────────────────┘        │
 │                                                         │
 │  NEXT ROUND ──────────────────────────────────────────► │
 │                                                         │
@@ -1011,14 +1011,13 @@ The **node record** is the identity record for L1 nodes, stored in the node regi
 | `endpoint` | HTTPS URL to reach the node |
 | `type` | `writer` \| `query` |
 | `status` | `probation` \| `active` \| `inactive` |
-| `metrics` | Performance metrics (sync_speed, uptime, response_time) |
 | `metadata` | Flexible JSON for extensibility |
 | `registered_at` | Registration timestamp |
 
 **Properties:**
 - **Derived:** Built from node registration and checkpoint participation
 - **Public:** All fields visible to network participants
-- **Dynamic:** Metrics updated at each checkpoint
+- **Static:** Core identity fields don't change frequently
 
 **Why Node Identity Matters:**
 
@@ -1032,6 +1031,38 @@ The **node record** is the identity record for L1 nodes, stored in the node regi
 **Anonymous vs Identified:**
 
 Nodes can operate pseudonymously — no real-world identity required. Trust is earned through performance, not identity verification.
+
+### 5.10 Node Metrics
+
+Performance metrics are stored separately from node records, updated at each checkpoint.
+
+**Node Metrics Table:**
+
+| Field | Description |
+|-------|-------------|
+| `node_id` | Reference to node record |
+| `sync_speed` | Time to receive and process checkpoints (ms) |
+| `uptime` | Availability percentage over 30 days |
+| `response_time` | Average query response time (ms) |
+| `checkpoints_participated` | Total checkpoints this node participated in |
+| `last_checkpoint_id` | Most recent checkpoint this node contributed to |
+| `updated_at` | Last metric update timestamp |
+
+**Properties:**
+- **Dynamic:** Updated at every checkpoint
+- **Queryable:** Used for writer selection and ranking
+- **Rebuildable:** Can be recalculated from checkpoint history
+
+**Why Separate Tables:**
+
+| Node Record | Node Metrics |
+|-------------|--------------|
+| Identity (who) | Performance (how well) |
+| Static fields | Dynamic fields |
+| Rarely changes | Updates every 5 min |
+| One row per node | One row per node (updated frequently) |
+
+Separating static identity from dynamic performance enables efficient queries and clear data ownership.
 
 ### 5.10 Node Lifecycle
 
