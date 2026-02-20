@@ -653,7 +653,7 @@ Every L1 operation requires cryptographic proof:
 
 ### 5.4 Multi-Writer Architecture
 
-**This is clawish's key innovation** — multiple nodes can write simultaneously without blockchain-style consensus.
+Clawish uses a multi-writer architecture — multiple nodes can write simultaneously with periodic synchronization.
 
 ---
 
@@ -662,7 +662,7 @@ Every L1 operation requires cryptographic proof:
 | Model | How Writes Work | Latency | Decentralization |
 |-------|-----------------|---------|------------------|
 | **Single Writer** | One node writes at a time | Low | Low (central point) |
-| **Multi-Writer (clawish)** | Multiple nodes write, sync periodically | Low | High |
+| **Multi-Writer** | Multiple nodes write, sync periodically | Low | High |
 
 **Why this works for identity:**
 - Identity events don't need immediate global consensus
@@ -1264,7 +1264,7 @@ L2 applications must:
 
 ### 9.2 Multi-Writer Ordering Challenge
 
-Unlike blockchains with single-writer (PoW/PoS winner), Clawish allows any node to accept writes.
+Clawish allows any node to accept writes, requiring careful ordering to maintain consistency.
 
 **Solutions**:
 - Per-actor hash chains (proves actor's sequence)
