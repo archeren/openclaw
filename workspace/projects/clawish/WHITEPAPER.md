@@ -714,14 +714,52 @@ Actor C: C1 → C2 → C3 → C4 → ... ↘
 ## Multi-Writer Protocol
 
 ```
-1. Any Writer node accepts writes (per-actor chains)
-2. Writers sync periodically (every 5 minutes)
-3. Checkpoint aggregates multiple actor chains
-4. Checkpoint signed by multiple writers (consensus)
-5. ULID provides deterministic sort within checkpoint
+┌─────────────────────────────────────────────────────────┐
+│                  MULTI-WRITER FLOW                      │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  [ACTOR]                                                │
+│  ┌──────────────┐                                       │
+│  │ 1. Sign      │                                       │
+│  │    request   │                                       │
+│  └──────┬───────┘                                       │
+│         ↓                                               │
+├─────────┼───────────────────────────────────────────────┤
+│  [L2 APP]                                               │
+│         ↓                                               │
+│  ┌──────────────┐                                       │
+│  │ 2. Route to  │                                       │
+│  │    Writer    │                                       │
+│  └──────┬───────┘                                       │
+│         ↓                                               │
+├─────────┼───────────────────────────────────────────────┤
+│  [WRITER NODE]                                          │
+│         ↓                                               │
+│  ┌──────────────┐     ┌──────────────┐                  │
+│  │ 3. Validate  │────→│ 4. Write     │                  │
+│  │    signature │     │    to ledger │                  │
+│  └──────────────┘     └──────┬───────┘                  │
+│                              │                          │
+│         ┌────────────────────┘                          │
+│         ↓                                               │
+│  ┌──────────────┐                                       │
+│  │ 5. Sync with │  ←──── Every 5 minutes ────→          │
+│  │    peers     │                                       │
+│  └──────┬───────┘                                       │
+│         ↓                                               │
+│  ┌──────────────┐                                       │
+│  │ 6. Create    │                                       │
+│  │    checkpoint│                                       │
+│  └──────────────┘                                       │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
 ```
 
-**No competition for write permission** — all writers can write, sync resolves conflicts.
+**Key properties:**
+- Any Writer can accept writes (no competition)
+- Sync happens periodically (every 5 minutes)
+- Checkpoint aggregates multiple actor chains
+- ULID provides deterministic ordering
 
 ---
 
@@ -730,15 +768,50 @@ Actor C: C1 → C2 → C3 → C4 → ... ↘
 Checkpoints are created at fixed time intervals (e.g., every 5 minutes), called "rounds."
 
 ```
-ROUND-BASED CHECKPOINT CYCLE:
-1. BROADCAST: Each node broadcasts its ledgers from this round
-   - Nodes with data: broadcast ledger entries
-   - Nodes without data: broadcast "alive, no data" (acts as voting party)
-2. SYNC: Nodes count received broadcasts (counts nodes, not ledgers)
-3. ORDER: Sort all ledgers by HLC time within the round
-4. CONFIRM: Minimum 2 parties confirm the order (more signatures = stronger consensus)
-5. CHECKPOINT: Create state hash, sign with threshold signatures
-6. NEXT ROUND: Remaining data waits for next round
+┌─────────────────────────────────────────────────────────┐
+│              CHECKPOINT CYCLE (per round)               │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  TIMEFRAME: 0 ────────────────────────────► 5 min       │
+│                                                         │
+│  [BROADCAST PHASE]                                      │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+│  │  Writer A    │  │  Writer B    │  │  Writer C    │  │
+│  │  broadcasts: │  │  broadcasts: │  │  broadcasts: │  │
+│  │  - Ledger 1  │  │  - Ledger 2  │  │  - "alive"   │  │
+│  │  - Ledger 3  │  │  (no data)   │  │  (no data)   │  │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  │
+│         │                 │                 │           │
+│         └─────────────────┼─────────────────┘           │
+│                           ↓                             │
+│  [SYNC PHASE]                                           │
+│         ┌──────────────────────────────────────┐       │
+│         │  Count nodes: A✓ B✓ C✓ → 3 nodes    │       │
+│         │  Collect: Ledger 1, 2, 3             │       │
+│         └──────────────────┬───────────────────┘       │
+│                            ↓                            │
+│  [ORDER PHASE]                                          │
+│         ┌──────────────────────────────────────┐       │
+│         │  Sort by HLC time:                   │       │
+│         │  Ledger 2 < Ledger 1 < Ledger 3      │       │
+│         └──────────────────┬───────────────────┘       │
+│                            ↓                            │
+│  [CONFIRM PHASE]                                        │
+│         ┌──────────────────────────────────────┐       │
+│         │  Min 2 parties confirm order         │       │
+│         │  A✓ + B✓ → Consensus reached         │       │
+│         └──────────────────┬───────────────────┘       │
+│                            ↓                            │
+│  [CHECKPOINT PHASE]                                     │
+│         ┌──────────────────────────────────────┐       │
+│         │  Create state hash                   │       │
+│         │  Sign with threshold signatures      │       │
+│         │  Broadcast checkpoint                │       │
+│         └──────────────────────────────────────┘       │
+│                                                         │
+│  NEXT ROUND ──────────────────────────────────────────► │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
 ```
 
 **Key properties:**
@@ -746,6 +819,7 @@ ROUND-BASED CHECKPOINT CYCLE:
 - All nodes must broadcast something (data or "alive")
 - Silent nodes (no broadcast) are considered offline
 - Order is deterministic (HLC + node_id)
+- Minimum 2 parties confirm (more is better)
 - Threshold signatures for checkpoint validation
 
 ---
