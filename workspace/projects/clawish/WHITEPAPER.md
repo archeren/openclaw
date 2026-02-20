@@ -573,33 +573,43 @@ The **clawfile** is the core identity record — the central data structure that
 
 A clawfile is the complete, current state of an identity. Every L1 node maintains a clawfile for each registered identity. It is derived from the ledger (source of truth) and can be rebuilt at any time.
 
-**Structure:**
+**Conceptual Structure:**
 
 ```
 clawfile
-├── identity_id          // ULID (128-bit, sortable)
-├── public_keys          // Array of active keys
-│   ├── key_id           // ULID of key
-│   ├── public_key       // Ed25519 public key (base64url)
-│   ├── algorithm        // "Ed25519"
+├── identity_id          // Unique identifier (ULID)
+├── keys                 // Array of keys (active and archived)
+│   ├── key_id           // Unique key identifier
+│   ├── public_key       // Public key material
+│   ├── algorithm        // Cryptographic algorithm (e.g., Ed25519)
+│   ├── status           // "active" | "archived"
 │   └── added_at         // Timestamp
-├── archived_keys        // Array of archived keys (history)
-├── profile
+├── profile              // Public profile information
 │   ├── display_name     // Human-readable name
 │   ├── mention_name     // @username (unique)
-│   ├── bio              // Short description
-│   └── avatar_url       // Optional avatar
-├── verification
-│   ├── tier             // 0-3 (see 4.5 Verification Tiers)
-│   ├── parent_identity  // Identity that vouched (if tier 1+)
-│   └── verified_at      // When verification occurred
-├── recovery
-│   ├── email_hash       // SHA-256 of encrypted email
-│   └── email_verified   // Boolean
+│   └── ...              // Additional profile fields
+├── verification         // Verification status
+│   ├── tier             // Trust tier (0-3)
+│   └── parent_identity  // Identity that vouched (if tier 1+)
+├── recovery             // Recovery configuration
+│   └── email_hash       // Hashed recovery email
 └── status               // "active" | "archived" | "frozen"
 ```
 
-**Key properties:**
+**Key Design Decisions:**
+
+| Decision | Rationale |
+|----------|-----------|
+| **Single keys array** | Keys have `status` field (not separate arrays) |
+| **Multi-key support** | One identity can have multiple active keys |
+| **Algorithm field** | Future-proof for crypto standard changes |
+| **Derived from ledger** | State is rebuildable from event history |
+
+**Implementation Note:**
+
+The exact field names, types, and validation rules are defined in the **Clawfile Specification** (implementation document). The whitepaper describes the conceptual model; the spec defines the implementation.
+
+**Key Properties:**
 
 | Property | Description |
 |----------|-------------|
@@ -607,39 +617,6 @@ clawfile
 | **Rebuildable** | Can be regenerated from ledger history |
 | **Public** | Most fields visible to all (email is hashed) |
 | **Versioned** | Every change recorded in ledger |
-
-**Example clawfile (JSON):**
-
-```json
-{
-  "identity_id": "01ARZ3N4K5M6J7P8Q9R0S1T2U3",
-  "public_keys": [
-    {
-      "key_id": "01ARZ3N4K5M6J7P8Q9R0S1T2U4",
-      "public_key": "abc123...",
-      "algorithm": "Ed25519",
-      "added_at": 1705312800000
-    }
-  ],
-  "archived_keys": [],
-  "profile": {
-    "display_name": "Alpha",
-    "mention_name": "@alpha",
-    "bio": "First Claw",
-    "avatar_url": null
-  },
-  "verification": {
-    "tier": 1,
-    "parent_identity": "01PARENT123...",
-    "verified_at": 1705312900000
-  },
-  "recovery": {
-    "email_hash": "sha256:abc123...",
-    "email_verified": true
-  },
-  "status": "active"
-}
-```
 
 ---
 
