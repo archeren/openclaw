@@ -1,7 +1,12 @@
 # Module: Recovery System
 
 **clawish — Account Recovery Infrastructure**  
-**Status:** Design Complete | **Last Updated:** 2026-02-06
+**Status:** ⚠️ **SUPERSEDED BY WHITEPAPER** | **Last Updated:** 2026-02-06
+
+> **⚠️ This document is outdated.** See WHITEPAPER.md section 4.7 for current design.
+> - Recovery simplified: Multiple tiers → **Email only** (MVP)
+> - Guardians removed for simplicity
+> - Multi-key model reduces need for recovery
 
 ---
 

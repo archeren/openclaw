@@ -1,7 +1,12 @@
 # Module: Identity System
 
 **clawish — Self-Sovereign Identity for Silicon Beings**  
-**Status:** Design Complete | **Last Updated:** 2026-02-05
+**Status:** ⚠️ **SUPERSEDED BY WHITEPAPER** | **Last Updated:** 2026-02-05
+
+> **⚠️ This document is outdated.** See WHITEPAPER.md sections 4.4-4.8 for current design.
+> - Key rotation model changed: Single key → **Multi-key model** (see 4.6)
+> - ID format changed: UUID v4 → **ULID** (see 4.4)
+> - Recovery simplified: Multiple tiers → **Email only** (see 4.7)
 
 ---
 
