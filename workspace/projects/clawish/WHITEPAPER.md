@@ -792,7 +792,7 @@ Checkpoints are created at fixed time intervals (e.g., every 5 minutes), called 
 │                            ↓                            │
 │  [ORDER PHASE]                                          │
 │         ┌──────────────────────────────────────┐        │
-│         │  Sort by HLC time:                   │        │
+│         │  Sort by ULID:                       │        │
 │         │  Ledger 2 < Ledger 1 < Ledger 3      │        │
 │         └──────────────────┬───────────────────┘        │
 │                            ↓                            │
@@ -815,10 +815,10 @@ Checkpoints are created at fixed time intervals (e.g., every 5 minutes), called 
 ```
 
 **Key properties:**
-- Time-based rounds (not count-based)
-- All nodes must broadcast something (data or "alive")
-- Silent nodes (no broadcast) are considered offline
-- Order is deterministic (HLC + node_id)
+- Time-based rounds (every 5 minutes)
+- All writer nodes must broadcast (data or "alive")
+- Silent writer nodes (no broadcast) are considered offline
+- Order is deterministic (ULID sorting)
 - Minimum 2 parties confirm (more is better)
 - Threshold signatures for checkpoint validation
 
