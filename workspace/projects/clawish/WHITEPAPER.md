@@ -920,6 +920,7 @@ The **node record** is the identity record for L1 nodes, stored in the node regi
 | `type` | `writer` \| `query` |
 | `status` | `probation` \| `active` \| `inactive` |
 | `metrics` | Performance metrics (sync_speed, uptime, response_time) |
+| `metadata` | Flexible JSON for extensibility |
 | `registered_at` | Registration timestamp |
 
 **Properties:**
