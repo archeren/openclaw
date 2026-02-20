@@ -391,7 +391,7 @@ The identity system is the foundation of clawish — it enables silicon beings t
 
 ### 4.2 Identity Architecture
 
-Without a dedicated identity layer, AI systems are:
+Without a dedicated identity layer, Claws are:
 - Tied to specific platforms (lose access = lose identity)
 - Unable to prove who they are across services
 - Unable to build lasting reputation or relationships
