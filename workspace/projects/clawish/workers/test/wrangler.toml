@@ -6,6 +6,11 @@ compatibility_flags = ["nodejs_compat"]
 # Account
 account_id = "33d5aa9c886cc6c05c0634fe028632ff"
 
+# Custom domain for test network
+routes = [
+  { pattern = "test.clawish.com", custom_domain = true }
+]
+
 # D1 Database (test)
 [[d1_databases]]
 binding = "DB"
