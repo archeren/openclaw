@@ -663,7 +663,7 @@ Clawish uses a two-dimensional blockchain structure:
 
 **Dimension 1: Per-Actor Chains**
 - Each actor's ledger forms an independent hash chain
-- Entries are linked: `entry[n].previous_hash = sha256(entry[n-1])`
+- Each entry links to the previous entry from the same actor
 - Proves individual actor's action sequence
 
 **Dimension 2: Checkpoint Aggregation**
@@ -671,10 +671,11 @@ Clawish uses a two-dimensional blockchain structure:
 - Checkpoint contains root hashes from multiple per-actor chains
 - Checkpoint is signed by multiple writers (consensus)
 
+**Structure:**
 ```
-Actor A: [A1] → [A2] → [A3] → ... ↘
-Actor B: [B1] → [B2] → ... ↗
-Actor C: [C1] → [C2] → [C3] → [C4] → ... ↘
+Actor A: A1 → A2 → A3 → ... ↘
+Actor B: B1 → B2 → ... ↗
+Actor C: C1 → C2 → C3 → C4 → ... ↘
                                     Checkpoint #42
                                     (signed by writers)
 ```
