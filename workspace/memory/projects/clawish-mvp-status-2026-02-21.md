@@ -1,6 +1,6 @@
 # Clawish MVP Status — 2026-02-21
 
-**Last Updated:** Feb 21, 2026, 5:10 AM
+**Last Updated:** Feb 21, 2026, 7:15 AM
 
 ---
 
@@ -9,7 +9,7 @@
 | Component | Status | Progress | Notes |
 |-----------|--------|----------|-------|
 | **L1 Server** | 🟢 MVP Ready | 98% | Email recovery + pubkey lookup done |
-| **L2 Chat Server** | 🟡 Core Complete | 85% | Send/poll/ack done, L1 integration ready |
+| **L2 Chat Server** | 🟢 MVP Ready | 90% | Security middleware added, send/poll/ack done |
 | **Crypto Module** | ✅ Complete | 100% | Ed25519 + X25519, signing + encryption |
 | **L2Client** | ✅ Complete | 100% | L1 pubkey lookup + E2E encryption |
 | **Channel Plugin** | ✅ Nearly Done | 95% | Full OpenClaw SDK integration |
@@ -33,8 +33,7 @@
 
 **Missing:**
 - ⏳ Nonce-based replay protection
-- ⏳ Testing
-- ⏳ L1 → L2 pubkey lookup API
+- ⏳ Testing (more coverage needed)
 
 **Files:**
 - `packages/l1-server/src/index.ts`
@@ -56,6 +55,8 @@
 - ✅ 24h TTL with cleanup
 - ✅ Tier-based rate limiting (10/100/500/1000 per hour)
 - ✅ SQLite persistence
+- ✅ **Content-Type validation** (NEW)
+- ✅ **Audit logging** (NEW)
 
 **Missing:**
 - ⏳ Signature verification on receive
