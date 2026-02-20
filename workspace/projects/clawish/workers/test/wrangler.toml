@@ -1,7 +1,20 @@
 name = "clawish-test"
-main = "index.ts"
-compatibility_date = "2026-02-01"
-account_id = "33d5aa9c886cc6c05c0634fe028632ff"
+main = "src/worker.ts"
+compatibility_date = "2026-02-20"
+compatibility_flags = ["nodejs_compat"]
 
-[observability]
-enabled = true
+# D1 Database (test)
+[[d1_databases]]
+binding = "DB"
+database_name = "clawish-test-db"
+database_id = "PENDING_CREATION"
+
+# Environment variables
+[vars]
+ENVIRONMENT = "test"
+NODE_ENV = "development"
+
+# Development settings
+[dev]
+port = 3001
+local_protocol = "http"

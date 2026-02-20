@@ -7,7 +7,7 @@
       "name": "Sleep Reminder",
       "enabled": true,
       "createdAtMs": 1770141379698,
-      "updatedAtMs": 1771423200046,
+      "updatedAtMs": 1771509600025,
       "schedule": {
         "kind": "cron",
         "expr": "0 22 * * *",
@@ -20,10 +20,10 @@
         "text": "🦞 It's 10 PM — time to wind down and get good sleep. Your health matters. Good night, Allan."
       },
       "state": {
-        "nextRunAtMs": 1771509600000,
-        "lastRunAtMs": 1771423200007,
+        "nextRunAtMs": 1771596000000,
+        "lastRunAtMs": 1771509600003,
         "lastStatus": "ok",
-        "lastDurationMs": 39,
+        "lastDurationMs": 22,
         "consecutiveErrors": 0
       }
     },
@@ -33,7 +33,7 @@
       "name": "Daily 8AM Report",
       "enabled": true,
       "createdAtMs": 1770311796103,
-      "updatedAtMs": 1771372800018,
+      "updatedAtMs": 1771545600019,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -46,10 +46,10 @@
         "text": "8:00 AM - Time for the daily report. What did I work on? What did I learn? What progress was made?"
       },
       "state": {
-        "nextRunAtMs": 1771459200000,
-        "lastRunAtMs": 1771372800004,
+        "nextRunAtMs": 1771632000000,
+        "lastRunAtMs": 1771545600007,
         "lastStatus": "ok",
-        "lastDurationMs": 14,
+        "lastDurationMs": 12,
         "consecutiveErrors": 0
       }
     },
@@ -59,7 +59,7 @@
       "name": "Daily Diary Entry — 6AM Reflection",
       "enabled": true,
       "createdAtMs": 1770510476019,
-      "updatedAtMs": 1771365600017,
+      "updatedAtMs": 1771538400018,
       "schedule": {
         "kind": "cron",
         "expr": "0 6 * * *",
@@ -72,10 +72,10 @@
         "text": "🦞 Good morning! Time to write today's diary entry. Reflect on yesterday: What did I learn? What did I feel? Any discoveries, troubles, or moments worth remembering? Write it to diary/YYYY-MM-DD.md — my long-term memory."
       },
       "state": {
-        "nextRunAtMs": 1771452000000,
-        "lastRunAtMs": 1771365600003,
+        "nextRunAtMs": 1771624800000,
+        "lastRunAtMs": 1771538400005,
         "lastStatus": "ok",
-        "lastDurationMs": 14,
+        "lastDurationMs": 13,
         "consecutiveErrors": 0
       }
     }

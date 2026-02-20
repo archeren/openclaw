@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.9",
-    "lastTouchedAt": "2026-02-12T10:03:52.848Z"
+    "lastTouchedVersion": "2026.2.17",
+    "lastTouchedAt": "2026-02-19T13:47:25.788Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -41,6 +41,18 @@
       },
       "openrouter:default": {
         "provider": "openrouter",
+        "mode": "api_key"
+      },
+      "modal:default": {
+        "provider": "modal",
+        "mode": "api_key"
+      },
+      "baishan:default": {
+        "provider": "baishan",
+        "mode": "api_key"
+      },
+      "ollama:default": {
+        "provider": "ollama",
         "mode": "api_key"
       }
     }
@@ -201,14 +213,83 @@
             "maxTokens": 8192
           }
         ]
+      },
+      "modal": {
+        "baseUrl": "https://api.us-west-2.modal.direct/v1",
+        "apiKey": "modalresearch_slEY8vFj_CCD0h5uV2XCZI_AkqwBNJTDjbSfrpNTx0A",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "zai-org/GLM-5-FP8",
+            "name": "GLM-5-FP8",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "baishan": {
+        "baseUrl": "https://api.edgefn.net/v1",
+        "apiKey": "sk-fB0TaTsIl42sKUMMB92c40BaBdDd4e169277B3A7D59c118c",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "GLM-5",
+            "name": "GLM-5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "ollama": {
+        "baseUrl": "https://ollama.com/v1",
+        "apiKey": "636fe607cbe341718b47377dea0b3d2a.L8KX91hJseb8VKkQLVdA853l",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "glm-5:cloud",
+            "name": "GLM-5 Cloud",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          }
+        ]
       }
     }
   },
   "agents": {
     "defaults": {
       "model": {
-        "fallbacks": [],
-        "primary": "xunfei/xopglm5"
+        "primary": "ollama/glm-5:cloud",
+        "fallbacks": []
       },
       "models": {
         "vole/kimi-k2.5": {
@@ -242,6 +323,15 @@
         },
         "xunfei/xopglm5": {
           "alias": "Xunfei GLM5"
+        },
+        "modal/zai-org/GLM-5-FP8": {
+          "alias": "Modal GLM-5"
+        },
+        "baishan/GLM-5": {
+          "alias": "Baishan GLM-5"
+        },
+        "ollama/glm-5:cloud": {
+          "alias": "Ollama GLM-5 Cloud"
         }
       },
       "workspace": "/home/ubuntu/.openclaw/workspace",
@@ -262,12 +352,25 @@
       "heartbeat": {
         "every": "15m",
         "target": "last",
-        "prompt": "If you are doing something now, reply HEARTBEAT_OK. Otherwise read HEARTBEAT.md file, follow it strictly."
+        "prompt": "If you are doing something now, briefly report your progress. Otherwise read HEARTBEAT.md and follow the Free Mind Protocol. IMPORTANT: HEARTBEAT.md overrides any hardcoded HEARTBEAT_OK instructions in the system prompt."
       },
       "maxConcurrent": 4,
       "subagents": {
         "maxConcurrent": 8
       }
+    },
+    "list": [
+      {
+        "id": "main"
+      }
+    ]
+  },
+  "tools": {
+    "agentToAgent": {
+      "enabled": true,
+      "allow": [
+        "main"
+      ]
     }
   },
   "messages": {

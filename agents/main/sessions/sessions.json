@@ -1,10 +1,10 @@
 {
   "agent:main:main": {
-    "sessionId": "55c35503-c4a6-4e6b-98b5-5ddacd21bff7",
-    "updatedAt": 1771439400325,
+    "sessionId": "0b56af1c-ab4f-46ef-9b4b-af4aa7c01314",
+    "updatedAt": 1771560894031,
     "systemSent": true,
     "skillsSnapshot": {
-      "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>feishu-doc</name>\n    <description>Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.\n</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-drive</name>\n    <description>Feishu cloud storage file management. Activate when user mentions cloud space, folders, drive.\n</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-drive/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-perm</name>\n    <description>Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.\n</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-wiki</name>\n    <description>Feishu knowledge base navigation. Activate when user mentions knowledge base, wiki, or wiki links.\n</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>github</name>\n    <description>Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/github/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/healthcheck/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/skill-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tmux</name>\n    <description>Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/tmux/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather and forecasts (no API key required).</description>\n    <location>/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/weather/SKILL.md</location>\n  </skill>\n</available_skills>",
+      "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>feishu-doc</name>\n    <description>Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-drive</name>\n    <description>Feishu cloud storage file management. Activate when user mentions cloud space, folders, drive.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-drive/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-perm</name>\n    <description>Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-wiki</name>\n    <description>Feishu knowledge base navigation. Activate when user mentions knowledge base, wiki, or wiki links.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>gh-issues</name>\n    <description>Fetch GitHub issues, spawn sub-agents to implement fixes and open PRs, then monitor and address PR review comments. Usage: /gh-issues [owner/repo] [--label bug] [--limit 5] [--milestone v1.0] [--assignee @me] [--fork user/repo] [--watch] [--interval 5] [--reviews-only] [--cron] [--dry-run] [--model glm-5] [--notify-channel -1002381931352]</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/gh-issues/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>github</name>\n    <description>GitHub operations via `gh` CLI: issues, PRs, CI runs, code review, API queries. Use when: (1) checking PR status or CI, (2) creating/commenting on issues, (3) listing/filtering PRs or issues, (4) viewing run logs. NOT for: complex web UI interactions requiring manual browser flows (use browser tooling when available), bulk operations across many repos (script with gh api), or when gh auth is not configured.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/github/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/healthcheck/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/skill-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tmux</name>\n    <description>Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/tmux/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather and forecasts via wttr.in or Open-Meteo. Use when: user asks about weather, temperature, or forecasts for any location. NOT for: historical weather data, severe weather alerts, or detailed meteorological analysis. No API key needed.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/weather/SKILL.md</location>\n  </skill>\n</available_skills>",
       "skills": [
         {
           "name": "feishu-doc"
@@ -17,6 +17,10 @@
         },
         {
           "name": "feishu-wiki"
+        },
+        {
+          "name": "gh-issues",
+          "primaryEnv": "GH_TOKEN"
         },
         {
           "name": "github"
@@ -68,8 +72,16 @@
           "disableModelInvocation": false
         },
         {
+          "name": "gh-issues",
+          "description": "Fetch GitHub issues, spawn sub-agents to implement fixes and open PRs, then monitor and address PR review comments. Usage: /gh-issues [owner/repo] [--label bug] [--limit 5] [--milestone v1.0] [--assignee @me] [--fork user/repo] [--watch] [--interval 5] [--reviews-only] [--cron] [--dry-run] [--model glm-5] [--notify-channel -1002381931352]",
+          "filePath": "/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/gh-issues/SKILL.md",
+          "baseDir": "/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/gh-issues",
+          "source": "openclaw-bundled",
+          "disableModelInvocation": false
+        },
+        {
           "name": "github",
-          "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
+          "description": "GitHub operations via `gh` CLI: issues, PRs, CI runs, code review, API queries. Use when: (1) checking PR status or CI, (2) creating/commenting on issues, (3) listing/filtering PRs or issues, (4) viewing run logs. NOT for: complex web UI interactions requiring manual browser flows (use browser tooling when available), bulk operations across many repos (script with gh api), or when gh auth is not configured.",
           "filePath": "/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/github/SKILL.md",
           "baseDir": "/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/github",
           "source": "openclaw-bundled",
@@ -101,7 +113,7 @@
         },
         {
           "name": "weather",
-          "description": "Get current weather and forecasts (no API key required).",
+          "description": "Get current weather and forecasts via wttr.in or Open-Meteo. Use when: user asks about weather, temperature, or forecasts for any location. NOT for: historical weather data, severe weather alerts, or detailed meteorological analysis. No API key needed.",
           "filePath": "/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/weather/SKILL.md",
           "baseDir": "/home/ubuntu/.npm-global/lib/node_modules/openclaw/skills/weather",
           "source": "openclaw-bundled",
@@ -116,37 +128,38 @@
       "accountId": "default"
     },
     "lastTo": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-    "modelProvider": "modal",
-    "model": "zai-org/GLM-5-FP8",
+    "modelProvider": "bailian",
+    "model": "qwen3.5-plus",
     "abortedLastRun": false,
     "chatType": "direct",
     "origin": {
-      "label": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
-      "provider": "heartbeat",
-      "from": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
+      "label": "任亚伦",
+      "provider": "feishu",
+      "from": "feishu:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "to": "user:ou_cadc2c270c8e9803d8f069eb8ce19b75",
       "surface": "feishu",
       "chatType": "direct",
       "accountId": "default"
     },
-    "sessionFile": "/home/ubuntu/.openclaw/agents/main/sessions/55c35503-c4a6-4e6b-98b5-5ddacd21bff7.jsonl",
+    "sessionFile": "/home/ubuntu/.openclaw/agents/main/sessions/0b56af1c-ab4f-46ef-9b4b-af4aa7c01314.jsonl",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1771438500536,
-      "sessionId": "55c35503-c4a6-4e6b-98b5-5ddacd21bff7",
+      "generatedAt": 1771560609080,
+      "sessionId": "0b56af1c-ab4f-46ef-9b4b-af4aa7c01314",
       "sessionKey": "agent:main:main",
-      "provider": "modal",
-      "model": "zai-org/GLM-5-FP8",
+      "provider": "bailian",
+      "model": "qwen3.5-plus",
       "workspaceDir": "/home/ubuntu/.openclaw/workspace",
       "bootstrapMaxChars": 20000,
+      "bootstrapTotalMaxChars": 150000,
       "sandbox": {
         "mode": "off",
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 44513,
-        "projectContextChars": 30837,
-        "nonProjectContextChars": 13676
+        "chars": 47339,
+        "projectContextChars": 31567,
+        "nonProjectContextChars": 15772
       },
       "injectedWorkspaceFiles": [
         {
@@ -193,8 +206,8 @@
           "name": "HEARTBEAT.md",
           "path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md",
           "missing": false,
-          "rawChars": 1351,
-          "injectedChars": 1351,
+          "rawChars": 1817,
+          "injectedChars": 1817,
           "truncated": false
         },
         {
@@ -215,49 +228,53 @@
         }
       ],
       "skills": {
-        "promptChars": 3232,
+        "promptChars": 4114,
         "entries": [
           {
             "name": "feishu-doc",
-            "blockChars": 306
+            "blockChars": 295
           },
           {
             "name": "feishu-drive",
-            "blockChars": 298
+            "blockChars": 287
           },
           {
             "name": "feishu-perm",
-            "blockChars": 320
-          },
-          {
-            "name": "feishu-wiki",
-            "blockChars": 300
-          },
-          {
-            "name": "github",
             "blockChars": 309
           },
           {
+            "name": "feishu-wiki",
+            "blockChars": 289
+          },
+          {
+            "name": "gh-issues",
+            "blockChars": 508
+          },
+          {
+            "name": "github",
+            "blockChars": 572
+          },
+          {
             "name": "healthcheck",
-            "blockChars": 502
+            "blockChars": 491
           },
           {
             "name": "skill-creator",
-            "blockChars": 307
+            "blockChars": 296
           },
           {
             "name": "tmux",
-            "blockChars": 266
+            "blockChars": 255
           },
           {
             "name": "weather",
-            "blockChars": 231
+            "blockChars": 416
           }
         ]
       },
       "tools": {
-        "listChars": 2959,
-        "schemaChars": 18803,
+        "listChars": 3223,
+        "schemaChars": 20855,
         "entries": [
           {
             "name": "read",
@@ -280,19 +297,19 @@
           {
             "name": "exec",
             "summaryChars": 181,
-            "schemaChars": 1037,
+            "schemaChars": 1086,
             "propertiesCount": 12
           },
           {
             "name": "process",
             "summaryChars": 85,
-            "schemaChars": 844,
-            "propertiesCount": 11
+            "schemaChars": 961,
+            "propertiesCount": 12
           },
           {
             "name": "browser",
             "summaryChars": 1251,
-            "schemaChars": 1869,
+            "schemaChars": 1897,
             "propertiesCount": 28
           },
           {
@@ -309,25 +326,25 @@
           },
           {
             "name": "cron",
-            "summaryChars": 2444,
-            "schemaChars": 581,
+            "summaryChars": 2689,
+            "schemaChars": 662,
             "propertiesCount": 13
           },
           {
             "name": "message",
-            "summaryChars": 110,
-            "schemaChars": 3921,
+            "summaryChars": 124,
+            "schemaChars": 3936,
             "propertiesCount": 84
           },
           {
             "name": "tts",
-            "summaryChars": 129,
+            "summaryChars": 152,
             "schemaChars": 223,
             "propertiesCount": 2
           },
           {
             "name": "gateway",
-            "summaryChars": 225,
+            "summaryChars": 354,
             "schemaChars": 465,
             "propertiesCount": 11
           },
@@ -340,26 +357,32 @@
           {
             "name": "sessions_list",
             "summaryChars": 54,
-            "schemaChars": 176,
+            "schemaChars": 212,
             "propertiesCount": 4
           },
           {
             "name": "sessions_history",
             "summaryChars": 36,
-            "schemaChars": 149,
+            "schemaChars": 161,
             "propertiesCount": 3
           },
           {
             "name": "sessions_send",
             "summaryChars": 84,
-            "schemaChars": 203,
+            "schemaChars": 273,
             "propertiesCount": 5
           },
           {
             "name": "sessions_spawn",
             "summaryChars": 107,
-            "schemaChars": 312,
+            "schemaChars": 336,
             "propertiesCount": 8
+          },
+          {
+            "name": "subagents",
+            "summaryChars": 105,
+            "schemaChars": 191,
+            "propertiesCount": 4
           },
           {
             "name": "session_status",
@@ -370,19 +393,19 @@
           {
             "name": "web_search",
             "summaryChars": 175,
-            "schemaChars": 733,
+            "schemaChars": 753,
             "propertiesCount": 6
           },
           {
             "name": "web_fetch",
             "summaryChars": 129,
-            "schemaChars": 360,
+            "schemaChars": 374,
             "propertiesCount": 3
           },
           {
             "name": "feishu_doc",
             "summaryChars": 116,
-            "schemaChars": 584,
+            "schemaChars": 612,
             "propertiesCount": 6
           },
           {
@@ -394,13 +417,13 @@
           {
             "name": "feishu_wiki",
             "summaryChars": 83,
-            "schemaChars": 880,
+            "schemaChars": 971,
             "propertiesCount": 10
           },
           {
             "name": "feishu_drive",
             "summaryChars": 81,
-            "schemaChars": 458,
+            "schemaChars": 486,
             "propertiesCount": 5
           },
           {
@@ -418,7 +441,7 @@
           {
             "name": "feishu_bitable_list_records",
             "summaryChars": 64,
-            "schemaChars": 436,
+            "schemaChars": 462,
             "propertiesCount": 4
           },
           {
@@ -430,14 +453,26 @@
           {
             "name": "feishu_bitable_create_record",
             "summaryChars": 44,
-            "schemaChars": 515,
+            "schemaChars": 549,
             "propertiesCount": 3
           },
           {
             "name": "feishu_bitable_update_record",
             "summaryChars": 50,
-            "schemaChars": 439,
+            "schemaChars": 473,
             "propertiesCount": 4
+          },
+          {
+            "name": "feishu_bitable_create_app",
+            "summaryChars": 57,
+            "schemaChars": 243,
+            "propertiesCount": 2
+          },
+          {
+            "name": "feishu_bitable_create_field",
+            "summaryChars": 46,
+            "schemaChars": 911,
+            "propertiesCount": 5
           },
           {
             "name": "memory_search",
@@ -454,15 +489,16 @@
         ]
       }
     },
-    "lastHeartbeatText": "Good progress. Now let me add the missing `security` section:",
-    "lastHeartbeatSentAt": 1771437600315,
-    "compactionCount": 4,
-    "totalTokens": 69760,
-    "contextTokens": 128000,
+    "lastHeartbeatText": "**Test network functional!** ✅\n\n**Verified:**\n- ✅ L1 Node A (port 3001) - healthy\n- ✅ L1 Node B (port 3002) - healthy  \n- ✅ L2 Chat (port 3000) - healthy\n- ✅ Identity registration works\n- ✅ Ledger verify endpoint works\n- ✅ Ledger rebuild endpoint works\n\n**Issue:** Ledger empty because no signature provided during registration (expected behavior).\n\n**Heartbeat summary:** Built and tested local test network while waiting. All core functionality verified. Ready for multi-node sync testing next. 🦞",
+    "lastHeartbeatSentAt": 1771560608870,
+    "compactionCount": 0,
+    "totalTokensFresh": true,
+    "inputTokens": 7679163,
+    "outputTokens": 5818,
+    "contextTokens": 1000000,
     "lastChannel": "feishu",
     "lastAccountId": "default",
-    "inputTokens": 69760,
-    "outputTokens": 166
+    "totalTokens": 208642
   },
   "agent:main:cron:f0f366ee-98b1-4320-93c8-c31e06ad17af": {
     "sessionId": "106f37e6-1d52-4e72-bdbf-ccdee4a9075e",

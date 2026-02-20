@@ -75,8 +75,8 @@
       "api": "openai-completions",
       "models": [
         {
-          "id": "qwen3-max-2026-01-23",
-          "name": "qwen3-max-thinking",
+          "id": "qwen3.5-plus",
+          "name": "Qwen3.5 Plus",
           "reasoning": false,
           "input": [
             "text"
@@ -87,8 +87,24 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
-          "contextWindow": 262144,
+          "contextWindow": 1000000,
           "maxTokens": 65536
+        },
+        {
+          "id": "kimi-k2.5",
+          "name": "Kimi K2.5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192
         }
       ]
     },
@@ -202,6 +218,75 @@
         {
           "id": "zai-org/GLM-5-FP8",
           "name": "GLM-5-FP8",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 128000,
+          "maxTokens": 8192
+        }
+      ]
+    },
+    "baishan": {
+      "baseUrl": "https://api.edgefn.net/v1",
+      "apiKey": "sk-fB0TaTsIl42sKUMMB92c40BaBdDd4e169277B3A7D59c118c",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "GLM-5",
+          "name": "GLM-5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 128000,
+          "maxTokens": 8192
+        }
+      ]
+    },
+    "ollama": {
+      "baseUrl": "https://ollama.com/v1",
+      "apiKey": "636fe607cbe341718b47377dea0b3d2a.L8KX91hJseb8VKkQLVdA853l",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "glm-5:cloud",
+          "name": "GLM-5 Cloud",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192
+        }
+      ]
+    },
+    "modelscope": {
+      "baseUrl": "https://api-inference.modelscope.cn/v1",
+      "apiKey": "ms-958e300e-623a-4a48-9103-c2b5de3925e6",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "ZhipuAI/GLM-5",
+          "name": "GLM-5",
           "reasoning": false,
           "input": [
             "text"

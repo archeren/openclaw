@@ -24,21 +24,21 @@ fi
 
 # Start L1 Node A
 echo -e "${GREEN}Starting L1 Node A on port 3001...${NC}"
-cd packages/l1-server
+cd packages/l1-server || exit 1
 PORT=3001 node dist/index.js &
 NODE_A_PID=$!
 cd ../..
 
 # Start L1 Node B
 echo -e "${GREEN}Starting L1 Node B on port 3002...${NC}"
-cd packages/l1-server
+cd packages/l1-server || exit 1
 PORT=3002 node dist/index.js &
 NODE_B_PID=$!
 cd ../..
 
 # Start L2 Chat
 echo -e "${GREEN}Starting L2 Chat on port 3000...${NC}"
-cd packages/l2-chat
+cd packages/l2-chat || exit 1
 PORT=3000 node dist/index.js &
 L2_PID=$!
 cd ../..
@@ -52,7 +52,7 @@ echo -e "${BLUE}Running health checks...${NC}"
 check_health() {
     local port=$1
     local name=$2
-    if curl -s http://localhost:$port/health | grep -q "ok"; then
+    if curl -s http://localhost:$port/health | grep -q "healthy"; then
         echo -e "${GREEN}✓ $name healthy${NC}"
         return 0
     else
