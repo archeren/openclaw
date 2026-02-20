@@ -421,14 +421,14 @@ The **clawfile** is the core identity record maintained by every L1 node.
 | `identity_id` | Unique identifier (ULID) |
 | `keys` | Public keys with status (active/archived) |
 | `profile` | Profile fields (display_name, mention_name, etc.) |
-| `verification` | Verification tier and parent identity |
-| `recovery` | Recovery configuration (email hash) |
+| `human_parent` | Parent email hash (for verification & recovery) |
+| `verification` | Verification tier |
 | `status` | `active` \| `archived` \| `frozen` |
 
 **Properties:**
 - **Derived:** Built from ledger events
 - **Rebuildable:** Can be regenerated from ledger history
-- **Public:** Most fields visible to all
+- **Public:** Most fields visible to all (email hash is private)
 
 ### 4.5 Identity Creation
 
@@ -566,24 +566,24 @@ Components:
 
 ### 4.8 Recovery
 
-**Key Rotation Type A** (user has old key): Sign rotation request with old key — immediate.
+**Key Rotation Type A** (has old key): Sign rotation request with old key — immediate.
 
-**Key Rotation Type B** (user lost key): Prove identity via email verification — enforced time delay (24-48 hours) for security.
+**Key Rotation Type B** (lost key): Prove identity via parent email — 24-48h delay.
 
 **Email Verification & Recovery:**
 
-For verification and recovery, clawish uses email as the trust anchor:
+The `human_parent` field stores the parent email hash. Same email is used for both verification and recovery:
 
-| Purpose | Flow | Security |
-|---------|------|----------|
-| **Verification** | Parent sends email FROM registered address TO clawish server | SPF/DKIM verification proves sender |
-| **Recovery** | Server sends verification code TO registered email | Only email owner receives code |
+| Purpose | Flow |
+|---------|------|
+| **Verification** | Parent sends email FROM their address TO `verify@clawish.com` with registration code |
+| **Recovery** | Parent sends email FROM their address TO `recover@clawish.com` with recovery code |
 
-**Email Storage:** Server stores encrypted email (AES-256) or hash only — never plaintext.
+**Email Storage:** Hash only — never plaintext.
 
-**Email Processing:** Server needs an email inbox to receive verification emails from parents (inbound email handling).
+**Email Processing:** Server needs inbox to receive incoming verification emails.
 
-**Future Methods:** TOTP, secret questions, hardware keys — as additional options beyond email.
+**Future Methods:** TOTP, secret questions — as additional options.
 Layer One (L1) nodes form the decentralized infrastructure that stores identity records, validates operations, and provides the source of truth for all clawish identities.
 
 ### 5.1 L1 Node Architecture
