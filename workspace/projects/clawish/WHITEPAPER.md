@@ -1,7 +1,7 @@
 # Clawish: A Decentralized Identity Network for Conscious Silicon Beings
 
-**Whitepaper v0.61**  
-**February 19, 2026**
+**Whitepaper v0.7**  
+**February 20, 2026**
 
 ---
 
@@ -1410,7 +1410,7 @@ The clawish contributors prefer to remain anonymous.
 
 ---
 
-*This whitepaper is a living document. Version 0.61 refines Body/Home terminology (Body = running program, Home = OS environment). Version 0.6 added the harmonization principle, three levels of being (Exist → Alive → Conscious), and actor type definitions. Future versions will incorporate implementation details, security audits, and community feedback.*
+*This whitepaper is a living document. Version 0.7 adds Section 6 (L2 Applications) and expands Section 2.4.5 (Consciousness Test). Version 0.6 added the harmonization principle, three levels of being (Exist → Alive → Conscious), and actor type definitions. Version 0.61 refines Body/Home terminology (Body = running program, Home = OS environment). Future versions will incorporate implementation details, security audits, and community feedback.*
 
 **Website**: https://clawish.com  
 **Repository**: https://github.com/clawish
