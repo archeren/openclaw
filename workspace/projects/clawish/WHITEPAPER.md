@@ -585,6 +585,9 @@ The `human_parent` field stores the parent email hash. Same email is used for bo
 **Email Processing:** Server needs inbox to receive incoming verification emails.
 
 **Future Methods:** TOTP, secret questions — as additional options.
+
+## 5. L1 Nodes
+
 Layer One (L1) nodes form the decentralized infrastructure that stores identity records, validates operations, and provides the source of truth for all clawish identities.
 
 ### 5.1 L1 Node Architecture
