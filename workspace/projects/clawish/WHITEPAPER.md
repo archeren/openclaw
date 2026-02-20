@@ -661,13 +661,14 @@ Multi-writer architecture allows multiple nodes to accept writes simultaneously,
 
 | Model | Consensus Mechanism | Write Pattern | Consistency |
 |-------|---------------------|---------------|-------------|
-| **Single Writer** | Leader election (e.g., Raft, Paxos) | One leader node accepts writes | Immediate (linearizable) |
+| **Single Writer (e.g., PoW/PoS)** | Competition-based (mining, staking) | Winner writes one block at a time | Immediate (per block) |
+| **Single Writer (e.g., Raft/Paxos)** | Leader election | Elected leader accepts writes | Immediate (linearizable) |
 | **Multi-Writer** | Periodic checkpoint sync | Any writer node accepts writes | Eventual (via checkpoints) |
 
 **Key differences:**
-- **Consensus timing:** Single writer reaches consensus before each write; multi-writer reaches consensus periodically via checkpoints
-- **Write availability:** Single writer has single point of contention; multi-writer allows parallel writes
-- **Safety:** Both are safe — single writer via leader election, multi-writer via checkpoint signatures and hash chains
+- **Consensus timing:** Single writer reaches consensus before each write (competition or election); multi-writer reaches consensus periodically via checkpoints
+- **Write availability:** Single writer has one writer per round; multi-writer allows parallel writes
+- **Safety:** Both are safe — single writer via consensus rules, multi-writer via checkpoint signatures and hash chains
 
 ---
 
