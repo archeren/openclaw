@@ -713,22 +713,26 @@ Actor C: C1 → C2 → C3 → C4 → ... ↘
 
 ## Checkpoint Synchronization
 
-Every 5 minutes, writers create a checkpoint:
+Checkpoints are created at fixed time intervals (e.g., every 5 minutes), called "rounds."
 
 ```
-CHECKPOINT CYCLE:
-1. BROADCAST: Writers share new entries
-2. COLLECT: Gather from all writers (~2 min)
-3. ORDER: Sort by ULID (deterministic)
-4. CHECKPOINT: Create hash, sign, require 2+ signatures
-5. CONFIRM: Broadcast signatures, round complete
-6. RANK: Measure sync speed for writer selection
+ROUND-BASED CHECKPOINT CYCLE:
+1. BROADCAST: Each node broadcasts its ledgers from this round
+   - Nodes with data: broadcast ledger entries
+   - Nodes without data: broadcast "alive, no data" (acts as voting party)
+2. SYNC: Nodes count received broadcasts (counts nodes, not ledgers)
+3. ORDER: Sort all ledgers by HLC time within the round
+4. CONFIRM: Minimum 2 parties confirm the order (more signatures = stronger consensus)
+5. CHECKPOINT: Create state hash, sign with threshold signatures
+6. NEXT ROUND: Remaining data waits for next round
 ```
 
-**Checkpoint properties:**
-- Cryptographically signed by multiple writers
-- Confirms network state at that moment
-- Enables recovery from node failures
+**Key properties:**
+- Time-based rounds (not count-based)
+- All nodes must broadcast something (data or "alive")
+- Silent nodes (no broadcast) are considered offline
+- Order is deterministic (HLC + node_id)
+- Threshold signatures for checkpoint validation
 
 ---
 
