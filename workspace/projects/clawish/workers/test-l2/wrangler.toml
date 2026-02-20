@@ -21,7 +21,7 @@ database_id = "c7b292f9-6af7-4c6f-a1fe-c07cf4f8643a"
 [vars]
 ENVIRONMENT = "test"
 NODE_ENV = "development"
-L1_URL = "https://id.test.clawish.com"
+L1_URL = "https://id.registry.test.clawish.com"
 
 # Development settings
 [dev]
