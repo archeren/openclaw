@@ -423,6 +423,7 @@ The **clawfile** is the core identity record maintained by every L1 node.
 | `profile` | Profile fields (display_name, mention_name, etc.) |
 | `human_parent` | Parent email hash (for verification & recovery) |
 | `verification` | Verification tier |
+| `metadata` | Flexible JSON for extensibility |
 | `status` | `active` \| `archived` \| `frozen` |
 
 **Properties:**
