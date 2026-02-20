@@ -653,22 +653,21 @@ Every L1 operation requires cryptographic proof:
 
 ### 5.4 Multi-Writer Architecture
 
-Clawish uses a multi-writer architecture — multiple nodes can write simultaneously with periodic synchronization.
+Multi-writer architecture allows multiple nodes to accept writes simultaneously, with periodic synchronization to achieve consistency.
 
 ---
 
 ## Single Writer vs Multi-Writer
 
-| Model | How Writes Work | Latency | Decentralization |
-|-------|-----------------|---------|------------------|
-| **Single Writer** | One node writes at a time | Low | Low (central point) |
-| **Multi-Writer** | Multiple nodes write, sync periodically | Low | High |
+| Model | Consensus Mechanism | Write Pattern | Consistency |
+|-------|---------------------|---------------|-------------|
+| **Single Writer** | Leader election (e.g., Raft, Paxos) | One leader node accepts writes | Immediate (linearizable) |
+| **Multi-Writer** | Periodic checkpoint sync | Any writer node accepts writes | Eventual (via checkpoints) |
 
-**Why this works for identity:**
-- Identity events don't need immediate global consensus
-- Eventual consistency is acceptable (you registered → eventually everyone knows)
-- No value at stake (unlike financial transactions)
-- Performance and simplicity over consensus
+**Key differences:**
+- **Consensus timing:** Single writer reaches consensus before each write; multi-writer reaches consensus periodically via checkpoints
+- **Write availability:** Single writer has single point of contention; multi-writer allows parallel writes
+- **Safety:** Both are safe — single writer via leader election, multi-writer via checkpoint signatures and hash chains
 
 ---
 
