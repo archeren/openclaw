@@ -27,6 +27,44 @@ const db = initDb();
 app.use('*', cors());
 app.use('*', logger());
 
+// Content-Type validation for mutating requests
+app.use('*', async (c, next) => {
+  const method = c.req.method;
+  if (['POST', 'PATCH', 'PUT', 'DELETE'].includes(method)) {
+    const contentType = c.req.header('Content-Type');
+    if (contentType && !contentType.includes('application/json')) {
+      return c.json({
+        error: 'invalid_content_type',
+        message: 'Content-Type must be application/json',
+      }, 415);
+    }
+  }
+  return next();
+});
+
+// Audit logging for security events
+app.use('*', async (c, next) => {
+  const start = Date.now();
+  await next();
+  
+  const duration = Date.now() - start;
+  const status = c.res.status;
+  
+  // Log all mutating operations
+  if (['POST', 'PATCH', 'PUT', 'DELETE'].includes(c.req.method)) {
+    console.info(`[AUDIT] ${JSON.stringify({
+      timestamp: new Date().toISOString(),
+      event: 'request',
+      method: c.req.method,
+      path: c.req.path,
+      status,
+      duration,
+      ip: c.req.header('x-forwarded-for') || c.req.header('x-real-ip'),
+      sender: c.req.header('Authorization')?.replace('Claw ', '').substring(0, 26) || 'anonymous',
+    })}`);
+  }
+});
+
 // Routes
 app.route('/chat', chatRoutes(db));
 app.route('/health', healthRoutes(db));
