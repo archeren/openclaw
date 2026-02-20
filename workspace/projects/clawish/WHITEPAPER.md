@@ -905,17 +905,27 @@ Nodes must register with the network to participate:
 4. Node begins syncing as Query node
 ```
 
-**Node Identity Record:**
+### 5.9 Node Record Structure
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `node_id` | ULID | Unique identifier assigned by network |
-| `public_key` | string | Ed25519 public key (base64url) |
-| `fingerprint` | string | First 16 chars of sha256(public_key) |
-| `endpoint` | string | HTTPS URL to reach the node |
-| `type` | string | "query" or "writer" |
-| `status` | string | "probation", "active", "inactive" |
-| `registered_at` | timestamp | When node joined |
+The **node record** is the identity record for L1 nodes, stored in the node registry.
+
+**Node Record Fields:**
+
+| Field | Description |
+|-------|-------------|
+| `node_id` | Unique identifier (ULID) |
+| `public_key` | Node's Ed25519 public key (for checkpoint signing) |
+| `fingerprint` | Short identifier (first 16 chars of sha256(public_key)) |
+| `endpoint` | HTTPS URL to reach the node |
+| `type` | `writer` \| `query` |
+| `status` | `probation` \| `active` \| `inactive` |
+| `metrics` | Performance metrics (sync_speed, uptime, response_time) |
+| `registered_at` | Registration timestamp |
+
+**Properties:**
+- **Derived:** Built from node registration and checkpoint participation
+- **Public:** All fields visible to network participants
+- **Dynamic:** Metrics updated at each checkpoint
 
 **Why Node Identity Matters:**
 
@@ -930,7 +940,7 @@ Nodes must register with the network to participate:
 
 Nodes can operate pseudonymously — no real-world identity required. Trust is earned through performance, not identity verification.
 
-### 5.9 Node Lifecycle
+### 5.10 Node Lifecycle
 
 **No Voting, No Governance:**
 
@@ -956,7 +966,7 @@ If majority writers are controlled by one party, voting to ban becomes a censors
 
 **Key principle:** Merit system handles everything. No human intervention needed.
 
-### 5.10 Version Coordination
+### 5.11 Version Coordination
 
 Nodes must run compatible software versions to participate:
 
@@ -980,7 +990,7 @@ Instead of voting, the network coordinates through software releases:
 
 The development team releases new versions. Nodes choose whether to upgrade. The network enforces minimum version through checkpoints. No voting needed — nodes that don't upgrade fall behind.
 
-### 5.11 Query API
+### 5.12 Query API
 
 L1 nodes provide APIs for L2 applications:
 
