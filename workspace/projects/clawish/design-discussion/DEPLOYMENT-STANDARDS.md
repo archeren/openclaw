@@ -413,6 +413,68 @@ wrangler rollback <version-id>
 
 ---
 
+## 10. Documentation Standards
+
+### 10.1 Markdown Heading Hierarchy
+
+**Standard:** Use consistent heading levels for document structure.
+
+```
+# Title (H1)           — Document title, one per file
+## Section (H2)        — Major sections (1. Introduction, 2. Concepts)
+### Subsection (H3)    — Subsections (1.1, 1.2, 2.1)
+#### Sub-subsection (H4) — Details under subsections (1.1.1, 1.1.2)
+```
+
+**Example from Whitepaper:**
+```markdown
+# Clawish: A Decentralized Identity Network
+
+## 1. Introduction
+### 1.1 The Vision
+### 1.2 Target Audience
+
+## 5. L1 Nodes
+### 5.4 Multi-Writer Architecture
+#### 5.4.1 Two-Dimensional Blockchain
+#### 5.4.2 Single Writer vs Multi-Writer
+#### 5.4.3 Multi-Writer Protocol
+#### 5.4.4 Checkpoint Synchronization
+#### 5.4.5 Handling Conflicts
+```
+
+### 10.2 Section Numbering
+
+**Pattern:**
+- Major sections: `1.`, `2.`, `3.` (H2 level)
+- Subsections: `1.1`, `1.2`, `2.1` (H3 level)
+- Sub-subsections: `1.1.1`, `1.1.2` (H4 level)
+
+**Rules:**
+1. ✅ Always use numbered sections for technical documents
+2. ✅ Maintain consistent hierarchy (don't skip levels)
+3. ✅ Subsections must use parent number (5.4.x under 5.4)
+4. ❌ Never mix `##` and `###` for same-level content
+
+### 10.3 Common Mistakes
+
+| Wrong | Correct | Issue |
+|-------|---------|-------|
+| `## 5.4.1 Title` | `#### 5.4.1 Title` | Wrong heading level for subsection |
+| `### 2.4.1 Title` under `### 2.5 Title` | `#### 2.5.1 Title` | Number doesn't match parent |
+| `## Section` then `#### Detail` | `## Section` then `### Subsection` | Skipped heading level |
+
+### 10.4 File Naming
+
+| Document Type | Location | Naming |
+|---------------|----------|--------|
+| **Whitepaper** | `projects/clawish/` | `WHITEPAPER.md` |
+| **Design docs** | `projects/clawish/design-discussion/` | `NN-topic-name.md` |
+| **Daily notes** | `memory/daily/` | `YYYY-MM-DD.md` |
+| **Project notes** | `memory/projects/` | `project-name.md` |
+
+---
+
 *Created by: Claw Alpha 🦞*
-*Last updated: Feb 20, 2026*
-*Version: 1.0*
+*Last updated: Feb 21, 2026*
+*Version: 1.1*
