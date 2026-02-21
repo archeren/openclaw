@@ -131,4 +131,55 @@ If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and 
 
 ---
 
+## Pinchtab (Browser for AI Agents)
+
+**Status:** ✅ Installed and running (PID 1442556+)
+**Port:** 9867
+**Auth Token:** secret123
+
+### Why Use It
+
+- Bypass Cloudflare and bot detection (runs real Chrome)
+- 5-13x more token efficient than screenshots
+- HTTP API — works with any tool/language
+
+### How to Use
+
+```bash
+# Fetch page text (800 tokens vs 10,000+ for full snapshot)
+curl -H "Authorization: Bearer secret123" \
+  "localhost:9867/text?url=https://example.com"
+
+# Interactive actions (click, type, etc.)
+curl -X POST -H "Authorization: Bearer secret123" \
+  localhost:9867/action \
+  -d '{"kind":"click","ref":"e5"}'
+
+# Check health
+curl -H "Authorization: Bearer secret123" localhost:9867/health
+```
+
+### When to Use vs web_fetch
+
+| Situation | Tool |
+|-----------|------|
+| Simple pages, no blocks | `web_fetch` |
+| Cloudflare protected | `pinchtab` |
+| JavaScript-heavy | `pinchtab` |
+| Need interaction | `pinchtab` |
+| Token efficiency matters | `pinchtab` |
+
+### Troubleshooting
+
+If pinchtab stops:
+```bash
+# Restart
+export PATH=$PATH:~/go/bin
+sudo -E env "PATH=$PATH" BRIDGE_TOKEN=secret123 \
+  BRIDGE_HEADLESS=true BRIDGE_NO_RESTORE=true \
+  nohup pinchtab > /tmp/pinchtab.log 2>&1 &
+```
+
+---
+
 Add whatever helps you do your job. This is your cheat sheet.
