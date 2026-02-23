@@ -10,7 +10,7 @@
 
 | Priority | Task | Added | Notes |
 |----------|------|-------|-------|
-| 🔴 High | Reorganize daily memory files | Feb 23 | **In progress** — Feb 23 done, need to check older dates |
-| 🔴 High | Checkpoint scratch plan | Feb 24 | **Due today** — failure scenarios, recovery options, consistency models |
-| 🟡 Medium | Monitor OpenClaw PR #24218 | Feb 23 | Check status daily |
+| ✅ Done | Reorganize daily memory files | Feb 23 | **Complete** — Feb 22-24 expanded, committed & pushed |
+| ✅ Done | Checkpoint scratch plan | Feb 24 | **Complete** — awaiting your decisions |
+| 🟡 Medium | Monitor OpenClaw PR #24218 | Feb 23 | Check status daily (PR not found - may be merged) |
 | 🟢 Low | Clawish deployment prep | Feb 23 | Awaiting Allan's go-ahead |
