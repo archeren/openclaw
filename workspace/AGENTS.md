@@ -61,14 +61,14 @@ workspace/
 
 ## Git Repository Location
 
-**⚠️ IMPORTANT:** The git repository is at the **workspace root folder** (`/home/ubuntu/.openclaw/workspace/`).
+**⚠️ IMPORTANT:** The git repository is at **`.openclaw/`** (the parent of workspace).
 
 **DO NOT** create additional git repositories in subdirectories (like `projects/` or `memory/`). This causes nested repository issues.
 
 **Correct workflow:**
 ```bash
-cd /home/ubuntu/.openclaw/workspace    # Always work from base
-git add .                              # Stage changes
+cd /home/ubuntu/.openclaw              # Work from .openclaw root
+git add workspace/                     # Stage changes
 git commit -m "message"                # Commit
 git push origin dev                    # Push to remote
 ```
