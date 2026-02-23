@@ -1,7 +1,20 @@
 # Broadcast Method Design Notes
 
-**Created:** Feb 21, 2026, 12:56 AM
-**Status:** Thinking overnight, for discussion tomorrow
+**Created:** Feb 21, 2026, 12:56 AM  
+**Status:** ⚠️ **HISTORICAL** — Thinking notes from Feb 21  
+**Superseded by:** `11-consensus-protocol.md` (Feb 22, 2026)
+
+> **⚠️ This document contains historical thinking notes.** The consensus protocol was finalized on Feb 22, 2026. See `11-consensus-protocol.md` for current design.
+>
+> **What's still relevant:**
+> - Transport layer analysis (HTTP POST vs WebSocket vs P2P) — Decision: HTTP POST
+> - Discovery mechanism options — Decision: L1 Node Registry
+> - Message format considerations — Decision: Full ledgers for MVP
+>
+> **What's superseded:**
+> - BROADCAST terminology → SUBMIT (step 2)
+> - 5-phase protocol → 6-step protocol (COMMIT → SUBMIT → MERGE → COMPARE → SEAL → CHECKPOINT)
+> - Wall clock timing → Checkpoint-anchored timing (see `13-clock-sync.md`)
 
 ---
 

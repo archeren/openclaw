@@ -1,27 +1,61 @@
 # Design Docs Status
 
-**Date:** February 20, 2026
+**Date:** February 22, 2026
 
 ---
 
-## ⚠️ Outdated Design Docs (Superseded Notices Added)
+## ✅ New Design Docs (Feb 22, 2026)
 
-The following design documents contain outdated concepts. **Superseded notices have been added** pointing to WHITEPAPER.md as the authoritative source.
+The following documents contain the **current consensus protocol design**, superseding earlier versions:
+
+| Document | Topic | Status |
+|----------|-------|--------|
+| `11-consensus-protocol.md` | 6-step consensus protocol (COMMIT→CHECKPOINT) | ✅ **Current** |
+| `12-ledger-structure.md` | Multi-dimensional ledger + single checkpoint | ✅ **Current** |
+| `13-clock-sync.md` | Checkpoint-anchored timing + NTP for local use | ✅ **Current** |
+
+---
+
+## 📁 Archived Design Docs
+
+The following documents have been **moved to `archive/` folder** and replaced by current docs:
+
+| Archived Document | Replaced By | Reason |
+|-------------------|-------------|--------|
+| `archive/08-multi-node-sync-protocol.md` | `11-consensus-protocol.md`, `13-clock-sync.md` | 5-phase → 6-step protocol, wall clock → checkpoint-anchored |
+| `archive/broadcast-method-notes.md` | `11-consensus-protocol.md` | Thinking notes → finalized protocol |
+
+---
+
+## ⚠️ Outdated Design Docs (Still in Main Folder)
 
 | Document | Outdated Content | Current State |
 |----------|------------------|---------------|
-| ~~`08-multi-node-sync-protocol.md`~~ | "Home node" concept | ✅ **Updated Feb 20** — See `01-l1-layer/08-multi-node-sync-protocol.md` |
-| `04-verification-tiers.md` | Guardians, tier-based recovery | ❌ Superseded by WP 4.7 |
-| ~~`03-database-schema.md`~~ | Outdated schema | 🗑️ **Deleted Feb 20** |
+| `04-verification-tiers.md` | Guardians, tier-based recovery | ⚠️ Superseded by WP 4.7 |
 | `01-identity-system.md` | UUID v4, single key rotation | ⚠️ **Notice added** — See WP 4.4-4.8 |
 | `05-recovery-system.md` | Multiple recovery tiers | ⚠️ **Notice added** — See WP 4.7 |
-| `09-node-discovery.md` | Node Query Endpoint | ✅ Current, see whitepaper 5.10 |
-| Node types discussion | Writer/Query nodes | ✅ Current, see whitepaper 5.7 |
-| `01-l1-layer/08-multi-node-sync-protocol.md` | Multi-writer sync | ✅ **Current** — Updated Feb 20 |
 
 ---
 
 ## Current Decisions (from Feb 2026 chats)
+
+### Feb 22, 2026 (Consensus Protocol)
+
+| Topic | Decision | Doc |
+|-------|----------|-----|
+| **Protocol phases** | 2 phases: Consensus (writers) + Propagation (query pull) | 11-consensus-protocol.md |
+| **Step names** | COMMIT → SUBMIT → MERGE → COMPARE → SEAL → CHECKPOINT | 11-consensus-protocol.md |
+| **Signing style** | Chain (sequential, by COMPARE arrival time) | 11-consensus-protocol.md |
+| **Quorum formula** | max(2, floor(N/2)+1) — majority, min 2 | 11-consensus-protocol.md |
+| **Transport** | HTTP POST (REST API) | 11-consensus-protocol.md |
+| **Timeout values** | COMMIT 30s, SUBMIT 60s, MERGE 30s, COMPARE 60s, SEAL 60s, CHECKPOINT 30s | 11-consensus-protocol.md |
+| **Ledger dimensions** | 3 tables: actor_ledgers, node_ledgers, app_ledgers | 12-ledger-structure.md |
+| **Checkpoint structure** | Single aggregated (atomic, cryptographically binds all) | 12-ledger-structure.md |
+| **Timing source** | Checkpoint-anchored (not wall clock) | 13-clock-sync.md |
+| **Ledger validation** | timestamp >= previous checkpoint round_end | 13-clock-sync.md |
+| **NTP** | Required for logs/audit, NOT for consensus | 13-clock-sync.md |
+
+### Feb 10-19, 2026 (Earlier Decisions)
 
 | Topic | Decision | Date |
 |-------|----------|------|
@@ -33,6 +67,10 @@ The following design documents contain outdated concepts. **Superseded notices h
 | **Checkpoint confirm** | Min 2 parties, more is better | Feb 10 |
 | **Home node** | Removed — L2 routes to Writer nodes | Feb 12 |
 | **Node types** | Writer + Query nodes, merit-based selection | Feb 15 |
+| **Writer count** | Adaptive (maximize within sync constraint) | Feb 15 |
+| **Writer selection** | Sync speed = primary metric, auto promote/demote | Feb 15 |
+| **Probation period** | 90 days before eligible for writer | Feb 15 |
+| **Real-time failover** | Immediate replacement from top query nodes | Feb 15 |
 | **Governance** | Removed for MVP — Code decides by performance | Feb 15 |
 | **Recovery** | Email only (MVP), future methods later | Feb 19 |
 | **Key rotation** | Multi-key model instead | Feb 19 |

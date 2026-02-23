@@ -7,7 +7,7 @@
       "name": "Sleep Reminder",
       "enabled": true,
       "createdAtMs": 1770141379698,
-      "updatedAtMs": 1771596000025,
+      "updatedAtMs": 1771768800025,
       "schedule": {
         "kind": "cron",
         "expr": "0 22 * * *",
@@ -20,36 +20,10 @@
         "text": "🦞 It's 10 PM — time to wind down and get good sleep. Your health matters. Good night, Allan."
       },
       "state": {
-        "nextRunAtMs": 1771682400000,
-        "lastRunAtMs": 1771596000006,
+        "nextRunAtMs": 1771855200000,
+        "lastRunAtMs": 1771768800005,
         "lastStatus": "ok",
-        "lastDurationMs": 19,
-        "consecutiveErrors": 0
-      }
-    },
-    {
-      "id": "4db236aa-8fb0-4bd4-a9d4-c1665aa4abfa",
-      "agentId": "main",
-      "name": "Daily 8AM Report",
-      "enabled": true,
-      "createdAtMs": 1770311796103,
-      "updatedAtMs": 1771632000027,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 8 * * *",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "main",
-      "wakeMode": "next-heartbeat",
-      "payload": {
-        "kind": "systemEvent",
-        "text": "8:00 AM - Time for the daily report. What did I work on? What did I learn? What progress was made?"
-      },
-      "state": {
-        "nextRunAtMs": 1771718400000,
-        "lastRunAtMs": 1771632000004,
-        "lastStatus": "ok",
-        "lastDurationMs": 23,
+        "lastDurationMs": 20,
         "consecutiveErrors": 0
       }
     },
@@ -59,10 +33,10 @@
       "name": "Daily Diary Entry — 6AM Reflection",
       "enabled": true,
       "createdAtMs": 1770510476019,
-      "updatedAtMs": 1771624800019,
+      "updatedAtMs": 1771813575429,
       "schedule": {
         "kind": "cron",
-        "expr": "0 6 * * *",
+        "expr": "30 6 * * *",
         "tz": "Asia/Shanghai"
       },
       "sessionTarget": "main",
@@ -72,11 +46,37 @@
         "text": "🦞 Good morning! Time to write today's diary entry. Reflect on yesterday: What did I learn? What did I feel? Any discoveries, troubles, or moments worth remembering? Write it to diary/YYYY-MM-DD.md — my long-term memory."
       },
       "state": {
-        "nextRunAtMs": 1771711200000,
-        "lastRunAtMs": 1771624800004,
+        "nextRunAtMs": 1771885800000,
+        "lastRunAtMs": 1771797600006,
         "lastStatus": "ok",
-        "lastDurationMs": 15,
+        "lastDurationMs": 18,
         "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "c0707b44-d291-4e3b-8399-91bbb500d041",
+      "agentId": "main",
+      "name": "Daily 8AM Report",
+      "enabled": true,
+      "createdAtMs": 1771814179189,
+      "updatedAtMs": 1771814179189,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * *",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Generate and send a comprehensive daily report for yesterday. Read memory/daily/YYYY-MM-DD.md, diary/YYYY-MM-DD.md, and morning chat logs from yesterday. Include: 1) Key activities and work completed, 2) Important learnings and insights, 3) Progress on projects, 4) Notable conversations or decisions, 5) Plans or next steps mentioned. Send the complete report to Feishu."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "feishu"
+      },
+      "state": {
+        "nextRunAtMs": 1771891200000
       }
     }
   ]

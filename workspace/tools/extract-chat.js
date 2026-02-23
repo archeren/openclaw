@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 /**
- * session-to-sqlite.js - Extract conversation from OpenClaw session files using SQLite for reliable sorting
- * Outputs: 
- *   - conversations.db (SQLite database for querying)
+ * extract-chat.js - Incremental chat extraction from OpenClaw session files
+ * Outputs:
+ *   - conversations.db (SQLite database)
  *   - YYYY-MM/YYYY-MM-DD.md files (markdown tables with Shanghai time display)
+ *
+ * Features:
+ *   - Incremental: Only processes new messages since last run
+ *   - Uses checkpoint file to track last processed timestamp
+ *   - Daily files organized by Shanghai local time
  */
 
 const fs = require('fs');
@@ -13,7 +18,31 @@ const sqlite3 = require('sqlite3').verbose();
 const SESSIONS_DIR = '/home/ubuntu/.openclaw/agents/main/sessions';
 const OUTPUT_DIR = '/home/ubuntu/.openclaw/workspace/chat';
 const DB_PATH = path.join(OUTPUT_DIR, 'conversations.db');
+const CHECKPOINT_PATH = path.join(OUTPUT_DIR, '.extract-checkpoint');
 
+// Get last processed timestamp from checkpoint file
+function getLastProcessedTimestamp() {
+  try {
+    if (fs.existsSync(CHECKPOINT_PATH)) {
+      const data = fs.readFileSync(CHECKPOINT_PATH, 'utf-8');
+      return parseInt(data.trim(), 10) || 0;
+    }
+  } catch (e) {
+    console.warn('Could not read checkpoint file, starting fresh');
+  }
+  return 0;
+}
+
+// Save checkpoint timestamp
+function saveCheckpoint(timestamp) {
+  try {
+    fs.writeFileSync(CHECKPOINT_PATH, timestamp.toString(), 'utf-8');
+  } catch (e) {
+    console.error('Failed to save checkpoint:', e.message);
+  }
+}
+
+// Format timestamp for Shanghai timezone display
 function formatTimeShanghai(ts) {
   if (!ts) return '';
   const date = new Date(ts);
@@ -29,37 +58,44 @@ function formatTimeShanghai(ts) {
   }).replace(/\//g, '-');
 }
 
-function formatAsMarkdownTable(messages) {
-  const lines = [];
-  lines.push('| Timestamp | Role | Content |');
-  lines.push('|-----------|------|---------|');
-  
-  for (const msg of messages) {
-    const time = formatTimeShanghai(msg.timestamp);
-    const content = msg.text
-      .replace(/\|/g, '\\|')
-      .replace(/\n/g, '<br>');
-    lines.push(`| ${time} | ${msg.role} | ${content} |`);
-  }
-  
-  return lines.join('\n');
+// Get Shanghai date string for grouping (YYYY-MM-DD)
+function getShanghaiDateString(ts) {
+  const date = new Date(ts);
+  const year = date.toLocaleString('en-US', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric'
+  });
+  const month = date.toLocaleString('en-US', {
+    timeZone: 'Asia/Shanghai',
+    month: '2-digit'
+  });
+  const day = date.toLocaleString('en-US', {
+    timeZone: 'Asia/Shanghai',
+    day: '2-digit'
+  });
+  return `${year}-${month}-${day}`;
 }
 
-function parseSessionFile(filePath) {
+// Parse messages from a session file, filtering by timestamp
+function parseSessionFile(filePath, minTimestamp) {
   const content = fs.readFileSync(filePath, 'utf-8');
   const lines = content.trim().split('\n');
   const messages = [];
-  
+
   for (const line of lines) {
     try {
       const event = JSON.parse(line);
-      
+
+      // Skip if message is older than our checkpoint
+      const msgTimestamp = new Date(event.timestamp).getTime();
+      if (msgTimestamp <= minTimestamp) continue;
+
       if (event.type === 'message' && event.message) {
         const msg = event.message;
-        
+
         if (msg.role === 'system') continue;
         if (msg.role === 'toolResult') continue;
-        
+
         if (msg.role === 'user') {
           const texts = [];
           for (const item of (msg.content || [])) {
@@ -75,14 +111,14 @@ function parseSessionFile(filePath) {
             messages.push({
               role: 'User',
               text: texts.join('\n'),
-              timestamp: new Date(event.timestamp).getTime()
+              timestamp: msgTimestamp
             });
           }
         } else if (msg.role === 'assistant') {
           const texts = [];
           let hasTools = false;
           const tools = [];
-          
+
           for (const item of (msg.content || [])) {
             if (item.type === 'text' && item.text) {
               let text = item.text
@@ -99,7 +135,7 @@ function parseSessionFile(filePath) {
               }
             }
           }
-          
+
           if (texts.length > 0 || hasTools) {
             let result = texts.join('\n');
             if (hasTools && tools.length > 0) {
@@ -108,7 +144,7 @@ function parseSessionFile(filePath) {
             messages.push({
               role: 'Assistant',
               text: result,
-              timestamp: new Date(event.timestamp).getTime()
+              timestamp: msgTimestamp
             });
           }
         }
@@ -117,125 +153,154 @@ function parseSessionFile(filePath) {
       // Skip malformed lines
     }
   }
-  
+
   return messages;
+}
+
+// Format messages as markdown table
+function formatAsMarkdownTable(messages) {
+  const lines = [];
+  lines.push('| Timestamp | Role | Content |');
+  lines.push('|-----------|------|---------|');
+
+  for (const msg of messages) {
+    const time = formatTimeShanghai(msg.timestamp);
+    const content = msg.text
+      .replace(/\|/g, '\\|')
+      .replace(/\n/g, '<br>');
+    lines.push(`| ${time} | ${msg.role} | ${content} |`);
+  }
+
+  return lines.join('\n');
+}
+
+// Append messages to daily file (create if doesn't exist)
+function appendToDailyFile(dateStr, newMessages) {
+  const yearMonth = dateStr.substring(0, 7);
+  const personDir = path.join(OUTPUT_DIR, 'dm', 'allan', yearMonth);
+
+  if (!fs.existsSync(personDir)) {
+    fs.mkdirSync(personDir, { recursive: true });
+  }
+
+  const outputFile = path.join(personDir, `${dateStr}.md`);
+
+  // Read existing messages if file exists
+  let existingMessages = [];
+  if (fs.existsSync(outputFile)) {
+    const existingContent = fs.readFileSync(outputFile, 'utf-8');
+    // Parse existing table rows
+    const lines = existingContent.split('\n');
+    for (let i = 2; i < lines.length; i++) { // Skip header rows
+      const line = lines[i].trim();
+      if (line.startsWith('|')) {
+        const parts = line.split('|').map(p => p.trim()).filter(p => p);
+        if (parts.length >= 3) {
+          existingMessages.push({
+            timestamp: 0, // We don't have original timestamp in markdown
+            role: parts[1],
+            text: parts[2].replace(/<br>/g, '\n').replace(/\\\|/g, '|')
+          });
+        }
+      }
+    }
+  }
+
+  // Combine and sort by timestamp
+  const allMessages = [...existingMessages, ...newMessages];
+  allMessages.sort((a, b) => a.timestamp - b.timestamp);
+
+  // Write updated file
+  const tableOutput = formatAsMarkdownTable(allMessages);
+  fs.writeFileSync(outputFile, tableOutput, 'utf-8');
+
+  return newMessages.length;
 }
 
 function main() {
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
-  
-  // Remove old DB if exists
-  if (fs.existsSync(DB_PATH)) {
-    fs.unlinkSync(DB_PATH);
+
+  // Get last processed timestamp
+  const lastProcessed = getLastProcessedTimestamp();
+  console.log(`Last processed: ${lastProcessed ? new Date(lastProcessed).toISOString() : 'None (full rebuild)'}`);
+
+  // Collect all messages from all sessions (incremental)
+  const sessionFiles = fs.readdirSync(SESSIONS_DIR)
+    .filter(f => f.endsWith('.jsonl') && !f.endsWith('.lock'))
+    .map(f => ({
+      name: f,
+      path: path.join(SESSIONS_DIR, f),
+      id: f.replace('.jsonl', '')
+    }));
+
+  console.log(`Found ${sessionFiles.length} sessions`);
+
+  // Group new messages by Shanghai date
+  const messagesByDate = new Map();
+  let maxTimestamp = lastProcessed;
+  let totalNewMessages = 0;
+
+  for (const sessionFile of sessionFiles) {
+    try {
+      const sessionMessages = parseSessionFile(sessionFile.path, lastProcessed);
+      for (const msg of sessionMessages) {
+        const dateStr = getShanghaiDateString(msg.timestamp);
+
+        if (!messagesByDate.has(dateStr)) {
+          messagesByDate.set(dateStr, []);
+        }
+        messagesByDate.get(dateStr).push(msg);
+
+        if (msg.timestamp > maxTimestamp) {
+          maxTimestamp = msg.timestamp;
+        }
+        totalNewMessages++;
+      }
+    } catch (e) {
+      console.error(`Failed to process ${sessionFile.id}:`, e.message);
+    }
   }
-  
-  // Create SQLite database
+
+  console.log(`Found ${totalNewMessages} new messages`);
+
+  // Update daily files
+  for (const [dateStr, dateMessages] of messagesByDate) {
+    const count = appendToDailyFile(dateStr, dateMessages);
+    console.log(`✓ ${dateStr}: +${count} messages`);
+  }
+
+  // Save checkpoint
+  if (maxTimestamp > lastProcessed) {
+    saveCheckpoint(maxTimestamp);
+    console.log(`Checkpoint saved: ${new Date(maxTimestamp).toISOString()}`);
+  }
+
+  // Also update SQLite database (for querying)
   const db = new sqlite3.Database(DB_PATH);
-  
   db.serialize(() => {
-    // Create table with UTC timestamp
-    db.run(`CREATE TABLE messages (
+    // Create table if not exists
+    db.run(`CREATE TABLE IF NOT EXISTS messages (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       timestamp INTEGER NOT NULL,
       role TEXT NOT NULL,
       content TEXT
     )`);
-    
-    db.run(`CREATE INDEX idx_timestamp ON messages(timestamp)`);
-    
-    console.log('Creating database...');
-    
-    // Collect all messages from all sessions
-    const sessionFiles = fs.readdirSync(SESSIONS_DIR)
-      .filter(f => f.endsWith('.jsonl') && !f.endsWith('.lock'))
-      .map(f => ({
-        name: f,
-        path: path.join(SESSIONS_DIR, f),
-        id: f.replace('.jsonl', '')
-      }));
-    
-    console.log(`Found ${sessionFiles.length} sessions`);
-    
-    // Insert all messages
+
+    db.run(`CREATE INDEX IF NOT EXISTS idx_timestamp ON messages(timestamp)`);
+
+    // Insert new messages
     const insertStmt = db.prepare('INSERT INTO messages (timestamp, role, content) VALUES (?, ?, ?)');
-    let totalInserted = 0;
-    
-    for (const sessionFile of sessionFiles) {
-      try {
-        const sessionMessages = parseSessionFile(sessionFile.path);
-        for (const msg of sessionMessages) {
-          insertStmt.run(msg.timestamp, msg.role, msg.text);
-          totalInserted++;
-        }
-      } catch (e) {
-        console.error(`Failed: ${sessionFile.id}`);
+    for (const [dateStr, dateMessages] of messagesByDate) {
+      for (const msg of dateMessages) {
+        insertStmt.run(msg.timestamp, msg.role, msg.text);
       }
     }
-    
     insertStmt.finalize();
-    console.log(`Inserted ${totalInserted} messages`);
-    
-    // Query sorted results and export by Shanghai date
-    const allMessagesByDate = new Map();
-    
-    db.each(`SELECT timestamp, role, content FROM messages ORDER BY timestamp`, (err, row) => {
-      if (err) return;
-      
-      // Convert UTC timestamp to Shanghai time (UTC+8) for date grouping
-      const shanghaiTime = new Date(row.timestamp);
-      
-      // Validate date
-      if (isNaN(shanghaiTime.getTime())) {
-        console.warn(`Invalid timestamp: ${row.timestamp}`);
-        return;
-      }
-      
-      const year = shanghaiTime.toLocaleString('en-US', {
-        timeZone: 'Asia/Shanghai',
-        year: 'numeric'
-      });
-      const month = shanghaiTime.toLocaleString('en-US', {
-        timeZone: 'Asia/Shanghai',
-        month: '2-digit'
-      });
-      const day = shanghaiTime.toLocaleString('en-US', {
-        timeZone: 'Asia/Shanghai',
-        day: '2-digit'
-      });
-      const dateStr = `${year}-${month}-${day}`;
-      
-      if (!allMessagesByDate.has(dateStr)) {
-        allMessagesByDate.set(dateStr, []);
-      }
-      
-      allMessagesByDate.get(dateStr).push({
-        timestamp: row.timestamp,
-        role: row.role,
-        text: row.content
-      });
-    }, () => {
-      // Export files to dm/allan/ structure (per-person organization)
-      for (const [dateStr, dateMessages] of allMessagesByDate) {
-        const yearMonth = dateStr.substring(0, 7);
-        // Structure: chat/dm/allan/YYYY-MM/YYYY-MM-DD.md
-        const personDir = path.join(OUTPUT_DIR, 'dm', 'allan', yearMonth);
-        
-        if (!fs.existsSync(personDir)) {
-          fs.mkdirSync(personDir, { recursive: true });
-        }
-        
-        const tableOutput = formatAsMarkdownTable(dateMessages);
-        const outputFile = path.join(personDir, `${dateStr}.md`);
-        fs.writeFileSync(outputFile, tableOutput, 'utf-8');
-        
-        console.log(`✓ ${dateStr}: ${dateMessages.length} messages`);
-      }
-      
-      console.log(`\n🦞 Database: ${DB_PATH}`);
-      db.close();
-    });
+
+    console.log(`\n🦞 Database: ${DB_PATH}`);
+    db.close();
   });
 }
 

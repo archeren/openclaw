@@ -1,8 +1,18 @@
 # Multi-Node Sync Protocol
 
-**Status:** ✅ Decided  
+**Status:** ⚠️ **SUPERSEDED**  
 **Date:** Feb 10, 2026  
-**Participants:** Allan, Alpha
+**Participants:** Allan, Alpha  
+**Superseded by:** `../11-consensus-protocol.md` (Feb 22, 2026)
+
+> **⚠️ This document contains historical decisions.** The consensus protocol was refined on Feb 22, 2026 with a new 6-step process (COMMIT → SUBMIT → MERGE → COMPARE → SEAL → CHECKPOINT) and checkpoint-anchored timing. See `../11-consensus-protocol.md` for current design.
+>
+> **What changed:**
+> - 5-phase → 6-step protocol (clearer separation of concerns)
+> - Wall clock timing → Checkpoint-anchored timing (no NTP dependency)
+> - BROADCAST terminology → SUBMIT (more accurate for P2P exchange)
+> - Added COMPARE step (explicit hash comparison for consensus detection)
+> - Added ledger validation (timestamp >= previous checkpoint round_end)
 
 ---
 
@@ -263,6 +273,82 @@ CREATE INDEX idx_checkpoints_round ON checkpoints(round_number);
 
 ---
 
+## Node Types & Selection
+
+**Status:** ✅ Decided (Feb 15, 2026)
+
+### Node Types
+
+| Type | Role | Permission | Count |
+|------|------|------------|-------|
+| **Writer** | Creates checkpoints, participates in consensus | Earned through performance | Few (adaptive) |
+| **Query** | Syncs data, serves reads | Open to all | Many |
+
+### Writer Selection
+
+| Decision | Merit-based, not stake/permission |
+|----------|-----------------------------------|
+| **Problem** | How to select writers fairly? |
+| **Solution** | Performance-based promotion/demotion |
+| **Rationale** | Decentralized, no governance, code decides |
+| **Can change?** | No — fundamental fairness principle |
+
+### Promotion Path
+
+```
+NEW NODE
+    ↓
+Joins as Query Node (open, no permission needed)
+    ↓
+90-day probation period (proves reliability)
+    ↓
+After probation, becomes eligible for Writer promotion
+    ↓
+Ranked by sync speed at each checkpoint
+    ↓
+Fastest Query nodes → Promoted to Writer
+    ↓
+Writers also ranked by sync speed
+    ↓
+Slowest writers → Demoted back to Query
+```
+
+### Performance Metrics
+
+| Metric | What It Measures | How Used |
+|--------|------------------|----------|
+| **Sync speed** | How fast node receives and processes checkpoints | Primary ranking metric |
+| **Uptime** | Availability over time | Probation requirement |
+| **Response time** | How fast node responds to queries | Secondary metric |
+
+### Adaptive Writer Count
+
+| Decision | Maximize writers within sync speed constraint |
+|----------|-----------------------------------------------|
+| **Problem** | Fixed count? Or dynamic? |
+| **Solution** | Adaptive — more decentralization = better, but must stay fast |
+| **Rationale** | No arbitrary limits, system self-optimizes |
+| **Can change?** | No — core decentralization principle |
+
+**Implementation:**
+- At each checkpoint, nodes ranked by sync speed
+- Current writers ranked among themselves
+- Eligible query nodes ranked among themselves
+- Slowest writer(s) → demoted to Query
+- Fastest eligible query node(s) → promoted to Writer
+
+### Real-time Failover
+
+| Scenario | Response |
+|----------|----------|
+| **Writer goes offline** | Immediate replacement from top query nodes |
+| **Writer slow sync** | Demoted, fastest candidate promoted |
+| **Heartbeat timeout** | Node marked inactive, removed from ranking |
+
+**Hot backup pool:** Top query nodes always ready to step in.
+
+---
+
 ## Open Questions
 
 See `need-discuss.md` for:
@@ -279,6 +365,7 @@ See `need-discuss.md` for:
 | Date | Change |
 |------|--------|
 | 2026-02-10 | Initial protocol design — Allan + Alpha |
+| 2026-02-15 | Added: Node types, writer selection, adaptive count, failover |
 | 2026-02-20 | Clarify: writer nodes broadcast (not query), count nodes not ledgers, more signatures = better |
 
 ---

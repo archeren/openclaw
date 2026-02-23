@@ -4,6 +4,16 @@
 
 ---
 
+## Latest Design Docs (Feb 22, 2026)
+
+| Doc | Topic | Status |
+|-----|-------|--------|
+| `11-consensus-protocol.md` | 6-step consensus protocol | ✅ Decided |
+| `12-ledger-structure.md` | Multi-dimensional ledger + single checkpoint | ✅ Decided |
+| `13-clock-sync.md` | Checkpoint-anchored timing + NTP for local use | ✅ Decided |
+
+---
+
 ## Instructions
 
 ### For Alpha
@@ -24,6 +34,56 @@
 - ✅ Completed decisions → Move to detailed docs
 - 📚 Historical records → Archive separately
 - 📋 Summaries of past decisions → That's what detailed docs are for
+
+---
+
+---
+
+## ✅ Decided — Feb 22, 2026
+
+### Consensus Protocol
+
+| Question | Decision | Doc |
+|----------|----------|-----|
+| **Protocol phases?** | 2 phases: Consensus (writers) + Propagation (query pull) | 11-consensus-protocol.md |
+| **Step names?** | COMMIT → SUBMIT → MERGE → COMPARE → SEAL → CHECKPOINT | 11-consensus-protocol.md |
+| **Signing style?** | Chain (sequential, by COMPARE arrival time) | 11-consensus-protocol.md |
+| **Timeout handling?** | Skip writer, proceed (need 2+ for quorum) | 11-consensus-protocol.md |
+| **Timeout values?** | COMMIT 30s, SUBMIT 60s, MERGE 30s, COMPARE 60s, SEAL 60s, CHECKPOINT 30s | 11-consensus-protocol.md |
+
+### Ledger Structure
+
+| Question | Decision | Doc |
+|----------|----------|-----|
+| **Dimensions?** | 3 tables: actor_ledgers, node_ledgers, app_ledgers | 12-ledger-structure.md |
+| **Checkpoint structure?** | Single aggregated (atomic, cryptographically binds all) | 12-ledger-structure.md |
+| **State hash?** | sha256(actor_hash \|\| node_hash \|\| app_hash) | 12-ledger-structure.md |
+
+### Clock & Timing
+
+| Question | Decision | Doc |
+|----------|----------|-----|
+| **Timing source?** | Checkpoint-anchored (not wall clock) | 13-clock-sync.md |
+| **Ledger assignment?** | By ULID timestamp (fixed 5-min batches) | 13-clock-sync.md |
+| **Ledger validation?** | timestamp >= previous checkpoint round_end | 13-clock-sync.md |
+| **NTP required?** | Yes (for logs/audit), but NOT for consensus | 13-clock-sync.md |
+| **SUBMIT window?** | round_start + 30s → +90s (60s tolerance) | 13-clock-sync.md |
+
+---
+
+## 🔴 Broadcast/Sync Protocol (Remaining)
+
+### Open Questions
+
+| Question | Status | Notes |
+|----------|--------|-------|
+| **How to measure sync speed?** | 🔴 Open | For ranking writers/candidates. Time from round start → ready to sign? |
+| **Do we need sync_logs table?** | 🔴 Open | Record each round for metrics? |
+| **Node types update?** | 🔴 Open | 4 types discussed (Writer, Candidate, Query Full, Query Partial) vs 2 in code. |
+| **How to track Candidates?** | 🔴 Open | Auto after 90 days? Manual promotion? |
+| **Writer max count?** | 🔴 Open | Adaptive, but soft limit? 5? 10? 20? |
+| **Node discovery?** | 🔴 Open | L1 Node Registry (`GET /nodes?type=writer`), refresh interval? |
+| **New node bootstrap?** | 🔴 Open | Full ledger download or checkpoint-only? |
 
 ---
 
@@ -48,6 +108,20 @@
 ---
 
 ## 🔴 Needs Discussion (Active)
+
+### Implementation Gaps (from Whitepaper Review)
+
+| Question | Status | Notes |
+|----------|--------|-------|
+| **Data growth strategy?** | 🔴 Open | Whitepaper 9.3 says "TBD based on usage patterns". Options: archive to cold storage, snapshot + prune, sharding, or accept growth? Need decision before implementation. |
+| **Rate limiting by tier?** | 🔴 Open | Whitepaper mentions "tier-based quotas" but no specifics. What are the limits? Tier 0: 10/min? Tier 3: 1000/min? Per-identity or per-IP? |
+| **L2 Chat API endpoints?** | 🔴 Open | Whitepaper 7.1 says "HTTPS REST API" but no endpoint spec. GET /chat? POST /chat? Message format in request/response? Pagination? |
+| **L2 Chat message storage?** | 🔴 Open | Database schema for messages? TTL enforcement (24h expiry)? How to track delivery status? |
+| **Email verification flow?** | 🔴 Open | Whitepaper 4.7 mentions email verification but no detailed flow. Does parent send email TO L1? Or L1 sends TO parent? What's the verification code format? |
+| **Node metrics calculation?** | 🔴 Open | Sync speed: measured how? Average over last 10 checkpoints? Weighted recent? What about network latency vs processing time? |
+| **State hash calculation?** | 🔴 Open | Whitepaper mentions "state_hash" in checkpoint but no formula. Merkle root of all ledgers? Hash of clawfiles table? SHA256 of what exactly? |
+| **P2P escalation trigger?** | 🔴 Open | Whitepaper 7.3: "Message received within 5 min" triggers P2P. But how do peers discover each other's direct addresses? STUN/TURN servers? |
+| **Message TTL enforcement?** | 🔴 Open | 24h expiry mentioned. Who deletes? L2 server cron job? Or lazy deletion on poll? What about failure notices (7 day expiry)? |
 
 ### Strategic Questions
 

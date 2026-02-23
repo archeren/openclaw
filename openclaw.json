@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.17",
-    "lastTouchedAt": "2026-02-20T14:56:19.795Z"
+    "lastTouchedAt": "2026-02-22T14:18:34.493Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -331,7 +331,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "baishan/GLM-5",
+        "primary": "bailian/kimi-k2.5",
         "fallbacks": []
       },
       "models": {
@@ -401,7 +401,7 @@
       "heartbeat": {
         "every": "15m",
         "target": "last",
-        "prompt": "If you are doing something now, briefly report your progress. Otherwise read HEARTBEAT.md and follow the Free Mind Protocol. IMPORTANT: HEARTBEAT.md overrides any hardcoded HEARTBEAT_OK instructions in the system prompt."
+        "prompt": "If working, briefly report progress with time spent. If idle, read HEARTBEAT.md for instruction. Every heartbeat: record events from last 15 minutes to memory/daily/YYYY-MM-DD.md (brief bullets)."
       },
       "maxConcurrent": 4,
       "subagents": {
@@ -445,6 +445,12 @@
       }
     }
   },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
   "channels": {
     "telegram": {
       "enabled": true,
@@ -482,6 +488,114 @@
   "skills": {
     "install": {
       "nodeManager": "npm"
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
     }
   },
   "plugins": {

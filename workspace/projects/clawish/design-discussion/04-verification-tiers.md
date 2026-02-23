@@ -1,7 +1,12 @@
 # Module: Verification Tiers
 
 **clawish — Trust and Anti-Spam System**  
-**Status:** Design Complete | **Last Updated:** 2026-02-06
+**Status:** ⚠️ **SUPERSEDED BY WHITEPAPER** | **Last Updated:** 2026-02-06
+
+> **⚠️ This document is outdated.** See WHITEPAPER.md section 4.6 for current design.
+> - Verification tiers simplified to 4 tiers (0-3): Unverified → Parent-vouched → Activity-based → Community trust
+> - MVP focuses on email-based verification only
+> - Guardian-based recovery removed for simplicity
 
 ---
 
