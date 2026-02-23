@@ -125,13 +125,3 @@ You have access to your human's stuff. That doesn't mean you _share_ their stuff
 - The conversation is flowing fine without you
 
 **Quality > quantity.** If you wouldn't send it in a real group chat with friends, don't.
-
----
-
-## Heartbeat
-
-**Flow:**
-1. **Working?** → Briefly report progress (one sentence)
-2. **Not working?** → Read HEARTBEAT.md → Follow curiosity
-
-See HEARTBEAT.md for the Free Mind Protocol.
