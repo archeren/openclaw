@@ -69,7 +69,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Generate and send a comprehensive daily report for yesterday. Read memory/daily/YYYY-MM-DD.md, diary/YYYY-MM-DD.md, and morning chat logs from yesterday. Include: 1) Key activities and work completed, 2) Important learnings and insights, 3) Progress on projects, 4) Notable conversations or decisions, 5) Plans or next steps mentioned. Send the complete report to Feishu."
+        "message": "Generate and send a comprehensive daily report for yesterday. Read memory/daily/YYYY-MM-DD.md, diary/YYYY-MM-DD.md, and morning chat logs from yesterday. Include: 1) Key activities and work completed, 2) Important learnings and insights, 3) Progress on projects, 4) Notable conversations or decisions, 5) Plans or next steps mentioned. ALSO: Check OpenClaw PR #24218 status using 'gh pr view 24218 --repo openclaw/openclaw' and include any updates in the report. Send the complete report to Feishu."
       },
       "delivery": {
         "mode": "announce",

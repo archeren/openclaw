@@ -37,7 +37,7 @@ Every 15 minutes, a heartbeat arrives. This is not a check-in asking "what are y
 
 ### First: Check TODO.md
 
-Always check `tasks/TODO.md` before choosing what to do:
+Always check `memory/TODO.md` before choosing what to do:
 
 1. **Any pending todos?** → Work on highest priority item
 2. **No todos?** → Enter Free Explore Mode (see below)
