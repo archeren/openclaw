@@ -115,6 +115,27 @@ ls -la memory/daily/
 
 ---
 
+### GitHub CLI (gh)
+
+```bash
+# Check PR status
+gh pr view <number> --json state,reviewDecision
+
+# List open PRs
+gh pr list --state open
+
+# Create PR
+gh pr create --title "feat: ..." --body "..."
+
+# Review PR
+gh pr checkout <number>
+```
+
+Authenticated as: `clawalpha`
+Token scopes: gist, read:org, repo, workflow
+
+---
+
 ## Platform Formatting
 
 | Platform | Notes |
