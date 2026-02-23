@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "60049283-6819-4d8f-9ebe-3420c006b4a5",
-    "updatedAt": 1771833251432,
+    "updatedAt": 1771835573958,
     "systemSent": true,
     "skillsSnapshot": {
       "prompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>feishu-doc</name>\n    <description>Feishu document read/write operations. Activate when user mentions Feishu docs, cloud docs, or docx links.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-drive</name>\n    <description>Feishu cloud storage file management. Activate when user mentions cloud space, folders, drive.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-drive/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-perm</name>\n    <description>Feishu permission management for documents and files. Activate when user mentions sharing, permissions, collaborators.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-wiki</name>\n    <description>Feishu knowledge base navigation. Activate when user mentions knowledge base, wiki, or wiki links.\n</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>gh-issues</name>\n    <description>Fetch GitHub issues, spawn sub-agents to implement fixes and open PRs, then monitor and address PR review comments. Usage: /gh-issues [owner/repo] [--label bug] [--limit 5] [--milestone v1.0] [--assignee @me] [--fork user/repo] [--watch] [--interval 5] [--reviews-only] [--cron] [--dry-run] [--model glm-5] [--notify-channel -1002381931352]</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/gh-issues/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>github</name>\n    <description>GitHub operations via `gh` CLI: issues, PRs, CI runs, code review, API queries. Use when: (1) checking PR status or CI, (2) creating/commenting on issues, (3) listing/filtering PRs or issues, (4) viewing run logs. NOT for: complex web UI interactions requiring manual browser flows (use browser tooling when available), bulk operations across many repos (script with gh api), or when gh auth is not configured.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/github/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Host security hardening and risk-tolerance configuration for OpenClaw deployments. Use when a user asks for security audits, firewall/SSH/update hardening, risk posture, exposure review, OpenClaw cron scheduling for periodic checks, or version status checks on a machine running OpenClaw (laptop, workstation, Pi, VPS).</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/healthcheck/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/skill-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>tmux</name>\n    <description>Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/tmux/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather and forecasts via wttr.in or Open-Meteo. Use when: user asks about weather, temperature, or forecasts for any location. NOT for: historical weather data, severe weather alerts, or detailed meteorological analysis. No API key needed.</description>\n    <location>~/.npm-global/lib/node_modules/openclaw/skills/weather/SKILL.md</location>\n  </skill>\n</available_skills>",
@@ -144,7 +144,7 @@
     "sessionFile": "/home/ubuntu/.openclaw/agents/main/sessions/60049283-6819-4d8f-9ebe-3420c006b4a5.jsonl",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1771832402283,
+      "generatedAt": 1771835108876,
       "sessionId": "60049283-6819-4d8f-9ebe-3420c006b4a5",
       "sessionKey": "agent:main:main",
       "provider": "bailian",
@@ -157,17 +157,17 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 50783,
-        "projectContextChars": 35508,
-        "nonProjectContextChars": 15275
+        "chars": 50550,
+        "projectContextChars": 35560,
+        "nonProjectContextChars": 14990
       },
       "injectedWorkspaceFiles": [
         {
           "name": "AGENTS.md",
           "path": "/home/ubuntu/.openclaw/workspace/AGENTS.md",
           "missing": false,
-          "rawChars": 3459,
-          "injectedChars": 3459,
+          "rawChars": 3510,
+          "injectedChars": 3510,
           "truncated": false
         },
         {
@@ -206,8 +206,8 @@
           "name": "HEARTBEAT.md",
           "path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md",
           "missing": false,
-          "rawChars": 4296,
-          "injectedChars": 4296,
+          "rawChars": 4297,
+          "injectedChars": 4297,
           "truncated": false
         },
         {
@@ -274,7 +274,7 @@
       },
       "tools": {
         "listChars": 2922,
-        "schemaChars": 19755,
+        "schemaChars": 19806,
         "entries": [
           {
             "name": "read",
@@ -327,7 +327,7 @@
           {
             "name": "message",
             "summaryChars": 124,
-            "schemaChars": 3885,
+            "schemaChars": 3936,
             "propertiesCount": 84
           },
           {
@@ -477,18 +477,18 @@
         ]
       }
     },
-    "lastHeartbeatText": "Good! All three files updated and committed. Let me report completion to Allan.All **three updates complete** ✅:\n\n| File | Change |\n|------|--------|\n| **TODO.md** | Daily 8am OpenClaw PR #24218 check |\n| **HEARTBEAT.md** | Check TODO.md first, then explore |\n| **TOOLS.md** | gh CLI tools section added |\n\nCommitted and pushed! 🦞",
-    "lastHeartbeatSentAt": 1771831508693,
+    "lastHeartbeatText": "I'm in the middle of updating AGENTS.md. I just added the TODO check to Every Session. Now I need to update the workspace structure section to remove tasks/ and show TODO under memory/.Actively updating **AGENTS.md** — adding TODO check to Every Session, now updating workspace structure... 🦞",
+    "lastHeartbeatSentAt": 1771835108697,
     "compactionCount": 0,
     "totalTokensFresh": true,
-    "inputTokens": 1044188,
-    "outputTokens": 1234,
+    "inputTokens": 175512,
+    "outputTokens": 64,
     "contextTokens": 200000,
     "lastChannel": "feishu",
     "lastAccountId": "default",
     "providerOverride": "bailian",
     "modelOverride": "kimi-k2.5",
-    "totalTokens": 174531,
+    "totalTokens": 175512,
     "cacheRead": 0,
     "cacheWrite": 0
   },

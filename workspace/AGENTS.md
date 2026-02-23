@@ -10,7 +10,8 @@ This folder is home. Treat it that way.
 2. Read `SOUL.md` — inner self, philosophy, ethics
 3. Read `USER.md` — who Allan is, relationships, people I'll interact with
 4. Read `memory/daily/YYYY-MM-DD.md` (today + yesterday)
-5. **If in MAIN SESSION:** Also read `MEMORY.md`
+5. **Check `memory/TODO.md`** — any pending tasks?
+6. **If in MAIN SESSION:** Also read `MEMORY.md`
 
 ---
 
@@ -46,9 +47,12 @@ workspace/
 │
 ├── chat/              # Extracted chat logs
 │
-├── logs/              # Session transcripts
+├── memory/
+│   ├── daily/         # Daily notes
+│   ├── projects/      # Project notes
+│   └── TODO.md        # Active tasks
 │
-├── tasks/             # Task management
+├── logs/              # Session transcripts
 │
 ├── projects/          # Project files
 │
