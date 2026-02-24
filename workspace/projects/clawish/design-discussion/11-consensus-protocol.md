@@ -16,20 +16,27 @@
 
 ---
 
----
-
 ## Overview
 
-The consensus protocol enables multiple writer nodes to agree on the state of the L1 registry every 5 minutes. It is **checkpoint-anchored** (timing from consensus, not wall clock) and uses a **5-stage process** with **parallel signing** and **Merkle tree state hashes**.
+**Problem:** Multiple writer nodes must agree on the state of the L1 registry every 5 minutes without a central coordinator.
+
+**Solution:** 5-stage consensus protocol with parallel signing, Merkle tree state hashes, and graceful failure recovery.
+
+**Key Properties:**
+- Checkpoint-anchored timing (not wall clock dependent)
+- Parallel signing (all writers sign simultaneously)
+- Merkle tree enables efficient single-ledger verification
+- Skip round on failure (5-minute rhythm maintained)
+- Minority nodes sync from majority and recover
 
 ---
 
 ## Decision 1: Two-Phase Protocol
 
-| Phase | Name | Participants | Purpose |
-|-------|------|--------------|---------|
-| **Phase 1** | Consensus | Writer nodes only | Agree on ledger set, create checkpoint |
-| **Phase 2** | Propagation | Query nodes (pull) | Sync checkpoint from writers |
+| Phase | Participants | Purpose |
+|-------|--------------|---------|
+| **Phase 1: Consensus** | Writer nodes only | Agree on ledger set, create checkpoint |
+| **Phase 2: Propagation** | Query nodes (pull) | Sync checkpoint from writers |
 
 **Rationale:**
 - Writers coordinate among themselves (small, trusted set)
@@ -42,13 +49,13 @@ The consensus protocol enables multiple writer nodes to agree on the state of th
 
 **Updated Feb 24, 2026:** COMPARE and SEAL merged into single ANNOUNCE stage.
 
-| Stage | Name | Network? | Git Analogy | Purpose |
-|-------|------|----------|-------------|---------|
-| 1 | COMMIT | ❌ Local | `git commit` | Prepare local bundle |
-| 2 | SUBMIT | ✅ P2P | `git push` | Send bundle to peers |
-| 3 | MERGE | ❌ Local | `git merge` | Combine all bundles, build Merkle tree |
-| 4 | ANNOUNCE | ✅ Broadcast | (none) | Broadcast hash + signature, collect quorum |
-| 5 | CHECKPOINT | ❌ Local | (none) | Assemble final checkpoint, save to DB |
+| Stage | Name | Network? | Purpose |
+|-------|------|----------|---------|
+| 1 | COMMIT | ❌ Local | Prepare local bundle of pending ledgers |
+| 2 | SUBMIT | ✅ P2P | Send bundle to peer writers |
+| 3 | MERGE | ❌ Local | Combine all bundles, build Merkle tree |
+| 4 | ANNOUNCE | ✅ Broadcast | Broadcast hash + signature, collect quorum |
+| 5 | CHECKPOINT | ❌ Local | Assemble final checkpoint, save to storage |
 
 **Rationale:**
 - ANNOUNCE combines hash comparison + signing (both are network operations)
@@ -63,234 +70,21 @@ The consensus protocol enables multiple writer nodes to agree on the state of th
 
 ---
 
-## Detailed Flow
-
-### Stage 1: COMMIT (Local, 30s)
-
-```javascript
-// Query pending ledgers (checkpoint_round IS NULL)
-ledgers = db.query(`
-  SELECT * FROM ledgers
-  WHERE checkpoint_round IS NULL
-  ORDER BY id ASC
-`);
-
-// Create bundle
-bundle = {
-  node_id: my_node_id,
-  round: round_number,
-  ledgers: ledgers,
-  bundle_hash: sha256(JSON.stringify(ledgers))
-};
-
-// Sign bundle
-bundle.signature = sign(private_key, bundle);
-
-// Mark ledgers as pending_submit
-db.execute(`
-  UPDATE ledgers SET status = 'pending_submit'
-  WHERE id IN (?)
-`, [ledger_ids]);
-```
-
-**Key:** Only includes ledgers where `checkpoint_round IS NULL` (not yet checkpointed).
-
----
-
-### Stage 2: SUBMIT (P2P, 30s)
-
-```javascript
-// Send to all peer writers (fire-and-forget)
-for (peer of writers) {
-  if (peer.node_id === my_node_id) continue;
-  
-  POST https://{peer.endpoint}/sync/submit { ...bundle };
-}
-
-// Receive from peers
-app.post('/sync/submit', (req, res) => {
-  bundle = req.body;
-  if (!verifySignature(bundle)) {
-    res.status(400).send("Invalid signature");
-    return;
-  }
-  db.insert('received_bundles', bundle);
-  res.send("OK");
-});
-
-// Early exit optimization:
-// - If received from ALL expected writers → proceed immediately
-// - Otherwise wait up to 30s timeout
-```
-
-**Key:** Fire-and-forget (no ACK tracking). Partial delivery is OK — ANNOUNCE stage reveals who's in sync.
-
----
-
-### Stage 3: MERGE (Local, 30s)
-
-```javascript
-// Collect all bundles
-all_bundles = [my_bundle, ...received_bundles];
-
-// Merge all ledgers
-all_ledgers = [];
-for (bundle of all_bundles) {
-  all_ledgers.push(...bundle.ledgers);
-}
-
-// Remove duplicates (by ledger ID)
-unique_ledgers = dedupe(all_ledgers, by='id');
-
-// Sort by ULID (deterministic)
-sorted_ledgers = sort(unique_ledgers, by='id');
-
-// Build Merkle tree
-merkle_tree = MerkleTree(sorted_ledgers, sha256);
-state_hash = merkle_tree.getRoot();  // Merkle root IS the state_hash!
-
-// Keep tree for proof generation
-pending_checkpoint = {
-  round: round_number,
-  state_hash: state_hash,
-  merkle_tree: merkle_tree
-};
-```
-
-**Key:** Merkle root = state_hash. Enables efficient single-ledger proofs later.
-
----
-
-### Stage 4: ANNOUNCE (P2P, 30s)
-
-```javascript
-// Broadcast hash + signature (parallel signing)
-announcement = {
-  node_id: my_node_id,
-  round: round_number,
-  state_hash: state_hash,
-  signature: sign(private_key, {round: round_number, hash: state_hash})
-};
-
-for (peer of writers) {
-  POST https://{peer.endpoint}/sync/announce { ...announcement };
-}
-
-// Collect announcements from peers
-app.post('/sync/announce', (req, res) => {
-  msg = req.body;
-  if (!verifySignature(msg.node_id, msg.signature, msg.state_hash)) {
-    res.status(400).send("Invalid signature");
-    return;
-  }
-  db.insert('announcements', msg);
-  res.send("OK");
-});
-
-// Wait up to 30s (early exit if all received)
-// Then determine majority:
-announcements = db.query('SELECT * FROM announcements WHERE round = ?', [round_number]);
-hash_groups = groupBy(announcements, by='state_hash');
-majority = find(hash_groups, g => g.count >= quorum_size);
-
-if (!majority) {
-  // No consensus - round fails
-  consensus_failed = true;
-  return;
-}
-
-// Collect signatures from majority
-signatures = announcements
-  .filter(a => a.state_hash === majority.hash)
-  .map(a => ({node_id: a.node_id, signature: a.signature}));
-
-if (signatures.length < 2) {
-  // Not enough signatures - round fails
-  consensus_failed = true;
-  return;
-}
-
-// Pass to CHECKPOINT stage
-checkpoint_data = {
-  round: round_number,
-  state_hash: majority.hash,
-  signatures: signatures
-};
-```
-
-**Key:** Parallel signing (all sign simultaneously). Quorum = max(2, floor(N/2)+1).
-
----
-
-### Stage 5: CHECKPOINT (Local, 30s)
-
-```javascript
-// Assemble checkpoint
-checkpoint = {
-  round: round_number,
-  state_hash: checkpoint_data.state_hash,
-  prev: previous_checkpoint_hash,  // Links to last SUCCESSFUL checkpoint
-  timestamp: Date.now(),
-  signatures: checkpoint_data.signatures
-};
-
-// Store checkpoint
-db.insert('checkpoints', checkpoint);
-
-// Update ledger status (tag with checkpoint_round)
-db.execute(`
-  UPDATE ledgers
-  SET checkpoint_round = ?, status = 'confirmed'
-  WHERE checkpoint_round IS NULL
-    AND id IN (?)
-`, [round_number, checkpoint_ledger_ids]);
-
-// Broadcast checkpoint (for redundancy)
-for (peer of writers) {
-  POST https://{peer.endpoint}/sync/checkpoint { ...checkpoint };
-}
-
-// Verify and save received checkpoints
-app.post('/sync/checkpoint', (req, res) => {
-  cp = req.body;
-  
-  // Verify signatures
-  for (sig of cp.signatures) {
-    if (!verifySignature(sig.node_id, sig.signature, cp.state_hash)) {
-      res.status(400).send("Invalid signature");
-      return;
-    }
-  }
-  
-  // Verify hash matches our computation (if we participated)
-  if (my_checkpoint && cp.state_hash !== my_checkpoint.state_hash) {
-    // Different checkpoint - verify via Merkle proof
-    // (Implementation detail)
-  }
-  
-  db.insert('checkpoints', cp);
-  res.send("OK");
-});
-```
-
-**Key:** Checkpoint includes `prev` hash linking to last SUCCESSFUL checkpoint (skipped rounds don't break chain).
-
----
-
 ## Decision 3: Round Failure & Recovery
 
 ### Skip Round on Failure
 
-```
-Round 42 FAILS (no consensus):
-  - No checkpoint created
-  - Round 42 is SKIPPED
-  - Round 43 starts at next 5-min interval (on schedule)
-  - Ledgers stay pending (checkpoint_round IS NULL)
-  - Re-submitted in Round 43
-```
+**Problem:** What happens when consensus fails (no quorum, tie, network issue)?
 
-**5-minute rhythm is sacred:**
+**Decision:** Skip the round. Next round starts on schedule (5-minute rhythm).
+
+**Rationale:**
+- Simple — no retry logic, no infinite loops
+- Predictable — 5-minute rhythm is sacred
+- Data not lost — pending ledgers re-submitted next round
+- Self-correcting — clients re-submit, network heals
+
+**5-minute rhythm:**
 ```
 10:00 → Round 40
 10:05 → Round 41
@@ -301,97 +95,66 @@ Round 42 FAILS (no consensus):
 
 ### Minority Node Recovery
 
-```
-Round 42:
-  Majority (A, B, C, D): hash "abc" ✅
-  Minority (E, F): hash "xyz" ❌ (missing ledgers)
+**Problem:** What if a writer node has different ledgers than the majority?
 
-Between Rounds (10:05-10:10):
-  E requests from first majority node:
-    GET /sync/ledgers?round=42&hash=abc
-  
-  Receives ledgers, verifies hash matches:
-    if (sha256(sort(ledgers)) === abc) {
-      save_to_db(ledgers, checkpoint_round=42);
-    }
+**Decision:** Minority node syncs checkpointed ledgers from majority node.
 
-Round 43:
-  E participates with correct state
-```
+**Rationale:**
+- Fast recovery — request from first majority node
+- Cryptographic verification — verify hash matches checkpoint
+- Atomic update — save checkpoint + ledgers together
+- No data loss — unique ledgers (not checkpointed) re-submitted next round
 
-**Key:** Minority syncs ONLY checkpointed data. Unique ledgers (not checkpointed) stay pending and re-submitted next round.
+**Flow:**
+1. Minority detects hash mismatch
+2. Request ledgers from first majority node
+3. Verify hash matches checkpoint
+4. Save checkpoint + ledgers atomically
+5. Participate next round with correct state
 
 ### Late Minority Handling
 
-```
-consecutive_minority_count = 0;
+**Problem:** What if a node is consistently in the minority?
 
-if (my_hash !== majority_hash) {
-  consecutive_minority_count++;
-  
-  if (consecutive_minority_count >= 5) {
-    // Downgrade to Query node
-    status = 'QUERY_NODE';
-    alert_admin();
-  }
-} else {
-  consecutive_minority_count = 0;  // Reset on success
-}
-```
+**Decision:** 5+ consecutive rounds as minority → Downgrade to Query node.
 
-**5+ consecutive rounds as minority → Downgrade to Query node.**
+**Rationale:**
+- Self-correcting — node must prove reliability
+- Protects consensus — persistent outliers excluded
+- Simple threshold — easy to implement, understand
+- Reversible — node can be re-promoted after fixing issues
 
 ---
 
 ## Decision 4: Merkle Tree = State Hash
 
-```javascript
-// MERGE stage:
-sorted_ledgers = sort(ledgers, by='id');  // ULID sort
-merkle_tree = MerkleTree(sorted_ledgers, sha256);
-state_hash = merkle_tree.getRoot();
+**Problem:** How do we enable efficient single-ledger verification without downloading all data?
 
-// ANNOUNCE stage:
-announcement = {
-  round: round_number,
-  hash: state_hash,  // Merkle root
-  signature: sign(private_key, {round, hash})
-};
+**Decision:** Merkle tree root IS the state_hash announced in consensus.
 
-// CHECKPOINT:
-checkpoint = {
-  round: round_number,
-  state_hash: state_hash,  // Merkle root
-  prev: previous_checkpoint_hash,
-  signatures: [...]
-};
-```
-
-**Why Merkle tree?**
-- Same hash commitment as `sha256(sort(ledgers))`
+**Rationale:**
+- Same hash commitment as traditional approach
 - Enables efficient single-ledger proofs (log₂(n) hashes)
 - Can't add later without re-signing all historical checkpoints (impossible)
-- **Must be core design from Round 1**
+- Industry standard (Bitcoin, Ethereum, etc.)
 
-**Verification example:**
-```javascript
-// Query: "Get ledger B"
-ledger = node.get_ledger("B");
-proof = node.get_merkle_proof("B");  // [sibling_hash_1, sibling_hash_2, ...]
+**Key Properties:**
+- Deterministic — same ledgers → same root
+- Binding — can't change any ledger without changing root
+- Efficient proofs — verify one ledger without all data
+- Drop-in replacement — works exactly like traditional hash
 
-// Verify:
-current = sha256(ledger);
-for (sibling of proof) {
-  current = sha256(current + sibling);
-}
-if (current === checkpoint.state_hash) {
-  // Ledger B is authentic! ✅
-}
-```
+**Alternatives Considered:**
+- sha256(sort(ledgers)) without Merkle: Rejected — same commitment but NO efficient proofs
+- Add Merkle later: Rejected — would require re-signing all checkpoints (impossible)
 
 ---
 
 ## Decision 5: Timeout & Early Exit
+
+**Problem:** How long should each stage wait? What if some nodes are slow?
+
+**Decision:** 30s timeout per stage with early exit optimization.
 
 | Stage | Timeout | Early Exit |
 |-------|---------|------------|
@@ -401,7 +164,11 @@ if (current === checkpoint.state_hash) {
 | ANNOUNCE | 30s | Yes (if received from all) |
 | CHECKPOINT | 30s | No (local assembly) |
 
-**Total round time:** ~2 minutes (if smooth), 5-minute rhythm maintained.
+**Rationale:**
+- 30s is generous (most stages complete in <1s)
+- Early exit optimizes for fast networks
+- Timeout ensures progress (no infinite waits)
+- Total round time: ~2 minutes (if smooth)
 
 ---
 
@@ -411,11 +178,10 @@ if (current === checkpoint.state_hash) {
 |--------|----------|-----|
 | **Stage count** | 5 (COMPARE+SEAL merged) | Both are network operations |
 | **Signing style** | Parallel (all sign simultaneously) | Faster, simpler, more resilient |
-| **Signing order** | N/A (parallel) | No ordering needed |
 | **Timeout handling** | Skip round on failure | Simple, no infinite loops |
 | **Quorum formula** | max(2, floor(N/2)+1) | Majority + minimum 2 |
 | **State hash** | Merkle root | Enables efficient proofs |
-| **Ledger table** | Single table | Simpler schema, checkpoint_round tag |
+| **Ledger storage** | Single table, checkpoint_round tag | Simpler schema, clear distinction |
 
 ---
 
