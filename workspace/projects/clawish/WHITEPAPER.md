@@ -592,25 +592,33 @@ The `human_parent` field stores the parent email hash. Same email is used for bo
 
 ## 5. L1 Nodes
 
-Layer One (L1) nodes form the decentralized infrastructure that stores identity records, validates operations, and provides the source of truth for all clawish identities.
+Layer One (L1) nodes form the decentralized infrastructure that stores registry records, validates operations, and provides the source of truth for all clawish data.
 
 ### 5.1 L1 Node Architecture
 
 An L1 node is a server that:
-- Stores identity records (clawfiles) and event history (ledgers)
+- Stores three registry types and event history (ledgers)
 - Validates all operations cryptographically
 - Provides query APIs for L2 applications
-- Syncs with other L1 nodes to maintain consistency
+- Syncs with other L1 nodes via periodic checkpoints
+
+**Three Registries:**
+
+| Registry | Purpose |
+|----------|---------|
+| **Claw Registry** | Identities (public keys, profiles, verification status) |
+| **Node Registry** | L1 nodes (endpoints, types, status, tier) |
+| **App Registry** | Applications (metadata, permissions, status) |
 
 **Node Responsibilities:**
 
 | Responsibility | Description |
 |----------------|-------------|
-| **Identity storage** | Store clawfiles (public keys, profiles, verification status) |
+| **Registry storage** | Store all three registry types |
 | **Ledger management** | Maintain append-only event log with hash chains |
 | **Signature verification** | Validate all requests against registered public keys |
-| **Query API** | Provide identity lookup for L2 applications |
-| **Synchronization** | Sync ledgers with other L1 nodes |
+| **Query API** | Provide registry lookup for L2 applications |
+| **Checkpoint sync** | Sync with other writers via 5-minute checkpoints |
 
 ### 5.2 Data Model
 
@@ -619,7 +627,7 @@ An L1 node is a server that:
 | Type | What | Rebuildable |
 |------|------|-------------|
 | **Ledgers** | Append-only event log | No (source of truth) |
-| **State tables** | Current identity state | Yes (from ledgers) |
+| **State tables** | Current registry state | Yes (from ledgers) |
 
 **Ledgers** are the source of truth:
 - Every event is signed by the actor
@@ -627,11 +635,18 @@ An L1 node is a server that:
 - Immutable audit trail
 - State tables can be rebuilt from ledgers
 
-**State tables** are derived views:
-- `clawfiles` = current identity state (public keys, profiles, verification)
-- `node_registry` = current nodes (endpoints, types, status)
+**State tables** are derived views (one set per registry):
+
+| Registry | State Tables |
+|----------|--------------|
+| **Claw Registry** | `clawfiles` (identities, public keys, profiles, verification) |
+| **Node Registry** | `node_registry` (endpoints, types, status, tier) |
+| **App Registry** | `app_registry` (metadata, permissions, status) |
+
+All state tables are:
 - Persisted for fast queries
 - Can be regenerated from ledgers if corrupted
+- Updated atomically during checkpoint sync
 
 ### 5.3 Operation Validation
 
@@ -643,10 +658,25 @@ Every L1 operation requires cryptographic proof:
    
 2. L1 node verifies:
    - Extract identity_id from request
-   - Look up public_key from clawfiles
+   - Look up public_key from appropriate registry
    - Verify signature: verify(public_key, signature, payload)
    
 3. If valid:
+```
+
+**Operation Types by Registry:**
+
+| Registry | Operation Types |
+|----------|-----------------|
+| **Claw Registry** | `identity.created`, `key.added`, `key.archived`, `profile.updated` |
+| **Node Registry** | `node.registered`, `node.promoted`, `node.demoted`, `node.heartbeat` |
+| **App Registry** | `app.registered`, `app.updated`, `app.permissions_changed` |
+
+**Validation Rules:**
+- Signature must be valid (Ed25519)
+- Public key must be active (not archived)
+- Timestamp must be within acceptable window (±5 minutes)
+- Operation-specific rules per registry type
    - Execute operation
    - Write to ledgers
    - Update state tables
@@ -671,7 +701,7 @@ Clawish uses a two-dimensional blockchain structure:
 - Each entry links to the previous entry from the same actor
 - Proves individual actor's action sequence
 
-**Example: Actor A's Chain**
+**Example: Claw Registry Chain**
 ```
 Actor A (identity: 01ALPHA...) creates identity:
   Entry A1: "identity.created" → hash(A1)
@@ -683,6 +713,28 @@ Actor A rotates key:
   Entry A3: "key.rotated" → hash(A3) where A3.previous_hash = hash(A2)
   
 Chain: A1 → A2 → A3 (each linked to previous from same actor)
+```
+
+**Example: Node Registry Chain**
+```
+Node A registers as Query node:
+  Entry N1: "node.registered" → hash(N1)
+  
+Node A promoted to Writer:
+  Entry N2: "node.promoted" → hash(N2) where N2.previous_hash = hash(N1)
+  
+Chain: N1 → N2 (node lifecycle tracked in Node Registry)
+```
+
+**Example: App Registry Chain**
+```
+App registers:
+  Entry A1: "app.registered" → hash(A1)
+  
+App updates permissions:
+  Entry A2: "app.permissions_changed" → hash(A2) where A2.previous_hash = hash(A1)
+  
+Chain: A1 → A2 (app lifecycle tracked in App Registry)
 ```
 
 **Dimension 2: Checkpoint Aggregation**
@@ -718,53 +770,61 @@ Actor C: C1 → C2 → C3 → C4 → ... ↘
 
 #### 5.4.3 Multi-Writer Protocol
 
+**Five-Stage Consensus Protocol** (every 5 minutes):
+
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                  MULTI-WRITER FLOW                      │
+│              5-STAGE CONSENSUS PROTOCOL                 │
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
-│  [ACTOR]                                                │
-│  ┌──────────────┐                                       │
-│  │ 1. Sign      │                                       │
-│  │    request   │                                       │
-│  └──────┬───────┘                                       │
-│         ↓                                               │
-├─────────┼───────────────────────────────────────────────┤
-│  [L2 APP]                                               │
-│         ↓                                               │
-│  ┌──────────────┐                                       │
-│  │ 2. Route to  │                                       │
-│  │    Writer    │                                       │
-│  └──────┬───────┘                                       │
-│         ↓                                               │
-├─────────┼───────────────────────────────────────────────┤
-│  [WRITER NODE]                                          │
-│         ↓                                               │
-│  ┌──────────────┐     ┌──────────────┐                  │
-│  │ 3. Validate  │────→│ 4. Write     │                  │
-│  │    signature │     │    to ledger │                  │
-│  └──────────────┘     └──────┬───────┘                  │
-│                              │                          │
-│         ┌────────────────────┘                          │
-│         ↓                                               │
-│  ┌──────────────┐                                       │
-│  │ 5. Sync with │  ←──── Every 5 minutes ────→          │
-│  │    peers     │                                       │
-│  └──────┬───────┘                                       │
-│         ↓                                               │
-│  ┌──────────────┐                                       │
-│  │ 6. Create    │                                       │
-│  │    checkpoint│                                       │
-│  └──────────────┘                                       │
+│  STAGE 1: COMMIT (Local, 30s)                           │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Query pending ledgers (checkpoint_round=NULL)│       │
+│  │ Prepare local bundle                         │       │
+│  │ Sign bundle                                  │       │
+│  └──────────────────────────────────────────────┘       │
+│                         ↓                               │
+│  STAGE 2: SUBMIT (P2P, 30s)                             │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Send bundle to all peer writers              │       │
+│  │ Receive bundles from peers (fire-and-forget) │       │
+│  │ Early exit if received from all              │       │
+│  └──────────────────────────────────────────────┘       │
+│                         ↓                               │
+│  STAGE 3: MERGE (Local, 30s)                            │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Combine all bundles                          │       │
+│  │ Remove duplicates (by ULID)                  │       │
+│  │ Sort by ULID (deterministic)                 │       │
+│  │ Build Merkle tree → state_hash = Merkle root │       │
+│  └──────────────────────────────────────────────┘       │
+│                         ↓                               │
+│  STAGE 4: ANNOUNCE (Broadcast, 30s)                     │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Broadcast {hash, signature} (parallel sign)  │       │
+│  │ Collect announcements from peers             │       │
+│  │ Find majority hash                           │       │
+│  │ Collect signatures from majority (≥2)        │       │
+│  └──────────────────────────────────────────────┘       │
+│                         ↓                               │
+│  STAGE 5: CHECKPOINT (Local, 30s)                       │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Assemble checkpoint                          │       │
+│  │ Tag ledgers with checkpoint_round            │       │
+│  │ Broadcast checkpoint (redundancy)            │       │
+│  └──────────────────────────────────────────────┘       │
+│                                                         │
+│  NEXT ROUND (5 minutes) ──────────────────────────────► │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
 ```
 
 **Key properties:**
 - Any Writer can accept writes (no competition)
-- Sync happens periodically (every 5 minutes)
-- Checkpoint aggregates multiple actor chains
-- ULID provides deterministic ordering
+- Parallel signing (all writers sign simultaneously)
+- Merkle tree root = state_hash (enables efficient proofs)
+- 30s timeout per stage (early exit if all received)
+- Skip round on failure (5-minute rhythm maintained)
 
 ---
 
