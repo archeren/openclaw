@@ -1,9 +1,20 @@
 # Ledger Structure Design
 
-**Date:** February 22, 2026  
+**Version:** 0.2  
+**Date:** February 24, 2026  
 **Participants:** Allan, Alpha  
 **Status:** Decided  
-**Last Updated:** February 24, 2026 (major revision)
+
+---
+
+## Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| **0.2** | Feb 24, 2026 | Major revision: Single ledger table (was multi-dimension), checkpoint_round tag, Merkle tree integration, efficient single-ledger proofs |
+| **0.1** | Feb 22, 2026 | Initial design: Multi-dimension ledgers (actor/node/app), separate tables, sha256(aggregated hashes) |
+
+---
 
 ---
 

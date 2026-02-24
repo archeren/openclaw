@@ -1,9 +1,20 @@
 # Consensus Protocol Design
 
-**Date:** February 22, 2026  
+**Version:** 0.2  
+**Date:** February 24, 2026  
 **Participants:** Allan, Alpha  
 **Status:** Decided  
-**Last Updated:** February 24, 2026 (major revision)
+
+---
+
+## Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| **0.2** | Feb 24, 2026 | Major revision: 6→5 stages (ANNOUNCE=COMPARE+SEAL), parallel signing, Merkle tree=state_hash, skip round recovery, minority sync, late minority handling |
+| **0.1** | Feb 22, 2026 | Initial design: 6-step protocol, chain signing, sha256(sort(ledgers)) |
+
+---
 
 ---
 
