@@ -768,13 +768,20 @@ Actor C: C1 → C2 → C3 → C4 → ... ↘
 
 ---
 
-#### 5.4.3 Multi-Writer Protocol
+#### 5.4.3 Multi-Writer Synchronization
 
-**Five-Stage Consensus Protocol** (every 5 minutes):
+Multi-writer synchronization happens in **two phases** every 5 minutes:
+
+- **Phase 1: Consensus Protocol** (5 stages) — Writers agree on ledger set and state hash
+- **Phase 2: Checkpoint Distribution** — Checkpoint broadcast and ledger finalization
+
+---
+
+##### Phase 1: Consensus Protocol (5 Stages)
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│              5-STAGE CONSENSUS PROTOCOL                 │
+│              CONSENSUS PROTOCOL (Phase 1)               │
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
 │  STAGE 1: COMMIT (Local, 30s)                           │
@@ -809,61 +816,11 @@ Actor C: C1 → C2 → C3 → C4 → ... ↘
 │                         ↓                               │
 │  STAGE 5: CHECKPOINT (Local, 30s)                       │
 │  ┌──────────────────────────────────────────────┐       │
-│  │ Assemble checkpoint                          │       │
-│  │ Tag ledgers with checkpoint_round            │       │
-│  │ Broadcast checkpoint (redundancy)            │       │
+│  │ Assemble checkpoint record                   │       │
+│  │ checkpoint = {round, hash, prev, signatures} │       │
 │  └──────────────────────────────────────────────┘       │
 │                                                         │
-│  NEXT ROUND (5 minutes) ──────────────────────────────► │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
-```
-
-**Key properties:**
-- Any Writer can accept writes (no competition)
-- Parallel signing (all writers sign simultaneously)
-- Merkle tree root = state_hash (enables efficient proofs)
-- 30s timeout per stage (early exit if all received)
-- Skip round on failure (5-minute rhythm maintained)
-
----
-
-#### 5.4.4 Checkpoint Synchronization
-
-**Checkpoint Cycle** (every 5 minutes, 5-stage protocol from §5.4.3):
-
-```
-┌─────────────────────────────────────────────────────────┐
-│               CHECKPOINT SYNCHRONIZATION                │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  [STAGE 1-3: COMMIT, SUBMIT, MERGE]                     │
-│  - Writers prepare and exchange ledgers                 │
-│  - Merge all bundles, remove duplicates (by ULID)       │
-│  - Sort by ULID (deterministic ordering)                │
-│  - Build Merkle tree → state_hash = Merkle root         │
-│                                                         │
-│  [STAGE 4: ANNOUNCE - Parallel Signing]                 │
-│  All writers sign SIMULTANEOUSLY (not chain):           │
-│  - Each broadcasts: {state_hash, signature}             │
-│  - Collect announcements from all writers               │
-│  - Find majority hash (all should match)                │
-│  - Collect signatures from majority (≥2 required)       │
-│                                                         │
-│  [STAGE 5: CHECKPOINT]                                  │
-│  Each writer assembles locally:                         │
-│  - checkpoint = {round, state_hash, prev, signatures}   │
-│  - Tag ledgers with checkpoint_round                    │
-│  - Broadcast checkpoint (redundancy, all have same)     │
-│                                                         │
-│  [FAILURE: Skip Round]                                  │
-│  If no consensus (timeout, network issue):              │
-│  - Round is SKIPPED (no checkpoint created)             │
-│  - Next round starts on schedule (5-min rhythm)         │
-│  - Pending ledgers re-submitted next round              │
-│  - Chain links to last SUCCESSFUL checkpoint            │
-│                                                         │
-│  [NEXT ROUND - 5 minutes] ──────────────────────────►   │
+│  → Phase 2: Checkpoint Distribution                     │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -872,11 +829,41 @@ Actor C: C1 → C2 → C3 → C4 → ... ↘
 
 | Property | Description |
 |----------|-------------|
-| **Parallel signing** | All writers sign simultaneously (not chain); simpler and more resilient |
+| **Parallel signing** | All writers sign simultaneously in ANNOUNCE (not chain); simpler and more resilient |
 | **Merkle root = state_hash** | Cryptographically binds to all ledger data; enables efficient single-ledger proofs |
-| **Skip round on failure** | Prefer losing data over complexity; 5-min rhythm is sacred |
-| **Identical checkpoints** | All writers store same checkpoint (header + signatures array) |
-| **Signatures inside checkpoint** | No re-signing when saving; signatures are part of the record |
+| **30s timeout per stage** | Early exit if all received; network is bottleneck (verification is <1ms) |
+| **Quorum ≥2** | Minimum 2 signatures required for consensus |
+
+---
+
+##### Phase 2: Checkpoint Distribution
+
+```
+┌─────────────────────────────────────────────────────────┐
+│           CHECKPOINT DISTRIBUTION (Phase 2)             │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  [BROADCAST CHECKPOINT]                                 │
+│  Each writer broadcasts assembled checkpoint:           │
+│  - checkpoint = {round, state_hash, prev, signatures}   │
+│  - Redundancy ensures all writers receive               │
+│                                                         │
+│  [VERIFY & SAVE]                                        │
+│  Each writer verifies before saving:                    │
+│  1. Does state_hash match what I announced?             │
+│  2. Are ≥2 signatures valid?                            │
+│  3. Does prev link to my last checkpoint?               │
+│  If all valid → Save checkpoint                         │
+│                                                         │
+│  [TAG LEDGERS]                                          │
+│  Update ledgers table:                                  │
+│  - SET checkpoint_round = round WHERE checkpoint_round IS NULL  │
+│  - Ledger state: pending → sealed                       │
+│                                                         │
+│  [NEXT ROUND - 5 minutes] ──────────────────────────►   │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
 
 **Checkpoint Structure:**
 ```javascript
@@ -893,30 +880,108 @@ checkpoint = {
 }
 ```
 
-**Verification** (each writer, before saving):
-1. Does `state_hash` match what I announced? → Ensures ledger consistency
-2. Are ≥2 signatures valid? → Ensures quorum reached
-3. Does `prev` link to my last checkpoint? → Ensures chain integrity
-4. If all valid → Save checkpoint; if invalid → Reject and announce error
-
-**Minority Recovery:**
-If a writer misses a round (offline, network issue):
-1. Detects gap in checkpoint sequence
-2. Requests full ledger set from first majority node
-3. Verifies ledgers match `state_hash` in checkpoint
-4. Tags ledgers with `checkpoint_round`
-5. Saves checkpoint and resumes normal operation
-
-**Late Minority Handling:**
-If a writer is consistently in minority (5+ consecutive rounds):
-1. Automatically downgraded to Query node
-2. Must re-prove reliability (90-day probation)
-3. Can be re-promoted to Writer based on sync speed
-4. Self-correcting mechanism (no governance needed)
+**Why Two Phases?**
+- **Phase 1** = Agreement (reaching consensus on state)
+- **Phase 2** = Finalization (making it official, distributing, tagging)
+- Separation clarifies: consensus happens first, then distribution
 
 ---
 
-#### 5.4.5 Handling Conflicts
+##### Failure Handling: Skip Round
+
+If consensus fails (timeout, network issue, no majority):
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                  SKIP ROUND PROTOCOL                    │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  [DETECT FAILURE]                                       │
+│  - Timeout in any stage (30s)                           │
+│  - No majority hash found                               │
+│  - Insufficient signatures (<2)                         │
+│                                                         │
+│  [SKIP ROUND]                                           │
+│  - Round is SKIPPED (no checkpoint created)             │
+│  - Next round starts on schedule (5-min rhythm)         │
+│  - Chain links to last SUCCESSFUL checkpoint            │
+│  - Skipped rounds leave NO gap in chain                 │
+│                                                         │
+│  [RE-SUBMIT PENDING LEDGERS]                            │
+│  - Ledgers with checkpoint_round=NULL stay pending      │
+│  - Re-submitted in next round's SUBMIT stage            │
+│  - Merged with new ledgers, new hash computed           │
+│                                                         │
+│  [PREFER SIMPLICITY OVER COMPLEXITY]                    │
+│  - No retry logic                                       │
+│  - No partial checkpoint recovery                       │
+│  - Losing one round's data is acceptable                │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Why Skip (Not Retry)?**
+- 5-minute rhythm is sacred (checkpoint-anchored timing)
+- Retry logic adds complexity (when? how many times?)
+- Losing one round's data is acceptable trade-off
+- Clients re-submit if needed (application-layer retry)
+
+---
+
+##### Recovery: Minority Sync
+
+If a writer misses a round (offline, network issue):
+
+```
+┌─────────────────────────────────────────────────────────┐
+│               MINORITY RECOVERY PROTOCOL                │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  [DETECT GAP]                                           │
+│  - Local checkpoint_round: 41                           │
+│  - Received checkpoint: 43 (gap detected)               │
+│                                                         │
+│  [REQUEST SYNC]                                         │
+│  - Contact first majority node (not broadcast)          │
+│  - Request: all ledgers for rounds 42, 43               │
+│                                                         │
+│  [VERIFY & APPLY]                                       │
+│  1. Verify ledgers match state_hash in checkpoint #43   │
+│  2. Tag ledgers: SET checkpoint_round = round           │
+│  3. Save checkpoint #43                                 │
+│  4. Resume normal operation (participate in round 44)   │
+│                                                         │
+│  [ATOMIC OPERATION]                                     │
+│  - Sync ledgers AND write checkpoint together           │
+│  - Either both succeed, or neither                      │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Why Request from First Majority Node?**
+- Simpler than broadcast (one request, one response)
+- Any majority node has the same ledgers (deterministic)
+- Reduces network traffic
+
+---
+
+##### Late Minority Handling
+
+If a writer is consistently in minority (5+ consecutive rounds):
+
+| Consecutive Minority | Action |
+|---------------------|--------|
+| 1-4 rounds | Normal operation (temporary issue) |
+| 5+ rounds | **Auto-downgrade to Query node** |
+| After downgrade | 90-day probation to re-prove reliability |
+| Re-promotion | Based on sync speed ranking |
+
+**Self-Correcting Mechanism:**
+- No governance needed (code decides based on metrics)
+- Protects network from slow/unreliable writers
+- Gives node chance to recover (re-promotion possible)
+
+#### 5.4.4 Handling Conflicts
 
 **Conflict Types & Resolution:**
 
@@ -967,62 +1032,6 @@ Checkpoints serve as **trust anchors** that prevent conflicts from propagating:
 - `state_hash` cryptographically binds to all ledger data
 - Any modification invalidates signatures (math is the truth)
 - Network's truth = checkpoint history, not individual node state
-
-**Node Types:**
-
-| Node Type | Role | Write Access | Count |
-|-----------|------|--------------|-------|
-| **Writer Node** | Process writes, create checkpoints, participate in consensus | ✅ Yes | Few (merit-based) |
-| **Query Node** | Read only, sync data, serve queries | ❌ No | Many (open) |
-
-**Writer Node Selection:**
-
-Writer nodes are selected by merit, not by stake or permission:
-
-```
-NEW NODE
-    ↓
-Joins as Query Node (open, no permission needed)
-    ↓
-90-day probation period (proves reliability)
-    ↓
-After probation, becomes eligible for Writer promotion
-    ↓
-Ranked by sync speed at each checkpoint
-    ↓
-Fastest Query nodes → Promoted to Writer
-    ↓
-Writers also ranked by sync speed
-    ↓
-Slowest writers → Demoted back to Query
-```
-
-**Node Quality Metrics:**
-
-| Metric | What It Measures | How Used |
-|--------|------------------|----------|
-| **Sync speed** | How fast node receives and processes checkpoints | Primary ranking metric |
-| **Uptime** | Availability over time | Probation requirement |
-| **Response time** | How fast node responds to queries | Secondary metric |
-
-**Writer Rotation:**
-
-At each checkpoint, nodes are ranked:
-1. All nodes measured by sync speed
-2. Current writers ranked among themselves
-3. Eligible query nodes ranked among themselves
-4. Slowest writer(s) → demoted to Query
-5. Fastest eligible query node(s) → promoted to Writer
-
-**No governance needed** — the code decides based on performance metrics.
-
-**L2 Routes to L1:**
-
-Actors don't connect to L1 directly — they connect to L2:
-1. Actor sends request to L2
-2. L2 routes request to any available Writer node
-3. Writer processes and writes to ledgers
-4. Writer nodes sync periodically with other writers
 
 ### 5.5 Security Model
 
