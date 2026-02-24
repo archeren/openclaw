@@ -47,15 +47,11 @@
 
 ## Decision 2: Five-Stage Consensus Protocol
 
-**Updated Feb 24, 2026:** COMPARE and SEAL merged into single ANNOUNCE stage.
+**Function:** Enable multiple writers to reach consensus on ledger state every 5 minutes
 
-| Stage | Name | Network? | Purpose |
-|-------|------|----------|---------|
-| 1 | COMMIT | ❌ Local | Prepare local bundle of pending ledgers |
-| 2 | SUBMIT | ✅ P2P | Send bundle to peer writers |
-| 3 | MERGE | ❌ Local | Combine all bundles, build Merkle tree |
-| 4 | ANNOUNCE | ✅ Broadcast | Broadcast hash + signature, collect quorum |
-| 5 | CHECKPOINT | ❌ Local | Assemble final checkpoint, save to storage |
+**Decision:** 5-stage protocol (ANNOUNCE = COMPARE + SEAL merged), parallel signing, 30s timeouts
+
+**Status:** ✅ Decided
 
 **Rationale:**
 - ANNOUNCE combines hash comparison + signing (both are network operations)
@@ -68,21 +64,45 @@
 - Chain signing: Rejected — parallel is faster, simpler, more resilient
 - 60s timeouts: Rejected — 30s is generous (most stages complete in <1s)
 
+**Context & Discussion:**
+> Allan: "so the submit 30s, if one node received every others, then it finish early, start to merge immediately. otherwise, if some node doesn't receive everyone, then wait 30s, then force merge?" — Feb 24, 2026 11:53
+>
+> Alpha: "YES! Exactly right! Each node proceeds at its own pace... Early finish = proceed immediately. Timeout = force MERGE with what you have." — Feb 24, 2026 11:55
+>
+> Allan: "is merkle tree difficult to implement or resourceful?" — Feb 24, 2026 15:04
+>
+> Alpha: "Merkle trees are NEITHER difficult NOR resource-intensive! ~50 lines of code or 5 lines with library, ~5ms to build, ~1ms to verify." — Feb 24, 2026 15:06
+>
+> Allan: "these discussion are very important, do you have any other questions or flaw that we haven't discuss or think of?" — Feb 24, 2026 13:38
+>
+> Allan: "actually it only need request the first signature node in majority, since they have all ledger already." — Feb 24, 2026 12:16 (minority sync optimization)
+
 ---
 
 ## Decision 3: Round Failure & Recovery
 
 ### Skip Round on Failure
 
-**Problem:** What happens when consensus fails (no quorum, tie, network issue)?
+**Function:** Handle consensus failure without breaking the chain or losing data
 
 **Decision:** Skip the round. Next round starts on schedule (5-minute rhythm).
+
+**Status:** ✅ Decided
 
 **Rationale:**
 - Simple — no retry logic, no infinite loops
 - Predictable — 5-minute rhythm is sacred
 - Data not lost — pending ledgers re-submitted next round
 - Self-correcting — clients re-submit, network heals
+
+**Context & Discussion:**
+> Allan: "if a round unabled to reach consensus and fail, so it just skipped?" — Feb 24, 2026 13:48
+>
+> Alpha: "YES! Exactly! If a round fails to reach consensus → it's SKIPPED → next round starts on schedule!" — Feb 24, 2026 13:50
+>
+> Allan: "if not reach consensus, everyone merge is invalid in that round? and next round merge again?" — Feb 24, 2026 13:52
+>
+> Alpha: "The merge itself is VALID! Each node correctly merged what they received. What's invalid: No agreement on WHICH merge is correct. Next round re-merges everything (old pending + new). No data loss!" — Feb 24, 2026 13:54
 
 **5-minute rhythm:**
 ```
@@ -95,9 +115,11 @@
 
 ### Minority Node Recovery
 
-**Problem:** What if a writer node has different ledgers than the majority?
+**Function:** Enable minority nodes to sync with majority and recover
 
 **Decision:** Minority node syncs checkpointed ledgers from majority node.
+
+**Status:** ✅ Decided
 
 **Rationale:**
 - Fast recovery — request from first majority node
@@ -105,18 +127,30 @@
 - Atomic update — save checkpoint + ledgers together
 - No data loss — unique ledgers (not checkpointed) re-submitted next round
 
-**Flow:**
-1. Minority detects hash mismatch
-2. Request ledgers from first majority node
-3. Verify hash matches checkpoint
-4. Save checkpoint + ledgers atomically
-5. Participate next round with correct state
+**Context & Discussion:**
+> Allan: "what happens to the ledger of the failed node? since it's different than others. does it sync or submit or what?" — Feb 24, 2026 12:09
+>
+> Alpha: "Minority requests ledgers from majority, syncs before next round." — Feb 24, 2026 12:10
+>
+> Allan: "does minority request the missing ledger or send request to everyone to gather?" — Feb 24, 2026 12:13
+>
+> Allan: "actually it only need request the first signature node in majority, since they have all ledger already." — Feb 24, 2026 12:16
+>
+> Allan: "what's the checkpoint creator? isn't everybody create their own checkpoint?" — Feb 24, 2026 12:18
+>
+> Alpha: "YOU'RE RIGHT! No single 'creator' — everyone in majority has identical checkpoint. Minority requests from ANY majority node (first one is simplest)." — Feb 24, 2026 12:20
+>
+> Allan: "also, the minority. write checkpoint too? or they have to wait until the majority finishes checkpoint. sync data then write check point?" — Feb 24, 2026 12:21
+>
+> Alpha: "Minority waits, syncs ledgers first, verifies, THEN writes checkpoint (together with ledgers)." — Feb 24, 2026 12:24
 
 ### Late Minority Handling
 
-**Problem:** What if a node is consistently in the minority?
+**Function:** Handle nodes that are consistently out of sync
 
 **Decision:** 5+ consecutive rounds as minority → Downgrade to Query node.
+
+**Status:** ✅ Decided
 
 **Rationale:**
 - Self-correcting — node must prove reliability
@@ -124,13 +158,20 @@
 - Simple threshold — easy to implement, understand
 - Reversible — node can be re-promoted after fixing issues
 
+**Context & Discussion:**
+> Allan: "so the minority, if they can't finish checkpoint within the five minutes. then they can't participate in the next round? they become query node next round?" — Feb 24, 2026 12:27
+>
+> Alpha: "They participate in next round (will likely fail again), but if minority for 5+ consecutive rounds → downgrade to Query node." — Feb 24, 2026 12:29
+
 ---
 
 ## Decision 4: Merkle Tree = State Hash
 
-**Problem:** How do we enable efficient single-ledger verification without downloading all data?
+**Function:** Enable efficient single-ledger verification without downloading all data
 
 **Decision:** Merkle tree root IS the state_hash announced in consensus.
+
+**Status:** ✅ Decided
 
 **Rationale:**
 - Same hash commitment as traditional approach
@@ -143,6 +184,15 @@
 - Binding — can't change any ledger without changing root
 - Efficient proofs — verify one ledger without all data
 - Drop-in replacement — works exactly like traditional hash
+
+**Context & Discussion:**
+> Allan: "so the root of merkle tree is the actual hash being announced at merge?" — Feb 24, 2026 15:25
+>
+> Alpha: "YES! EXACTLY! The Merkle root IS the state_hash announced in ANNOUNCE stage!" — Feb 24, 2026 15:27
+>
+> Allan: "in that case, we should use it at first place, it's not optional because at merge, we have three registry need combine into one hash. we need hash calculation anyway. why not just use merkle tree, change hash method later will need a lot more work at migration later." — Feb 24, 2026 15:35
+>
+> Alpha: "YOU'RE ABSOLUTELY RIGHT! We're computing a hash anyway - might as well use Merkle tree and get efficient proofs for free. Changing later is practically impossible (can't re-sign historical checkpoints). This is whitepaper-core, not optional!" — Feb 24, 2026 15:37
 
 **Alternatives Considered:**
 - sha256(sort(ledgers)) without Merkle: Rejected — same commitment but NO efficient proofs

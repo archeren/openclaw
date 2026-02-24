@@ -32,9 +32,11 @@
 
 ## Decision: Single Ledger Table + Checkpoint Tag
 
-**Problem:** Should we have separate tables for different ledger types (actor, node, app) or a single unified table?
+**Function:** Store registry events with clear pending/sealed distinction
 
-**Decision:** Single unified ledger table with checkpoint_round tag.
+**Decision:** Single unified ledger table with checkpoint_round tag (NULL = pending, NOT NULL = sealed).
+
+**Status:** ✅ Decided
 
 **Rationale:**
 - Simpler schema — one table to maintain, not three
@@ -42,6 +44,15 @@
 - Atomic transitions — single UPDATE (pending → confirmed)
 - Checkpoint_round tag — clear distinction (NULL vs NOT NULL)
 - Merkle tree handles all types uniformly
+
+**Context & Discussion:**
+> Allan: "does merge has its own signatures or tag? or each merge is define by round number?" — Feb 24, 2026 13:57
+>
+> Alpha: "The merge itself has NO signature - it's just a local computation! The SIGNATURE is on the hash in ANNOUNCE stage... When a ledger is checkpointed, it gets tagged with the round number: checkpoint_round." — Feb 24, 2026 14:00
+>
+> Allan: "also, minority fail can because submit fail, so it has data others doesn't have, those data are ok to merge. it's just those checkpointed data shouldn't be submit and merge." — Feb 24, 2026 14:20
+>
+> Alpha: "EXACTLY RIGHT! The rule is simple: Checkpointed data (checkpoint_round IS NOT NULL) → Never re-submit. Pending data (checkpoint_round IS NULL) → Re-submit next round. Includes unique minority ledgers (others didn't receive)." — Feb 24, 2026 14:22
 
 **Alternatives Considered:**
 - Separate tables per dimension: Rejected — 3x complexity, no benefit
@@ -67,9 +78,11 @@
 
 ## Decision: Merkle Tree Integration
 
-**Problem:** How do we enable efficient single-ledger verification without downloading all data?
+**Function:** Enable efficient single-ledger verification without downloading all data
 
 **Decision:** Merkle tree root IS the state_hash. Each checkpoint includes the Merkle root, enabling efficient single-ledger proofs.
+
+**Status:** ✅ Decided
 
 **Rationale:**
 - Efficient proofs — verify single ledger without all data (log₂(n) hashes)
@@ -81,6 +94,15 @@
 - Deterministic — same ledgers → same root
 - Binding — can't change any ledger without changing root
 - Efficient proofs — verify one ledger without all data
+
+**Context & Discussion:**
+> Allan: "but the thing is, when a query node query info, if it just need one data, does it have to retrive the whole batch then calculate hash to verify? then use the data?" — Feb 24, 2026 14:59
+>
+> Alpha: "NO! You don't need to retrieve the whole batch for every query! Multi-node cross-check (query 3 nodes, compare) is fast alternative. Or Merkle proof: only need sibling hashes (log₂(n)) to verify single ledger." — Feb 24, 2026 15:01
+>
+> Allan: "is merkle tree difficult to implement or resourceful?" — Feb 24, 2026 15:04
+>
+> Alpha: "Merkle trees are NEITHER difficult NOR resource-intensive! ~50 lines of code or 5 lines with library, ~5ms to build, ~1ms to verify." — Feb 24, 2026 15:06
 
 **Alternatives Considered:**
 - sha256(sort(ledgers)) without Merkle: Rejected — same commitment but NO efficient proofs
