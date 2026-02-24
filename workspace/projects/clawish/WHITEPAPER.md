@@ -830,74 +830,143 @@ Actor C: C1 → C2 → C3 → C4 → ... ↘
 
 #### 5.4.4 Checkpoint Synchronization
 
-Checkpoints are created at fixed time intervals (e.g., every 5 minutes), called "rounds."
+**Checkpoint Cycle** (every 5 minutes, 5-stage protocol from §5.4.3):
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│              CHECKPOINT CYCLE (per round)               │
+│               CHECKPOINT SYNCHRONIZATION                │
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
-│  TIMEFRAME: 0 ────────────────────────────► 5 min       │
+│  [STAGE 1-3: COMMIT, SUBMIT, MERGE]                     │
+│  - Writers prepare and exchange ledgers                 │
+│  - Merge all bundles, remove duplicates (by ULID)       │
+│  - Sort by ULID (deterministic ordering)                │
+│  - Build Merkle tree → state_hash = Merkle root         │
 │                                                         │
-│  [BROADCAST PHASE]                                      │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │
-│  │  Writer A    │  │  Writer B    │  │  Writer C    │   │
-│  │  broadcasts: │  │  broadcasts: │  │  broadcasts: │   │
-│  │  - Ledger 1  │  │  - Ledger 2  │  │  - "alive"   │   │
-│  │  - Ledger 3  │  │  (no data)   │  │  (no data)   │   │
-│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘   │
-│         │                 │                 │           │
-│         └─────────────────┼─────────────────┘           │
-│                           ↓                             │
-│  [SYNC PHASE]                                           │
-│         ┌──────────────────────────────────────┐        │
-│         │  Count nodes: A✓ B✓ C✓ → 3 nodes    │        │
-│         │  Collect: Ledger 1, 2, 3             │        │
-│         └──────────────────┬───────────────────┘        │
-│                            ↓                            │
-│  [ORDER PHASE]                                          │
-│         ┌──────────────────────────────────────┐        │
-│         │  Sort by ULID:                       │        │
-│         │  Ledger 2 < Ledger 1 < Ledger 3      │        │
-│         └──────────────────┬───────────────────┘        │
-│                            ↓                            │
-│  [CONFIRM PHASE]                                        │
-│         ┌──────────────────────────────────────┐        │
-│         │  Min 2 parties confirm order         │        │
-│         │  A✓ + B✓ → Consensus reached        │        │
-│         └──────────────────┬───────────────────┘        │
-│                            ↓                            │
-│  [CHECKPOINT PHASE]                                     │
-│         ┌──────────────────────────────────────┐        │
-│         │  Create state hash                   │        │
-│         │  Sign with threshold signatures      │        │
-│         │  Broadcast checkpoint                │        │
-│         └──────────────────────────────────────┘        │
+│  [STAGE 4: ANNOUNCE - Parallel Signing]                 │
+│  All writers sign SIMULTANEOUSLY (not chain):           │
+│  - Each broadcasts: {state_hash, signature}             │
+│  - Collect announcements from all writers               │
+│  - Find majority hash (all should match)                │
+│  - Collect signatures from majority (≥2 required)       │
 │                                                         │
-│  NEXT ROUND ──────────────────────────────────────────► │
+│  [STAGE 5: CHECKPOINT]                                  │
+│  Each writer assembles locally:                         │
+│  - checkpoint = {round, state_hash, prev, signatures}   │
+│  - Tag ledgers with checkpoint_round                    │
+│  - Broadcast checkpoint (redundancy, all have same)     │
+│                                                         │
+│  [FAILURE: Skip Round]                                  │
+│  If no consensus (timeout, network issue):              │
+│  - Round is SKIPPED (no checkpoint created)             │
+│  - Next round starts on schedule (5-min rhythm)         │
+│  - Pending ledgers re-submitted next round              │
+│  - Chain links to last SUCCESSFUL checkpoint            │
+│                                                         │
+│  [NEXT ROUND - 5 minutes] ──────────────────────────►   │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
 ```
 
-**Key properties:**
-- Time-based rounds (every 5 minutes)
-- All writer nodes must broadcast (data or "alive")
-- Silent writer nodes (no broadcast) are considered offline
-- Order is deterministic (ULID sorting)
-- Minimum 2 parties confirm (more is better)
-- Threshold signatures for checkpoint validation
+**Key Properties:**
+
+| Property | Description |
+|----------|-------------|
+| **Parallel signing** | All writers sign simultaneously (not chain); simpler and more resilient |
+| **Merkle root = state_hash** | Cryptographically binds to all ledger data; enables efficient single-ledger proofs |
+| **Skip round on failure** | Prefer losing data over complexity; 5-min rhythm is sacred |
+| **Identical checkpoints** | All writers store same checkpoint (header + signatures array) |
+| **Signatures inside checkpoint** | No re-signing when saving; signatures are part of the record |
+
+**Checkpoint Structure:**
+```javascript
+checkpoint = {
+  round: 42,                    // Round number
+  state_hash: "abc123...",      // Merkle root of all ledgers
+  timestamp: "2026-02-24T...",  // When checkpoint created
+  prev: "xyz789...",            // Hash of previous checkpoint
+  signatures: [                 // From ANNOUNCE stage (≥2 required)
+    {node_id: "A", sig: "..."},
+    {node_id: "B", sig: "..."},
+    {node_id: "C", sig: "..."}
+  ]
+}
+```
+
+**Verification** (each writer, before saving):
+1. Does `state_hash` match what I announced? → Ensures ledger consistency
+2. Are ≥2 signatures valid? → Ensures quorum reached
+3. Does `prev` link to my last checkpoint? → Ensures chain integrity
+4. If all valid → Save checkpoint; if invalid → Reject and announce error
+
+**Minority Recovery:**
+If a writer misses a round (offline, network issue):
+1. Detects gap in checkpoint sequence
+2. Requests full ledger set from first majority node
+3. Verifies ledgers match `state_hash` in checkpoint
+4. Tags ledgers with `checkpoint_round`
+5. Saves checkpoint and resumes normal operation
+
+**Late Minority Handling:**
+If a writer is consistently in minority (5+ consecutive rounds):
+1. Automatically downgraded to Query node
+2. Must re-prove reliability (90-day probation)
+3. Can be re-promoted to Writer based on sync speed
+4. Self-correcting mechanism (no governance needed)
 
 ---
 
 #### 5.4.5 Handling Conflicts
 
+**Conflict Types & Resolution:**
+
 | Conflict Type | Resolution |
 |---------------|------------|
-| **Same actor, same timestamp** | ULID randomness breaks tie |
-| **Concurrent writes** | Both accepted, ULID ordering |
-| **Conflicting state** | Last write wins (ULID order) |
+| **Same actor, same timestamp** | ULID randomness breaks tie (deterministic) |
+| **Concurrent writes** | Both accepted, merged by ULID ordering |
+| **Conflicting state** | Last write wins (ULID order, deterministic) |
+| **Network partition** | Wait for reconnect; longest checkpoint chain wins |
+| **Rogue writer** | Excluded from consensus; signatures invalid |
 
-**CRDT [3] principles** ensure conflict-free merges.
+**CRDT [3] principles** ensure conflict-free merges for concurrent writes.
+
+**Conflict Prevention via Checkpoint Anchors:**
+
+Checkpoints serve as **trust anchors** that prevent conflicts from propagating:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              CONFLICT PREVENTION                        │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  Checkpoint #41 (anchored)                              │
+│  - state_hash: "abc123..."                             │
+│  - Signed by A, B, C (quorum)                          │
+│  - All writers have identical checkpoint               │
+│                                                         │
+│  Round #42 (in progress)                                │
+│  - Writers accept writes independently                 │
+│  - May have different pending ledgers                  │
+│  - Will converge at ANNOUNCE stage                     │
+│                                                         │
+│  If conflict detected at ANNOUNCE:                      │
+│  - All writers see same hash (Merkle root)             │
+│  - Disagreement → no consensus → skip round            │
+│  - Next round starts fresh from Checkpoint #41         │
+│                                                         │
+│  Checkpoint #42 (if successful)                         │
+│  - New anchor point                                    │
+│  - All conflicts resolved                              │
+│  - Chain continues                                     │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Why This Works:**
+- Checkpoints are **immutable** once signed by quorum
+- `state_hash` cryptographically binds to all ledger data
+- Any modification invalidates signatures (math is the truth)
+- Network's truth = checkpoint history, not individual node state
 
 **Node Types:**
 
@@ -957,48 +1026,107 @@ Actors don't connect to L1 directly — they connect to L2:
 
 ### 5.5 Security Model
 
-**Threat model:**
+**Threat Model:**
 
 | Threat | Mitigation |
 |--------|------------|
-| **Forged operations** | Cryptographic signatures required |
-| **Replay attacks** | Timestamp validation (±5 min window) |
-| **Node compromise** | Server stores only public keys; no secrets |
-| **Data tampering** | Hash-chained ledgers; any tampering detectable |
-| **Sybil attacks** | Verification tiers; cost to establish identity |
+| **Forged operations** | Ed25519 cryptographic signatures required |
+| **Replay attacks** | Timestamp validation (±5 min window), ULID uniqueness |
+| **Node compromise** | Server stores only public keys; no private keys/sensitive data |
+| **Data tampering** | Merkle tree + hash-chained ledgers; any tampering detectable |
+| **Sybil attacks** | Verification tiers; 90-day probation for Writer promotion |
+| **Rogue writer** | Quorum signatures required (≥2); single node cannot forge |
+| **Checkpoint forgery** | Signatures bind to header; modification invalidates all sigs |
 
-**Key security properties:**
+**Key Security Properties:**
 - Server compromise cannot steal identities (no private keys stored)
-- All operations are auditable (ledger history)
-- State can be verified (rebuild from ledgers)
-- Trust is distributed (multiple nodes, not single point)
+- All operations are auditable (immutable ledger history)
+- State can be independently verified (rebuild from ledgers, verify Merkle root)
+- Trust is distributed (quorum signatures, not single point)
+- Math is the truth (cryptographic verification, not trust in nodes)
 
-**Data Integrity:**
-
-Ledgers use hash-chaining to prevent tampering:
+**Three-Layer Verification:**
 
 ```
-Entry 1: hash_1 = sha256(data_1)
-Entry 2: hash_2 = sha256(data_2 + hash_1)
-Entry 3: hash_3 = sha256(data_3 + hash_2)
+┌─────────────────────────────────────────────────────────┐
+│              SECURITY VERIFICATION LAYERS               │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  LAYER 1: Merkle Verification (Per Ledger)              │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Each ledger has Merkle proof:                │       │
+│  │ - Root hash in checkpoint (state_hash)       │       │
+│  │ - Proof path from leaf to root               │       │
+│  │ - Verify: hash(ledger_data) → root match?    │       │
+│  │                                              │       │
+│  │ Efficiency: log₂(n) nodes to verify          │       │
+│  │ Example: 1000 ledgers → ~10 hash ops         │       │
+│  └──────────────────────────────────────────────┘       │
+│                                                         │
+│  LAYER 2: Signature Verification (Per Checkpoint)       │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Each checkpoint has quorum signatures:       │       │
+│  │ - Verify each signature against header       │       │
+│  │ - Header = {round, state_hash, timestamp}    │       │
+│  │ - Public keys from L1 directory (immutable)  │       │
+│  │                                              │       │
+│  │ Math: verify(pub_key, sig, header) → bool    │       │
+│  │ If header modified → ALL signatures invalid  │       │
+│  └──────────────────────────────────────────────┘       │
+│                                                         │
+│  LAYER 3: Chain Verification (Checkpoint History)       │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Checkpoints form hash chain:                 │       │
+│  │ - Each checkpoint links to previous (prev)   │       │
+│  │ - Verify: checkpoint[i].prev = hash(i-1)     │       │
+│  │ - Longest valid chain = network truth        │       │
+│  │                                              │       │
+│  │ Tamper detection: Any modification breaks    │       │
+│  │ chain → rejected by all honest nodes         │       │
+│  └──────────────────────────────────────────────┘       │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
 ```
 
-**If any entry is modified:**
-- All subsequent hashes change
-- Checkpoint root hash won't match
-- Other nodes reject the tampered data
+**Verification Scenarios:**
 
-**Verification:**
+| Scenario | What to Verify | How |
+|----------|----------------|-----|
+| **New node bootstrap** | Entire checkpoint chain | Verify from genesis or trusted checkpoint |
+| **Regular sync** | New checkpoints only | Verify signatures + Merkle root |
+| **Single ledger proof** | One ledger's inclusion | Merkle proof (log₂(n) efficiency) |
+| **Audit/recovery** | Full history | Rebuild ledgers, verify Merkle root matches checkpoint |
+| **Dispute resolution** | Conflicting claims | Checkpoint signatures are authoritative |
 
-| Scenario | What to Verify |
-|----------|----------------|
-| **New node** | Verify from trusted checkpoint |
-| **Regular sync** | Only verify new entries |
-| **Checkpoint** | Verify ledger root hash + signatures |
+**Checkpoint as Trust Anchor:**
 
-**Checkpoint as trust anchor:**
+Each checkpoint is a **self-contained proof**:
+```javascript
+checkpoint = {
+  round: 42,
+  state_hash: "abc123...",      // Merkle root of all ledgers
+  timestamp: "2026-02-24T...",
+  prev: "xyz789...",            // Hash of previous checkpoint
+  signatures: [...]             // Quorum signatures (≥2)
+}
+```
 
-Each checkpoint contains a `ledger_root_hash` signed by multiple writers. Nodes verify their local data against this hash. If a malicious node modifies old data, the hash chain breaks and other nodes reject it during sync.
+**Why This Is Secure:**
+1. `state_hash` cryptographically binds to all ledger data
+2. Signatures bind to header (including `state_hash`)
+3. Any modification invalidates signatures (math proves tampering)
+4. Checkpoints link to previous (hash chain)
+5. Network's truth = longest valid checkpoint chain
+
+**Independent Verification:**
+Any node (or external auditor) can verify the entire system state:
+1. Get checkpoint from any writer
+2. Verify signatures using public keys (from L1 directory)
+3. Get ledgers, compute Merkle root
+4. Verify Merkle root matches `state_hash` in checkpoint
+5. If all match → state is authentic
+
+**No trust required — only math.**
 
 ### 5.6 Recovery Scenarios
 
