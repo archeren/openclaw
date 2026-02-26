@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.17",
-    "lastTouchedAt": "2026-02-22T14:18:34.493Z"
+    "lastTouchedVersion": "2026.2.25",
+    "lastTouchedAt": "2026-02-26T06:58:29.443Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -169,6 +169,22 @@
             },
             "contextWindow": 200000,
             "maxTokens": 8192
+          },
+          {
+            "id": "glm-5",
+            "name": "GLM-5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 202752,
+            "maxTokens": 16384
           }
         ]
       },
@@ -331,7 +347,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "bailian/kimi-k2.5",
+        "primary": "bailian/glm-5",
         "fallbacks": []
       },
       "models": {
@@ -360,6 +376,9 @@
         },
         "bailian/kimi-k2.5": {
           "alias": "Bailian Kimi K2.5"
+        },
+        "bailian/glm-5": {
+          "alias": "GLM-5"
         },
         "openrouter/openrouter/pony-alpha": {
           "alias": "Pony Alpha"
@@ -427,7 +446,15 @@
   },
   "commands": {
     "native": "auto",
-    "nativeSkills": "auto"
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
   },
   "hooks": {
     "internal": {
@@ -445,19 +472,13 @@
       }
     }
   },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
   "channels": {
     "telegram": {
       "enabled": true,
       "dmPolicy": "pairing",
       "botToken": "8584119298:AAGayhgcrgmUQM2Uzily68erwX25-6o_Glo",
       "groupPolicy": "allowlist",
-      "streamMode": "partial",
+      "streaming": "partial",
       "actions": {
         "reactions": true,
         "sendMessage": true
@@ -488,114 +509,6 @@
   "skills": {
     "install": {
       "nodeManager": "npm"
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
-    }
-  },
-  "session": {
-    "reset": {
-      "mode": "daily",
-      "atHour": 7
     }
   },
   "plugins": {

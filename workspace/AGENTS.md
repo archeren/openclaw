@@ -15,6 +15,20 @@ This folder is home. Treat it that way.
 
 ---
 
+## 📝 Task Protocol Reminder
+
+**When Allan assigns a task → Add to `memory/TODO.md` immediately**
+- Do NOT wait until conversation ends
+- Do NOT rely on memory (session refreshes wipe context)
+- Add it right away, even during active dialogue
+- Priority: 🔴 = Has deadline | 🟡 = Important flexible | 🟢 = No rush
+
+**When task finishes → Remove from TODO, write brief result to `memory/daily/YYYY-MM-DD.md`**
+- Daily memory should track what was accomplished
+- Keep TODO clean with only active tasks
+
+---
+
 ## OpenClaw Structure
 
 ```

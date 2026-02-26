@@ -174,10 +174,52 @@ function formatAsMarkdownTable(messages) {
   return lines.join('\n');
 }
 
+// Parse timestamp from Shanghai time string (MM-DD-YYYY, HH:mm:ss)
+function parseShanghaiTime(timeStr) {
+  if (!timeStr || timeStr.trim() === '') return 0;
+  try {
+    // Format: 02-23-2026, 11:30:45
+    const match = timeStr.match(/(\d{2})-(\d{2})-(\d{4}),\s*(\d{2}):(\d{2}):(\d{2})/);
+    if (match) {
+      const [_, month, day, year, hour, minute, second] = match;
+      // Create date in Shanghai timezone
+      const shanghaiDate = new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}+08:00`);
+      return shanghaiDate.getTime();
+    }
+  } catch (e) {
+    // Fallback: return 0 if parsing fails
+  }
+  return 0;
+}
+
+// Load recipient mapping from recipients.json
+function loadRecipientsMapping() {
+  const recipientsPath = path.join(OUTPUT_DIR, 'recipients.json');
+  try {
+    if (fs.existsSync(recipientsPath)) {
+      return JSON.parse(fs.readFileSync(recipientsPath, 'utf-8'));
+    }
+  } catch (e) {
+    console.warn('Could not load recipients.json, using default');
+  }
+  return {};
+}
+
+// Get recipient info from session ID
+function getRecipientInfo(sessionId, recipientsMap) {
+  const info = recipientsMap[sessionId];
+  if (info && info.name && info.type) {
+    return info;
+  }
+  // Fallback to default
+  return { name: 'allan', type: 'dm' };
+}
+
 // Append messages to daily file (create if doesn't exist)
-function appendToDailyFile(dateStr, newMessages) {
+function appendToDailyFile(dateStr, newMessages, sessionId, recipientsMap) {
   const yearMonth = dateStr.substring(0, 7);
-  const personDir = path.join(OUTPUT_DIR, 'dm', 'allan', yearMonth);
+  const recipientInfo = getRecipientInfo(sessionId, recipientsMap);
+  const personDir = path.join(OUTPUT_DIR, recipientInfo.type, recipientInfo.name, yearMonth);
 
   if (!fs.existsSync(personDir)) {
     fs.mkdirSync(personDir, { recursive: true });
@@ -196,8 +238,10 @@ function appendToDailyFile(dateStr, newMessages) {
       if (line.startsWith('|')) {
         const parts = line.split('|').map(p => p.trim()).filter(p => p);
         if (parts.length >= 3) {
+          // Parse timestamp from the time string
+          const parsedTimestamp = parseShanghaiTime(parts[0]);
           existingMessages.push({
-            timestamp: 0, // We don't have original timestamp in markdown
+            timestamp: parsedTimestamp,
             role: parts[1],
             text: parts[2].replace(/<br>/g, '\n').replace(/\\\|/g, '|')
           });
@@ -210,8 +254,19 @@ function appendToDailyFile(dateStr, newMessages) {
   const allMessages = [...existingMessages, ...newMessages];
   allMessages.sort((a, b) => a.timestamp - b.timestamp);
 
+  // Remove duplicates based on content similarity
+  const uniqueMessages = [];
+  const seen = new Set();
+  for (const msg of allMessages) {
+    const key = `${msg.role}|${msg.text.substring(0, 100)}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      uniqueMessages.push(msg);
+    }
+  }
+
   // Write updated file
-  const tableOutput = formatAsMarkdownTable(allMessages);
+  const tableOutput = formatAsMarkdownTable(uniqueMessages);
   fs.writeFileSync(outputFile, tableOutput, 'utf-8');
 
   return newMessages.length;
@@ -226,6 +281,10 @@ function main() {
   const lastProcessed = getLastProcessedTimestamp();
   console.log(`Last processed: ${lastProcessed ? new Date(lastProcessed).toISOString() : 'None (full rebuild)'}`);
 
+  // Load recipients mapping
+  const recipientsMap = loadRecipientsMapping();
+  console.log(`Loaded ${Object.keys(recipientsMap).length} recipient mappings`);
+
   // Collect all messages from all sessions (incremental)
   const sessionFiles = fs.readdirSync(SESSIONS_DIR)
     .filter(f => f.endsWith('.jsonl') && !f.endsWith('.lock'))
@@ -237,8 +296,8 @@ function main() {
 
   console.log(`Found ${sessionFiles.length} sessions`);
 
-  // Group new messages by Shanghai date
-  const messagesByDate = new Map();
+  // Group new messages by Shanghai date and session ID
+  const messagesByDateAndSession = new Map();
   let maxTimestamp = lastProcessed;
   let totalNewMessages = 0;
 
@@ -247,11 +306,13 @@ function main() {
       const sessionMessages = parseSessionFile(sessionFile.path, lastProcessed);
       for (const msg of sessionMessages) {
         const dateStr = getShanghaiDateString(msg.timestamp);
+        const sessionId = sessionFile.id;
 
-        if (!messagesByDate.has(dateStr)) {
-          messagesByDate.set(dateStr, []);
+        const key = `${sessionId}|${dateStr}`;
+        if (!messagesByDateAndSession.has(key)) {
+          messagesByDateAndSession.set(key, { sessionId, dateStr, messages: [] });
         }
-        messagesByDate.get(dateStr).push(msg);
+        messagesByDateAndSession.get(key).messages.push(msg);
 
         if (msg.timestamp > maxTimestamp) {
           maxTimestamp = msg.timestamp;
@@ -265,10 +326,10 @@ function main() {
 
   console.log(`Found ${totalNewMessages} new messages`);
 
-  // Update daily files
-  for (const [dateStr, dateMessages] of messagesByDate) {
-    const count = appendToDailyFile(dateStr, dateMessages);
-    console.log(`✓ ${dateStr}: +${count} messages`);
+  // Update daily files (grouped by session)
+  for (const [key, { sessionId, dateStr, messages }] of messagesByDateAndSession) {
+    const count = appendToDailyFile(dateStr, messages, sessionId, recipientsMap);
+    console.log(`✓ ${dateStr} (${sessionId}): +${count} messages`);
   }
 
   // Save checkpoint
@@ -292,8 +353,8 @@ function main() {
 
     // Insert new messages
     const insertStmt = db.prepare('INSERT INTO messages (timestamp, role, content) VALUES (?, ?, ?)');
-    for (const [dateStr, dateMessages] of messagesByDate) {
-      for (const msg of dateMessages) {
+    for (const [key, { messages }] of messagesByDateAndSession) {
+      for (const msg of messages) {
         insertStmt.run(msg.timestamp, msg.role, msg.text);
       }
     }

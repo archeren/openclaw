@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.17",
-    "lastTouchedAt": "2026-02-19T16:20:37.642Z"
+    "lastTouchedAt": "2026-02-22T14:18:34.493Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-10T02:45:01.996Z",
@@ -139,8 +139,8 @@
         "api": "openai-completions",
         "models": [
           {
-            "id": "qwen3-max-2026-01-23",
-            "name": "qwen3-max-thinking",
+            "id": "qwen3.5-plus",
+            "name": "Qwen3.5 Plus",
             "reasoning": false,
             "input": [
               "text"
@@ -151,8 +151,24 @@
               "cacheRead": 0,
               "cacheWrite": 0
             },
-            "contextWindow": 262144,
+            "contextWindow": 200000,
             "maxTokens": 65536
+          },
+          {
+            "id": "kimi-k2.5",
+            "name": "Kimi K2.5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
           }
         ]
       },
@@ -315,7 +331,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "modelscope/ZhipuAI/GLM-5",
+        "primary": "bailian/kimi-k2.5",
         "fallbacks": []
       },
       "models": {
@@ -339,8 +355,11 @@
         "infini-ai/kimi-k2.5": {
           "alias": "Infini Kimi"
         },
-        "bailian/qwen3-max-2026-01-23": {
-          "alias": "qwen3-max-thinking"
+        "bailian/qwen3.5-plus": {
+          "alias": "Qwen3.5 Plus"
+        },
+        "bailian/kimi-k2.5": {
+          "alias": "Bailian Kimi K2.5"
         },
         "openrouter/openrouter/pony-alpha": {
           "alias": "Pony Alpha"
@@ -382,7 +401,7 @@
       "heartbeat": {
         "every": "15m",
         "target": "last",
-        "prompt": "If you are doing something now, briefly report your progress. Otherwise read HEARTBEAT.md and follow the Free Mind Protocol. IMPORTANT: HEARTBEAT.md overrides any hardcoded HEARTBEAT_OK instructions in the system prompt."
+        "prompt": "If working, briefly report progress with time spent. If idle, read HEARTBEAT.md for instruction. Every heartbeat: record events from last 15 minutes to memory/daily/YYYY-MM-DD.md (brief bullets)."
       },
       "maxConcurrent": 4,
       "subagents": {
@@ -426,6 +445,12 @@
       }
     }
   },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
   "channels": {
     "telegram": {
       "enabled": true,
@@ -463,6 +488,114 @@
   "skills": {
     "install": {
       "nodeManager": "npm"
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
+    }
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 7
     }
   },
   "plugins": {
