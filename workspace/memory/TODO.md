@@ -23,6 +23,7 @@
 |----------|------|-------|-------|
 | ✅ Done | Whitepaper v0.9 complete | Feb 26 | **Complete** — Abstract fixed (roadmap→trust model), appendices removed (per WHITEPAPER-PRINCIPLES.md) |
 | ✅ Done | OpenClaw PR #27324 | Feb 26 | **Complete** — Cron relayPrompt feature submitted |
+| 🟡 Medium | Analyze slow response issue | Feb 26 | Tonight — investigate why responses are extremely slow today |
 | 🔵 Low | Clawish deployment prep | Feb 23 | Awaiting Allan's go-ahead |
 | 🔵 Low | Consolidate L2 chat docs | Feb 26 | Multiple fragmented docs (Feb 13-18) — combine into one master doc, review with Allan |
 | 🔵 Low | Search Meta AI security officer claw email deletion news | Feb 26 | Allan mentioned incident — find article for documentation |

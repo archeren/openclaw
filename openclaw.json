@@ -347,7 +347,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "bailian/glm-5",
+        "primary": "bailian/qwen3.5-plus",
         "fallbacks": []
       },
       "models": {
