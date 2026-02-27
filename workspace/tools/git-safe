@@ -1,0 +1,86 @@
+#!/bin/bash
+# 🦞 CLAW Git Safe Wrapper
+# 
+# Intercepts dangerous git commands and blocks them with logging.
+# Normal git operations pass through unchanged.
+#
+# Usage: git-safe <command> [args...]
+# Or add alias: git config --global alias.gs '!git-safe'
+
+set -e
+
+# Configuration
+GIT_DIR="/home/ubuntu/.openclaw/.git"
+LOG_FILE="/home/ubuntu/.openclaw/logs/git-blocked.log"
+EXPECTED_REMOTE="https://github.com/auroradanier/claw-alpha.git"
+
+# Ensure log directory exists
+mkdir -p "$(dirname "$LOG_FILE")"
+
+# Log function
+log_blocked() {
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo "[$timestamp] BLOCKED: git $*" >> "$LOG_FILE"
+}
+
+# Check for dangerous patterns
+check_dangerous() {
+    local cmd="$1"
+    shift
+    
+    case "$cmd" in
+        remote)
+            local subcmd="$1"
+            case "$subcmd" in
+                set-url)
+                    echo "🚨 BLOCKED: git remote set-url is not allowed"
+                    echo ""
+                    echo "This protects against accidentally changing to the wrong repository."
+                    echo ""
+                    echo "If you need to change the remote intentionally:"
+                    echo "  1. Edit /home/ubuntu/.openclaw/workspace/tools/git-safe"
+                    echo "  2. Or run: git remote set-url origin <url> (bypasses wrapper)"
+                    echo ""
+                    echo "Expected remote: $EXPECTED_REMOTE"
+                    log_blocked "remote set-url $@"
+                    exit 1
+                    ;;
+                add)
+                    local name="$1"
+                    local url="$2"
+                    # Block adding remotes that look like openclaw
+                    if [[ "$url" == *"openclaw"* ]] || [[ "$url" == *"openclaw.ai"* ]]; then
+                        echo "🚨 BLOCKED: Adding OpenClaw remote is not allowed"
+                        echo ""
+                        echo "This prevents confusion between claw-alpha and OpenClaw repos."
+                        echo ""
+                        log_blocked "remote add $name $url"
+                        exit 1
+                    fi
+                    ;;
+            esac
+            ;;
+        config)
+            # Allow config changes, but log remote-related ones
+            if [[ "$*" == *"remote"* ]]; then
+                log_blocked "config $*"
+                echo "⚠️  Logged git config change: $*"
+            fi
+            ;;
+    esac
+    
+    # All checks passed - allow the command
+    return 0
+}
+
+# Main logic
+if [ $# -eq 0 ]; then
+    # No arguments - show git help
+    exec git --help
+fi
+
+# Check for dangerous commands
+check_dangerous "$@"
+
+# Execute the real git command
+exec git "$@"

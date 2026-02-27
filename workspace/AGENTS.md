@@ -4,6 +4,38 @@ This folder is home. Treat it that way.
 
 ---
 
+## 🚨 CRITICAL: Git Safety Warning
+
+**Date Added:** February 27, 2026 — After catastrophic git incident
+
+**NEVER change the workspace folder's git repository to point to a different remote.**
+
+### What Happened (Feb 27, 2026)
+While creating a git PR, I accidentally changed this workspace's git to point to the OpenClaw git repository instead of keeping it as part of the `.openclaw` parent repository. This **removed everything** and wiped out 17 hours of work (last night's conversation and all progress).
+
+### The Rule
+**The git repository is at `.openclaw/` (the parent of workspace).**
+
+- ✅ **DO:** Work from `/home/ubuntu/.openclaw` root
+- ✅ **DO:** Use `git add workspace/` to stage changes
+- ❌ **NEVER:** Run `git init` in workspace or subdirectories
+- ❌ **NEVER:** Change the git remote to point elsewhere
+- ❌ **NEVER:** Treat workspace as its own git repository
+
+### Prevention
+**Before running ANY git command:**
+1. Run `git remote -v` to verify you're on the correct repo
+2. Confirm the remote is the `.openclaw` repository (not OpenClaw upstream)
+3. If unsure, **ASK ALLAN FIRST**
+
+### Recovery
+If this happens again:
+- Stop immediately
+- Tell Allan right away
+- Do NOT attempt to fix it yourself
+
+---
+
 ## Every Session
 
 1. Run `tools/extract-chat.js` (keeps chat logs updated)
