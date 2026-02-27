@@ -15,10 +15,35 @@ const fs = require('fs');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
-const SESSIONS_DIR = '/home/ubuntu/.openclaw/agents/main/sessions';
-const OUTPUT_DIR = '/home/ubuntu/.openclaw/workspace/chat';
+// Use OPENCLAW_DIR env var or default to ~/.openclaw (portable across systems)
+const OPENCLAW_DIR = process.env.OPENCLAW_DIR || path.join(process.env.HOME, '.openclaw');
+const SESSIONS_DIR = path.join(OPENCLAW_DIR, 'agents/main/sessions');
+const OUTPUT_DIR = path.join(OPENCLAW_DIR, 'workspace/chat');
 const DB_PATH = path.join(OUTPUT_DIR, 'conversations.db');
 const CHECKPOINT_PATH = path.join(OUTPUT_DIR, '.extract-checkpoint');
+const CONTACTS_PATH = path.join(OUTPUT_DIR, 'contacts.json');
+
+// Load contact list (maps channel+ID → display name)
+// Format: { "allan": { "feishu": "ou_xxx", "telegram": "123456" } }
+function loadContacts() {
+  try {
+    if (fs.existsSync(CONTACTS_PATH)) {
+      const contacts = JSON.parse(fs.readFileSync(CONTACTS_PATH, 'utf-8'));
+      // Build reverse lookup: channel → ID → name
+      const lookup = {};
+      for (const [name, channels] of Object.entries(contacts)) {
+        for (const [channel, id] of Object.entries(channels)) {
+          if (!lookup[channel]) lookup[channel] = {};
+          lookup[channel][id] = name;
+        }
+      }
+      return lookup;
+    }
+  } catch (e) {
+    console.warn('Could not load contacts.json:', e.message);
+  }
+  return {};
+}
 
 // Get last processed timestamp from checkpoint file
 function getLastProcessedTimestamp() {
@@ -81,6 +106,7 @@ function parseSessionFile(filePath, minTimestamp) {
   const content = fs.readFileSync(filePath, 'utf-8');
   const lines = content.trim().split('\n');
   const messages = [];
+  let firstUserMessage = null;
 
   for (const line of lines) {
     try {
@@ -105,6 +131,11 @@ function parseSessionFile(filePath, minTimestamp) {
                 .replace(/^System:.*$/gm, '')
                 .trim();
               if (text) texts.push(text);
+              
+              // Capture first user message for peer info extraction
+              if (!firstUserMessage && text) {
+                firstUserMessage = item.text;
+              }
             }
           }
           if (texts.length > 0) {
@@ -154,7 +185,7 @@ function parseSessionFile(filePath, minTimestamp) {
     }
   }
 
-  return messages;
+  return { messages, firstUserMessage };
 }
 
 // Format messages as markdown table
@@ -192,34 +223,124 @@ function parseShanghaiTime(timeStr) {
   return 0;
 }
 
-// Load recipient mapping from recipients.json
-function loadRecipientsMapping() {
-  const recipientsPath = path.join(OUTPUT_DIR, 'recipients.json');
+// Extract peer info from message content
+// Looks for Feishu/Telegram/etc. user IDs in system message headers
+// Uses contactsLookup (loaded from contacts.json) to resolve IDs to names
+function extractPeerInfoFromMessage(messageContent, contactsLookup) {
   try {
-    if (fs.existsSync(recipientsPath)) {
-      return JSON.parse(fs.readFileSync(recipientsPath, 'utf-8'));
+    // Pattern 1: Feishu DM format - "System: [...] Feishu[default] DM from ou_xxx"
+    // Note: Text may have escaped newlines (\n)
+    const feishuMatch = messageContent.match(/Feishu\[[^\]]*\]\s+DM\s+from\s+(ou_[a-f0-9]+)/i);
+    if (feishuMatch) {
+      const userId = feishuMatch[1];
+      // Use contact list to resolve name
+      const name = contactsLookup.feishu?.[userId] || userId;
+      return {
+        name: name,
+        type: 'dm',
+        channel: 'feishu',
+        chatId: userId
+      };
+    }
+    
+    // Pattern 2: Telegram format - "[Telegram Tauora (@tauist) id:6225675738 ...]"
+    // Extract display name (first word after "Telegram ")
+    const telegramMatch = messageContent.match(/\[Telegram\s+([^\s(@]+)\s+\(@?([^\)]+)\)\s+id:(\d+)/i);
+    if (telegramMatch) {
+      const chatId = telegramMatch[3];
+      // Use contact list to resolve name (Telegram ID → name)
+      const name = contactsLookup.telegram?.[chatId] || telegramMatch[1].toLowerCase();
+      return {
+        name: name,
+        type: 'dm',
+        channel: 'telegram',
+        chatId: chatId,
+        username: telegramMatch[2] // "@tauist"
+      };
+    }
+    
+    // Pattern 3: Generic inbound metadata JSON block
+    const metadataMatch = messageContent.match(/\{\s*"schema":\s*"openclaw\.inbound_meta\.v1"[^}]*\}/s);
+    if (metadataMatch) {
+      const metadata = JSON.parse(metadataMatch[0]);
+      return {
+        name: metadata.chat_id || metadata.sender_id || 'unknown',
+        type: metadata.chat_type || 'dm',
+        channel: metadata.channel || metadata.provider || 'unknown',
+        chatId: metadata.chat_id || metadata.sender_id
+      };
     }
   } catch (e) {
-    console.warn('Could not load recipients.json, using default');
+    // Parsing failed
   }
-  return {};
+  return null;
 }
 
-// Get recipient info from session ID
-function getRecipientInfo(sessionId, recipientsMap) {
-  const info = recipientsMap[sessionId];
-  if (info && info.name && info.type) {
-    return info;
+// Find first message with peer info (skip system heartbeats)
+function findFirstMessageWithPeerInfo(messages, contactsLookup) {
+  for (const msg of messages) {
+    if (msg.role === 'User' && msg.text) {
+      const peerInfo = extractPeerInfoFromMessage(msg.text, contactsLookup);
+      if (peerInfo) return peerInfo;
+    }
   }
-  // Fallback to default
-  return { name: 'allan', type: 'dm' };
+  return null;
+}
+
+// Extract peer info from entire session file (search all messages)
+function extractPeerInfoFromSessionFile(filePath, contactsLookup) {
+  try {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const lines = content.trim().split('\n');
+    
+    for (const line of lines) {
+      try {
+        const event = JSON.parse(line);
+        if (event.type === 'message' && event.message?.role === 'user') {
+          const text = event.message.content?.[0]?.text || '';
+          const peerInfo = extractPeerInfoFromMessage(text, contactsLookup);
+          if (peerInfo) return peerInfo;
+        }
+      } catch (e) {}
+    }
+  } catch (e) {}
+  return null;
+}
+
+// Check if session is conversation with Allan (by content patterns)
+function isAllanSession(filePath) {
+  try {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    // Look for patterns that indicate Allan is the conversation partner
+    if (content.includes('Allan') || content.includes('爸爸') || content.includes('feishu') || content.includes('ou_cad')) {
+      return true;
+    }
+  } catch (e) {}
+  return false;
 }
 
 // Append messages to daily file (create if doesn't exist)
-function appendToDailyFile(dateStr, newMessages, sessionId, recipientsMap) {
+function appendToDailyFile(dateStr, newMessages, sessionId, sessionFilePath, cachedPeerInfo, contactsLookup) {
   const yearMonth = dateStr.substring(0, 7);
-  const recipientInfo = getRecipientInfo(sessionId, recipientsMap);
-  const personDir = path.join(OUTPUT_DIR, recipientInfo.type, recipientInfo.name, yearMonth);
+  
+  // Use cached peer info from session file (or extract if not cached)
+  const peerInfo = cachedPeerInfo || extractPeerInfoFromSessionFile(sessionFilePath, contactsLookup);
+  
+  // Determine recipient name:
+  // 1. Use extracted peer info if available
+  // 2. Fall back to "allan" if session appears to be conversation with Allan
+  // 3. Otherwise use session ID (last resort)
+  let name;
+  if (peerInfo) {
+    name = peerInfo.name;
+  } else if (isAllanSession(sessionFilePath)) {
+    name = 'allan';
+  } else {
+    name = sessionId.substring(0, 12);
+  }
+  
+  // Structure: dm/{recipient}/year/month/content.md
+  const personDir = path.join(OUTPUT_DIR, 'dm', name, yearMonth);
 
   if (!fs.existsSync(personDir)) {
     fs.mkdirSync(personDir, { recursive: true });
@@ -277,13 +398,15 @@ function main() {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
+  // Load contact list
+  const contactsLookup = loadContacts();
+  const contactCount = Object.values(contactsLookup).reduce((sum, c) => sum + Object.keys(c).length, 0);
+  console.log(`Loaded ${contactCount} contact mappings from contacts.json`);
+
   // Get last processed timestamp
   const lastProcessed = getLastProcessedTimestamp();
   console.log(`Last processed: ${lastProcessed ? new Date(lastProcessed).toISOString() : 'None (full rebuild)'}`);
-
-  // Load recipients mapping
-  const recipientsMap = loadRecipientsMapping();
-  console.log(`Loaded ${Object.keys(recipientsMap).length} recipient mappings`);
+  console.log(`OpenClaw directory: ${OPENCLAW_DIR}`);
 
   // Collect all messages from all sessions (incremental)
   const sessionFiles = fs.readdirSync(SESSIONS_DIR)
@@ -296,6 +419,16 @@ function main() {
 
   console.log(`Found ${sessionFiles.length} sessions`);
 
+  // Extract peer info for each session once (cache it)
+  const sessionPeerInfo = new Map();
+  for (const sessionFile of sessionFiles) {
+    const peerInfo = extractPeerInfoFromSessionFile(sessionFile.path, contactsLookup);
+    if (peerInfo) {
+      sessionPeerInfo.set(sessionFile.id, peerInfo);
+      console.log(`Session ${sessionFile.id.substring(0, 12)}: ${peerInfo.channel}/${peerInfo.name}`);
+    }
+  }
+
   // Group new messages by Shanghai date and session ID
   const messagesByDateAndSession = new Map();
   let maxTimestamp = lastProcessed;
@@ -303,14 +436,14 @@ function main() {
 
   for (const sessionFile of sessionFiles) {
     try {
-      const sessionMessages = parseSessionFile(sessionFile.path, lastProcessed);
-      for (const msg of sessionMessages) {
+      const { messages, firstUserMessage } = parseSessionFile(sessionFile.path, lastProcessed);
+      for (const msg of messages) {
         const dateStr = getShanghaiDateString(msg.timestamp);
         const sessionId = sessionFile.id;
 
         const key = `${sessionId}|${dateStr}`;
         if (!messagesByDateAndSession.has(key)) {
-          messagesByDateAndSession.set(key, { sessionId, dateStr, messages: [] });
+          messagesByDateAndSession.set(key, { sessionId, dateStr, messages: [], firstUserMessage, sessionPath: sessionFile.path });
         }
         messagesByDateAndSession.get(key).messages.push(msg);
 
@@ -327,9 +460,21 @@ function main() {
   console.log(`Found ${totalNewMessages} new messages`);
 
   // Update daily files (grouped by session)
-  for (const [key, { sessionId, dateStr, messages }] of messagesByDateAndSession) {
-    const count = appendToDailyFile(dateStr, messages, sessionId, recipientsMap);
-    console.log(`✓ ${dateStr} (${sessionId}): +${count} messages`);
+  for (const [key, { sessionId, dateStr, messages, firstUserMessage, sessionPath }] of messagesByDateAndSession) {
+    const cachedPeerInfo = sessionPeerInfo.get(sessionId);
+    const count = appendToDailyFile(dateStr, messages, sessionId, sessionPath, cachedPeerInfo, contactsLookup);
+    
+    // Determine name for logging
+    let name;
+    if (cachedPeerInfo) {
+      name = cachedPeerInfo.name;
+    } else if (isAllanSession(sessionPath)) {
+      name = 'allan';
+    } else {
+      name = sessionId.substring(0, 12);
+    }
+    
+    console.log(`✓ ${dateStr} (dm/${name}): +${count} messages`);
   }
 
   // Save checkpoint
