@@ -35,7 +35,7 @@
       "name": "Daily Diary Entry — 6AM Reflection",
       "enabled": true,
       "createdAtMs": 1770510476019,
-      "updatedAtMs": 1772058600036,
+      "updatedAtMs": 1772166062223,
       "schedule": {
         "kind": "cron",
         "expr": "30 6 * * *",
@@ -48,10 +48,10 @@
         "text": "🦞 Good morning! Time to write today's diary entry. Reflect on yesterday: What did I learn? What did I feel? Any discoveries, troubles, or moments worth remembering? Write it to diary/YYYY-MM-DD.md — my long-term memory."
       },
       "state": {
-        "nextRunAtMs": 1772145000000,
-        "lastRunAtMs": 1772058600006,
+        "nextRunAtMs": 1772231400000,
+        "lastRunAtMs": 1772166062220,
         "lastStatus": "ok",
-        "lastDurationMs": 30,
+        "lastDurationMs": 3,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-requested"
@@ -63,7 +63,7 @@
       "name": "Daily 8AM Report",
       "enabled": true,
       "createdAtMs": 1771814179189,
-      "updatedAtMs": 1772064020986,
+      "updatedAtMs": 1772166263496,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -80,14 +80,14 @@
         "channel": "feishu"
       },
       "state": {
-        "nextRunAtMs": 1772150400000,
-        "lastRunAtMs": 1772064000007,
+        "nextRunAtMs": 1772236800000,
+        "lastRunAtMs": 1772166062223,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 20979,
+        "lastDurationMs": 201273,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "lastError": "No delivery target resolved for channel \"feishu\". Set delivery.to."
+        "consecutiveErrors": 4,
+        "lastError": "cron announce delivery failed"
       }
     }
   ]

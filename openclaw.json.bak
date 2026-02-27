@@ -1,12 +1,12 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.23",
-    "lastTouchedAt": "2026-02-26T05:29:32.504Z"
+    "lastTouchedVersion": "2026.2.9",
+    "lastTouchedAt": "2026-02-27T04:39:57.718Z"
   },
   "wizard": {
-    "lastRunAt": "2026-02-10T02:45:01.996Z",
+    "lastRunAt": "2026-02-27T04:39:57.706Z",
     "lastRunVersion": "2026.2.9",
-    "lastRunCommand": "onboard",
+    "lastRunCommand": "doctor",
     "lastRunMode": "local"
   },
   "auth": {
@@ -347,7 +347,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "bailian/glm-5",
+        "primary": "bailian/qwen3.5-plus",
         "fallbacks": []
       },
       "models": {
@@ -447,8 +447,7 @@
   "commands": {
     "native": "auto",
     "nativeSkills": "auto",
-    "restart": true,
-    "ownerDisplay": "raw"
+    "restart": true
   },
   "session": {
     "reset": {
@@ -478,7 +477,6 @@
       "dmPolicy": "pairing",
       "botToken": "8584119298:AAGayhgcrgmUQM2Uzily68erwX25-6o_Glo",
       "groupPolicy": "allowlist",
-      "streaming": "partial",
       "actions": {
         "reactions": true,
         "sendMessage": true
