@@ -125,6 +125,25 @@ Push BLOCKED.
 
 ---
 
+### Layer 6: Auto-Backup Cron (Every 12 Hours) ✅
+
+**Location:** System cron (`crontab -l`)
+
+**Schedule:** `0 0,12 * * *` — Midnight and noon daily
+
+**Script:** `/home/ubuntu/.openclaw/workspace/tools/git-backup.sh`
+
+**What it does:**
+- Checks for changes in `.openclaw` directory
+- Commits with timestamp: `🦞 Auto-backup: YYYY-MM-DD HH:MM`
+- Pushes to GitHub (`auroradanier/claw-alpha`)
+- Logs to `workspace/logs/git-backup.log`
+- Independent of agent sessions — runs even if I'm offline
+
+**Why 12 hours:** Ensures no more than 12 hours of work is ever at risk.
+
+---
+
 ## Expected Git Remote
 
 ```
@@ -179,14 +198,15 @@ rm -f workspace/.GIT_REMOTE_MISMATCH  # Clear alert
 
 ## What These Layers Protect Against
 
-| Action | Protected By |
-|--------|--------------|
+| Risk | Protected By |
+|------|--------------|
 | `git remote set-url origin <wrong>` | **Wrapper (blocked)**, Pre-commit, Pre-push, Startup hook |
 | `git remote add openclaw ...` | **Wrapper (blocked)** |
 | `git init` in workspace | AGENTS.md warning |
 | `git clone <wrong> .` | Pre-commit, Pre-push |
 | Accidental PR to wrong repo | Pre-push hook |
 | Working on wrong repo | Startup hook alert |
+| **Data loss (system crash)** | **Auto-backup cron (max 12h loss)** |
 | Normal git operations | ✅ All layers allow (wrapper passes through) |
 
 ---

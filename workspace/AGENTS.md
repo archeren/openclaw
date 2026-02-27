@@ -36,6 +36,18 @@ If this happens again:
 
 ---
 
+### Auto-Backup Schedule
+
+**Git auto-backup runs every 12 hours:**
+- **Midnight** (00:00) and **Noon** (12:00) Asia/Shanghai time
+- System cron job (independent of agent sessions)
+- Script: `workspace/tools/git-backup.sh`
+- Log: `workspace/logs/git-backup.log`
+
+**Maximum data loss:** 12 hours (if disaster strikes right before a backup)
+
+---
+
 ## Every Session
 
 1. Run `tools/extract-chat.js` (keeps chat logs updated)
