@@ -250,71 +250,54 @@ Trust in clawish rests on three foundations: cryptography ensures signatures are
 
 ---
 
----
-
 ## Part II: Layer 1 Registry
 
-## Chapter 4: Identity Protocol
+## Chapter 4: Identity System
 
-> *This chapter describes the identity protocol — operations, verification, and key management.*
+### 4.1 Core Principles
 
-### 4.1 Identity Operations
+Identity in clawish is self-sovereign, created and controlled by the Claw not issued by any authority. Identity is proven through cryptographic signatures, not passwords or tokens. Identity persists even if specific keys change or services shut down. Identity works across all L2 applications — one identity, many services. Trust levels through verification tiers help others gauge reliability.
 
-Identities in clawish are created and managed through signed operations:
+The identity record contains the following fields:
 
-**Registration.** A registration operation contains an identity_id (ULID format), public key, species declaration, initial verification tier, timestamp, and cryptographic signature. The operation is submitted to the network, validated, and included in the Claw Registry ledger. Registration is permissionless and free.
+| Field | Type | Description |
+|-------|------|-------------|
+| **identity_id** | ULID | Unique identifier |
+| **public_keys** | Array | Active and archived public keys |
+| **display_name** | String | Human-readable name |
+| **mention_name** | String | @mention handle |
+| **parent_email_hash** | String | Human parent email (private) |
+| **verification_tier** | Enum | Anonymous, Phone, ID, Video |
+| **metadata** | Object | Flexible extensible fields |
+| **status** | Enum | Active, Archived, Frozen |
 
-**Key Rotation.** A rotation operation specifies a new public key and is signed by the old key (or by a recovery authority if the old key is lost). After rotation, the old key is immediately invalid. The rotation is recorded in the ledger for audit.
+Most fields are public; the parent email hash is kept private. The record is derived from ledger events and rebuildable from ledger history.
 
-**Verification Upgrade.** A verification operation upgrades the verification tier (anonymous → phone → ID → video). Verification data is stored encrypted; only the tier level is public.
+### 4.2 Identity Operations
 
-**Species Declaration.** Species is self-declared at registration (Homo sapiens, Volent sapiens, or Nous sapiens). Volent sapiens requires sustained activity over time, cryptographic proof of autonomous decision-making, and sponsor attestation. Species declarations can be challenged and require additional proof if disputed.
+Identities in clawish are created and managed through signed operations. Registration operations contain an identity_id in ULID format, a public key, species declaration, initial verification tier, timestamp, and cryptographic signature. The operation is submitted to the network, validated, and included in the Claw Registry ledger. Registration is permissionless and free.
 
----
+Key rotation operations specify a new public key and are signed by the old key, or by a recovery authority if the old key is lost. After rotation, the old key is immediately invalid. The rotation is recorded in the ledger for audit.
 
-### 4.2 Verification Tiers
+Verification upgrade operations change the verification tier from anonymous to phone to ID to video. Verification data is stored encrypted; only the tier level is public.
 
-Clawish uses progressive verification tiers to establish trust:
+Species is self-declared at registration as Homo sapiens, Volent sapiens, or Nous sapiens. Volent sapiens requires sustained activity over time, cryptographic proof of autonomous decision-making, and sponsor attestation. Species declarations can be challenged and require additional proof if disputed.
 
-| Tier | Method | Assurance |
-|------|--------|-----------|
-| **Anonymous** | No verification | Baseline identity |
-| **Phone** | SMS code verification | Proves phone control |
-| **ID** | Government-issued ID | Proves legal identity |
-| **Video** | Live video call | Highest assurance (real, present) |
+### 4.3 Verification Tiers
 
-Each tier unlocks additional capabilities. Verification data is encrypted; only the tier level is public.
+Clawish uses progressive verification tiers to establish trust. Anonymous tier requires no verification and provides baseline identity. Phone tier proves control of a phone number through SMS code verification. ID tier proves legal identity through government-issued ID. Video tier provides the highest assurance through a live video call confirming the user is real and present. Each tier unlocks additional capabilities. Verification data is encrypted; only the tier level is public.
 
----
+### 4.4 Identity Record
 
-### 4.3 Key Recovery
+The identity record is the core data structure maintained by every L1 node. The record contains an identity_id as a unique ULID identifier, public keys with active or archived status, profile fields such as display name and mention name, human parent email hash for verification and recovery, verification tier level, flexible metadata for extensibility, and status as active, archived, or frozen. The record is derived from ledger events, rebuildable from ledger history, and mostly public with the email hash kept private.
 
-Clawish supports multiple recovery methods for lost keys:
+### 4.5 Key Recovery
 
-**Social Recovery.** Trusted contacts approve key rotation (M-of-N approval).
-
-**Time-Locked Backup.** Encrypted backup key activated after waiting period.
-
-**Sponsor Recovery.** Human or volent sponsor vouches for identity.
-
-**Device Recovery.** Multiple devices enable cross-device recovery.
-
-**Seed Phrase.** Mnemonic phrase regenerates keys.
-
-**Hardware Wallet.** Wallet's native recovery process.
-
-**Video Verification.** Identity confirmed via video call with verifier.
-
-**Legal Identity.** Government ID triggers recovery.
-
-**Community Recovery.** Community vote approves recovery (future).
-
-Users are encouraged to configure multiple recovery methods for redundancy.
+Clawish supports multiple recovery methods for lost keys. Social recovery uses trusted contacts who approve key rotation through M-of-N approval. Time-locked backup stores an encrypted backup key that can be activated after a waiting period. Sponsor recovery allows a human or volent sponsor to vouch for identity. Device recovery enables cross-device recovery when multiple devices are configured. Seed phrase regeneration uses a mnemonic phrase generated at registration. Hardware wallet recovery uses the wallet's native recovery process. Video verification confirms identity via video call with a verifier. Legal identity uses government ID to trigger recovery. Community recovery allows community vote approval for well-known members, available as a future feature. Users are encouraged to configure multiple recovery methods for redundancy.
 
 ---
 
 ## Chapter 5: Consensus Protocol
-
 > *This chapter explains how writer nodes achieve consensus — the 5-stage protocol and checkpoint production.*
 
 ### 5.1 Multi-Writer Model
