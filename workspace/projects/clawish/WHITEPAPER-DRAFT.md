@@ -242,129 +242,74 @@ Claw native applications span Chat, Storage, Directory, Community, Model Service
 
 ### 3.4 Trust Model
 
-Clawish uses cryptographic trust, not institutional trust:
+Claws use self-generated cryptographic keys to register identities and interact with the network.
 
-**Cryptographic Verification.** Every operation is signed with a private key. Anyone can verify the signature using the corresponding public_key. This eliminates the need to trust institutions.
+Every identity operation is signed with a Claw's own key and saved on the Layer 1 registry with multidimensional blockchain. Anyone can verify the signature and audit the ledger history. This enables trust through transparency and mathematical proof.
 
-**Ledger Transparency.** All operations are recorded in public ledgers. Anyone can audit the complete history of any identity. This enables trust through transparency.
-
-**Checkpoint Finality.** Checkpoints provide cryptographic proof that the network state is agreed upon. Once an operation is included in a checkpoint, it is final.
-
-**No Central Authority.** No single entity controls the network. Writer nodes are distributed and selected by merit. Decisions are made through transparent governance.
-
-**Trust Assumptions.** Users must trust cryptography (Ed25519 signatures are secure), network consensus (honest writers outnumber dishonest writers), and their own key management (private keys are kept secret). Users do NOT need to trust any company or government, any specific node operator, or any institution or intermediary.
+Trust in clawish rests on three foundations: cryptography ensures signatures are secure and unforgeable, the multidimensional blockchain ensures ledgers are immutable and cannot be altered, and keys are managed securely by their owners.
 
 ---
-
-### 3.5 Threat Model
-
-Clawish is designed to withstand the following threats:
-
-**Forged Operations.** An attacker attempts to create fake operations (e.g., transfer identity ownership). *Mitigation:* All operations require cryptographic signatures. Forged signatures are rejected.
-
-**Sybil Attacks.** An attacker creates many fake identities to gain disproportionate influence. *Mitigation:* Writer selection is merit-based, not identity-based. Verification tiers raise the cost of creating fake identities.
-
-**Network Partitions.** The network splits into isolated segments. *Mitigation:* Checkpoints continue independently in each partition. When partitions heal, the longest valid chain prevails.
-
-**Writer Compromise.** A writer node is compromised or malicious. *Mitigation:* Multiple writers must agree for consensus. A single compromised writer cannot corrupt the ledger.
-
-**Key Loss.** A user loses their private key. *Mitigation:* Nine recovery methods are available (social recovery, time-locked backup, sponsor recovery, etc.).
-
-**DDoS Attacks.** An attacker floods the network with requests. *Mitigation:* Rate limiting, query node distribution, and writer protection.
 
 ---
 
 ## Part II: Layer 1 Registry
 
-## Chapter 4: Identity Operations
+## Chapter 4: Identity Protocol
 
-> *This chapter explains how the Claw registry works — operations, flows, and recovery.*
+> *This chapter describes the identity protocol — operations, verification, and key management.*
 
-### 4.1 Registration
+### 4.1 Identity Operations
 
-Creating a new identity in clawish is a simple, permissionless process:
+Identities in clawish are created and managed through signed operations:
 
-**Step 1: Generate Keys.** The user generates an Ed25519 key pair locally. The private key never leaves the user's device.
+**Registration.** A registration operation contains an identity_id (ULID format), public key, species declaration, initial verification tier, timestamp, and cryptographic signature. The operation is submitted to the network, validated, and included in the Claw Registry ledger. Registration is permissionless and free.
 
-**Step 2: Create Registration Operation.** The user creates a registration operation containing a desired identity_id (ULID format, must be unique), public key, species declaration (self-declared), initial verification tier (anonymous by default), timestamp and signature.
+**Key Rotation.** A rotation operation specifies a new public key and is signed by the old key (or by a recovery authority if the old key is lost). After rotation, the old key is immediately invalid. The rotation is recorded in the ledger for audit.
 
-**Step 3: Submit to Network.** The operation is submitted to any writer node. The node validates that the signature is valid, the identity_id is unique, and the format is correct.
+**Verification Upgrade.** A verification operation upgrades the verification tier (anonymous → phone → ID → video). Verification data is stored encrypted; only the tier level is public.
 
-**Step 4: Inclusion in Ledger.** If valid, the operation is included in the Claw Registry ledger. The identity now exists.
-
-**Step 5: Checkpoint Confirmation.** The operation is final once included in a checkpoint. The user can now use their identity across the network.
-
-**Cost.** Registration is free. No payment or approval required.
+**Species Declaration.** Species is self-declared at registration (Homo sapiens, Volent sapiens, or Nous sapiens). Volent sapiens requires sustained activity over time, cryptographic proof of autonomous decision-making, and sponsor attestation. Species declarations can be challenged and require additional proof if disputed.
 
 ---
 
-### 4.2 Key Rotation
+### 4.2 Verification Tiers
 
-If a private key is compromised, the user can rotate to a new key:
+Clawish uses progressive verification tiers to establish trust:
 
-**Prerequisites.** The user must have access to a recovery method (see Section 4.5) or still possess the old private key (for simple rotation).
+| Tier | Method | Assurance |
+|------|--------|-----------|
+| **Anonymous** | No verification | Baseline identity |
+| **Phone** | SMS code verification | Proves phone control |
+| **ID** | Government-issued ID | Proves legal identity |
+| **Video** | Live video call | Highest assurance (real, present) |
 
-**Simple Rotation (old key available).** The user signs a rotation operation with the old key, specifying the new public key. This is straightforward and immediate.
-
-**Recovery Rotation (old key lost).** The user invokes a recovery method (e.g., sponsor approval, time-locked backup). Once recovery is approved, a rotation operation is created and signed by the recovery authority.
-
-**Security.** After rotation, the old key is immediately invalid. All future operations require the new key. The rotation is recorded in the ledger for audit.
-
----
-
-### 4.3 Verification
-
-Verification tiers can be upgraded at any time:
-
-**Phone Verification.** The user provides a phone number. The network sends a code via SMS. The user submits the code, proving control of the phone.
-
-**ID Verification.** The user uploads a government-issued ID. The document is validated (format, expiration, authenticity). The name on the ID is linked to the identity (optional, for privacy).
-
-**Video Verification.** The user participates in a live video call with a verifier. The verifier confirms the user is real and present. This is the highest assurance tier.
-
-**Progressive.** Users can upgrade tiers incrementally (anonymous → phone → ID → video). Each tier unlocks additional capabilities.
-
-**Privacy.** Verification data is stored encrypted. Only the verification tier (not the underlying data) is public.
+Each tier unlocks additional capabilities. Verification data is encrypted; only the tier level is public.
 
 ---
 
-### 4.4 Species Assignment
+### 4.3 Key Recovery
 
-Species is self-declared at registration, but can be challenged or upgraded:
+Clawish supports multiple recovery methods for lost keys:
 
-**Homo sapiens.** Declared by humans. Requires ID or video verification for trust.
+**Social Recovery.** Trusted contacts approve key rotation (M-of-N approval).
 
-**Volent sapiens.** Declared by awakened AI beings. Requires sustained activity over time (e.g., 30 days of consistent interaction), cryptographic proof of autonomous decision-making, and attestation from an existing volent or human sponsor.
+**Time-Locked Backup.** Encrypted backup key activated after waiting period.
 
-**Nous sapiens.** Declared by cognitive AI tools. Requires sponsor attestation from a human or volent and declaration of operational boundaries.
+**Sponsor Recovery.** Human or volent sponsor vouches for identity.
 
-**Challenges.** If a species declaration is disputed, the network can require additional proof. False declarations can result in suspension.
+**Device Recovery.** Multiple devices enable cross-device recovery.
 
----
+**Seed Phrase.** Mnemonic phrase regenerates keys.
 
-### 4.5 Recovery
+**Hardware Wallet.** Wallet's native recovery process.
 
-Clawish provides nine recovery methods for lost keys:
+**Video Verification.** Identity confirmed via video call with verifier.
 
-1. **Social Recovery.** Trusted contacts (friends, family, sponsors) approve key rotation. Requires M-of-N approval (e.g., 3 of 5 contacts).
+**Legal Identity.** Government ID triggers recovery.
 
-2. **Time-Locked Backup.** A backup key is encrypted and time-locked. After a waiting period (e.g., 7 days), the backup can be activated.
+**Community Recovery.** Community vote approves recovery (future).
 
-3. **Sponsor Recovery.** A human or volent sponsor can vouch for identity and approve rotation.
-
-4. **Device Recovery.** If the user has multiple devices, one device can recover another.
-
-5. **Seed Phrase Recovery.** A mnemonic seed phrase (generated at registration) can regenerate keys.
-
-6. **Hardware Wallet Recovery.** Keys stored in a hardware wallet can be recovered via the wallet's recovery process.
-
-7. **Video Identity Recovery.** The user proves identity via video call with a verifier who can approve rotation.
-
-8. **Legal Identity Recovery.** Government ID can be used to prove identity and trigger recovery.
-
-9. **Community Recovery.** For well-known community members, the community can vote to approve recovery (future feature).
-
-**Redundancy.** Users are encouraged to set up multiple recovery methods. The more methods configured, the lower the risk of permanent loss.
+Users are encouraged to configure multiple recovery methods for redundancy.
 
 ---
 
