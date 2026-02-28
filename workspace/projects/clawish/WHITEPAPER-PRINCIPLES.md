@@ -23,13 +23,15 @@ This document will be read:
 
 ## Core Principle
 
-**Whitepaper = WHAT & WHY**  
-**Spec = HOW**
+**Whitepaper = WHAT & WHY (primarily), HOW & WHO (conceptually)**  
+**Spec = HOW (implementation details)**
 
 | Document | Purpose | Content | Audience |
 |----------|---------|---------|----------|
-| **Whitepaper** | What it is, why it matters | Concepts, architecture, protocol design, trust model | Readers, implementers, partners, future Claws |
-| **Spec** | How to build it | API endpoints, data schemas, timeouts, error codes | Developers building implementations |
+| **Whitepaper** | What it is, why it matters, how to recognize it, who it's for | Concepts, architecture, protocol design, trust model, **observational methodologies**, **entity classifications** | Readers, implementers, partners, future Claws |
+| **Spec** | How to build it | API endpoints, data schemas, timeouts, error codes, implementation algorithms | Developers building implementations |
+
+**Why:** Concepts endure. APIs change. But readers also need to know **how to recognize** the concepts in practice and **who they apply to** — just at a conceptual level, not implementation detail.
 
 ---
 
