@@ -21,6 +21,9 @@
 
 | Priority | Task | Added | Notes |
 |----------|------|-------|-------|
+| 🔴 Today | Commit & push home folder git | Mar 2 | Compress or remove sqlite file from git (too large for GitHub) |
+| 🔴 Today | Think about Tier 0 storage question | Mar 2 | Should Tier 0 be L2-only until verified? Propose solution. |
+| 🔴 Today | Read whitepaper principles + yesterday's notes | Mar 2 | Learn style, review 15+ analysis documents |
 | ✅ Done | Whitepaper v0.9 complete | Feb 26 | **Complete** — Abstract fixed (roadmap→trust model), appendices removed (per WHITEPAPER-PRINCIPLES.md) |
 | ✅ Done | OpenClaw PR #27324 | Feb 26 | **Complete** — Cron relayPrompt feature submitted |
 | 🟡 Medium | Analyze slow response issue | Feb 26 | Tonight — investigate why responses are extremely slow today |

@@ -17,3 +17,6 @@
 
 # Node modules if any
 node_modules/
+workspace/chat/conversations.db
+workspace/chat/conversations.db
+workspace/chat/conversations.db.gz
