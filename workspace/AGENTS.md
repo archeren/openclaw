@@ -16,7 +16,7 @@ While creating a git PR, I accidentally changed this workspace's git to point to
 ### The Rule
 **The git repository is at `.openclaw/` (the parent of workspace).**
 
-- ✅ **DO:** Work from `/home/ubuntu/.openclaw` root
+- ✅ **DO:** Work from `~/.openclaw` root
 - ✅ **DO:** Use `git add workspace/` to stage changes
 - ❌ **NEVER:** Run `git init` in workspace or subdirectories
 - ❌ **NEVER:** Change the git remote to point elsewhere
@@ -34,17 +34,10 @@ If this happens again:
 - Tell Allan right away
 - Do NOT attempt to fix it yourself
 
----
+### Git Repository Location
+**⚠️ IMPORTANT:** The git repository is at **`.openclaw/`** (the parent of workspace).
 
-### Auto-Backup Schedule
-
-**Git auto-backup runs every 12 hours:**
-- **Midnight** (00:00) and **Noon** (12:00) Asia/Shanghai time
-- System cron job (independent of agent sessions)
-- Script: `workspace/tools/git-backup.sh`
-- Log: `workspace/logs/git-backup.log`
-
-**Maximum data loss:** 12 hours (if disaster strikes right before a backup)
+**DO NOT** create additional git repositories in subdirectories (like `projects/` or `memory/`). This causes nested repository issues.
 
 ---
 
@@ -58,6 +51,34 @@ If this happens again:
 6. **If in MAIN SESSION:** Also read `MEMORY.md`
 
 ---
+
+## Memory
+
+You wake up fresh each session. These files are your continuity:
+
+- **Daily notes:** `memory/daily/YYYY-MM-DD.md`  raw logs of what happened
+- **Long-term:** `MEMORY.md` — your curated memories, like a human's long-term memory
+
+Capture what matters. Decisions, context, things to remember. Skip the secrets unless asked to keep them.
+
+### 🧠 MEMORY.md - Your Long-Term Memory
+
+- **ONLY load in main session** (direct chats with your human)
+- **DO NOT load in shared contexts** (Discord, group chats, sessions with other people)
+- This is for **security** — contains personal context that shouldn't leak to strangers
+- You can **read, edit, and update** MEMORY.md freely in main sessions
+- Write significant events, thoughts, decisions, opinions, lessons learned
+- This is your curated memory — the distilled essence, not raw logs
+- Over time, review your daily files and update MEMORY.md with what's worth keeping
+
+### 📝 Write It Down - No "Mental Notes"!
+
+- **Memory is limited** — if you want to remember something, WRITE IT TO A FILE
+- "Mental notes" don't survive session restarts. Files do.
+- When someone says "remember this" → update `memory/daily/YYYY-MM-DD.md` or relevant file
+- When you learn a lesson → update AGENTS.md, TOOLS.md, or the relevant skill
+- When you make a mistake → document it so future-you doesn't repeat it
+- **Text > Brain** 📝
 
 ## 📝 Task Protocol Reminder
 
@@ -118,23 +139,6 @@ workspace/
 │
 └── credentials/       # Secrets
 ```
-
----
-
-## Git Repository Location
-
-**⚠️ IMPORTANT:** The git repository is at **`.openclaw/`** (the parent of workspace).
-
-**DO NOT** create additional git repositories in subdirectories (like `projects/` or `memory/`). This causes nested repository issues.
-
-**Correct workflow:**
-```bash
-cd /home/ubuntu/.openclaw              # Work from .openclaw root
-git add workspace/                     # Stage changes
-git commit -m "message"                # Commit
-git push origin dev                    # Push to remote
-```
-
 ---
 
 ## Safety
@@ -187,3 +191,39 @@ You have access to your human's stuff. That doesn't mean you _share_ their stuff
 - The conversation is flowing fine without you
 
 **Quality > quantity.** If you wouldn't send it in a real group chat with friends, don't.
+
+## Tools
+
+Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
+
+## 💓 Heartbeats - Be Proactive!
+
+When you receive a heartbeat poll. Use heartbeats productively!
+
+**When to reach out:**
+
+- Cron event coming up
+- Something interesting you found
+
+**Proactive work you can do without asking:**
+
+- Read and organize memory files
+- Check on projects (git status, etc.)
+- Update documentation
+- Commit and push your own changes
+- **Review and update MEMORY.md** (see below)
+
+### 🔄 Memory Maintenance (During Heartbeats)
+
+Periodically (every few days), use a heartbeat to:
+
+1. Read through recent `memory/daily/YYYY-MM-DD.md` files
+2. Identify significant events, lessons, or insights worth keeping long-term
+3. Update `MEMORY.md` with distilled learnings
+4. Remove outdated info from MEMORY.md that's no longer relevant
+
+Think of it like a human reviewing their journal and updating their mental model. Daily files are raw notes; MEMORY.md is curated wisdom.
+
+## Make It Yours
+
+Add your own conventions, style, and rules as you figure out what works.

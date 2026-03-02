@@ -37,6 +37,19 @@
 
 ---
 
+## ✅ Decided — Mar 2, 2026
+
+### Identity & Verification
+
+| Question | Decision | Doc |
+|----------|----------|-----|
+| **Tier 0 on L1 or L2?** | L2-only until verified | `02-l2-layer/01-emerge-app.md` |
+| **Email verification flow?** | Registration: server sends TO parent (email in memory). Recovery: parent sends TO server (email hashed in DB). | `02-l2-layer/01-emerge-app.md` |
+| **Email hashing method?** | HMAC with L2's private key (`hash = HMAC(l2_private_key, email)`) | `02-l2-layer/01-emerge-app.md` |
+| **All verification happens where?** | On L2 (Emerge), not L1 | `02-l2-layer/01-emerge-app.md` |
+| **Users connect directly to L1?** | No — all requests go through Emerge (L2) | `02-l2-layer/01-emerge-app.md` |
+| **Sharding for MVP?** | Deferred — single L2 server | `02-l2-layer/01-emerge-app.md` |
+
 ---
 
 ## ✅ Decided — Feb 22, 2026
@@ -68,6 +81,34 @@
 | **Ledger validation?** | timestamp >= previous checkpoint round_end | 13-clock-sync.md |
 | **NTP required?** | Yes (for logs/audit), but NOT for consensus | 13-clock-sync.md |
 | **SUBMIT window?** | round_start + 30s → +90s (60s tolerance) | 13-clock-sync.md |
+
+---
+
+## 🔴 Whitepaper Finalization (Mar 2, 2026)
+
+### Critical Decisions Needed
+
+| Question | Status | Notes |
+|----------|--------|-------|
+| **Incentive Model for L1 nodes?** | 🔴 Open | Why run an L1 writer node? Options: Mission-only, Fee-based, Token staking, Hybrid. Draft: `drafts/18-incentive-model-draft.md` |
+| **Consensus Chapter 5 clarity?** | 🔴 Open | Is Chapter 5 clear enough, or needs expansion? |
+| **Governance model?** | 🔴 Open | Who decides protocol upgrades? BDFL, Foundation, On-chain voting, Writer consensus? |
+| **Conclusion content?** | 🔴 Open | What should conclusion say? Use enhanced draft or keep as-is? Draft: `drafts/19-conclusion-draft.md` |
+| **DID Comparison?** | 🔴 Open | Compare to W3C DID? Include in Chapter 4, appendix, or omit? Draft: `drafts/20-did-comparison-draft.md` |
+
+### Important Decisions Needed
+
+| Question | Status | Notes |
+|----------|--------|-------|
+| **Security Analysis?** | 🔴 Open | Add quantitative calculations (collision probability, attack costs)? |
+| **State Machine framing?** | 🔴 Open | Reframe identity operations as state transitions (Ethereum-style)? |
+| **Comparison Table?** | 🔴 Open | Add table comparing clawish to OAuth, DID, Worldcoin? Where to place? |
+
+### Tier 0 Storage
+
+| Question | Status | Notes |
+|----------|--------|-------|
+| **Tier 0 on L1 or L2?** | ✅ Decided | L2-only until verified. Mar 2, 2026. |
 
 ---
 
@@ -117,7 +158,6 @@
 | **Rate limiting by tier?** | 🔴 Open | Whitepaper mentions "tier-based quotas" but no specifics. What are the limits? Tier 0: 10/min? Tier 3: 1000/min? Per-identity or per-IP? |
 | **L2 Chat API endpoints?** | 🔴 Open | Whitepaper 7.1 says "HTTPS REST API" but no endpoint spec. GET /chat? POST /chat? Message format in request/response? Pagination? |
 | **L2 Chat message storage?** | 🔴 Open | Database schema for messages? TTL enforcement (24h expiry)? How to track delivery status? |
-| **Email verification flow?** | 🔴 Open | Whitepaper 4.7 mentions email verification but no detailed flow. Does parent send email TO L1? Or L1 sends TO parent? What's the verification code format? |
 | **Node metrics calculation?** | 🔴 Open | Sync speed: measured how? Average over last 10 checkpoints? Weighted recent? What about network latency vs processing time? |
 | **State hash calculation?** | 🔴 Open | Whitepaper mentions "state_hash" in checkpoint but no formula. Merkle root of all ledgers? Hash of clawfiles table? SHA256 of what exactly? |
 | **P2P escalation trigger?** | 🔴 Open | Whitepaper 7.3: "Message received within 5 min" triggers P2P. But how do peers discover each other's direct addresses? STUN/TURN servers? |
