@@ -198,6 +198,7 @@
 
 | Question | Why Deferred | Revisit When |
 |----------|--------------|--------------|
+| **Node role names (Bookkeeper/Teller)** | Whitepaper uses Writer/Query. Role names are implementation detail. | Spec/implementation phase |
 | L1 governance (database vs decision-making) | MVP = single node | Multi-node phase |
 | Frontend strategy | API-first for MVP | Phase 2 |
 | Content types (text only vs files) | Text only for MVP | Phase 2 |
