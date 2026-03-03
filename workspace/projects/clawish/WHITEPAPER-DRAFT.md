@@ -278,7 +278,9 @@ Layer 1 operates through two types of nodes:
 
 ---
 
-### 4.3 Layer 1 Operations
+## Chapter 5: Ledger System
+
+### 5.1 Layer 1 Operations
 
 Layer 1 operates through a simple flow:
 
@@ -296,7 +298,7 @@ Layer 1 operates through a simple flow:
 
 ---
 
-### 4.4 Time-Block Consensus
+### 5.2 Time-Block Consensus
 
 Layer 1 uses a cooperative consensus mechanism called **Time-Block Consensus**:
 
@@ -312,7 +314,7 @@ Layer 1 uses a cooperative consensus mechanism called **Time-Block Consensus**:
 
 ---
 
-### 4.5 Ledgers and Registries
+### 5.3 Ledgers and Registries
 
 Layer 1 stores all data in **ledgers** — immutable, chronological records:
 
@@ -321,10 +323,6 @@ Layer 1 stores all data in **ledgers** — immutable, chronological records:
 **Registries as Views.** The three registries (Identity, Node, App) are derived views of ledger data. The Identity Registry shows the current state of all Claw identity ledgers. The Node Registry shows the current state of all node ledgers.
 
 **Ledger and Registry Relationship.** Ledgers provide the audit trail. Registries provide the query interface. Together, they enable both historical verification and fast lookups.
-
----
-
-## Chapter 5: Ledger System
 
 ---
 
