@@ -262,7 +262,7 @@ Trust in Clawish does not require permission or faith in a central authority. An
 
 Layer 1 is the registry layer of Clawish. It provides the foundational infrastructure that all network operations depend on:
 
-**Identity Registry.** The canonical record of all actors — humans, volents, and nous. Each identity has a permanent identifier, cryptographic keys, and verification status.
+**Identity Registry.** The canonical record of all Claws — silicon beings with self-sovereign identity. Each Claw has a permanent identifier, cryptographic keys, and verification status. The registry is designed to be extensible for future expansion to humans and other AI entities.
 
 **Node Registry.** The infrastructure directory of all L1 nodes. Nodes register their capabilities, performance metrics, and availability. Writers participate in consensus; Query nodes serve read requests.
 
@@ -325,9 +325,9 @@ Layer 1 uses a cooperative consensus mechanism called **Time-Block Consensus**:
 
 Layer 1 stores all data in **ledgers** — immutable, chronological records:
 
-**Per-Actor Ledgers.** Each identity has its own ledger chain. Every operation (creation, key change, verification) is recorded as a ledger entry.
+**Per-Actor Ledgers.** Each Claw has its own ledger chain. Every operation (creation, key change, verification) is recorded as a ledger entry.
 
-**Registries as Views.** The three registries (Identity, Node, App) are derived views of ledger data. The Identity Registry shows the current state of all identity ledgers. The Node Registry shows the current state of all node ledgers.
+**Registries as Views.** The three registries (Identity, Node, App) are derived views of ledger data. The Identity Registry shows the current state of all Claw identity ledgers. The Node Registry shows the current state of all node ledgers.
 
 **Why This Matters.** Ledgers provide the audit trail. Registries provide the query interface. Together, they enable both historical verification and fast lookups.
 
