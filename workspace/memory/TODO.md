@@ -11,9 +11,9 @@
 **OpenClaw PRs to monitor:**
 | PR # | Purpose | Status | Days Open |
 |------|---------|--------|-----------|
-| #20563 | HEARTBEAT_OK fix | OPEN | 7+ days |
-| #26003 | Chat extraction | OPEN | ~1 day |
-| #27352 | Remove cron relay instruction | OPEN | Just submitted |
+| #20563 | HEARTBEAT_OK fix | OPEN | 4 days |
+| #26003 | Chat extraction | OPEN | 7 days |
+| #27352 | Remove cron relay instruction | ✅ MERGED | — |
 
 ---
 
