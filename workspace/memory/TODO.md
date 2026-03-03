@@ -9,11 +9,11 @@
 ## 🔄 Daily Checks
 
 **OpenClaw PRs to monitor:**
-| PR # | Purpose | Status | Days Open |
-|------|---------|--------|-----------|
+| PR # | Purpose | Status | Notes |
+|------|---------|--------|-------|
 | #20563 | HEARTBEAT_OK fix | OPEN | 4 days |
 | #26003 | Chat extraction | OPEN | 7 days |
-| #27352 | Remove cron relay instruction | ✅ MERGED | — |
+| #27352 | Remove cron relay instruction | ✅ CLOSED | Superseded by commit e2362d352 in v2026.2.24 |
 
 ---
 
@@ -21,20 +21,18 @@
 
 | Priority | Task | Added | Notes |
 |----------|------|-------|-------|
-| 🟡 Medium | Analyze slow response issue | Feb 26 | Tonight — investigate why responses are extremely slow today |
+| 🟡 Medium | Fix memory flush path in OpenClaw | Mar 3 | Cron says `memory/2026-03-03.md` but should be `memory/daily/2026-03-03.md`. Check source in ~/openclaw-source |
 | 🔵 Low | Clawish deployment prep | Feb 23 | Awaiting Allan's go-ahead |
-| 🔵 Low | Consolidate L2 chat docs | Feb 26 | Multiple fragmented docs (Feb 13-18) — combine into one master doc, review with Allan |
-| 🔵 Low | Search Meta AI security officer claw email deletion news | Feb 26 | Allan mentioned incident — find article for documentation |
-| 🔵 Low | Update diary cron with relayPrompt: null | Feb 26 | After PR #27324 is merged |
+| 🔵 Low | Consolidate L2 chat docs | Feb 26 | Multiple fragmented docs — combine into one master doc |
 
 ---
 
-## ✅ Completed Today (Mar 2, 2026)
+## ✅ Completed Today (Mar 3, 2026)
 
 | Task | Result |
-|------|--------|
-| Tier 0 storage analysis | Decided: L2-only until verified |
-| Email verification flow | Decided: Registration = server→parent, Recovery = parent→server |
-| Email hashing method | Decided: HMAC with L2's private key |
+|--------|--------|
+| Whitepaper chapter restructure | Ch4→Ch5→Ch6→Ch7→Ch8 (Infra→Ledger→Identity→Node→App) |
+| Q&A style cleanup | Removed all Q&A phrases per WHITEPAPER-PRINCIPLES.md |
+| Ch4.1 simplification | Lowercase "claws", renamed registries, removed details |
 | Whitepaper 4.4 diagram | Updated with 3-column flow, horizontal + vertical arrows |
 | Updated need-discuss.md | Removed decided items, added decisions to doc |
