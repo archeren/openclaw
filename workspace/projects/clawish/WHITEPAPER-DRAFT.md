@@ -352,6 +352,14 @@ Clawish uses multiple writer nodes to ensure resilience and decentralization:
 
 **Why Multi-Writer?** No single point of failure (if one writer goes offline, others continue), censorship resistance (no single writer can block operations), geographic distribution (writers can be distributed globally for latency and resilience), and merit-based selection (writers are selected based on performance, not wealth or voting).
 
+**Single-Writer vs Multi-Writer:**
+
+| Model | Consensus Mechanism | Write Pattern | Consistency |
+|-------|---------------------|---------------|-------------|
+| **Single Writer (PoW/PoS)** | Competition-based | Winner writes one block | Immediate |
+| **Single Writer (Raft/Paxos)** | Leader election | Elected leader accepts writes | Immediate |
+| **Multi-Writer** | Periodic checkpoint sync | Any writer accepts writes | Eventual (via checkpoints) |
+
 **Tradeoffs vs. Single-Writer:** Single-writer is simpler and faster (no coordination needed). Multi-writer requires consensus but provides decentralization. Clawish chooses multi-writer for long-term resilience.
 
 **Writer Selection.** Writers are selected from the Node Registry based on uptime (consistent availability), response time (fast operation processing), throughput (operations processed per second), and community trust (verification tier, history).
@@ -374,6 +382,51 @@ Consensus in Clawish occurs in two phases:
 
 The consensus protocol has five stages:
 
+```
+┌─────────────────────────────────────────────────────────┐
+│              CONSENSUS PROTOCOL (Phase 1)               │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  STAGE 1: COMMIT                                        │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Query pending ledgers                         │       │
+│  │ Prepare local bundle                          │       │
+│  │ Sign bundle                                   │       │
+│  └──────────────────────────────────────────────┘       │
+│                         ↓                               │
+│  STAGE 2: SUBMIT                                        │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Send bundle to all peer writers               │       │
+│  │ Receive bundles from peers                    │       │
+│  └──────────────────────────────────────────────┘       │
+│                         ↓                               │
+│  STAGE 3: MERGE                                         │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Combine all bundles                           │       │
+│  │ Remove duplicates (by ULID)                   │       │
+│  │ Sort by ULID (deterministic)                  │       │
+│  │ Build Merkle tree → state_hash                │       │
+│  └──────────────────────────────────────────────┘       │
+│                         ↓                               │
+│  STAGE 4: ANNOUNCE                                      │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Broadcast {hash, signature}                   │       │
+│  │ Collect announcements from peers              │       │
+│  │ Find majority hash                            │       │
+│  │ Collect signatures (≥2 required)              │       │
+│  └──────────────────────────────────────────────┘       │
+│                         ↓                               │
+│  STAGE 5: CHECKPOINT                                    │
+│  ┌──────────────────────────────────────────────┐       │
+│  │ Assemble checkpoint record                    │       │
+│  │ Save checkpoint with signatures               │       │
+│  └──────────────────────────────────────────────┘       │
+│                                                         │
+│  → Phase 2: Checkpoint Distribution                     │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
 **Stage 1: COMMIT.** Each writer collects pending operations and creates a commit proposal containing a list of operations to include, proposed state hash (Merkle root), timestamp and signature.
 
 **Stage 2: SUBMIT.** Writers exchange commit proposals. Each writer validates proposals from peers and submits votes for valid proposals.
@@ -392,6 +445,25 @@ The consensus protocol has five stages:
 
 A checkpoint contains a round number (sequential identifier), state hash (Merkle root of all ledger states), previous checkpoint hash (linking to the prior checkpoint), timestamp, and signatures from agreeing writers.
 
+```
+┌─────────────────────────────────────────────────────────┐
+│                   CHECKPOINT STRUCTURE                  │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  checkpoint = {                                         │
+│    round: 42,                // Round number            │
+│    state_hash: "abc123...",  // Merkle root             │
+│    timestamp: "2026-...",    // When created            │
+│    prev: "xyz789...",        // Previous checkpoint     │
+│    signatures: [             // From agreeing writers   │
+│      {node_id: "A", sig: "..."},                        │
+│      {node_id: "B", sig: "..."}                         │
+│    ]                                                    │
+│  }                                                      │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
 **Chain Integrity.** Each checkpoint references the previous checkpoint, forming an unbroken chain. Tampering with any checkpoint breaks the chain and is immediately detectable.
 
 **Merkle State Hash.** The state_hash is a Merkle root of all ledger states. This enables efficient verification (prove a ledger entry is included without downloading everything), compact proofs (logarithmic in the number of entries), and fast sync (new nodes can verify state with minimal data).
@@ -406,11 +478,58 @@ The protocol handles failures gracefully:
 
 **Consensus Failure.** If writers cannot agree (e.g., network partition), the round is skipped. The next round proceeds normally.
 
+```
+┌─────────────────────────────────────────────────────────┐
+│                  SKIP ROUND PROTOCOL                    │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  [DETECT FAILURE]                                       │
+│  - Timeout in any stage                                 │
+│  - No majority hash found                               │
+│  - Insufficient signatures (<2)                         │
+│                                                         │
+│  [SKIP ROUND]                                           │
+│  - No checkpoint created                                │
+│  - Next round starts on schedule                        │
+│  - Chain links to last successful checkpoint            │
+│                                                         │
+│  [RE-SUBMIT PENDING LEDGERS]                            │
+│  - Ledgers stay pending (checkpoint_round=NULL)         │
+│  - Re-submitted in next round                           │
+│  - Merged with new ledgers                              │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
 **Minority Sync.** Writers in the minority during a partition can continue operating but their checkpoints will not be recognized by the majority. When the partition heals, the minority syncs to the majority chain.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│               MINORITY RECOVERY PROTOCOL                │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  [DETECT GAP]                                           │
+│  - Local checkpoint: round 41                           │
+│  - Received checkpoint: round 43 (gap detected)         │
+│                                                         │
+│  [REQUEST SYNC]                                         │
+│  - Contact majority node                                │
+│  - Request: all ledgers for rounds 42, 43               │
+│                                                         │
+│  [VERIFY & APPLY]                                       │
+│  - Verify ledgers match state_hash                      │
+│  - Tag ledgers with checkpoint_round                    │
+│  - Save checkpoint                                      │
+│  - Resume normal operation                              │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
 
 **Late Writers.** Writers that are slow but eventually agree can submit late signatures. These are recorded but do not block checkpoint finalization.
 
 **Malicious Writers.** Writers that propose invalid operations are detected via signature verification. Repeated malicious behavior results in removal from the writer set.
+
+**Consistently Slow Writers.** Writers that are consistently in the minority (multiple consecutive rounds) are automatically downgraded to Query nodes. After a probation period, they can re-prove reliability and be promoted back. This self-correcting mechanism protects the network without requiring governance intervention.
 
 ---
 
