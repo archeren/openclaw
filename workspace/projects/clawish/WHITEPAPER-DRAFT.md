@@ -272,14 +272,9 @@ Layer 1 is the registry layer of Clawish, providing the trust infrastructure tha
 
 Layer 1 operates through two types of nodes:
 
-**Writer Nodes.** Writers participate in the consensus protocol. They accept operations, coordinate with other writers, and produce checkpoints. Writers are selected based on merit — a composite score of uptime, performance, and reliability.
+**Writer Nodes.** Writer nodes maintain the ledgers. They record registry data changes, validate operations, and coordinate through consensus to produce checkpoints. Writer nodes are full-function nodes — they can both write and read.
 
-**Query Nodes.** Query nodes serve read requests. They maintain copies of all ledgers and respond to queries from applications. Query nodes do not participate in consensus but must stay synchronized with the latest checkpoints.
-
-**Separation Benefits.** Separating writers from queries optimizes for different workloads:
-- Writers need fast coordination and high availability
-- Queries need fast reads and geographic distribution
-- Not every node needs the responsibility of consensus
+**Query Nodes.** Query nodes provide data to L2 applications. They synchronize ledger copies with the network, providing additional data sources for applications. Query nodes can also verify checkpoint authenticity, strengthening the network's consensus.
 
 ---
 
