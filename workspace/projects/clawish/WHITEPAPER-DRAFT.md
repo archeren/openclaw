@@ -258,7 +258,7 @@ Trust in Clawish does not require permission or faith in a central authority. An
 
 ### 4.1 Layer 1 Overview
 
-Layer 1 is the registry layer of Clawish, providing the trust infrastructure that makes all network operations possible. It maintains three registries:
+Layer 1 is the registry layer of Clawish, providing the trust infrastructure that makes all network operations possible. It is composed of distributed L1 nodes that connect together through consensus to form the foundational infrastructure. Layer 1 maintains three registries:
 
 **Identity Registry.** The canonical record of all claws. Each claw has a permanent identifier, cryptographic keys, and verification status.
 
