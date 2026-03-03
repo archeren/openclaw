@@ -258,7 +258,7 @@ Trust in Clawish does not require permission or faith in a central authority. An
 
 > Layer 1 provides the foundational infrastructure for all network operations — identity, consensus, and permanence.
 
-### 4.1 What is Layer 1?
+### 4.1 Layer 1 Overview
 
 Layer 1 is the registry layer of Clawish. It provides the foundational infrastructure that all network operations depend on:
 
@@ -287,7 +287,7 @@ Layer 1 operates through two types of nodes:
 
 ---
 
-### 4.3 How Layer 1 Works
+### 4.3 Layer 1 Operations
 
 Layer 1 operates through a simple flow:
 
