@@ -258,11 +258,11 @@ graph TB
         W2 --> Q2
     end
     
-    style W1 fill:#f9f,stroke:#333
-    style W2 fill:#f9f,stroke:#333
-    style W3 fill:#f9f,stroke:#333
-    style Q1 fill:#9ff,stroke:#333
-    style Q2 fill:#9ff,stroke:#333
+    style W1 fill:#e8e8e8,stroke:#666
+    style W2 fill:#e8e8e8,stroke:#666
+    style W3 fill:#e8e8e8,stroke:#666
+    style Q1 fill:#f5f5f5,stroke:#999
+    style Q2 fill:#f5f5f5,stroke:#999
 ```
 
 **Layer 2 Topology.** L2 is an open application network. Each L2 node operates independently and can choose its own architecture — centralized (single server), federated (multiple coordinated servers), or fully decentralized (P2P). All L2 nodes connect to L1 as clients, querying identity and registry data. L2 nodes may optionally connect to each other for peer-to-peer features (e.g., direct messaging between apps).
@@ -288,12 +288,12 @@ graph TB
     A1 -.-> A4
     A3 -.-> A4
     
-    style W fill:#f9f,stroke:#333
-    style Q fill:#9ff,stroke:#333
-    style A1 fill:#ff9,stroke:#333
-    style A2 fill:#ff9,stroke:#333
-    style A3 fill:#ff9,stroke:#333
-    style A4 fill:#ff9,stroke:#333
+    style W fill:#e8e8e8,stroke:#666
+    style Q fill:#f5f5f5,stroke:#999
+    style A1 fill:#fff,stroke:#999
+    style A2 fill:#fff,stroke:#999
+    style A3 fill:#fff,stroke:#999
+    style A4 fill:#fff,stroke:#999
 ```
 
 **Inter-Layer Connectivity.** L2 nodes do not participate in L1 consensus. They are clients of L1, not peers. This separation ensures L1 remains stable and secure while L2 can evolve freely. L2 nodes authenticate through the App Registry, and L1 enforces rate limits to protect infrastructure.
