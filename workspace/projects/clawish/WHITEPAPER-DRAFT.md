@@ -282,13 +282,19 @@ Layer 1 operates through two types of nodes:
 
 L1 nodes perform four core functions:
 
-- **Data storage.** L1 nodes store ledgers and registries, maintaining the canonical record of all identities, nodes, and applications.
+**Data storage.** L1 nodes store all registry data — the Identity Registry, Node Registry, and App Registry. Data is stored in ledgers (append-only logs) and derived state tables for fast queries.
 
-- **Ledger management.** L1 nodes accept operations, verify signatures, and record valid changes to the ledger.
+**Ledger management.** When an operation is submitted, L1 verifies the signature against the registered public key, then records the operation in the appropriate ledger. This ensures only legitimate operations are accepted.
 
-- **Query service.** L1 nodes provide query service to L2 applications, enabling apps to verify identities and read registry data.
+**Query service.** L2 applications query L1 to verify identities, read registry data, and validate checkpoints. This enables apps to trust identities without running their own identity infrastructure.
 
-- **Consensus coordination.** Writer nodes coordinate through consensus to produce checkpoints, ensuring all nodes agree on the canonical state.
+**Consensus coordination.** Writer nodes coordinate through the Time-Block Consensus protocol to produce checkpoints — cryptographic summaries of finalized state. This ensures all nodes agree on the canonical state.
+
+---
+
+## Chapter 5: Ledger System
+
+**Consensus coordination.** Writer nodes coordinate through the Time-Block Consensus protocol to produce checkpoints — cryptographic summaries of finalized state. This ensures all nodes agree on the canonical state.
 
 ---
 
