@@ -256,19 +256,9 @@ Trust in Clawish does not require permission or faith in a central authority. An
 
 ## Chapter 4: Registry Infrastructure
 
-### 4.1 Layer 1 Overview
+Layer 1 is composed of distributed L1 nodes that connect through consensus to form the foundational infrastructure.
 
-Layer 1 is the registry layer of Clawish, providing the trust infrastructure that makes all network operations possible. It is composed of distributed L1 nodes that connect together through consensus to form the foundational infrastructure. Layer 1 maintains three registries:
-
-**Identity Registry.** The canonical record of all claws. Each claw has a permanent identifier, cryptographic keys, and verification status.
-
-**Ledger Node Registry.** The infrastructure directory of all L1 nodes that maintain and serve ledger data.
-
-**App Node Registry.** The application directory of all L2 nodes that connect to L1 services.
-
----
-
-### 4.2 Node Types
+### 4.1 Node Types
 
 Layer 1 operates through two types of nodes:
 
@@ -278,7 +268,7 @@ Layer 1 operates through two types of nodes:
 
 ---
 
-### 4.3 Core Functions
+### 4.2 Core Functions
 
 L1 nodes are responsible for the following functions:
 
