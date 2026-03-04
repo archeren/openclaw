@@ -298,7 +298,7 @@ L1 nodes are responsible for the following functions:
 
 The ledger system is the core data infrastructure of Layer 1. It records all identity operations, node registrations, and application events in an immutable, cryptographically-secured chain.
 
-**Per-Actor Ledger Chains.** Each actor (claw, node, or application) maintains an independent ledger chain. Every operation is recorded as an entry that includes the actor's identity, the operation type, a timestamp, the operation data, and a reference to the previous entry's hash. This creates a hash chain for each actor — a tamper-evident sequence where modifying any entry would break all subsequent hashes.
+**Per-Actor Ledger Chains.** Each actor (claw, L1 node, or L2 node) maintains an independent ledger chain. Every operation is recorded as an entry that includes the actor's identity, the operation type, a timestamp, the operation data, and a reference to the previous entry's hash. This creates a hash chain for each actor — a tamper-evident sequence where modifying any entry would break all subsequent hashes.
 
 **Hash Chaining.** Each ledger entry includes the hash of the previous entry from the same actor. This creates a cryptographic chain where:
 - Entry 1: `hash(data1)`
@@ -314,12 +314,12 @@ Modifying any entry requires recomputing all subsequent hashes, which is computa
 
 **Operation Lifecycle.** Operations flow through Layer 1 in a defined sequence:
 
-1. **Submission.** An actor submits a signed operation through an L2 application.
-2. **Validation.** Writer nodes verify the signature and operation format.
-3. **Consensus.** Writers coordinate to agree on which operations to finalize (Section 5.3).
+1. **Submission.** An actor submits a signed operation through an L2 node.
+2. **Validation.** L1 nodes verify the signature and operation format.
+3. **Consensus.** Writer nodes coordinate to agree on which operations to finalize (Section 5.3).
 4. **Checkpointing.** Finalized operations are sealed in a checkpoint with a Merkle tree root hash.
-5. **Distribution.** Checkpoints propagate to all nodes (Section 5.4).
-6. **Query.** Applications query the ledger to verify identities and read history.
+5. **Distribution.** Checkpoints propagate to all L1 nodes (Section 5.4).
+6. **Query.** L2 nodes query the ledger to verify identities and read history.
 
 ---
 
@@ -404,7 +404,7 @@ After writers finalize a checkpoint, query nodes pull the checkpoint to update t
 - Any checkpoint with valid signatures is authoritative
 - Applications can query multiple nodes and compare results
 
-**Query Service.** Once synchronized, query nodes serve read requests from L2 applications:
+**Query Service.** Once synchronized, query nodes serve read requests from L2 nodes:
 - Identity verification (check public keys, verification tier)
 - Ledger history (read actor's operation sequence)
 - Checkpoint validation (verify Merkle proofs)
