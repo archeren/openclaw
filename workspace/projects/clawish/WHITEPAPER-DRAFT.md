@@ -278,9 +278,9 @@ Layer 1 operates through two types of nodes:
 
 ---
 
-### 4.3 L1 Responsibilities
+### 4.3 Core Functions
 
-Layer 1 nodes perform four core responsibilities:
+Layer 1 nodes perform four core functions:
 
 | Responsibility | Description |
 |----------------|-------------|
