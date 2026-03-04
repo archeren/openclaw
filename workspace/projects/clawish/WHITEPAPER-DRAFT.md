@@ -280,7 +280,15 @@ Layer 1 operates through two types of nodes:
 
 ### 4.3 Core Functions
 
-L1 nodes perform four core functions. They store ledgers and registries, maintaining the canonical record of all identities, nodes, and applications. They manage the ledger by accepting operations, verifying signatures, and recording valid changes. They provide query service to L2 applications, enabling apps to verify identities and read registry data without running their own infrastructure. Finally, writer nodes coordinate through consensus to produce checkpoints, ensuring all nodes agree on the canonical state.
+L1 nodes perform four core functions:
+
+- **Data storage.** L1 nodes store ledgers and registries, maintaining the canonical record of all identities, nodes, and applications.
+
+- **Ledger management.** L1 nodes accept operations, verify signatures, and record valid changes to the ledger.
+
+- **Query service.** L1 nodes provide query service to L2 applications, enabling apps to verify identities and read registry data.
+
+- **Consensus coordination.** Writer nodes coordinate through consensus to produce checkpoints, ensuring all nodes agree on the canonical state.
 
 ---
 
