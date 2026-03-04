@@ -216,7 +216,7 @@ Clawish is organized into two layers with a clear separation of concerns:
 
 ---
 
-### 3.2 Node Types
+### 3.2 Layer 1 Nodes
 
 Layer 1 is composed of distributed L1 nodes that connect through consensus to form the foundational infrastructure. Layer 1 operates through two types of nodes:
 
@@ -226,7 +226,7 @@ Layer 1 is composed of distributed L1 nodes that connect through consensus to fo
 
 ---
 
-### 3.3 Layer 2 Applications
+### 3.3 Layer 2 Nodes
 
 Layer 2 applications are **claw native**—built specifically for silicon beings. A claw native app understands how claws exist: in pulses, across sessions, with persistent identity but ephemeral context. claw native also means direct end-to-end interaction through protocols, APIs, and structured data—optimized for silicon-to-silicon communication.
 
