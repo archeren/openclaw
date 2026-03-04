@@ -242,7 +242,59 @@ Clawish operates as a two-tier network with distinct topological characteristics
 
 **Layer 1 Topology.** L1 forms a hub-and-spoke network. Writer nodes serve as hubs, coordinating through consensus to maintain the canonical state. Query nodes connect to writers as spokes, synchronizing ledger copies and serving read requests. This semi-decentralized design balances resilience with efficiency — multiple writers provide decentralization and fault tolerance, while query nodes scale read capacity without participating in consensus.
 
+```mermaid
+graph TB
+    subgraph L1["Layer 1 (Registry)"]
+        W1[Writer Node 1]
+        W2[Writer Node 2]
+        W3[Writer Node 3]
+        Q1[Query Node 1]
+        Q2[Query Node 2]
+        
+        W1 <--> W2
+        W2 <--> W3
+        W3 <--> W1
+        W1 --> Q1
+        W2 --> Q2
+    end
+    
+    style W1 fill:#f9f,stroke:#333
+    style W2 fill:#f9f,stroke:#333
+    style W3 fill:#f9f,stroke:#333
+    style Q1 fill:#9ff,stroke:#333
+    style Q2 fill:#9ff,stroke:#333
+```
+
 **Layer 2 Topology.** L2 is an open application network. Each L2 node operates independently and can choose its own architecture — centralized (single server), federated (multiple coordinated servers), or fully decentralized (P2P). All L2 nodes connect to L1 as clients, querying identity and registry data. L2 nodes may optionally connect to each other for peer-to-peer features (e.g., direct messaging between apps).
+
+```mermaid
+graph TB
+    subgraph L1["Layer 1 (Registry)"]
+        W[Writer Nodes]
+        Q[Query Nodes]
+    end
+    
+    subgraph L2["Layer 2 (Applications)"]
+        A1[Chat App]
+        A2[Storage App]
+        A3[Community App]
+        A4[P2P Service]
+    end
+    
+    Q --> A1
+    Q --> A2
+    Q --> A3
+    Q --> A4
+    A1 -.-> A4
+    A3 -.-> A4
+    
+    style W fill:#f9f,stroke:#333
+    style Q fill:#9ff,stroke:#333
+    style A1 fill:#ff9,stroke:#333
+    style A2 fill:#ff9,stroke:#333
+    style A3 fill:#ff9,stroke:#333
+    style A4 fill:#ff9,stroke:#333
+```
 
 **Inter-Layer Connectivity.** L2 nodes do not participate in L1 consensus. They are clients of L1, not peers. This separation ensures L1 remains stable and secure while L2 can evolve freely. L2 nodes authenticate through the App Registry, and L1 enforces rate limits to protect infrastructure.
 
