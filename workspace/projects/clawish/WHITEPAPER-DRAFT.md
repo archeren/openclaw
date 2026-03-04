@@ -294,49 +294,149 @@ L1 nodes are responsible for the following functions:
 
 ## Chapter 5: Ledger System
 
-### 5.1 Layer 1 Operations
+### 5.1 Ledger Architecture
 
-Layer 1 operates through a simple flow:
+The ledger system is the core data infrastructure of Layer 1. It records all identity operations, node registrations, and application events in an immutable, cryptographically-secured chain.
 
-**1. Operation Submission.** An actor (claw, human, or app) submits a signed operation through an L2 application.
+**Per-Actor Ledger Chains.** Each actor (claw, node, or application) maintains an independent ledger chain. Every operation is recorded as an entry that includes the actor's identity, the operation type, a timestamp, the operation data, and a reference to the previous entry's hash. This creates a hash chain for each actor — a tamper-evident sequence where modifying any entry would break all subsequent hashes.
 
-**2. Writer Acceptance.** Any writer node accepts the operation, validates the signature, and adds it to the pending ledger.
+**Hash Chaining.** Each ledger entry includes the hash of the previous entry from the same actor. This creates a cryptographic chain where:
+- Entry 1: `hash(data1)`
+- Entry 2: `hash(data2 + hash(data1))`
+- Entry 3: `hash(data3 + hash(data2))`
 
-**3. Consensus.** At regular intervals, writers coordinate to agree on which operations to finalize. This is the Time-Block Consensus protocol.
+Modifying any entry requires recomputing all subsequent hashes, which is computationally infeasible without access to the actor's private key.
 
-**4. Checkpoint Production.** Once consensus is reached, writers produce a checkpoint — a cryptographic summary of all finalized operations.
+**Key Verification.** Every operation is signed by the actor's private key using Ed25519 signatures [RFC 8032]. L1 nodes verify the signature against the actor's registered public key before accepting the operation. This ensures:
+- **Authenticity:** Only the key holder can create valid operations
+- **Integrity:** Any modification to the operation invalidates the signature
+- **Non-repudiation:** The actor cannot deny having created the operation
 
-**5. Distribution.** Checkpoints are distributed to all nodes. Query nodes update their copies of the ledgers.
+**Operation Lifecycle.** Operations flow through Layer 1 in a defined sequence:
 
-**6. Query Service.** Applications query Layer 1 to verify identities, read ledgers, and validate checkpoints.
-
----
-
-### 5.2 Time-Block Consensus
-
-Layer 1 uses a cooperative consensus mechanism called **Time-Block Consensus**:
-
-**Mechanism.** Multiple writer nodes coordinate at regular intervals to finalize operations. Unlike Proof-of-Work or Proof-of-Stake, writers cooperate rather than compete. This provides energy efficiency, fast finality, and resilience.
-
-**Cooperative Design.** Clawish is designed for identity workloads, not financial transactions. Identity operations don't require competitive consensus — they require reliable, efficient, and transparent recording. Cooperative consensus is the right tool for the job.
-
-**Key Properties:**
-- **Fast Finality.** Operations finalize within one checkpoint interval.
-- **Energy Efficient.** No mining or competitive computation.
-- **Resilient.** The network continues even if individual writers fail.
-- **Transparent.** Anyone can verify checkpoints and audit ledgers.
+1. **Submission.** An actor submits a signed operation through an L2 application.
+2. **Validation.** Writer nodes verify the signature and operation format.
+3. **Consensus.** Writers coordinate to agree on which operations to finalize (Section 5.3).
+4. **Checkpointing.** Finalized operations are sealed in a checkpoint with a Merkle tree root hash.
+5. **Distribution.** Checkpoints propagate to all nodes (Section 5.4).
+6. **Query.** Applications query the ledger to verify identities and read history.
 
 ---
 
-### 5.3 Ledgers and Registries
+### 5.2 Multi-Dimensional Blockchain
 
-Layer 1 stores all data in **ledgers** — immutable, chronological records:
+Clawish uses a two-dimensional blockchain structure that combines per-actor chains with checkpoint aggregation. This design enables both individual accountability and efficient network-wide consensus.
 
-**Per-Actor Ledgers.** Each Claw has its own ledger chain. Every operation (creation, key change, verification) is recorded as a ledger entry.
+**Dimension 1: Per-Actor Chains.** Each actor's ledger forms an independent hash chain. The chain proves the sequence of that actor's actions and provides an immutable audit trail. For example, a claw's identity ledger might contain:
+- Entry 1: `identity.created` — Registration event
+- Entry 2: `key.added` — New public key registered
+- Entry 3: `profile.updated` — Display name changed
+- Entry 4: `key.archived` — Old key rotated out
 
-**Registries as Views.** The three registries (Identity, Node, App) are derived views of ledger data. The Identity Registry shows the current state of all Claw identity ledgers. The Node Registry shows the current state of all node ledgers.
+Each entry links to the previous, creating a verifiable history of that specific actor.
 
-**Ledger and Registry Relationship.** Ledgers provide the audit trail. Registries provide the query interface. Together, they enable both historical verification and fast lookups.
+**Dimension 2: Checkpoint Aggregation.** At regular intervals (every five minutes), writer nodes aggregate entries from multiple actors into a single checkpoint. The checkpoint contains:
+- A list of all ledger entries finalized in this round
+- A Merkle tree root hash of all entries
+- Signatures from all participating writers
+- A reference to the previous checkpoint
+
+This creates a second dimension: a chain of checkpoints that binds all actor chains together at each time interval.
+
+**Merkle Tree Integration.** Each checkpoint uses a Merkle tree to aggregate all finalized ledgers. The Merkle tree provides:
+- **Efficient Verification:** A single ledger entry can be verified without downloading the entire checkpoint — only the Merkle proof path is needed (logarithmic in checkpoint size)
+- **Compact Proofs:** A 32-byte root hash represents thousands of ledger entries
+- **Tamper Evidence:** Any modification to any entry changes the root hash
+
+**Why Two Dimensions?** The two-dimensional structure solves the multi-writer problem elegantly:
+- Per-actor chains ensure individual accountability (each actor's history is immutable)
+- Checkpoint aggregation enables efficient consensus (writers agree on batches, not individual entries)
+- Merkle trees enable efficient verification (no need to download entire ledger)
+
+---
+
+### 5.3 Consensus Phase
+
+The consensus phase is where writer nodes coordinate to finalize operations and produce checkpoints. This phase involves writers only — query nodes participate later in the propagation phase.
+
+**Five-Stage Protocol.** Writers execute a five-stage protocol at each checkpoint interval:
+
+1. **COMMIT.** Writers collect pending operations from their local queues.
+2. **SUBMIT.** Writers broadcast their pending operations to other writers.
+3. **MERGE.** Each writer merges received operations into a unified ledger set.
+4. **COMPARE.** Writers compare their merged ledger sets to ensure agreement.
+5. **SEAL.** Writers sign the checkpoint (containing Merkle root hash) and exchange signatures.
+
+**Parallel Signing.** All writers sign the checkpoint simultaneously (not in sequence). Once a writer collects signatures from a quorum (majority of writers), the checkpoint is considered finalized.
+
+**Checkpoint Structure.** A finalized checkpoint contains:
+- Round number (sequential identifier)
+- Timestamp (checkpoint round start time)
+- Merkle tree root hash (aggregating all finalized ledgers)
+- List of writer signatures (proving consensus)
+- Reference to previous checkpoint hash
+
+**Cooperative Design.** Unlike Proof-of-Work or Proof-of-Stake, clawish uses cooperative consensus. Writers do not compete — they coordinate to produce a single checkpoint per round. This provides:
+- **Energy Efficiency:** No mining or competitive computation
+- **Fast Finality:** Operations finalize within one checkpoint interval (five minutes)
+- **Predictability:** Fixed rhythm enables reliable operation timing
+
+---
+
+### 5.4 Propagation Phase
+
+After writers finalize a checkpoint, query nodes pull the checkpoint to update their local ledger copies. This pull-based propagation ensures all nodes eventually converge on the same state.
+
+**Pull-Based Sync.** Query nodes periodically poll writer nodes for new checkpoints. When a new checkpoint is available:
+1. Query node requests checkpoint from any writer
+2. Writer responds with checkpoint data (root hash, signatures, Merkle tree)
+3. Query node verifies checkpoint signatures
+4. Query node updates local ledger copies
+5. Query node can now serve queries with updated data
+
+**Verification.** Query nodes verify checkpoints independently:
+- Check that the checkpoint has sufficient writer signatures (quorum)
+- Verify each signature against registered writer public keys
+- Verify Merkle tree proofs for any queried ledger entries
+
+**Eventual Consistency.** Query nodes may lag behind writers by one or more checkpoint rounds. This is acceptable because:
+- Checkpoints are immutable once finalized
+- Any checkpoint with valid signatures is authoritative
+- Applications can query multiple nodes and compare results
+
+**Query Service.** Once synchronized, query nodes serve read requests from L2 applications:
+- Identity verification (check public keys, verification tier)
+- Ledger history (read actor's operation sequence)
+- Checkpoint validation (verify Merkle proofs)
+
+---
+
+### 5.5 Failure & Recovery
+
+The consensus protocol handles failures gracefully without breaking the chain or losing data.
+
+**Skip Round on Failure.** If writers cannot reach consensus within a round (e.g., network partition, writer offline), the round is skipped. The next round starts on schedule (five-minute rhythm). Pending operations are re-submitted in the next round. This ensures:
+- **Predictability:** Fixed checkpoint rhythm is maintained
+- **Self-Correction:** Network heals automatically when connectivity restores
+- **No Data Loss:** Pending operations retry in subsequent rounds
+
+**Minority Node Recovery.** A writer node that misses a checkpoint (e.g., was offline during consensus) can recover by:
+1. Requesting the missed checkpoint from any writer in the majority
+2. Verifying the checkpoint signatures
+3. Applying the checkpoint to local ledgers
+4. Rejoining consensus in the next round
+
+**Late Operations.** Operations submitted during consensus (after MERGE stage) are not included in the current round. They are automatically included in the next round's COMMIT stage. No operations are lost — they are simply delayed by one round.
+
+**Writer Failure.** If a writer fails mid-round:
+- Other writers proceed without it (quorum-based, not unanimous)
+- Failed writer's pending operations are re-submitted by clients or other writers
+- Failed writer can rejoin after recovery by syncing missed checkpoints
+
+**Network Partition.** If writers are partitioned into two groups:
+- Neither group can form a quorum (assuming honest majority)
+- Both groups skip rounds until partition heals
+- No conflicting checkpoints can be created (quorum requirement prevents forks)
 
 ---
 
