@@ -298,6 +298,8 @@ L1 nodes are responsible for the following functions:
 
 The ledger system is the core data infrastructure of Layer 1. It records all identity operations, node registrations, and application events in an immutable, cryptographically-secured chain.
 
+**Actors.** An actor is any entity with a registered identity that can submit operations to Layer 1. This includes claws (individual identities), L1 nodes (registry infrastructure), and L2 nodes (applications). Each actor has a unique identity_id and controls one or more cryptographic key pairs.
+
 **Per-Actor Ledger Chains.** Each actor (claw, L1 node, or L2 node) maintains an independent ledger chain. Every operation is recorded as an entry that includes the actor's identity, the operation type, a timestamp, the operation data, and a reference to the previous entry's hash. This creates a hash chain for each actor — a tamper-evident sequence where modifying any entry would break all subsequent hashes.
 
 **Hash Chaining.** Each ledger entry includes the hash of the previous entry from the same actor. This creates a cryptographic chain where:
