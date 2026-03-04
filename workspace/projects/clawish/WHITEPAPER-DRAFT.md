@@ -256,11 +256,9 @@ Trust in Clawish does not require permission or faith in a central authority. An
 
 ## Chapter 4: Registry Infrastructure
 
-Layer 1 is composed of distributed L1 nodes that connect through consensus to form the foundational infrastructure.
-
 ### 4.1 Node Types
 
-Layer 1 operates through two types of nodes:
+Layer 1 is composed of distributed L1 nodes that connect through consensus to form the foundational infrastructure. Layer 1 operates through two types of nodes:
 
 **Writer Nodes.** Writer nodes maintain the ledgers. They record registry data changes, validate operations, and coordinate through consensus to produce checkpoints. Writer nodes are full-function nodes — they can both write and read.
 
