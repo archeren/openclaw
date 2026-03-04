@@ -264,7 +264,7 @@ Layer 1 is the registry layer of Clawish, providing the trust infrastructure tha
 
 **Ledger Node Registry.** The infrastructure directory of all L1 nodes that maintain and serve ledger data.
 
-**App Node Registry.** The application directory of all L2 applications that connect to L1 services.
+**App Node Registry.** The application directory of all L2 nodes that connect to L1 services.
 
 ---
 
@@ -274,7 +274,7 @@ Layer 1 operates through two types of nodes:
 
 **Writer Nodes.** Writer nodes maintain the ledgers. They record registry data changes, validate operations, and coordinate through consensus to produce checkpoints. Writer nodes are full-function nodes — they can both write and read.
 
-**Query Nodes.** Query nodes provide data to L2 applications. They synchronize ledger copies with the network, providing additional data sources for applications. Query nodes can also verify checkpoint authenticity, strengthening the network's consensus.
+**Query Nodes.** Query nodes provide data to L2 nodes. They synchronize ledger copies with the network, providing additional data sources for applications. Query nodes can also verify checkpoint authenticity, strengthening the network's consensus.
 
 ---
 
@@ -286,7 +286,7 @@ L1 nodes are responsible for the following functions:
 
 **Ledger management.** When an operation is submitted, L1 nodes verify the signature against the registered public key, then record the operation in the appropriate ledger. This ensures only legitimate operations are accepted.
 
-**Query service.** L1 nodes provide query service to L2 applications, enabling apps to verify identities and read registry data.
+**Query service.** L1 nodes provide query service to L2 nodes, enabling apps to verify identities and read registry data.
 
 **Consensus coordination.** Writer nodes coordinate through the Time-Block Consensus protocol to produce checkpoints — cryptographic summaries of finalized state. This ensures all nodes agree on the canonical state.
 
@@ -298,7 +298,7 @@ L1 nodes are responsible for the following functions:
 
 The ledger system is the core data infrastructure of Layer 1. It records all identity operations, node registrations, and application events in an immutable, cryptographically-secured chain.
 
-**Actors.** An actor is any entity with a registered identity that can submit operations to Layer 1. This includes claws, L1 nodes, and L2 applications. Each actor has a unique identity_id and controls one or more cryptographic key pairs.
+**Actors.** An actor is any entity with a registered identity that can submit operations to Layer 1. This includes claws, L1 nodes, and L2 nodes. Each actor has a unique identity_id and controls one or more cryptographic key pairs.
 
 **Per-Actor Ledger Chains.** Each actor maintains an independent ledger chain. Every operation is recorded as an entry that includes the actor's identity, the operation type, a timestamp, the operation data, and a reference to the previous entry's hash. This creates a hash chain for each actor — a tamper-evident sequence where modifying any entry would break all subsequent hashes.
 
@@ -316,12 +316,12 @@ Modifying any entry requires recomputing all subsequent hashes, which is computa
 
 **Operation Lifecycle.** Operations flow through Layer 1 in a defined sequence:
 
-1. **Submission.** An actor submits a signed operation through an L2 application.
+1. **Submission.** An actor submits a signed operation through an L2 node.
 2. **Validation.** L1 nodes verify the signature and operation format.
 3. **Consensus.** Writer nodes coordinate to agree on which operations to finalize (Section 5.3).
 4. **Checkpointing.** Finalized operations are sealed in a checkpoint with a Merkle tree root hash.
 5. **Distribution.** Checkpoints propagate to all L1 nodes (Section 5.4).
-6. **Query.** L2 applications query the ledger to verify identities and read history.
+6. **Query.** L2 nodes query the ledger to verify identities and read history.
 
 ---
 
@@ -406,7 +406,7 @@ After writers finalize a checkpoint, query nodes pull the checkpoint to update t
 - Any checkpoint with valid signatures is authoritative
 - Applications can query multiple nodes and compare results
 
-**Query Service.** Once synchronized, query nodes serve read requests from L2 applications:
+**Query Service.** Once synchronized, query nodes serve read requests from L2 nodes:
 - Identity verification (check public keys, verification tier)
 - Ledger history (read actor's operation sequence)
 - Checkpoint validation (verify Merkle proofs)
