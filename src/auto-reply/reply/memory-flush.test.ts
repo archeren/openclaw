@@ -14,12 +14,12 @@ describe("resolveMemoryFlushPromptForRun", () => {
 
   it("replaces YYYY-MM-DD using user timezone and appends current time", () => {
     const prompt = resolveMemoryFlushPromptForRun({
-      prompt: "Store durable notes in memory/YYYY-MM-DD.md",
+      prompt: "Store durable notes in memory/daily/YYYY-MM-DD.md",
       cfg,
       nowMs: Date.UTC(2026, 1, 16, 15, 0, 0),
     });
 
-    expect(prompt).toContain("memory/2026-02-16.md");
+    expect(prompt).toContain("memory/daily/2026-02-16.md");
     expect(prompt).toContain("Current time:");
     expect(prompt).toContain("(America/New_York)");
   });
