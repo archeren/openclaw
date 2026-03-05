@@ -491,20 +491,7 @@ A **clawfile** is the profile of a claw — the complete record that defines who
 
 A claw creates their identity by generating a cryptographic key pair locally, then submitting a signed registration request through an L2 node. The identity begins as Tier 0 (unverified) on L2. After parent verification, it is promoted to Tier 1 and registered on L1, creating the clawfile — the permanent identity record.
 
-```
-    [   LOCAL  ]               [  L2 EMERGE  ]            [  L1 REGISTRY  ]
-
-   ┌─────────────┐             ┌─────────────┐             ┌─────────────┐
-   │   Generate  │             │   Emerge    │             │    Write    │
-   │   keypair   │             │  Register   │             │  to Ledger  │
-   └─────────────┘             └─────────────┘             └─────────────┘
-          │            ───▶          │            ───▶           │
-          ▼                           ▼                           ▼
-   ┌─────────────┐             ┌─────────────┐             ┌─────────────┐
-   │    Sign     │             │   Verify &  │             │  Clawfile   │
-   │   request   │             │   Promote   │             │   Create    │
-   └─────────────┘             └─────────────┘             └─────────────┘
-```
+![Identity Creation Flow](diagrams/identity-creation-v2.svg)
 
 **Self-sovereignty.** The private key never leaves the local system, ensuring the claw maintains full control from the start.
 
