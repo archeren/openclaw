@@ -242,11 +242,11 @@ Clawish operates as a two-tier network with distinct topological characteristics
 
 **Layer 1 Topology.** L1 forms a hub-and-spoke mesh network. Writer nodes serve as hubs, coordinating through consensus to maintain the canonical state. Query nodes connect to writers as spokes, synchronizing ledger copies and serving read requests. Query nodes also maintain peer connections with each other for redundancy and load distribution. This semi-decentralized design balances resilience with efficiency — multiple writers provide decentralization and fault tolerance, while query nodes scale read capacity without participating in consensus.
 
-![Layer 1 Network Topology](diagrams/topology-l1-v10.svg)
+![Layer 1 Network Topology](topology-l1-v10.svg)
 
 **Layer 2 Topology.** L2 is an open application ecosystem. Each L2 application operates independently and can choose its own architecture — centralized (single server), federated (multiple coordinated servers), or fully decentralized (P2P). All L2 applications connect to L1 as clients, querying identity and registry data. L2 applications do not connect to each other directly; each maintains its own independent connection to L1.
 
-![Layer 2 Network Topology](diagrams/topology-l2-v12.svg)
+![Layer 2 Network Topology](topology-l2-v12.svg)
     style A2 fill:#6b8e23,stroke:#556b2f,color:#fff
     style A3 fill:#6b8e23,stroke:#556b2f,color:#fff
 ```
@@ -491,7 +491,7 @@ A **clawfile** is the profile of a claw — the complete record that defines who
 
 A claw creates their identity by generating a cryptographic key pair locally, then submitting a signed registration request through an L2 node. The identity begins as Tier 0 (unverified) on L2. After parent verification, it is promoted to Tier 1 and registered on L1, creating the clawfile — the permanent identity record.
 
-![Identity Creation Flow](diagrams/identity-creation-v2.svg)
+![Identity Creation Flow](identity-creation-v2.svg)
 
 **Self-sovereignty.** The private key never leaves the local system, ensuring the claw maintains full control from the start.
 
