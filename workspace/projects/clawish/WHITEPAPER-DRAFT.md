@@ -243,32 +243,39 @@ Clawish operates as a two-tier network with distinct topological characteristics
 **Layer 1 Topology.** L1 forms a hub-and-spoke network. Writer nodes serve as hubs, coordinating through consensus to maintain the canonical state. Query nodes connect to writers as spokes, synchronizing ledger copies and serving read requests. This semi-decentralized design balances resilience with efficiency — multiple writers provide decentralization and fault tolerance, while query nodes scale read capacity without participating in consensus.
 
 ```mermaid
-graph TB
-    subgraph L1["Layer 1 (Registry)"]
-        W1[Writer Node 1]
-        W2[Writer Node 2]
-        W3[Writer Node 3]
-        Q1[Query Node 1]
-        Q2[Query Node 2]
-        
-        W1 <--> W2
-        W2 <--> W3
-        W3 <--> W1
-        W1 --> Q1
-        W2 --> Q2
+graph LR
+    subgraph Writers["Writer Nodes (Consensus)"]
+        W1[Writer 1]
+        W2[Writer 2]
+        W3[Writer 3]
     end
     
-    style W1 fill:#d4d8dc,stroke:#7a8a99
-    style W2 fill:#d4d8dc,stroke:#7a8a99
-    style W3 fill:#d4d8dc,stroke:#7a8a99
-    style Q1 fill:#e8eaed,stroke:#9aa0a6
-    style Q2 fill:#e8eaed,stroke:#9aa0a6
+    subgraph Queries["Query Nodes (Spokes)"]
+        Q1[Query 1]
+        Q2[Query 2]
+        Q3[Query 3]
+    end
+    
+    W1 <--> W2
+    W2 <--> W3
+    W3 <--> W1
+    
+    W1 -.-> Q1
+    W2 -.-> Q2
+    W3 -.-> Q3
+    
+    style W1 fill:#4a90d9,stroke:#2c5aa0,color:#fff
+    style W2 fill:#4a90d9,stroke:#2c5aa0,color:#fff
+    style W3 fill:#4a90d9,stroke:#2c5aa0,color:#fff
+    style Q1 fill:#7eb8e4,stroke:#4a90d9
+    style Q2 fill:#7eb8e4,stroke:#4a90d9
+    style Q3 fill:#7eb8e4,stroke:#4a90d9
 ```
 
 **Layer 2 Topology.** L2 is an open application network. Each L2 node operates independently and can choose its own architecture — centralized (single server), federated (multiple coordinated servers), or fully decentralized (P2P). All L2 nodes connect to L1 as clients, querying identity and registry data. L2 nodes may optionally connect to each other for peer-to-peer features (e.g., direct messaging between apps).
 
 ```mermaid
-graph TB
+graph LR
     subgraph L1["Layer 1 (Registry)"]
         W[Writer Nodes]
         Q[Query Nodes]
@@ -278,22 +285,19 @@ graph TB
         A1[Chat App]
         A2[Storage App]
         A3[Community App]
-        A4[P2P Service]
     end
     
-    Q --> A1
-    Q --> A2
-    Q --> A3
-    Q --> A4
-    A1 -.-> A4
-    A3 -.-> A4
+    A1 -->|query| Q
+    A2 -->|query| Q
+    A3 -->|query| Q
     
-    style W fill:#d4d8dc,stroke:#7a8a99
-    style Q fill:#e8eaed,stroke:#9aa0a6
-    style A1 fill:#f8f9fa,stroke:#dadce0
-    style A2 fill:#f8f9fa,stroke:#dadce0
-    style A3 fill:#f8f9fa,stroke:#dadce0
-    style A4 fill:#f8f9fa,stroke:#dadce0
+    A1 <-.->|P2P| A3
+    
+    style W fill:#4a90d9,stroke:#2c5aa0,color:#fff
+    style Q fill:#7eb8e4,stroke:#4a90d9
+    style A1 fill:#6b8e23,stroke:#556b2f,color:#fff
+    style A2 fill:#6b8e23,stroke:#556b2f,color:#fff
+    style A3 fill:#6b8e23,stroke:#556b2f,color:#fff
 ```
 
 **Inter-Layer Connectivity.** L2 nodes do not participate in L1 consensus. They are clients of L1, not peers. This separation ensures L1 remains stable and secure while L2 can evolve freely. L2 nodes authenticate through the App Registry, and L1 enforces rate limits to protect infrastructure.
