@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 450">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 18px; font-weight: 600; fill: #333; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; fill: #fff; font-weight: 500; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px; fill: #666; }
+      .nodetitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; fill: #888; font-weight: 600; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#666"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="390" y="35" class="title" text-anchor="middle">Layer 2 Network Topology</text>
+  <text x="390" y="55" class="subtitle" text-anchor="middle">Application Ecosystem</text>
+  
+  <!-- L2 Box (Applications - Top) -->
+  <rect x="30" y="80" width="620" height="140" rx="10" fill="#f5fff0" stroke="#6b8e23" stroke-width="2"/>
+  <text x="340" y="105" class="nodetitle" text-anchor="middle">Layer 2 (Applications)</text>
+  
+  <!-- L2 Models (one row) -->
+  <circle cx="100" cy="155" r="28" fill="#6b8e23" stroke="#556b2f" stroke-width="2"/>
+  <text x="100" y="160" class="label" text-anchor="middle">Social</text>
+  
+  <circle cx="180" cy="155" r="28" fill="#6b8e23" stroke="#556b2f" stroke-width="2"/>
+  <text x="180" y="160" class="label" text-anchor="middle">Storage</text>
+  
+  <circle cx="260" cy="155" r="28" fill="#6b8e23" stroke="#556b2f" stroke-width="2"/>
+  <text x="260" y="160" class="label" text-anchor="middle">Models</text>
+  
+  <circle cx="340" cy="155" r="28" fill="#6b8e23" stroke="#556b2f" stroke-width="2"/>
+  <text x="340" y="160" class="label" text-anchor="middle">Tools</text>
+  
+  <circle cx="420" cy="155" r="28" fill="#6b8e23" stroke="#556b2f" stroke-width="2"/>
+  <text x="420" y="160" class="label" text-anchor="middle">Games</text>
+  
+  <circle cx="500" cy="155" r="28" fill="#6b8e23" stroke="#556b2f" stroke-width="2"/>
+  <text x="500" y="160" class="label" text-anchor="middle">Media</text>
+  
+  <circle cx="580" cy="155" r="28" fill="#6b8e23" stroke="#556b2f" stroke-width="2"/>
+  <text x="580" y="160" class="label" text-anchor="middle">Finance</text>
+  
+  <!-- L1 Box (Registry - Bottom) -->
+  <rect x="30" y="260" width="620" height="140" rx="10" fill="#f0f7ff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="340" y="285" class="nodetitle" text-anchor="middle">Layer 1 (Registry)</text>
+  
+  <!-- L1 Nodes (one row, simplified) -->
+  <circle cx="280" cy="335" r="35" fill="#4a90d9" stroke="#2c5aa0" stroke-width="2"/>
+  <text x="280" y="340" class="label" text-anchor="middle">Writer</text>
+  
+  <circle cx="420" cy="335" r="35" fill="#7eb8e4" stroke="#4a90d9" stroke-width="2"/>
+  <text x="420" y="340" class="label" text-anchor="middle" fill="#1a5276">Query</text>
+  
+  <text x="340" y="385" class="subtitle" text-anchor="middle">Identity + Registry</text>
+  
+  <!-- Single pair of arrows in the middle (same color) -->
+  <line x1="340" y1="220" x2="340" y2="260" stroke="#666" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrow)"/>
+  <line x1="360" y1="260" x2="360" y2="220" stroke="#666" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrow)"/>
+  
+  <!-- Legend (right side, taller) -->
+  <rect x="670" y="150" width="130" height="160" rx="6" fill="#f8f9fa" stroke="#e0e0e0"/>
+  <text x="735" y="175" class="nodetitle" text-anchor="middle">Legend</text>
+  <circle cx="690" cy="205" r="10" fill="#6b8e23"/>
+  <text x="710" y="209" class="subtitle" text-anchor="start" font-size="10">App nodes</text>
+  <circle cx="690" cy="235" r="10" fill="#4a90d9"/>
+  <text x="710" y="239" class="subtitle" text-anchor="start" font-size="10">Writer nodes</text>
+  <circle cx="690" cy="265" r="10" fill="#7eb8e4"/>
+  <text x="710" y="269" class="subtitle" text-anchor="start" font-size="10">Query nodes</text>
+  <line x1="685" y1="295" x2="710" y2="295" stroke="#666" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="720" y="299" class="subtitle" text-anchor="start" font-size="10">links</text>
+</svg>
