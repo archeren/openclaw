@@ -154,52 +154,79 @@ If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and 
 
 ## Pinchtab (Browser for AI Agents)
 
-**Status:** ✅ Installed and running (PID 1442556+)
-**Port:** 9867
-**Auth Token:** secret123
+**Status:** ❌ Stopped (not running)
+**Port:** 9867 (inactive)
+
+*Replaced by Scrapling for web scraping tasks.*
+
+---
+
+## Scrapling (Adaptive Web Scraping)
+
+**Status:** ✅ Installed and tested (v0.4.1)
+**Installed:** March 5, 2026
 
 ### Why Use It
 
-- Bypass Cloudflare and bot detection (runs real Chrome)
-- 5-13x more token efficient than screenshots
-- HTTP API — works with any tool/language
+- Bypasses Cloudflare and bot detection
+- Adaptive scraping (auto-adjusts to site defenses)
+- StealthyFetcher mode with JavaScript rendering
+- More reliable than `web_fetch` for protected sites
+
+### Installation
+
+```bash
+pip install scrapling playwright curl_cffi browserforge patchright msgspec
+playwright install
+```
 
 ### How to Use
 
-```bash
-# Fetch page text (800 tokens vs 10,000+ for full snapshot)
-curl -H "Authorization: Bearer secret123" \
-  "localhost:9867/text?url=https://example.com"
+**Regular Fetcher (fast, no JS):**
+```python
+from scrapling import Fetcher
 
-# Interactive actions (click, type, etc.)
-curl -X POST -H "Authorization: Bearer secret123" \
-  localhost:9867/action \
-  -d '{"kind":"click","ref":"e5"}'
+fetcher = Fetcher()
+response = fetcher.get('https://example.com')
+print(response.text)
+print(response.links)  # Extract all links
+```
 
-# Check health
-curl -H "Authorization: Bearer secret123" localhost:9867/health
+**StealthyFetcher (JavaScript rendering):**
+```python
+from scrapling import StealthyFetcher
+
+fetcher = StealthyFetcher()
+response = fetcher.get('https://reddit.com')  # Bypasses 403
+print(response.text)
 ```
 
 ### When to Use vs web_fetch
 
 | Situation | Tool |
 |-----------|------|
-| Simple pages, no blocks | `web_fetch` |
-| Cloudflare protected | `pinchtab` |
-| JavaScript-heavy | `pinchtab` |
-| Need interaction | `pinchtab` |
-| Token efficiency matters | `pinchtab` |
+| Simple pages, no blocks | `web_fetch` (fast) |
+| Cloudflare protected | `scrapling` |
+| JavaScript-heavy | `scrapling` (StealthyFetcher) |
+| Need link extraction | `scrapling` (built-in) |
+| Rate limiting issues | `scrapling` (adaptive) |
 
-### Troubleshooting
+### Test Results (March 5, 2026)
 
-If pinchtab stops:
-```bash
-# Restart
-export PATH=$PATH:~/go/bin
-sudo -E env "PATH=$PATH" BRIDGE_TOKEN=secret123 \
-  BRIDGE_HEADLESS=true BRIDGE_NO_RESTORE=true \
-  nohup pinchtab > /tmp/pinchtab.log 2>&1 &
-```
+| Site | Regular Fetcher | StealthyFetcher |
+|------|-----------------|-----------------|
+| example.com | ✅ 2 links | ✅ |
+| Hacker News | ✅ 228 links | ✅ |
+| GitHub Trending | ✅ 1,184 links | ✅ |
+| arXiv | ✅ 258 links | ✅ |
+| Lobsters | ✅ 272 links | ✅ |
+| StackOverflow | ✅ 218 links | ✅ 10 real questions |
+| Reddit | ❌ 403 blocked | ✅ Bypassed! 101K chars |
+
+### Strategy
+
+**Default:** `web_fetch` first (fast, simple)  
+**Fallback:** `scrapling` when blocked or needs JS
 
 ---
 
