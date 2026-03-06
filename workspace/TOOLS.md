@@ -152,15 +152,6 @@ If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and 
 
 ---
 
-## Pinchtab (Browser for AI Agents)
-
-**Status:** ❌ Stopped (not running)
-**Port:** 9867 (inactive)
-
-*Replaced by Scrapling for web scraping tasks.*
-
----
-
 ## Scrapling (Adaptive Web Scraping)
 
 **Status:** ✅ Installed and tested (v0.4.1)
