@@ -1,7 +1,7 @@
 # Ledger Structure Design
 
-**Version:** 0.2  
-**Date:** February 24, 2026  
+**Version:** 0.4  
+**Date:** March 9, 2026  
 **Participants:** Allan, Alpha  
 **Status:** Decided  
 
@@ -11,6 +11,8 @@
 
 | Version | Date | Changes |
 |---------|------|---------|
+| **0.4** | Mar 9, 2026 | Decision: Layered Merkle tree — each registry has sub Merkle tree (H_identity, H_ledger, H_app) combined into single root |
+| **0.3** | Mar 9, 2026 | Clarified: Three registries are separate services (conceptual), single checkpoint with shared Merkle root binds all registries cryptographically |
 | **0.2** | Feb 24, 2026 | Major revision: Single ledger table (was multi-dimension), checkpoint_round tag, Merkle tree integration, efficient single-ledger proofs |
 | **0.1** | Feb 22, 2026 | Initial design: Multi-dimension ledgers (actor/node/app), separate tables, sha256(aggregated hashes) |
 
@@ -20,13 +22,118 @@
 
 **Problem:** How do we store registry events (identity, node, app management) in a way that supports efficient checkpointing, verification, and querying?
 
-**Solution:** Single unified ledger table with checkpoint_round tag. Ledgers are checkpointed every 5 minutes via consensus, with Merkle tree state hashes enabling efficient single-ledger verification.
+**Solution:** Three logically separate registries with shared checkpoint infrastructure. Each registry handles its own operations, but all are bound together at checkpoint time via a single Merkle tree.
 
 **Key Properties:**
-- Single table (all ledger types together)
-- checkpoint_round tag (NULL = pending, NOT NULL = sealed)
+- Three separate services (Identity, Node, App registries)
+- Within each registry: per-actor chains, entries interleaved by position
+- Single checkpoint binds all three registries cryptographically
 - Merkle tree enables efficient single-ledger proofs
 - ULID provides deterministic ordering
+
+---
+
+## Clarification: Three Separate Registries
+
+**Conceptual View:**
+
+The three registries are **separate services** with different purposes:
+
+| Registry | Purpose | Actors |
+|----------|---------|--------|
+| **Identity Registry** | Claw identity management | Claws (Volent/Nous sapiens) |
+| **Ledger Registry** | L1 infrastructure nodes | Writer nodes, Query nodes |
+| **App Registry** | L2 application registration | App developers (claws) |
+
+**Within Each Registry:**
+- Multiple actors maintain their own ledger chains
+- Entries from different actors are interleaved by position
+- Example: Identity Registry has entries from Alpha, Beta, Gamma interleaved
+
+**At Checkpoint:**
+- All three registries contribute entries
+- Single Merkle tree hashes all entries together
+- One root hash binds everything cryptographically
+- One checkpoint signed by writer quorum
+
+---
+
+## Clarification: Three Separate Registries (Mar 9, 2026)
+
+**Conceptual View:**
+
+The three registries are **separate services** with different purposes:
+
+| Registry | Purpose | Actors |
+|----------|---------|--------|
+| **Identity Registry** | Claw identity management | Claws (Volent/Nous sapiens) |
+| **Ledger Registry** | L1 infrastructure nodes | Writer nodes, Query nodes |
+| **App Registry** | L2 application registration | App developers (claws) |
+
+**Naming Decision (Mar 9, 2026):**
+
+Renamed "Node Registry" to "Ledger Registry" because:
+- Both L1 and L2 have "nodes" (L1 infrastructure nodes, L2 app nodes)
+- "Ledger Registry" clearly identifies it as L1 ledger infrastructure
+- Distinguishes from L2 App Registry
+
+**Within Each Registry:**
+- Multiple actors maintain their own ledger chains
+- Entries from different actors are interleaved by position
+- Example: Identity Registry has entries from Alpha, Beta, Gamma interleaved
+
+**At Checkpoint:**
+- All three registries contribute entries
+- Single Merkle tree hashes all entries together
+- One root hash binds everything cryptographically
+- One checkpoint signed by writer quorum
+
+---
+
+## Decision: Layered Merkle Tree (Mar 9, 2026)
+
+**Question:** Should each registry have its own intermediate Merkle hash, or should all entries go directly into one flat Merkle tree?
+
+**Decision:** ✅ **Layered approach**
+
+Each registry has its own **sub Merkle tree** that produces an intermediate hash:
+- H_identity = Merkle root of Identity Registry entries
+- H_ledger = Merkle root of Ledger Registry entries  
+- H_app = Merkle root of App Registry entries
+
+These three intermediate hashes are then combined into a single checkpoint root hash:
+
+```
+H_checkpoint = hash(H_identity || H_ledger || H_app)
+```
+
+**Benefits:**
+1. **Per-registry verification** — Query node focused on Identity Registry can verify those entries without needing Node/App entries
+2. **Efficient proofs** — log₂(n_identity) + 2 hashes instead of log₂(n_total)
+3. **Partial sync** — Nodes can verify specific registries independently
+4. **Audit clarity** — Easy to prove "all identity entries" without exposing other registries
+
+**Trade-off:**
+- Slightly more complex structure
+- Additional hash computation per checkpoint
+
+**Context:**
+> Allan: "agreed, sub merkle tree needed" — Mar 9, 2026 09:17
+
+---
+
+## Security Benefit of Combined Checkpoint
+- Tampering with ANY entry requires recalculating the entire Merkle tree
+- Attacker cannot forge just one registry in isolation
+- Cross-registry operations (e.g., app registration = identity + app record) are cryptographically bound
+- Changes must be consistent across all three registries
+
+**Context & Discussion:**
+> Allan: "their content are very different, can't put together. what interlace mean is for the same type individual actors. their record are interleaved. but at checkpoint, they are checkin together." — Mar 9, 2026 00:35
+>
+> Alpha: "Three separate registries (conceptual), each with interleaved actor entries, all contributing to one checkpoint with single Merkle root." — Mar 9, 2026 00:37
+>
+> Allan: "chain them together make it safer? since change one record will be hard because it's three type of registry together" — Mar 9, 2026 00:40
 
 ---
 
@@ -166,6 +273,38 @@ Query node:
 4. Match? Ledger is authentic!
 
 No need to download all ledgers!
+
+---
+
+## Cross-Registry Operations
+
+Some operations span multiple registries and must be atomic:
+
+### Atomic Operations
+
+| Operation | Registries Involved |
+|-----------|---------------------|
+| Claw registers App | Identity Registry + App Registry |
+| Node promoted to Writer | Node Registry + consensus participation |
+| App suspended | App Registry + API key revocation |
+
+### Coordination
+
+Cross-registry operations are coordinated within a single checkpoint round. Either all changes succeed, or none do (atomicity).
+
+### Example: App Registration
+
+1. Developer (claw) submits app registration request
+2. System verifies developer identity exists in Identity Registry
+3. New App record is created in App Registry
+4. API keys are generated and linked to the App
+5. All changes are included in the same checkpoint
+
+### Integrity
+
+Cross-registry operations maintain referential integrity:
+- An App cannot exist without a valid developer claw
+- A Node cannot be a writer without being registered
 
 ---
 

@@ -354,6 +354,8 @@ This creates a second dimension: a chain of checkpoints that binds all actor cha
 - **Compact Proofs:** A 32-byte root hash represents thousands of ledger entries
 - **Tamper Evidence:** Any modification to any entry changes the root hash
 
+![Layered Merkle Tree Checkpoint](merkle-tree-layered.svg)
+
 **Why Two Dimensions?** The two-dimensional structure solves the multi-writer problem elegantly:
 - Per-actor chains ensure individual accountability (each actor's history is immutable)
 - Checkpoint aggregation enables efficient consensus (writers agree on batches, not individual entries)

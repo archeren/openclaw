@@ -1,0 +1,123 @@
+<svg viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 18px; font-weight: 600; fill: #333; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; fill: #fff; font-weight: 600; }
+      .poslabel { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px; fill: #666; font-weight: 600; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; fill: #666; }
+      .actorA { fill: #4a90d9; }
+      .actorB { fill: #10b981; }
+      .actorC { fill: #f97316; }
+    </style>
+    <marker id="chainArrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L10,4 z" fill="#888"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" class="title">Multi-Actor Interleaved Ledger</text>
+  <text x="450" y="50" text-anchor="middle" class="subtitle">Physical storage with prev_hash chain references</text>
+  
+  <!-- Position markers (left side) -->
+  <g transform="translate(30, 80)">
+    <text x="0" y="25" class="poslabel">1</text>
+    <text x="0" y="95" class="poslabel">2</text>
+    <text x="0" y="165" class="poslabel">3</text>
+    <text x="0" y="235" class="poslabel">4</text>
+    <text x="0" y="305" class="poslabel">5</text>
+    <text x="0" y="375" class="poslabel">6</text>
+  </g>
+  
+  <!-- Entry boxes arranged vertically by position -->
+  
+  <!-- Position 1: Actor A, Entry 1 -->
+  <g transform="translate(100, 80)">
+    <rect x="0" y="0" width="200" height="50" rx="6" class="actorA" stroke="#2c5aa0" stroke-width="2"/>
+    <text x="100" y="22" text-anchor="middle" class="label">Actor A · Entry 1</text>
+    <text x="100" y="40" text-anchor="middle" class="label" font-weight="400">hash: hash_A1</text>
+    <text x="100" y="48" text-anchor="middle" class="label" font-size="9" font-style="italic">prev: null</text>
+  </g>
+  
+  <!-- Position 2: Actor B, Entry 1 -->
+  <g transform="translate(100, 150)">
+    <rect x="0" y="0" width="200" height="50" rx="6" class="actorB" stroke="#059669" stroke-width="2"/>
+    <text x="100" y="22" text-anchor="middle" class="label">Actor B · Entry 1</text>
+    <text x="100" y="40" text-anchor="middle" class="label" font-weight="400">hash: hash_B1</text>
+    <text x="100" y="48" text-anchor="middle" class="label" font-size="9" font-style="italic">prev: null</text>
+  </g>
+  
+  <!-- Position 3: Actor A, Entry 2 -->
+  <g transform="translate(100, 220)">
+    <rect x="0" y="0" width="200" height="50" rx="6" class="actorA" stroke="#2c5aa0" stroke-width="2"/>
+    <text x="100" y="22" text-anchor="middle" class="label">Actor A · Entry 2</text>
+    <text x="100" y="40" text-anchor="middle" class="label" font-weight="400">hash: hash_A2</text>
+    <text x="100" y="48" text-anchor="middle" class="label" font-size="9" font-style="italic">prev: hash_A1</text>
+  </g>
+  
+  <!-- Position 4: Actor C, Entry 1 -->
+  <g transform="translate(100, 290)">
+    <rect x="0" y="0" width="200" height="50" rx="6" class="actorC" stroke="#ea580c" stroke-width="2"/>
+    <text x="100" y="22" text-anchor="middle" class="label">Actor C · Entry 1</text>
+    <text x="100" y="40" text-anchor="middle" class="label" font-weight="400">hash: hash_C1</text>
+    <text x="100" y="48" text-anchor="middle" class="label" font-size="9" font-style="italic">prev: null</text>
+  </g>
+  
+  <!-- Position 5: Actor B, Entry 2 -->
+  <g transform="translate(100, 360)">
+    <rect x="0" y="0" width="200" height="50" rx="6" class="actorB" stroke="#059669" stroke-width="2"/>
+    <text x="100" y="22" text-anchor="middle" class="label">Actor B · Entry 2</text>
+    <text x="100" y="40" text-anchor="middle" class="label" font-weight="400">hash: hash_B2</text>
+    <text x="100" y="48" text-anchor="middle" class="label" font-size="9" font-style="italic">prev: hash_B1</text>
+  </g>
+  
+  <!-- Position 6: Actor A, Entry 3 -->
+  <g transform="translate(100, 430)">
+    <rect x="0" y="0" width="200" height="50" rx="6" class="actorA" stroke="#2c5aa0" stroke-width="2"/>
+    <text x="100" y="22" text-anchor="middle" class="label">Actor A · Entry 3</text>
+    <text x="100" y="40" text-anchor="middle" class="label" font-weight="400">hash: hash_A3</text>
+    <text x="100" y="48" text-anchor="middle" class="label" font-size="9" font-style="italic">prev: hash_A2</text>
+  </g>
+  
+  <!-- prev_hash chain arrows (curved, right side) -->
+  
+  <!-- Actor A chain: Pos 3 → Pos 1 -->
+  <path d="M 320 245 Q 380 245, 380 180 Q 380 105, 320 105" fill="none" stroke="#4a90d9" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#chainArrow)"/>
+  
+  <!-- Actor A chain: Pos 6 → Pos 3 -->
+  <path d="M 320 455 Q 400 455, 400 350 Q 400 245, 320 245" fill="none" stroke="#4a90d9" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#chainArrow)"/>
+  
+  <!-- Actor B chain: Pos 5 → Pos 2 -->
+  <path d="M 320 385 Q 360 385, 360 280 Q 360 175, 320 175" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#chainArrow)"/>
+  
+  <!-- Chain labels -->
+  <text x="390" y="180" class="subtitle" font-size="10" fill="#4a90d9">A's chain</text>
+  <text x="390" y="350" class="subtitle" font-size="10" fill="#4a90d9">A's chain</text>
+  <text x="370" y="280" class="subtitle" font-size="10" fill="#10b981">B's chain</text>
+  
+  <!-- Legend -->
+  <g transform="translate(500, 120)">
+    <rect x="0" y="0" width="280" height="140" rx="6" fill="#f8f9fa" stroke="#e0e0e0"/>
+    <text x="140" y="25" text-anchor="middle" class="subtitle" font-weight="600">Legend</text>
+    
+    <rect x="20" y="40" width="30" height="20" class="actorA" stroke="#2c5aa0" stroke-width="1"/>
+    <text x="60" y="54" class="subtitle" font-size="10">Actor A (blue)</text>
+    
+    <rect x="20" y="70" width="30" height="20" class="actorB" stroke="#059669" stroke-width="1"/>
+    <text x="60" y="84" class="subtitle" font-size="10">Actor B (emerald)</text>
+    
+    <rect x="20" y="100" width="30" height="20" class="actorC" stroke="#ea580c" stroke-width="1"/>
+    <text x="60" y="114" class="subtitle" font-size="10">Actor C (orange)</text>
+    
+    <line x1="20" y1="130" x2="50" y2="130" stroke="#888" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#chainArrow)"/>
+    <text x="60" y="134" class="subtitle" font-size="10">prev_hash link</text>
+  </g>
+  
+  <!-- Key insight box -->
+  <g transform="translate(500, 280)">
+    <rect x="0" y="0" width="280" height="80" rx="6" fill="#fff7ed" stroke="#f97316" stroke-width="1"/>
+    <text x="140" y="25" text-anchor="middle" class="subtitle" font-weight="600">Key Insight</text>
+    <text x="140" y="45" text-anchor="middle" class="subtitle" font-size="10">prev_hash points to same actor's</text>
+    <text x="140" y="60" text-anchor="middle" class="subtitle" font-size="10">previous entry — not physically</text>
+    <text x="140" y="75" text-anchor="middle" class="subtitle" font-size="10">adjacent row!</text>
+  </g>
+</svg>

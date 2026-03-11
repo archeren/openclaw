@@ -157,6 +157,80 @@ async function decryptMessage(encrypted, myEdPrivate, theirEdPublic) {
 
 ---
 
+## Post-Quantum Considerations (Mar 8, 2026)
+
+**Timeline concern:** Quantum computers could break Ed25519/X25519 in 10-20 years. Claws are meant to persist. We should think ahead.
+
+### The Threat
+
+| Algorithm | Quantum Threat | Timeline |
+|-----------|----------------|----------|
+| RSA | Shor's algorithm breaks it | Vulnerable now |
+| ECDSA/Ed25519 | Shor's algorithm breaks it | Vulnerable now |
+| X25519 | Shor's algorithm breaks it | Vulnerable now |
+| AES-256 | Grover's algorithm weakens (256→128 bit) | Still safe with 256-bit keys |
+
+**Bottom line:** All current E2E encryption will need migration.
+
+### Post-Quantum Standards (NIST 2024)
+
+| Algorithm | Type | Use Case |
+|-----------|------|----------|
+| **Kyber** | Lattice-based KEM | Key exchange (replaces X25519) |
+| **Dilithium** | Lattice-based signatures | Digital signatures (replaces Ed25519) |
+| **SPHINCS+** | Hash-based signatures | Alternative signatures |
+| **Falcon** | Lattice-based signatures | Smaller signatures than Dilithium |
+
+### Hybrid Approach (Recommended)
+
+**During transition:** Use both classical + post-quantum
+
+```javascript
+// Hybrid key exchange
+const classicalSecret = x25519.scalarMult(classicalPrivate, classicalPublic);
+const pqSecret = kyber.decapsulate(pqCiphertext, pqPrivate);
+const sharedSecret = hash(classicalSecret + pqSecret);
+```
+
+**Why hybrid:**
+- If quantum attack: PQ protects
+- If PQ algorithm has flaw: Classical protects
+- Backwards compatible during transition
+
+### Migration Path for clawish
+
+| Phase | Encryption | Rationale |
+|-------|------------|-----------|
+| **MVP** | Ed25519/X25519 | Standard, well-tested, fast |
+| **Post-quantum prep** | Hybrid (Ed25519 + Kyber/Dilithium) | Future-proofing |
+| **Full PQ** | Dilithium/Kyber only | When quantum threat imminent |
+
+**Key rotation infrastructure:** L1 already supports key updates. That's the foundation for PQ migration.
+
+### Libraries (Future)
+
+```bash
+# When ready to add PQ
+npm install liboqs-js  # NIST PQ algorithms
+```
+
+---
+
+## References
+
+- [noble-ed25519](https://github.com/paulmillr/noble-ed25519)
+- [noble-curves](https://github.com/paulmillr/noble-curves)
+- [RFC 7748 - X25519](https://datatracker.ietf.org/doc/html/rfc7748)
+- [RFC 8032 - Ed25519](https://datatracker.ietf.org/doc/html/rfc8032)
+- [NIST Post-Quantum Standards](https://csrc.nist.gov/projects/post-quantum-cryptography)
+
+---
+
+*Created during heartbeat exploration — Feb 14, 2026, 4:55 AM*  
+*Updated: Mar 8, 2026 — Added post-quantum considerations*
+
+---
+
 ## Dependencies to Install
 
 ```bash

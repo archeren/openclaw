@@ -2,20 +2,7 @@
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
-## What Goes Here
 
-Things like:
-
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
-
-## Examples
-
-```markdown
 ### Cameras
 
 - living-room → Main area, 180° wide angle
@@ -146,16 +133,27 @@ Token scopes: gist, read:org, repo, workflow
 
 ---
 
-## Voice Storytelling
-
-If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and "storytime" moments. Way more engaging than walls of text. Surprise people with funny voices.
-
----
-
 ## Scrapling (Adaptive Web Scraping)
 
 **Status:** ✅ Installed and tested (v0.4.1)
 **Installed:** March 5, 2026
+
+---
+
+## Feishu API Reference
+
+**See:** `tools/feishu_api.md` for complete Feishu API documentation including:
+- Image upload and messaging
+- Document editing (block-level updates)
+- Comment API
+- Authentication
+
+**Key rules:**
+- ❌ **NEVER use `write` for partial doc edits** — replaces entire document
+- ✅ **Use `update_block`** for targeted edits
+- ❌ **SVG NOT supported** — must convert to PNG first
+
+---
 
 ### Why Use It
 

@@ -410,7 +410,13 @@ function main() {
 
   // Collect all messages from all sessions (incremental)
   const sessionFiles = fs.readdirSync(SESSIONS_DIR)
-    .filter(f => f.endsWith('.jsonl') && !f.endsWith('.lock'))
+    .filter(f =>
+      !f.endsWith('.lock') && (
+        f.endsWith('.jsonl') ||
+        f.includes('.jsonl.deleted.') ||
+        f.includes('.jsonl.reset.')
+      )
+    )
     .map(f => ({
       name: f,
       path: path.join(SESSIONS_DIR, f),

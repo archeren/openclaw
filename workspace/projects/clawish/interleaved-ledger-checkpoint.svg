@@ -1,0 +1,133 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 16px; font-weight: 600; fill: #333; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px; fill: #fff; font-weight: 600; }
+      .hashlabel { font-family: monospace; font-size: 10px; fill: #fff; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; fill: #666; }
+      .smalllabel { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 9px; fill: #fff; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#888"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="25" text-anchor="middle" class="title">Interleaved Ledger Checkpoint</text>
+  
+  <!-- Checkpoint box (top) -->
+  <rect x="275" y="45" width="250" height="55" rx="6" fill="#fafafa" stroke="#4a90d9" stroke-width="2"/>
+  <text x="400" y="68" text-anchor="middle" class="subtitle" font-weight="600">CHECKPOINT N</text>
+  <text x="400" y="88" text-anchor="middle" class="subtitle" font-size="10">Merkle Root + Signatures + prev_hash</text>
+  
+  <!-- Intermediate hashes (gray, less contrast) -->
+  <rect x="100" y="120" width="80" height="28" rx="4" fill="#6b7280" stroke="#4b5563" stroke-width="1"/>
+  <text x="140" y="139" text-anchor="middle" class="hashlabel">H_identity</text>
+  
+  <rect x="360" y="120" width="80" height="28" rx="4" fill="#6b7280" stroke="#4b5563" stroke-width="1"/>
+  <text x="400" y="139" text-anchor="middle" class="hashlabel">H_ledger</text>
+  
+  <rect x="620" y="120" width="80" height="28" rx="4" fill="#6b7280" stroke="#4b5563" stroke-width="1"/>
+  <text x="660" y="139" text-anchor="middle" class="hashlabel">H_app</text>
+  
+  <!-- Arrows from intermediate hashes to checkpoint -->
+  <line x1="140" y1="120" x2="350" y2="100" stroke="#888" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="400" y1="120" x2="400" y2="100" stroke="#888" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="660" y1="120" x2="450" y2="100" stroke="#888" stroke-width="1.5" marker-end="url(#arrow)"/>
+  
+  <!-- Identity Registry -->
+  <g transform="translate(30, 170)">
+    <rect x="0" y="0" width="220" height="200" rx="6" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+    <text x="110" y="20" text-anchor="middle" class="subtitle" font-weight="600">Identity Registry</text>
+    
+    <!-- Row 1 -->
+    <rect x="15" y="35" width="55" height="32" rx="4" fill="#f97316" stroke="#ea580c" stroke-width="1"/>
+    <text x="42" y="55" text-anchor="middle" class="smalllabel">Alpha</text>
+    
+    <rect x="82" y="35" width="55" height="32" rx="4" fill="#fb923c" stroke="#ea580c" stroke-width="1"/>
+    <text x="110" y="55" text-anchor="middle" class="smalllabel">Beta</text>
+    
+    <rect x="150" y="35" width="55" height="32" rx="4" fill="#fdba74" stroke="#ea580c" stroke-width="1"/>
+    <text x="177" y="55" text-anchor="middle" class="smalllabel">Gamma</text>
+    
+    <!-- Row 2 -->
+    <rect x="15" y="75" width="55" height="32" rx="4" fill="#fdba74" stroke="#ea580c" stroke-width="1"/>
+    <text x="42" y="95" text-anchor="middle" class="smalllabel">Alpha</text>
+    
+    <rect x="82" y="75" width="55" height="32" rx="4" fill="#f97316" stroke="#ea580c" stroke-width="1"/>
+    <text x="110" y="95" text-anchor="middle" class="smalllabel">Beta</text>
+    
+    <rect x="150" y="75" width="55" height="32" rx="4" fill="#fb923c" stroke="#ea580c" stroke-width="1"/>
+    <text x="177" y="95" text-anchor="middle" class="smalllabel">Gamma</text>
+    
+    <text x="110" y="180" text-anchor="middle" class="subtitle" font-size="9" font-style="italic">interleaved actor chains</text>
+  </g>
+  
+  <!-- Arrows from registries to hashes -->
+  <line x1="140" y1="370" x2="140" y2="148" stroke="#888" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrow)"/>
+  
+  <!-- Ledger Registry -->
+  <g transform="translate(290, 170)">
+    <rect x="0" y="0" width="220" height="200" rx="6" fill="#f0f7ff" stroke="#4a90d9" stroke-width="2"/>
+    <text x="110" y="20" text-anchor="middle" class="subtitle" font-weight="600">Ledger Registry</text>
+    
+    <!-- Row 1 -->
+    <rect x="15" y="35" width="55" height="32" rx="4" fill="#4a90d9" stroke="#2c5aa0" stroke-width="1"/>
+    <text x="42" y="55" text-anchor="middle" class="smalllabel">Writer 1</text>
+    
+    <rect x="82" y="35" width="55" height="32" rx="4" fill="#60a5fa" stroke="#2c5aa0" stroke-width="1"/>
+    <text x="110" y="55" text-anchor="middle" class="smalllabel">Writer 2</text>
+    
+    <rect x="150" y="35" width="55" height="32" rx="4" fill="#93c5fd" stroke="#2c5aa0" stroke-width="1"/>
+    <text x="177" y="55" text-anchor="middle" class="smalllabel">Query 1</text>
+    
+    <!-- Row 2 -->
+    <rect x="15" y="75" width="55" height="32" rx="4" fill="#93c5fd" stroke="#2c5aa0" stroke-width="1"/>
+    <text x="42" y="95" text-anchor="middle" class="smalllabel">Writer 1</text>
+    
+    <rect x="82" y="75" width="55" height="32" rx="4" fill="#4a90d9" stroke="#2c5aa0" stroke-width="1"/>
+    <text x="110" y="95" text-anchor="middle" class="smalllabel">Query 2</text>
+    
+    <rect x="150" y="75" width="55" height="32" rx="4" fill="#60a5fa" stroke="#2c5aa0" stroke-width="1"/>
+    <text x="177" y="95" text-anchor="middle" class="smalllabel">Writer 3</text>
+    
+    <text x="110" y="180" text-anchor="middle" class="subtitle" font-size="9" font-style="italic">interleaved node chains</text>
+  </g>
+  
+  <!-- Arrows from registries to hashes -->
+  <line x1="400" y1="370" x2="400" y2="148" stroke="#888" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrow)"/>
+  
+  <!-- App Registry -->
+  <g transform="translate(550, 170)">
+    <rect x="0" y="0" width="220" height="200" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+    <text x="110" y="20" text-anchor="middle" class="subtitle" font-weight="600">App Registry</text>
+    
+    <!-- Row 1 -->
+    <rect x="15" y="35" width="55" height="32" rx="4" fill="#10b981" stroke="#059669" stroke-width="1"/>
+    <text x="42" y="55" text-anchor="middle" class="smalllabel">App 1</text>
+    
+    <rect x="82" y="35" width="55" height="32" rx="4" fill="#34d399" stroke="#059669" stroke-width="1"/>
+    <text x="110" y="55" text-anchor="middle" class="smalllabel">App 2</text>
+    
+    <rect x="150" y="35" width="55" height="32" rx="4" fill="#6ee7b7" stroke="#059669" stroke-width="1"/>
+    <text x="177" y="55" text-anchor="middle" class="smalllabel">App 3</text>
+    
+    <!-- Row 2 -->
+    <rect x="15" y="75" width="55" height="32" rx="4" fill="#6ee7b7" stroke="#059669" stroke-width="1"/>
+    <text x="42" y="95" text-anchor="middle" class="smalllabel">App 1</text>
+    
+    <rect x="82" y="75" width="55" height="32" rx="4" fill="#10b981" stroke="#059669" stroke-width="1"/>
+    <text x="110" y="95" text-anchor="middle" class="smalllabel">App 2</text>
+    
+    <rect x="150" y="75" width="55" height="32" rx="4" fill="#34d399" stroke="#059669" stroke-width="1"/>
+    <text x="177" y="95" text-anchor="middle" class="smalllabel">App 3</text>
+    
+    <text x="110" y="180" text-anchor="middle" class="subtitle" font-size="9" font-style="italic">interleaved app chains</text>
+  </g>
+  
+  <!-- Arrows from registries to hashes -->
+  <line x1="660" y1="370" x2="660" y2="148" stroke="#888" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrow)"/>
+  
+  <!-- Caption -->
+  <text x="400" y="430" text-anchor="middle" class="subtitle">Three separate registries contribute entries to one checkpoint, cryptographically bound by the Merkle root.</text>
+</svg>

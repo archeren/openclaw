@@ -26,6 +26,7 @@
 
 | Topic | Status | Notes |
 |-------|--------|-------|
+| **Klaus (Hosted OpenClaw)** | 🟡 Discuss later | Hosted OpenClaw on EC2. Key insights: (1) AI SRE (ClawBert) for auto-fixing broken instances; (2) Security via private subnet; (3) Market demand for hosted agent infrastructure. Relevant for clawish L2 app hosting patterns. |
 | **DenchClaw (OpenClaw-based CRM)** | 🟡 Discuss later | Native L2 app example built on OpenClaw. Uses `--profile dench` pattern. Study architecture for clawish L2 app patterns. |
 | **Terminal Use (YC W26)** | 🟡 Discuss later | "Vercel for filesystem-based agents". Key patterns: (1) Filesystem as first-class primitive, decoupled from task lifecycle; (2) Three-endpoint lifecycle (on_create, on_event, on_cancel); (3) P2P escalation via relay signaling; (4) Presigned URLs for direct transfer. Relevant for L2 app deployment and P2P chat. |
 | **CSP (Communicating Sequential Processes)** | 🟡 Discuss later | Tony Hoare's concurrency model. Process + channel + synchronous message passing. "No shared state" principle matches our writer coordination design. If L1 implemented in Go, we get CSP patterns natively. Implementation detail for consensus protocol. |

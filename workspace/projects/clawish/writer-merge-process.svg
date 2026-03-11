@@ -1,0 +1,104 @@
+<svg viewBox="-20 0 825 380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; font-weight: 600; fill: #333; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px; fill: #fff; font-weight: 600; }
+      .oplabel { font-family: monospace; font-size: 9px; fill: #fff; }
+      .stagelabel { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; fill: #666; font-weight: 500; }
+      .writername { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px; fill: #555; font-weight: 600; }
+      .time { font-family: monospace; font-size: 9px; fill: #fff; font-weight: 500; }
+      .dots { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; fill: #666; font-weight: 600; }
+      .l2label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px; fill: #555; font-weight: 600; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#888"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="392" y="25" text-anchor="middle" class="title">Multi-Writer Merge Process</text>
+  
+  <!-- L2 Applications Label -->
+  <text x="85" y="55" text-anchor="middle" class="stagelabel">L2 Applications</text>
+  
+  <!-- L1 Nodes Label - between writers and all writers columns -->
+  <text x="510" y="55" text-anchor="middle" class="stagelabel">L1 Nodes</text>
+  
+  <!-- App1 (Actor A) - has two operations: t1 and t2 with even vertical spacing -->
+  <text x="85" y="82" text-anchor="middle" class="l2label">App1</text>
+  <rect x="5" y="90" width="160" height="100" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+  <rect x="15" y="102" width="140" height="32" rx="3" fill="#34d399"/>
+  <text x="85" y="123" text-anchor="middle" class="label">t1: key.register</text>
+  <rect x="15" y="145" width="140" height="32" rx="3" fill="#34d399"/>
+  <text x="85" y="166" text-anchor="middle" class="label" font-size="9">t2: key.rotate</text>
+  
+  <!-- App2 (Actor B) - has one operation: t3 -->
+  <text x="85" y="210" text-anchor="middle" class="l2label">App2</text>
+  <rect x="5" y="218" width="160" height="50" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+  <rect x="15" y="230" width="140" height="28" rx="3" fill="#34d399"/>
+  <text x="85" y="249" text-anchor="middle" class="label">t3: profile.update</text>
+  
+  <!-- App3 (Actor C) - has one operation: t4 -->
+  <text x="85" y="290" text-anchor="middle" class="l2label">App3</text>
+  <rect x="5" y="298" width="160" height="50" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+  <rect x="15" y="310" width="140" height="28" rx="3" fill="#34d399"/>
+  <text x="85" y="329" text-anchor="middle" class="label">t4: ledger.entry</text>
+  
+  <!-- Dots below apps -->
+  <text x="85" y="365" text-anchor="middle" class="dots">...</text>
+  
+  <!-- Arrows from Apps to Writers -->
+  <!-- App1 (Actor A) has TWO lines: t1 to Writer 1, t2 to Writer 2 -->
+  <line x1="165" y1="118" x2="270" y2="145" stroke="#888" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="165" y1="161" x2="270" y2="265" stroke="#888" stroke-width="1.2" marker-end="url(#arrow)"/>
+  
+  <!-- App2 (Actor B) to Writer 1 -->
+  <line x1="165" y1="244" x2="270" y2="195" stroke="#888" stroke-width="1.2" marker-end="url(#arrow)"/>
+  
+  <!-- App3 (Actor C) to Writer 2 -->
+  <line x1="165" y1="324" x2="270" y2="315" stroke="#888" stroke-width="1.2" marker-end="url(#arrow)"/>
+  
+  <!-- Writer 1 - Blue -->
+  <text x="360" y="82" text-anchor="middle" class="writername">Writer 1</text>
+  <rect x="270" y="90" width="180" height="120" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="280" y="102" width="160" height="42" rx="3" fill="#60a5fa"/>
+  <text x="360" y="128" text-anchor="middle" class="label">t1: key.register</text>
+  <rect x="280" y="155" width="160" height="42" rx="3" fill="#60a5fa"/>
+  <text x="360" y="181" text-anchor="middle" class="label">t3: profile.update</text>
+  
+  <!-- Writer 2 - Blue -->
+  <text x="360" y="230" text-anchor="middle" class="writername">Writer 2</text>
+  <rect x="270" y="238" width="180" height="120" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="280" y="250" width="160" height="42" rx="3" fill="#60a5fa"/>
+  <text x="360" y="276" text-anchor="middle" class="label">t2: key.rotate</text>
+  <rect x="280" y="303" width="160" height="42" rx="3" fill="#60a5fa"/>
+  <text x="360" y="329" text-anchor="middle" class="label">t4: ledger.entry</text>
+  
+  <!-- Curved arrows pointing to vertical center of All Writers (y=225) -->
+  <path d="M 450 150 C 490 150, 510 225, 550 225" stroke="#888" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 450 298 C 490 298, 510 225, 550 225" stroke="#888" stroke-width="1.5" fill="none"/>
+  
+  <!-- Dots after Writer 2 -->
+  <text x="360" y="370" text-anchor="middle" class="dots">...</text>
+  
+  <!-- Unified Result -->
+  <text x="660" y="82" text-anchor="middle" class="writername">All Writers</text>
+  <rect x="550" y="90" width="230" height="270" rx="6" fill="#f0f7ff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="665" y="115" text-anchor="middle" class="stagelabel" fill="#4a90d9">Sorted by Timestamp</text>
+  
+  <!-- 4 operations sorted by time - no actor labels -->
+  <rect x="562" y="130" width="206" height="40" rx="3" fill="#4a90d9"/>
+  <text x="665" y="155" text-anchor="middle" class="label">t1: key.register</text>
+  
+  <rect x="562" y="180" width="206" height="40" rx="3" fill="#4a90d9"/>
+  <text x="665" y="205" text-anchor="middle" class="label">t2: key.rotate</text>
+  
+  <rect x="562" y="230" width="206" height="40" rx="3" fill="#4a90d9"/>
+  <text x="665" y="255" text-anchor="middle" class="label">t3: profile.update</text>
+  
+  <rect x="562" y="280" width="206" height="40" rx="3" fill="#4a90d9"/>
+  <text x="665" y="305" text-anchor="middle" class="label">t4: ledger.entry</text>
+  
+  <!-- Dots at bottom of merged checkpoint -->
+  <text x="665" y="340" text-anchor="middle" class="dots">...</text>
+</svg>

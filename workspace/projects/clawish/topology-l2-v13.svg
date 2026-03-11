@@ -45,7 +45,7 @@
   <!-- L1 Box (Registry - Bottom) -->
   <rect x="30" y="260" width="620" height="140" rx="10" fill="#f0f7ff" stroke="#4a90d9" stroke-width="2"/>
   <!-- MOVED UP: Layer 1 title (was y=285, now y=275) -->
-  <text x="340" y="275" class="nodetitle" text-anchor="middle">Layer 1 (Registry)</text>
+  <text x="340" y="275" class="nodetitle" text-anchor="middle">Layer 1 (Nodes)</text>
   
   <!-- L1 Nodes (one row, simplified) -->
   <circle cx="280" cy="335" r="35" fill="#4a90d9" stroke="#2c5aa0" stroke-width="2"/>
@@ -64,7 +64,7 @@
   <rect x="670" y="150" width="130" height="160" rx="6" fill="#f8f9fa" stroke="#e0e0e0"/>
   <text x="735" y="175" class="nodetitle" text-anchor="middle">Legend</text>
   <circle cx="690" cy="205" r="10" fill="#6b8e23"/>
-  <text x="710" y="209" class="subtitle" text-anchor="start" font-size="10">App nodes</text>
+  <text x="710" y="209" class="subtitle" text-anchor="start" font-size="10">Applications</text>
   <circle cx="690" cy="235" r="10" fill="#4a90d9"/>
   <text x="710" y="239" class="subtitle" text-anchor="start" font-size="10">Writer nodes</text>
   <circle cx="690" cy="265" r="10" fill="#7eb8e4"/>

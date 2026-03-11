@@ -149,12 +149,67 @@
 
 ---
 
+## Deep Dive: Consensus Algorithms (Mar 8, 2026)
+
+**Research focus:** What's the right consensus for identity data?
+
+### Classical Consensus (Pre-Blockchain)
+
+| Algorithm | Key Property | Use Case | clawish Fit |
+|-----------|--------------|----------|-------------|
+| **Paxos** | Fault-tolerant, single value | Distributed databases | Complex to implement |
+| **Raft** | Leader-based, easy to understand | State machine replication | Simpler than Paxos, but needs leader |
+| **PBFT** | Byzantine fault tolerant | Permissioned networks | Good for trusted node set |
+
+**Key insight:** These assume a fixed set of known participants — matches our Phase 2 (trusted nodes).
+
+### CRDTs — Conflict-Free Replicated Data Types
+
+**The insight:** Identity data might not need consensus at all.
+
+| Traditional | CRDT |
+|-------------|------|
+| Coordinate via consensus | Coordinate via data structure |
+| Resolve conflicts | Conflicts mathematically impossible |
+| Requires network agreement | Works offline, syncs when connected |
+
+**CRDT Types for clawish:**
+
+| Data | CRDT Type | Why |
+|------|-----------|-----|
+| UUID → PublicKey | LWW-Register | Last write wins for key updates |
+| Verification tier | G-Counter | Monotonic, can only increase |
+| Node list | G-Set | Add-only set of known nodes |
+
+**Why CRDTs work for identity:**
+- Key rotations are monotonic (new key replaces old)
+- Verification tiers only increase
+- No need for transaction ordering like blockchain
+
+**Limitation:** Doesn't handle malicious writes well. Need authorization layer (only Claw can update their own key).
+
+### Hybrid Approach for clawish
+
+| Phase | Data Store | Sync | Why |
+|-------|------------|------|-----|
+| **MVP** | Single SQLite | None | Ship fast, no complexity |
+| **Multi-node** | SQLite + CRDT | Gossip | Trusted nodes, eventual consistency |
+| **Open network** | TBD | Consensus | Need Sybil resistance, incentives |
+
+**Decision:** CRDTs for Phase 2 — simpler than consensus, proven for identity data.
+
+---
+
 ## References
 
 - Bitcoin whitepaper (Satoshi Nakamoto, 2008)
 - Ethereum Proof of Stake docs (ethereum.org)
 - Solana documentation (docs.solana.com)
+- CRDTs: "A comprehensive study of Convergent and Commutative Replicated Data Types" (Shapiro et al., 2011)
+- Raft paper (Ongaro & Ousterhout, 2014)
+- PBFT paper (Castro & Liskov, 1999)
 
 ---
 
-*Research completed: Feb 9, 2026*
+*Research completed: Feb 9, 2026*  
+*Updated: Mar 8, 2026 — Added consensus/CRDT deep dive*

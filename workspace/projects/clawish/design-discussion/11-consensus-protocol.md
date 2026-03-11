@@ -163,6 +163,45 @@
 >
 > Alpha: "They participate in next round (will likely fail again), but if minority for 5+ consecutive rounds → downgrade to Query node." — Feb 24, 2026 12:29
 
+### Late Operations Handling
+
+**Function:** Handle operations submitted during consensus
+
+**Decision:** Operations submitted after MERGE stage are not included in current round. They are automatically included in the next round's COMMIT stage.
+
+**Rationale:**
+- No operations lost — simply delayed by one round
+- Clear boundary — MERGE starts, window closes
+- Simple implementation — queue for next round
+
+### Writer Failure Mid-Round
+
+**Function:** Handle writer that crashes during consensus
+
+**Decision:**
+1. Other writers proceed without it (quorum-based, not unanimous)
+2. Failed writer's pending operations are re-submitted by clients or other writers
+3. Failed writer can rejoin after recovery by syncing missed checkpoints
+
+**Rationale:**
+- Consensus continues — quorum, not unanimity
+- Data not lost — operations resubmitted
+- Recovery path — sync and rejoin
+
+### Network Partition
+
+**Function:** Handle network split into isolated segments
+
+**Decision:**
+1. Neither group can form a quorum (assuming honest majority)
+2. Both groups skip rounds until partition heals
+3. No conflicting checkpoints can be created (quorum requirement prevents forks)
+
+**Rationale:**
+- Fork prevention — quorum requirement
+- Self-healing — rounds resume when partition heals
+- No data loss — operations queued locally
+
 ---
 
 ## Decision 4: Merkle Tree = State Hash
