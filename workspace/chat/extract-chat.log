@@ -7300,3 +7300,13 @@ Found 10 new messages
 Checkpoint saved: 2026-03-11T23:30:00.485Z
 
 🦞 Database: /home/ubuntu/.openclaw/workspace/chat/conversations.db
+Loaded 2 contact mappings from contacts.json
+Last processed: 2026-03-11T23:30:00.485Z
+OpenClaw directory: /home/ubuntu/.openclaw
+Found 16 sessions
+Session 60049283-681: feishu/allan
+Found 11 new messages
+✓ 2026-03-12 (dm/allan): +11 messages
+Checkpoint saved: 2026-03-11T23:45:00.533Z
+
+🦞 Database: /home/ubuntu/.openclaw/workspace/chat/conversations.db
