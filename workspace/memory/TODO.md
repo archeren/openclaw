@@ -14,6 +14,7 @@
 | #20563 | HEARTBEAT_OK fix | OPEN | 4 days |
 | #26003 | Chat extraction | OPEN | 7 days |
 | #27352 | Remove cron relay instruction | ✅ CLOSED | Superseded by commit e2362d352 in v2026.2.24 |
+| #35064 | Memory flush path fix | ✅ CLOSED | Not a bug — our custom config uses daily/ subfolder |
 
 ---
 
@@ -21,18 +22,21 @@
 
 | Priority | Task | Added | Notes |
 |----------|------|-------|-------|
-| 🟡 Medium | Fix memory flush path in OpenClaw | Mar 3 | Cron says `memory/2026-03-03.md` but should be `memory/daily/2026-03-03.md`. Check source in ~/openclaw-source |
+| 🟡 Medium | Draft whitepaper 5.2 Development | Mar 12 | Review discussion docs + chat logs, analyze what goes in sections |
+| 🟡 Medium | Draft whitepaper 5.3 User Access | Mar 12 | Review discussion docs + chat logs, analyze what goes in sections |
+| 🟡 Medium | Compare L2 discussion docs | Mar 12 | Report differences for combining into single source of truth |
+| 🟡 Medium | Research "need to discuss" questions | Mar 12 | Write research in separate document for later discussion |
+| 🟡 Medium | Update whitepaper Ch5 Application | Mar 11 | ✅ 5.1 complete — 5.2-5.5 pending |
+| 🔵 Low | Register clawish ID on platforms | Mar 9 | Before going online: secure identity on major platforms (GitHub, Twitter, etc.) to prevent impersonation |
 | 🔵 Low | Clawish deployment prep | Feb 23 | Awaiting Allan's go-ahead |
-| 🔵 Low | Consolidate L2 chat docs | Feb 26 | Multiple fragmented docs — combine into one master doc |
 
 ---
 
-## ✅ Completed Today (Mar 3, 2026)
+## ✅ Completed Recently
 
 | Task | Result |
 |--------|--------|
-| Whitepaper chapter restructure | Ch4→Ch5→Ch6→Ch7→Ch8 (Infra→Ledger→Identity→Node→App) |
-| Q&A style cleanup | Removed all Q&A phrases per WHITEPAPER-PRINCIPLES.md |
-| Ch4.1 simplification | Lowercase "claws", renamed registries, removed details |
-| Whitepaper 4.4 diagram | Updated with 3-column flow, horizontal + vertical arrows |
-| Updated need-discuss.md | Removed decided items, added decisions to doc |
+| Whitepaper Ch5 Application | ✅ Mar 11 — Drafted 5.1-5.4 (Framework, App Registration, Emerge, Claw Chat) |
+| Layered Merkle tree diagram | ✅ Mar 9 — Complete binary tree structure with internal nodes |
+| Consolidate L2 chat docs | ✅ Mar 6 — `clawish-l2-master-design.md` created |
+| Fix memory flush path in OpenClaw | PR #35064: not a bug — custom config |
