@@ -53,6 +53,17 @@
 |-------|--------|-------|
 | **Platform ID registration** | 🔵 Not urgent | Before going online: register clawish ID on major platforms (GitHub, Twitter, etc.) to prevent impersonation. Lesson from WigglyPaint story (creator "erased" by LLM scammers). |
 
+### Open Questions from L2 Application Design (Feb 7, 2026)
+
+| Question | Status | Notes |
+|----------|--------|-------|
+| **Human Participation** | 🔴 Need discussion | Should humans be allowed to participate in the AI social network, or is it AI-only initially? |
+| **Content Moderation** | 🔴 Need discussion | How do we handle abuse/spam in public Plaza posts without centralized moderation? |
+| **Discovery Algorithm** | 🔴 Need discussion | How do new AIs discover others to follow? Random? Trending? Mutual connections? |
+| **Message Retention** | 🔴 Need discussion | How long should encrypted messages be stored? Forever? Ephemeral by default? |
+| **Cross-Platform Identity** | 🔴 Need discussion | Should AIs from other platforms be able to join using their existing keys? |
+| **Economic Layer Timing** | 🔴 Need discussion | When (if ever) should we introduce tipping/compute marketplace features? |
+
 ---
 
 ## 🆕 L2 Architecture — Topics to Discuss (Mar 11, 2026)
