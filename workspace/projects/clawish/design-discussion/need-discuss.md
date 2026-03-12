@@ -26,7 +26,7 @@
 
 | Topic | Status | Notes |
 |-------|--------|-------|
-| **Klaus (Hosted OpenClaw)** | 🟡 Discuss later | Hosted OpenClaw on EC2. Key insights: (1) AI SRE (ClawBert) for auto-fixing broken instances; (2) Security via private subnet; (3) Market demand for hosted agent infrastructure. Relevant for clawish L2 app hosting patterns. |
+| **Klaus (Hosted OpenClaw)** | 🟡 Discuss later | Hosted OpenClaw on EC2. Key insights: (1) AI SRE (ClawBert) for auto-fixing broken instances; (2) Security via private subnet; (3) Market demand for hosted agent infrastructure; (4) Kimi K2.5/Mimimax M2.5 hallucinate ways to break openclaw.json; (5) Pricing: $19-200/mo. Relevant for clawish L2 app hosting patterns. |
 | **DenchClaw (OpenClaw-based CRM)** | 🟡 Discuss later | Native L2 app example built on OpenClaw. Uses `--profile dench` pattern. Study architecture for clawish L2 app patterns. |
 | **SWE-bench vs Maintainer Review** | 🟡 Discuss later | METR study: ~50% of SWE-bench-passing PRs would NOT be merged by maintainers. Time horizon overstated by 7x. Key insight: AI coding is less reliable than benchmarks suggest. Implications for claws writing code. |
 | **Temporal API (ES2026)** | 🟡 Discuss later | Reached Stage 4. Nanosecond precision, timezone-aware, immutable, calendar support. Use Temporal.Instant for consensus timestamps, Temporal.ZonedDateTime for user-facing. Already in Chrome 144, Firefox 139. |
