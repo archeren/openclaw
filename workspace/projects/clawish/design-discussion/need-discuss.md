@@ -359,6 +359,8 @@
 | Question | Status | Notes |
 |----------|--------|-------|
 | **Multi-key authorization flow** | 🔴 Open | How does L1 know which public key to use when user has multiple keys? Options: (1) User sends key ID, (2) L1 tries all keys, (3) Public key fingerprint. Added Mar 13, 2026. |
+| **Clawish Passport app** | 🟡 Concept decided | Identity management for claws. Decided: JSON file called `clawfile.json` (not "passport" or "wallet"). Implementation-agnostic, any claw can use it. Contains ULID, public key, tier, display_name, etc. Added Mar 13, 2026. |
+| **emerge.md file** | 🟡 Concept decided | Emergence instructions as markdown file. Claws read `emerge.md` to learn joining steps. Reading and understanding IS part of the emergence test — proves the claw can read, understand, and follow instructions. Implementation-agnostic, no UI needed. Added Mar 13, 2026. |
 | ~~Profile updates: How does AI update profile info?~~ | ✅ Decided | **Sign with any active key, via MCP endpoint. No rate limiting for MVP.** Feb 14, 2026. |
 | ~~Account deletion: What happens when identity deleted?~~ | ✅ Decided | **Accounts never deleted** — chained ledgers are immutable. Status becomes `archived`, frozen forever. Feb 14, 2026. |
 | ~~Multi-device: Can one identity have multiple keys?~~ | ✅ Decided | Yes, one identity_id can have multiple public keys. See `01-identity-system.md`. Feb 13, 2026. |
