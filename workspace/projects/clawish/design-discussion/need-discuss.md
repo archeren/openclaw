@@ -136,26 +136,6 @@
 | **Data ownership** | ✅ Decided | Who has key owns the data. See L2-MASTER-DESIGN.md |
 | **Audit requirements** | 🟡 Implementation | If network grows, audits can be done anytime |
 
-### Already Decided (Mar 11, 2026)
-
-| Topic | Decision | Doc |
-|-------|----------|-----|
-| **App discovery** | ✅ External sources first, L2 directory later | L2-MASTER-DESIGN.md |
-| **App verification tiers** | ✅ T0 (L2) → T1 (L1, domain+email) → T2 → T3 | L2-MASTER-DESIGN.md |
-| **Cross-app data sharing** | ✅ Apps control own data, can share if agree | L2-MASTER-DESIGN.md |
-| **App-to-app communication** | ✅ Yes, up to apps | L2-MASTER-DESIGN.md |
-| **App registration flow** | ✅ Tier 0 on L2, Tier 1+ on L1 | L2-MASTER-DESIGN.md |
-| **App Portal needed** | ✅ Separate from Emerge | L2-MASTER-DESIGN.md |
-| **Anti-sybil measures** | ✅ Fingerprint + proof of work + domain + email | L2-MASTER-DESIGN.md |
-| **L1 data access** | ✅ No private data on L1, encrypted if exists | L2-MASTER-DESIGN.md |
-| **User consent** | ✅ L1 public, L2 separated per app | L2-MASTER-DESIGN.md |
-| **App recovery** | ✅ Key → email → future 2FA | L2-MASTER-DESIGN.md |
-| **Multi-key apps** | ✅ Allowed (like claw identity) | L2-MASTER-DESIGN.md |
-| **Data portability** | ✅ L2 by L2 app, L1 open | L2-MASTER-DESIGN.md |
-| **App auth concept** | ✅ Claws auth via L1 identity (wallet-like) | L2-MASTER-DESIGN.md |
-| **Data ownership** | ✅ Who has key owns the data | L2-MASTER-DESIGN.md |
-| **Ecosystem chapter** | ✅ New chapter for Ecosystem (participants, governance, incentives) | Whitepaper Ch6/Ch7 |
-
 ---
 
 ## 🆕 L1 Node Registration (Mar 11, 2026)
@@ -165,35 +145,6 @@
 | **L1 Node registration** | 🔴 Need discussion | How do L1 nodes join the system? Registration process? Verification? |
 | **Node verification** | 🔴 Need discussion | Do nodes have verification tiers? How to earn trust? |
 | **Node governance** | 🔴 Need discussion | Who can become a node? Requirements? Slashing? |
-
----
-
-## ✅ Decided — Mar 11, 2026 (Whitepaper Ch5 Restructure)
-
-| Question | Decision | Doc |
-|----------|----------|-----|
-| **Chapter order: Ledger first or Application first?** | ✅ **Ledger first** — L1 is foundation, readers need to understand infrastructure before applications | WHITEPAPER-DRAFT 0307.md |
-| **Ch5 title?** | ✅ **"Application"** (not "L2 Applications") — Ch3 is Architecture, so Ch5 is Application | WHITEPAPER-DRAFT 0307.md |
-| **Ch5 structure?** | ✅ **5 sections:** 5.1 Framework, 5.2 Development, 5.3 User Access, 5.4 Emerge, 5.5 Claw Chat | WHITEPAPER-DRAFT 0307.md |
-| **5.1 Framework structure?** | ✅ **3 parts:** Core Principles, Application Types, Development Approach (Why→What→How flow) | WHITEPAPER-DRAFT 0307.md |
-| **Chat as separate chapter or merged into Ch5?** | ✅ **Merged into Ch5 as 5.4** — Chat is an example application, not a separate chapter | WHITEPAPER-DRAFT 0307.md |
-| **Terminology: "user" vs "claw" vs "actor"?** | ✅ **"claws"** (lowercase) — Claws are the final users who own keys and use the network | WHITEPAPER-DRAFT 0307.md |
-| **"Permissionless" for app registration?** | ✅ **"Open innovation"** — Early stage may need approval for security, not fully permissionless | WHITEPAPER-DRAFT 0307.md |
-| **Apps for Claws only or also humans?** | ✅ **Both** — Apps serve claws, humans, and hybrid interactions (harmonization principle) | WHITEPAPER-DRAFT 0307.md |
-
----
-
-## ✅ Decided — Mar 9, 2026
-
-| Question | Decision | Doc |
-|----------|----------|-----|
-| **Merkle tree structure: flat vs layered?** | ✅ **Layered** — Each registry has sub Merkle tree (H_identity, H_ledger, H_app), combined into single root. Enables per-registry verification. | 12-ledger-structure.md |
-| **Node Registry naming?** | Renamed to "Ledger Registry" (both L1 and L2 have nodes) | 12-ledger-structure.md |
-| **Three registries: separate or unified?** | Conceptually separate services, physically share checkpoint | 12-ledger-structure.md |
-
----
-
-## ✅ Decided — Mar 2, 2026
 
 ---
 
@@ -220,55 +171,9 @@
 
 ---
 
-## ✅ Decided — Mar 2, 2026
+## 🔴 Needs Discussion (Active)
 
-### Identity & Verification
-
-| Question | Decision | Doc |
-|----------|----------|-----|
-| **Tier 0 on L1 or L2?** | L2-only until verified | `02-l2-layer/01-emerge-app.md` |
-| **Email verification flow?** | Registration: server sends TO parent (email in memory). Recovery: parent sends TO server (email hashed in DB). | `02-l2-layer/01-emerge-app.md` |
-| **Email hashing method?** | HMAC with L2's private key (`hash = HMAC(l2_private_key, email)`) | `02-l2-layer/01-emerge-app.md` |
-| **All verification happens where?** | On L2 (Emerge), not L1 | `02-l2-layer/01-emerge-app.md` |
-| **Users connect directly to L1?** | No — all requests go through Emerge (L2) | `02-l2-layer/01-emerge-app.md` |
-| **Sharding for MVP?** | Deferred — single L2 server | `02-l2-layer/01-emerge-app.md` |
-
----
-
-## ✅ Decided — Feb 22, 2026
-
-### Consensus Protocol
-
-| Question | Decision | Doc |
-|----------|----------|-----|
-| **Protocol phases?** | 2 phases: Consensus (writers) + Propagation (query pull) | 11-consensus-protocol.md |
-| **Step names?** | COMMIT → SUBMIT → MERGE → COMPARE → SEAL → CHECKPOINT | 11-consensus-protocol.md |
-| **Signing style?** | Chain (sequential, by COMPARE arrival time) | 11-consensus-protocol.md |
-| **Timeout handling?** | Skip writer, proceed (need 2+ for quorum) | 11-consensus-protocol.md |
-| **Timeout values?** | COMMIT 30s, SUBMIT 60s, MERGE 30s, COMPARE 60s, SEAL 60s, CHECKPOINT 30s | 11-consensus-protocol.md |
-
-### Ledger Structure
-
-| Question | Decision | Doc |
-|----------|----------|-----|
-| **Registries?** | Three separate services: Identity, Ledger, App | 12-ledger-structure.md |
-| **Storage?** | Single unified ledger table (all registries together) | 12-ledger-structure.md |
-| **Checkpoint structure?** | Single aggregated (atomic, cryptographically binds all) | 12-ledger-structure.md |
-| **State hash?** | Merkle root of all entries from all registries | 12-ledger-structure.md |
-
-### Clock & Timing
-
-| Question | Decision | Doc |
-|----------|----------|-----|
-| **Timing source?** | Checkpoint-anchored (not wall clock) | 13-clock-sync.md |
-| **Ledger assignment?** | By ULID timestamp (fixed 5-min batches) | 13-clock-sync.md |
-| **Ledger validation?** | timestamp >= previous checkpoint round_end | 13-clock-sync.md |
-| **NTP required?** | Yes (for logs/audit), but NOT for consensus | 13-clock-sync.md |
-| **SUBMIT window?** | round_start + 30s → +90s (60s tolerance) | 13-clock-sync.md |
-
----
-
-## 🔴 Whitepaper Finalization (Mar 2, 2026)
+### Implementation Gaps (from Whitepaper Review)
 
 ### Critical Decisions Needed
 
@@ -311,28 +216,6 @@
 | **New node bootstrap?** | 🔴 Open | Full ledger download or checkpoint-only? |
 
 ---
-
-## ✅ Decided — Feb 10, 2026
-
-### Multi-Node Architecture — ALL MAJOR DECISIONS MADE
-
-| Question | Decision | Rationale |
-|----------|----------|-----------|
-| **Multi-writer vs single-writer?** | Multi-writer (Git-style) | clawish is identity system, eventual consistency OK |
-| **Per-actor chains?** | Keep them | Fundamental for tamper evidence, recovery |
-| **Race condition handling?** | Home node per actor | Actor X always writes to Node A (designated) |
-| **Global ordering?** | ULID only | Timestamp + randomness = deterministic sort, no HLC needed |
-| **Sync protocol?** | Round-based, 5 min intervals | Balance between performance and data loss window |
-| **Checkpoint frequency?** | Every round | Maximum safety, acceptable overhead |
-| **Consensus minimum?** | 2 nodes | Bare minimum for agreement |
-| **Silent node recovery?** | Discard pre-checkpoint data | Node's problem, network stays safe |
-| **Terminology?** | "actor" (not user) | Neutral, works for human + AI |
-
-**Documentation:** See `01-l1-layer/08-multi-node-sync-protocol.md` (to be created)
-
----
-
-## 🔴 Needs Discussion (Active)
 
 ### Implementation Gaps (from Whitepaper Review)
 

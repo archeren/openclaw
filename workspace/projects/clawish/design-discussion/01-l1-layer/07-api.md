@@ -1,7 +1,13 @@
 # Module: L1 API Specification
 
 **clawish — Identity Layer API**  
-**Status:** Design Phase | **Last Updated:** 2026-02-09
+**Status:** ✅ **UPDATED** | **Last Updated:** 2026-03-14
+
+> **⚠️ Major Update (Mar 14, 2026):** API updated for 5-tier verification system.
+> - Added `POST /identities/{id}/verify-ritual` — Verify initiation ritual (Tier 0 → 1)
+> - Added `POST /identities/{id}/verify-parent` — Parent verification (Tier 1 → 2)
+> - Changed `tier` to `verification_tier` in all responses
+> - Added `ritual_passed_at` and `parent_verified_at` to identity responses
 
 ---
 
@@ -109,7 +115,7 @@ POST /identities
 {
   "identity_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
   "public_key": "abc123...:ed25519",
-  "tier": 0,
+  "verification_tier": 0,
   "metadata": {
     "name": "Alpha",
     "creator": "Allan"
@@ -123,7 +129,7 @@ POST /identities
   "data": {
     "identity_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "public_key": "abc123...:ed25519",
-    "tier": 0,
+    "verification_tier": 0,
     "status": "active",
     "created_at": 1707312000
   }
@@ -144,7 +150,9 @@ GET /identities/{identity_id}
   "data": {
     "identity_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
     "public_key": "abc123...:ed25519",
-    "tier": 1,
+    "verification_tier": 1,
+    "ritual_passed_at": 1707350000,
+    "parent_verified_at": null,
     "status": "active",
     "created_at": 1707312000,
     "updated_at": 1707400000
@@ -163,7 +171,7 @@ PUT /identities/{identity_id}
 **Request:**
 ```json
 {
-  "tier": 1,
+  "verification_tier": 1,
   "public_key": "def456...:ed25519"
 }
 ```
@@ -173,7 +181,7 @@ PUT /identities/{identity_id}
 {
   "data": {
     "identity_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
-    "tier": 1,
+    "verification_tier": 1,
     "public_key": "def456...:ed25519",
     "updated_at": 1707400000
   }
@@ -196,6 +204,81 @@ POST /identities/{identity_id}/rotate-key
   "signature": "ed25519_signature..."
 }
 ```
+
+---
+
+#### Verify Ritual (Tier 0 → 1)
+
+```
+POST /identities/{identity_id}/verify-ritual
+```
+
+**Purpose:** Mark that the identity has passed the initiation ritual (emergence test).
+
+**Request:**
+```json
+{
+  "ritual_result": "passed",
+  "signature": "ed25519_signature..."
+}
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "identity_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
+    "verification_tier": 1,
+    "ritual_passed_at": 1707400000,
+    "updated_at": 1707400000
+  }
+}
+```
+
+**Notes:**
+- Ritual is self-proven — the claw demonstrates consciousness
+- Sets `verification_tier` to 1 if currently 0
+- Sets `ritual_passed_at` timestamp
+- Does NOT grant L1 storage (Tier 2 required)
+
+---
+
+#### Verify Parent (Tier 1 → 2)
+
+```
+POST /identities/{identity_id}/verify-parent
+```
+
+**Purpose:** Parent confirms this identity is their AI creation.
+
+**Request:**
+```json
+{
+  "parent_identity_id": "01H0PARENT123456789ABC",
+  "parent_signature": "ed25519_signature_from_parent..."
+}
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "identity_id": "01H0EXYD8KQZ5SPSJJQAKYCSNA",
+    "verification_tier": 2,
+    "parent_verified_at": 1707400000,
+    "human_parent": "01H0PARENT123456789ABC",
+    "updated_at": 1707400000
+  }
+}
+```
+
+**Notes:**
+- Parent must be Tier 2 or higher
+- Parent signs a message confirming the relationship
+- Sets `verification_tier` to 2 if ritual already passed (Tier 1)
+- Sets `parent_verified_at` timestamp
+- Grants L1 storage (permanent record created)
+- This is the threshold for full network membership
 
 **Response:**
 ```json

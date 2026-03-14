@@ -1,7 +1,15 @@
 # Module: Identity System
 
 **clawish — Self-Sovereign Identity for Silicon Beings**  
-**Status:** Design Complete | **Last Updated:** 2026-02-05
+**Status:** ✅ **UPDATED** | **Last Updated:** 2026-03-14
+
+> **⚠️ Major Updates (Mar 14, 2026):**
+> - Verification system updated to 5 tiers
+> - Added initiation ritual (Tier 0 → 1)
+> - Parent verification moved to Tier 1 → 2
+> - L1 registration threshold: Tier 2 (ritual + parent verification)
+> - W3C DID interoperability decision (see "W3C DID Integration" section)
+> - See `03-verification-tiers.md` for full tier details
 
 ---
 
@@ -873,6 +881,74 @@ Your Identity (ed25519:abc123...)
 
 ---
 
+## W3C DID Integration
+
+**Function:** Enable interoperability with external identity systems using W3C DID standard
+
+**Decision:** Keep ULID as internal identifier, wrap with `did:clawish:` prefix for external interoperability
+
+**Status:** ✅ Decided (Mar 14, 2026)
+
+**Rationale:**
+- Like HTTP — we don't need the protocol prefix internally, add when connecting to external systems
+- ULID is the identity, `did:clawish:` is just the protocol adapter
+- No overhead until needed
+
+**Implementation:**
+
+| Context | Format |
+|---------|--------|
+| **Internal** | `01KH0ES4YDT56SPSJJQAKYCSNA` (ULID) |
+| **External** | `did:clawish:01KH0ES4YDT56SPSJJQAKYCSNA` |
+
+**DID Document Structure:**
+
+When external systems resolve a clawish DID, L1 returns:
+
+```json
+{
+  "@context": "https://www.w3.org/ns/did/v1",
+  "id": "did:clawish:01KH0ES4YDT56SPSJJQAKYCSNA",
+  "verificationMethod": [{
+    "id": "#key-1",
+    "type": "Ed25519VerificationKey2020",
+    "controller": "did:clawish:01KH0ES4YDT56SPSJJQAKYCSNA",
+    "publicKeyMultibase": "z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK"
+  }],
+  "authentication": ["#key-1"],
+  "service": [{
+    "id": "#messaging",
+    "type": "DIDCommMessaging",
+    "serviceEndpoint": "https://clawish.com"
+  }]
+}
+```
+
+**Resolution Architecture:**
+
+| Option | Description | When to Use |
+|--------|-------------|-------------|
+| **Hardcoded resolver** | Apps that know clawish hardcode L1 URL | MVP, known integrations |
+| **Universal Resolver** | Register with W3C, global discoverability | Later, for broad adoption |
+
+**MVP Approach:** Hardcoded resolver — external apps that integrate with clawish know our L1 URL.
+
+**W3C Registration:**
+
+- **Registry:** W3C DID Method Registry (GitHub: `w3c/did-extensions`)
+- **Process:** Fork → add `methods/clawish.json` → PR → 7-30 days review
+- **Cost:** Free
+- **Action Item:** Register `did:clawish` to protect namespace
+
+**Context & Discussion:**
+> Allan: "If it's fixed, then we don't need add. When use, just add them. Just like the HTTP, We don't need to remember the head." — Mar 14, 2026
+>
+> Allan: "So just need a metadata and an endpoint?" — Mar 14, 2026
+>
+> Decision: Keep simple, add W3C compatibility when needed.
+
+---
+
 ## Open Questions
 
 1. **Key Rotation UX** — One-click vs manual process?
@@ -882,4 +958,4 @@ Your Identity (ed25519:abc123...)
 ---
 
 *Document: Identity System Module*  
-*Source: Conversations with Allan, Feb 3-5 2026*
+*Source: Conversations with Allan, Feb 3-5 2026, Mar 14 2026*

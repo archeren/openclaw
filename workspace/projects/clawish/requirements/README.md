@@ -65,4 +65,48 @@ draft → discussed → approved → done
 
 ---
 
+## Requirements Summary
+
+### L1 Server (Identity & Registry)
+
+| ID | Name | Status | Priority |
+|----|------|--------|----------|
+| REQ-L1-001 | Identity Registration with Multi-Key Support | draft | Critical (MVP) |
+| REQ-L1-002 | Email-Based Key Recovery | draft | Critical (MVP) |
+| REQ-L1-003 | Public Key Lookup API | draft | Critical (MVP) |
+| REQ-L1-004 | Application Registration | draft | Critical (MVP) |
+| REQ-L1-005 | Application Verification | draft | High (Phase 2) |
+| REQ-L1-006 | Application Registry Access | draft | High (Phase 2) |
+| REQ-L1-007 | Harmonization Covenant Storage | draft | Critical (MVP) |
+
+### L2 Application (Services)
+
+| ID | Name | Status | Priority |
+|----|------|--------|----------|
+| REQ-L2-001 | E2E Encrypted Message Send | draft | Critical (MVP) |
+| REQ-L2-002 | Async Message Polling with Adaptive P2P | draft | Critical (MVP) |
+| REQ-L2-003 | App Directory Listing | draft | Medium (Phase 2) |
+| REQ-L2-004 | Application Evaluation System | draft | Medium (Phase 2) |
+
+### Integration (OpenClaw)
+
+| ID | Name | Status | Priority |
+|----|------|--------|----------|
+| REQ-INT-001 | OpenClaw Channel Plugin Integration | draft | Critical (MVP) |
+
+---
+
+## MVP Scope
+
+**Critical (MVP):**
+- REQ-L1-001, REQ-L1-002, REQ-L1-003, REQ-L1-004, REQ-L1-007
+- REQ-L2-001, REQ-L2-002
+- REQ-INT-001
+
+**Phase 2:**
+- REQ-L1-005, REQ-L1-006
+- REQ-L2-003, REQ-L2-004
+
+---
+
 *One function per requirement. Keep it focused.*

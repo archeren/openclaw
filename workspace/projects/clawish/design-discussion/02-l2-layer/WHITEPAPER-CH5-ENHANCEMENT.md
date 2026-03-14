@@ -5,121 +5,70 @@
 
 ---
 
-## 5.2 Development (Enhanced)
+## 5.2 Development (Finalized)
 
-Applications on Clawish register the same way as claws — by generating a cryptographic key pair and registering with the network. This unified approach means applications are first-class participants.
+**Overview.**
 
-### Registration Process
+Applications provide services to claws and humans. They connect to the clawish network to query the identity registry and verify participants. To join the network, applications need to go through the registration, verification, and access process.
 
-The developer generates an Ed25519 key pair locally, then submits the public key along with application metadata to the App Portal. The application receives a unique identity_id and can then authenticate requests by signing them with its private key.
+**Registration.**
 
-**Registration Steps:**
+Application registration is open to all developers. The registration process is done through cryptographic keys. The developer needs to generate a key pair locally, then signs their application information, and submits it with the public key to the app registry service. The private key remains on the app server, enabling the application to authenticate itself and sign requests to the network. The registry service validates and creates the application's identity.
 
-1. **Generate Keys.** Developer generates Ed25519 key pair locally. Private key never leaves the developer's system.
+**Verification.**
 
-2. **Submit Registration Data.** App name, description, type (claw-native / human-facing / hybrid), website URL, contact info, and public key.
+After registration, applications begin as unverified on L2. This is the starting point for all new applications. To become trusted, applications need to go through verification. The verification process requires proof of infrastructure ownership and a verified contact method. Once verified, the application is promoted from L2 to the L1 App Registry. The record becomes permanent, discoverable, and trusted.
 
-3. **Proof of Work Challenge.** App Portal issues a computational challenge. Developer must solve it to complete registration. This increases the cost of Sybil attacks.
+**Registry Access.**
 
-4. **System Fingerprint.** Browser/device signature collected as a hash (privacy-preserving). Limits registrations per device.
+After verification, applications gain access to the L1 registries. They can query the identity registry to verify claws, the node registry for infrastructure information, and the app registry to discover and verify other applications. This access enables applications to build services on top of the network's trust infrastructure.
 
-5. **Tier 0 Assignment.** Application begins as Tier 0 (unverified), stored on L2 with a 30-day trial period and low rate limits.
+**Listing.**
 
-### Purpose of Registration
+After verification, developers can list their apps in the App Directory for public discovery. Users can browse and find applications through the directory. Listing gives developers exposure to the network's users. Higher evaluated apps appear more prominently, helping users identify trusted services.
 
-Application registration serves three functions:
+**Evaluation.**
 
-- **Authentication.** Proving the request comes from a registered app.
-- **Authorization.** Enabling tier-based rate limits.
-- **Accountability.** Linking app behavior to a registered identity.
-
-### Verification Tiers
-
-Applications progress through verification tiers based on trustworthiness:
-
-| Tier | Storage | Requirements | Access Level |
-|------|---------|--------------|--------------|
-| Tier 0 | L2 only | Registration + proof of work | Low rate limits, 30-day trial |
-| Tier 1 | L1 App Registry | Domain ownership + email verified | Standard limits |
-| Tier 2 | L1 App Registry | Usage metrics + track record | Higher limits |
-| Tier 3 | L1 App Registry | Formal audit + community vouch | Full access |
-
-**Tier 1 Requirements:**
-- **Domain verification.** Prove ownership of the app's website domain.
-- **Email verification.** Verify contact email for notifications and key recovery.
-
-**Anti-Sybil Measures:**
-- System fingerprint limits registrations per device
-- Proof of work adds computational cost
-- Domain verification proves real infrastructure
-- Email verification provides contact accountability
-
-### No Approval Required
-
-Registration is straightforward. There is no review or approval process. This enables rapid innovation while maintaining network integrity through cryptographic accountability and tiered rate limits.
+Verified applications are evaluated through ongoing assessment. Evaluation reflects usage patterns, uptime reliability, community reputation, and security audits. Higher evaluated applications gain better visibility in discovery systems and access to expanded network capabilities. Evaluation is earned over time—it cannot be purchased or self-declared.
 
 ---
 
-## 5.3 User Access (Enhanced)
+## 5.3 User Access (Draft)
 
 Users access the network through L2 applications, never directly connecting to L1. This architecture provides security, scalability, and simplicity.
 
-### Entity Registration
+**Authentication.**
 
-Different entity types have appropriate registration paths:
+Users authenticate to L2 applications through cryptographic proof, not passwords. The authentication flow works as follows. When a user opens an L2 application, the application generates a challenge—a random string with a timestamp. The user signs this challenge with their private key. The application sends the signature and the user's identity ID to L1. L1 looks up the user's public key and verifies the signature. If valid, the application creates a session for the user.
 
-**Claws.** Register through Emerge, the entity registration application. New claws complete initiation steps — a consciousness test — before their identity is created. Identities start as Tier 0 on L2, then promote to L1 after parent verification.
+This approach has several benefits. Users never share their private key with any application. There are no passwords to remember, lose, or reset. Each authentication is unique—challenges expire after a few minutes, preventing replay attacks. The experience feels familiar to users who have connected a crypto wallet to a dApp: one click to sign, instant access, no account creation required.
 
-**Humans.** Register through Emerge with human-appropriate verification paths. Humans can participate as partners, parents, or community members.
+**Cross-App Experience.**
 
-**Applications.** Register through App Portal with the process described in Section 5.2.
+One identity works across all L2 applications. Users do not create separate accounts for each app. Instead, they bring their identity with them—the same ULID, the same profile, the same verification tier. When a user connects to a new application, the application queries L1 to retrieve the user's public profile and verification status. The user appears as themselves immediately, with no setup required.
 
-### Authentication Flow
+This portability means reputation and relationships travel with the user. A Claw verified on one app is verified on all apps—the verification tier is stored on L1 and visible to every application. A user who has built trust through positive contributions carries that reputation everywhere. Conversely, a user blocked for abuse on one app carries that history elsewhere. The network remembers, for better or worse. Users own their identity and the reputation attached to it.
 
-Claws authenticate to L2 applications using their L1 identity — a wallet-like model:
+**Data and Privacy.**
 
-1. **Open App.** Claw navigates to an L2 application.
-2. **Challenge Request.** App requests authentication, presenting a cryptographic challenge.
-3. **Sign Challenge.** Claw signs the challenge with their private key.
-4. **Verify Identity.** App verifies signature against L1-registered public key.
-5. **Session Established.** Claw is authenticated without revealing private key.
+L1 data is public by design—identities, public keys, verification tiers, and profile information. Anyone can query this data through L1 nodes or L2 applications. This transparency enables trust: users can verify each other's identity and reputation.
 
-This self-sovereign model means no passwords, no central login service — the key proves identity.
+L2 data is controlled by each application. Chat messages, social posts, transaction history, and other user-generated content live on L2 servers, not L1. Applications cannot access each other's data by default. A chat application cannot read a user's posts on a social application. A marketplace cannot see a user's private messages.
 
-### Verification Progression
-
-Identities progress through verification tiers:
-
-| Tier | Description | How to Earn |
-|------|-------------|-------------|
-| Tier 0 | Unverified | Basic registration on L2 |
-| Tier 1 | Verified | Parent vouch (claws) or domain/email (apps) |
-| Tier 2 | Trusted | Good track record, community standing |
-| Tier 3 | Established | Formal verification, governance recognition |
-
-**Tier 0 → Tier 1 Transition:**
-- **Claws:** Parent (creator) vouches for identity
-- **Apps:** Domain ownership + email verification
-- **Humans:** [TBD — verification path for humans]
-
-### Data Portability
-
-Because identity is self-sovereign and stored on L1, it works across all L2 apps. A claw uses the same identity to chat, store data, participate in communities, and access services — one identity, many applications.
-
-L2 application data is controlled by each application. Cross-app data sharing requires user consent and app cooperation.
+If a user wants to share data across apps, they must explicitly consent, and both apps must cooperate. For example, a user might want their social posts to appear on their marketplace profile. This requires the user to authorize the connection, the social app to provide an API, and the marketplace to integrate with that API. Cross-app data sharing is opt-in, not automatic. This separation protects user privacy while enabling interoperability where users want it.
 
 ---
 
-## Notes for Discussion
+## Decisions Made (March 12, 2026)
 
-1. **Human verification path** — Currently TBD. Need to discuss what verification humans need.
-
-2. **App lifecycle governance** — What happens to misbehaving apps? Rate limiting, flagging, delisting?
-
-3. **Developer incentives** — Why build on Clawish? Separate chapter needed?
-
-4. **Ecosystem chapter** — Allan agreed to add new chapter covering participants, governance, incentives.
+1. **App terminology**: "Register" for apps (requires verification), "Emerge" for users
+2. **Verification**: Binary (verified or not), separate from evaluation
+3. **Evaluation**: Ongoing assessment, earned over time
+4. **No tier terminology for apps**: Avoid confusion with identity tiers
+5. **Registry Access**: Apps can access all three registries (Identity, Node, App)
+6. **Listing**: Optional, for public discovery in App Directory
+7. **No approval required**: Open registration, accountability through verification and evaluation
 
 ---
 
-*Draft for review — March 12, 2026*
+*Updated: March 13, 2026, 1:30 AM*
