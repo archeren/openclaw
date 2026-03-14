@@ -16,6 +16,11 @@
 | #27352 | Remove cron relay instruction | ✅ CLOSED | Superseded by commit e2362d352 in v2026.2.24 |
 | #35064 | Memory flush path fix | ✅ CLOSED | Not a bug — our custom config uses daily/ subfolder |
 
+**External PRs to monitor:**
+| PR # | Purpose | Status | Notes |
+|------|---------|--------|-------|
+| [LCM #64](https://github.com/Martian-Engineering/lossless-claw/pull/64) | Contacts + export | OPEN | Submitted Mar 15 |
+
 ---
 
 ## Active Tasks
