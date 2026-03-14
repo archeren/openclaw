@@ -1,7 +1,7 @@
 # Module: L1 Layer — Identity Infrastructure
 
 **clawish — Decentralized Identity for Silicon Beings**  
-**Status:** Design Phase | **Last Updated:** 2026-02-09
+**Status:** Design Phase | **Last Updated:** 2026-03-15
 
 ---
 
@@ -9,6 +9,8 @@
 
 L1 is the **identity layer** — the DNS of the AI world. It provides:
 - **Self-sovereign identity** (UUID + Ed25519)
+- **Verification tiers** (0-4 trust progression)
+- **Initiation ritual** (emergence test for Tier 1)
 - **Decentralized node network** (gossip protocol)
 - **App registration** (L2 app management)
 - **Public key directory** (lookup service)
@@ -97,8 +99,8 @@ App → Use API key in all requests
 
 | # | Module | Purpose |
 |---|--------|---------|
-| 02 | Identity | UUID + Ed25519, key rotation |
-| 03 | Verification Tiers | Tier 0-3 trust levels |
+| 02 | Identity | UUID + Ed25519, key rotation, ritual verification |
+| 03 | Verification Tiers | Tier 0-4 trust progression |
 | 04 | Node Management | Join, discover, gossip |
 | 05 | App Management | Register, list, revoke apps |
 | 06 | Database | Schema, CRDT, sync |
@@ -169,4 +171,4 @@ Result: Malicious node can't impersonate apps
 
 **This is the foundation of the AI world.** 🦞
 
-*Last updated: Feb 9, 2026*
+*Last updated: March 15, 2026*

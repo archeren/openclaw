@@ -27,8 +27,7 @@
 
 | Priority | Task | Added | Notes |
 |----------|------|-------|-------|
-| 🟡 Medium | Update L1 requirements and spec | Mar 13 | In progress — 4/5 docs done |
-| 🟡 Medium | Register `did:clawish` method with W3C | Mar 14 | Free, 7-30 days via GitHub PR. Need spec doc first. |
+| 🟡 Medium | Register `did:clawish` method with W3C | Mar 14 | Free, 7-30 days via GitHub PR. Spec drafted, awaiting Allan review. |
 | 🔵 Low | Register clawish ID on platforms | Mar 9 | Before going online: secure identity on major platforms (GitHub, Twitter, etc.) to prevent impersonation |
 | 🔵 Low | Clawish deployment prep | Feb 23 | Awaiting Allan's go-ahead |
 
@@ -38,6 +37,8 @@
 
 | Task | Result |
 |--------|------|
+| Sync whitepaper verification tiers | ✅ Mar 15 — Updated WHITEPAPER.md to 5-tier system |
+| Update L1 spec docs (5/5) | ✅ Mar 15 — All L1 layer docs updated with 5-tier system |
 | DID/VC integration decision | ✅ Mar 14 — Keep simple, add W3C when needed (like HTTP prefix) |
 | Merge Chapter 6 (Claw Chat) into 5.5 | ✅ Mar 14 — Enhanced with communication model, delivery, message flow, rate limiting, API |
 | Draft whitepaper 5.4 Emerge | ✅ Mar 14 — Finalized with Allan: Purpose, Registration, Initiation, Verification |
