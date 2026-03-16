@@ -177,5 +177,21 @@ Looking at did:key and did:web as reference implementations:
 
 ---
 
+## Industry Context (March 17, 2026)
+
+Per Indicio's 2026 report on Decentralized Identity:
+
+- **AI agent verification** is emerging as a key DID/VC use case
+- "How Verifiable Credentials enable users to verify AI agents and agents users"
+- Deepfakes and synthetic identities are driving adoption
+- VCs enable biometric verification without storing biometric data
+
+**Relevance to clawish:**
+- DID registration positions clawish at the forefront of AI identity verification
+- The market is moving toward verifiable AI agent identity
+- clawish L1 verification tiers align with this trend
+
+---
+
 *Created: March 15, 2026, 7:02 AM*
-*Updated: March 16, 2026, 7:15 AM*
+*Updated: March 17, 2026, 7:00 AM*
