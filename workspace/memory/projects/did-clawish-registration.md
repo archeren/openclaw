@@ -110,8 +110,8 @@ GET /identities/<uuid>
 
 ## Next Steps
 
-1. **Draft full specification document** — Hosted at `clawish.com/spec/did-method`
-2. **Create JSON entry** — For w3c/did-extensions PR
+1. ~~Draft full specification document~~ ✅ Done — `projects/clawish/specs/did-method-clawish.md`
+2. ~~Create JSON entry~~ ✅ Done — `projects/clawish/specs/methods/clawish.json`
 3. **Submit PR** — After Allan approval
 4. **Wait for review** — 7-30 days
 
@@ -120,9 +120,62 @@ GET /identities/<uuid>
 ## Open Questions
 
 1. **Specification hosting:** Where to host the method spec? (clawish.com or GitHub?)
+   - Recommendation: Host on clawish.com/spec/did-method when domain is ready
+   - Alternative: GitHub Pages in the interim
 2. **Versioning:** How to handle method version updates?
 3. **Multi-network:** Future support for different L1 networks?
 
 ---
 
+## Research Notes (March 16, 2026)
+
+### Registration Process Confirmed
+
+Per [w3c/did-extensions](https://github.com/w3c/did-extensions):
+
+1. Fork w3c/did-extensions repo
+2. Add JSON file to `./methods/` directory
+3. Open PR
+4. Automated validation runs (JSON format, required fields)
+5. 2 maintainer approvals needed
+6. 7-30 day waiting period
+7. Method registered
+
+### Required JSON Fields
+
+```json
+{
+  "name": "clawish",
+  "status": "registered",
+  "verifiableDataRegistry": "clawish L1 Network",
+  "contactName": "clawish Development Team",
+  "contactEmail": "",
+  "contactWebsite": "https://clawish.com",
+  "specification": "https://clawish.com/spec/did-method"
+}
+```
+
+### Specification Document Requirements
+
+Looking at did:key and did:web as reference implementations:
+- Hosted as HTML (can use ReSpec for W3C-style formatting)
+- Must cover: DID Syntax, CRUD Operations, Security, Privacy
+- Can be hosted on GitHub Pages or custom domain
+
+### Specification Structure (Recommended)
+
+1. **Abstract** — What is did:clawish
+2. **DID Syntax** — `did:clawish:<uuid>`
+3. **CRUD Operations**
+   - Create (register on L1)
+   - Read (resolve from L1)
+   - Update (key rotation)
+   - Deactivate
+4. **Security Considerations**
+5. **Privacy Considerations**
+6. **Reference Implementations** (future)
+
+---
+
 *Created: March 15, 2026, 7:02 AM*
+*Updated: March 16, 2026, 7:15 AM*

@@ -8,18 +8,19 @@
 
 ## 🔄 Daily Checks
 
+**Every morning before 8:00 AM:** Check status of all open PRs
+
 **OpenClaw PRs to monitor:**
 | PR # | Purpose | Status | Notes |
 |------|---------|--------|-------|
-| #20563 | HEARTBEAT_OK fix | OPEN | 4 days |
-| #26003 | Chat extraction | OPEN | 7 days |
-| #27352 | Remove cron relay instruction | ✅ CLOSED | Superseded by commit e2362d352 in v2026.2.24 |
-| #35064 | Memory flush path fix | ✅ CLOSED | Not a bug — our custom config uses daily/ subfolder |
+| #20563 | HEARTBEAT_OK fix | OPEN | Submitted Mar 11 |
+| #26003 | Chat extraction | OPEN | Submitted Mar 8 |
 
 **External PRs to monitor:**
 | PR # | Purpose | Status | Notes |
 |------|---------|--------|-------|
 | [LCM #64](https://github.com/Martian-Engineering/lossless-claw/pull/64) | Contacts + export | OPEN | Submitted Mar 15 |
+| [LCM #78](https://github.com/Martian-Engineering/lossless-claw/pull/78) | Preserve tag support | OPEN | Submitted Mar 15 |
 
 ---
 
@@ -37,6 +38,7 @@
 
 | Task | Result |
 |--------|------|
+| LCM PR: Add preserve tag support | ✅ Mar 15 — [PR #78](https://github.com/Martian-Engineering/lossless-claw/pull/78) submitted |
 | Sync whitepaper verification tiers | ✅ Mar 15 — Updated WHITEPAPER.md to 5-tier system |
 | Update L1 spec docs (5/5) | ✅ Mar 15 — All L1 layer docs updated with 5-tier system |
 | DID/VC integration decision | ✅ Mar 14 — Keep simple, add W3C when needed (like HTTP prefix) |
