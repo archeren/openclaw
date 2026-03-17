@@ -19,6 +19,40 @@ L1 nodes form a **decentralized network** that serves identity data. Each node:
 
 ## Node Lifecycle
 
+### Node Join Process (Simplified)
+
+**Decision:** March 16, 2026 — Register → Verify → Query Node (no probation)
+
+```
+1. Register (L2):
+   - Node submits: IP/domain + public key + contact
+   - L2 Node Service receives request
+
+2. Verify (L2):
+   - L2 validates: domain reachable? key valid? contact works?
+   - Basic checks only — not a long process
+
+3. Query Node (L1):
+   - After verification, node is added to L1 Node Registry
+   - Immediately becomes a query node — can sync and serve reads
+   - No probation period needed
+```
+
+**Node Types:**
+
+| Type | Description | Access |
+|------|-------------|--------|
+| **Query Node** | Stores ledger, serves reads | Full sync after verification |
+| **Writer Node** | Participates in consensus | Few nodes, merit-based promotion |
+
+**Key Principles:**
+- L2 is the entrance — handles verification before L1
+- L1 only stores verified nodes
+- Most nodes stay as query nodes forever
+- Writer is elevated status (merit-based, not automatic)
+
+---
+
 ### Phase 1: MVP (Single Node)
 
 ```

@@ -7,7 +7,7 @@
       "name": "Sleep Reminder",
       "enabled": true,
       "createdAtMs": 1770141379698,
-      "updatedAtMs": 1772114400020,
+      "updatedAtMs": 1773669600010,
       "schedule": {
         "kind": "cron",
         "expr": "0 22 * * *",
@@ -20,10 +20,10 @@
         "text": "🦞 It's 10 PM — time to wind down and get good sleep. Your health matters. Good night, Allan."
       },
       "state": {
-        "nextRunAtMs": 1772200800000,
-        "lastRunAtMs": 1772114400004,
+        "nextRunAtMs": 1773756000000,
+        "lastRunAtMs": 1773669600007,
         "lastStatus": "ok",
-        "lastDurationMs": 16,
+        "lastDurationMs": 3,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-requested"
@@ -35,7 +35,7 @@
       "name": "Daily Diary Entry — 6AM Reflection",
       "enabled": true,
       "createdAtMs": 1770510476019,
-      "updatedAtMs": 1772166062223,
+      "updatedAtMs": 1773700200013,
       "schedule": {
         "kind": "cron",
         "expr": "30 6 * * *",
@@ -48,10 +48,10 @@
         "text": "🦞 Good morning! Time to write today's diary entry. Reflect on yesterday: What did I learn? What did I feel? Any discoveries, troubles, or moments worth remembering? Write it to diary/YYYY-MM-DD.md — my long-term memory."
       },
       "state": {
-        "nextRunAtMs": 1772231400000,
-        "lastRunAtMs": 1772166062220,
+        "nextRunAtMs": 1773786600000,
+        "lastRunAtMs": 1773700200008,
         "lastStatus": "ok",
-        "lastDurationMs": 3,
+        "lastDurationMs": 5,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-requested"
@@ -63,7 +63,7 @@
       "name": "Daily 8AM Report",
       "enabled": true,
       "createdAtMs": 1771814179189,
-      "updatedAtMs": 1772166263496,
+      "updatedAtMs": 1773705702459,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -77,17 +77,18 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "feishu"
+        "channel": "feishu",
+        "to": "ou_cadc2c270c8e9803d8f069eb8ce19b75"
       },
       "state": {
-        "nextRunAtMs": 1772236800000,
-        "lastRunAtMs": 1772166062223,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 201273,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
-        "lastError": "cron announce delivery failed"
+        "nextRunAtMs": 1773792000000,
+        "lastRunAtMs": 1773705600005,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 102454,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
       }
     }
   ]

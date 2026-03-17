@@ -195,42 +195,25 @@
       ]
     },
     "xunfei": {
-      "baseUrl": "https://maas-api.cn-huabei-1.xf-yun.com/v2",
+      "baseUrl": "https://maas-coding-api.cn-huabei-1.xf-yun.com/v2",
       "apiKey": "fc95eae931eada8434ae5df835c0bcab:MmJiM2UyODExYTE3MDAxMTNkOTZkOGYx",
       "api": "openai-completions",
       "models": [
         {
-          "id": "xopkimik25",
-          "name": "Kimi K2.5",
+          "id": "astron-code-latest",
+          "name": "astron-code-latest",
           "reasoning": false,
           "input": [
             "text"
           ],
+          "contextWindow": 120000,
+          "maxTokens": 65536,
           "cost": {
             "input": 0,
             "output": 0,
             "cacheRead": 0,
             "cacheWrite": 0
           },
-          "contextWindow": 128000,
-          "maxTokens": 8192,
-          "api": "openai-completions"
-        },
-        {
-          "id": "xopglm5",
-          "name": "GLM5",
-          "reasoning": false,
-          "input": [
-            "text"
-          ],
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
-          "contextWindow": 128000,
-          "maxTokens": 8192,
           "api": "openai-completions"
         }
       ]
@@ -330,6 +313,76 @@
           "api": "openai-completions"
         }
       ]
+    },
+    "unicom-cloud": {
+      "baseUrl": "https://aigw-gzgy2.cucloud.cn:8443/v1",
+      "apiKey": "sk-sp-CC2uvnAb0qw5btB5uIArkItWkeh3qQKL",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "glm-5",
+          "name": "glm-5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 202752,
+          "maxTokens": 16384,
+          "api": "openai-completions"
+        }
+      ]
+    },
+    "qianfan": {
+      "baseUrl": "https://qianfan.baidubce.com/v2/coding",
+      "apiKey": "bce-v3/ALTAKSP-baI5QtlrpskuaIug2qTPP/e5c06a867c260da11cf835b29486ea23c989c310",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "glm-5",
+          "name": "qianfan-glm5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 190000,
+          "maxTokens": 32768,
+          "api": "openai-completions"
+        },
+        {
+          "id": "minimax-m2.5",
+          "name": "qianfan-minimax-m2.5",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 190000,
+          "maxTokens": 32768,
+          "api": "openai-completions"
+        }
+      ]
+    },
+    "openai-codex": {
+      "baseUrl": "https://chatgpt.com/backend-api",
+      "api": "openai-codex-responses",
+      "models": []
     }
   }
 }

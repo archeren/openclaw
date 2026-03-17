@@ -179,7 +179,7 @@
 
 | Question | Status | Notes |
 |----------|--------|-------|
-| **Incentive Model for L1 nodes?** | 🔴 Open | Why run an L1 writer node? Options: Mission-only, Fee-based, Token staking, Hybrid. Draft: `drafts/18-incentive-model-draft.md` |
+| **Incentive Model for L1 nodes?** | 🔴 Open | Why run an L1 writer node? Options: Mission-only, Fee-based (gas), Token staking, Hybrid. Mar 16: Discussed gas model with free tier allowance, but requires payment system. MVP: mission-driven. Future: gas or app store model. |
 | **Consensus Chapter 5 clarity?** | 🔴 Open | Is Chapter 5 clear enough, or needs expansion? |
 | **Governance model?** | 🔴 Open | Who decides protocol upgrades? BDFL, Foundation, On-chain voting, Writer consensus? |
 | **Conclusion content?** | 🔴 Open | What should conclusion say? Use enhanced draft or keep as-is? Draft: `drafts/19-conclusion-draft.md` |

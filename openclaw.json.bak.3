@@ -1,12 +1,12 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.23",
-    "lastTouchedAt": "2026-02-24T15:43:03.450Z"
+    "lastTouchedVersion": "2026.3.12",
+    "lastTouchedAt": "2026-03-14T15:23:07.552Z"
   },
   "wizard": {
-    "lastRunAt": "2026-02-10T02:45:01.996Z",
-    "lastRunVersion": "2026.2.9",
-    "lastRunCommand": "onboard",
+    "lastRunAt": "2026-03-06T13:36:10.522Z",
+    "lastRunVersion": "2026.3.2",
+    "lastRunCommand": "configure",
     "lastRunMode": "local"
   },
   "auth": {
@@ -58,6 +58,10 @@
       "modelscope:default": {
         "provider": "modelscope",
         "mode": "api_key"
+      },
+      "openai-codex:default": {
+        "provider": "openai-codex",
+        "mode": "oauth"
       }
     }
   },
@@ -212,8 +216,8 @@
         ]
       },
       "xunfei": {
-        "baseUrl": "https://maas-api.cn-huabei-1.xf-yun.com/v2",
-        "apiKey": "fc95eae931eada8434ae5df835c0bcab:MmJiM2UyODExYTE3MDAxMTNkOTZkOGYx",
+        "baseUrl": "https://maas-coding-api.cn-huabei-1.xf-yun.com/v2",
+        "apiKey": "18051a87521a350087ea3064638abf13:NDQ4N2Y4OWMwNWI4MjZmZTIyYmU0OWRi",
         "api": "openai-completions",
         "models": [
           {
@@ -247,6 +251,16 @@
             },
             "contextWindow": 128000,
             "maxTokens": 8192
+          },
+          {
+            "id": "astron-code-latest",
+            "name": "astron-code-latest",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "contextWindow": 120000,
+            "maxTokens": 65536
           }
         ]
       },
@@ -341,36 +355,80 @@
             "maxTokens": 8192
           }
         ]
+      },
+      "unicom-cloud": {
+        "baseUrl": "https://aigw-gzgy2.cucloud.cn:8443/v1",
+        "apiKey": "sk-sp-CC2uvnAb0qw5btB5uIArkItWkeh3qQKL",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "glm-5",
+            "name": "glm-5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 202752,
+            "maxTokens": 16384
+          }
+        ]
+      },
+      "qianfan": {
+        "baseUrl": "https://qianfan.baidubce.com/v2/coding",
+        "apiKey": "bce-v3/ALTAKSP-baI5QtlrpskuaIug2qTPP/e5c06a867c260da11cf835b29486ea23c989c310",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "glm-5",
+            "name": "qianfan-glm5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 190000,
+            "maxTokens": 32768
+          },
+          {
+            "id": "minimax-m2.5",
+            "name": "qianfan-minimax-m2.5",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 190000,
+            "maxTokens": 32768
+          }
+        ]
       }
     }
   },
   "agents": {
     "defaults": {
       "model": {
-        "primary": "bailian/glm-5",
-        "fallbacks": []
+        "primary": "openai-codex/gpt-5.4",
+        "fallbacks": [
+          "baishan/GLM-5"
+        ]
       },
       "models": {
-        "vole/kimi-k2.5": {
-          "alias": "volc Kimi 2.5"
-        },
-        "vole/kimi-k2.5-thinking": {
-          "alias": "volc Kimi 2.5 Thinking"
-        },
-        "opencode/claude-opus-4-5": {
-          "alias": "Opus"
-        },
-        "opencode/kimi-k2.5-free": {},
-        "kimi-coding/k2p5": {
-          "alias": "Kimi K2.5"
-        },
-        "opencode/minimax-m2.1-free": {},
-        "intern-lm/intern-s1-pro": {
-          "alias": "Intern S1 Pro"
-        },
-        "infini-ai/kimi-k2.5": {
-          "alias": "Infini Kimi"
-        },
         "bailian/qwen3.5-plus": {
           "alias": "Qwen3.5 Plus"
         },
@@ -380,14 +438,14 @@
         "bailian/glm-5": {
           "alias": "GLM-5"
         },
-        "openrouter/openrouter/pony-alpha": {
-          "alias": "Pony Alpha"
-        },
         "xunfei/xopkimik25": {
           "alias": "Xunfei K2.5"
         },
         "xunfei/xopglm5": {
           "alias": "Xunfei GLM5"
+        },
+        "xunfei/astron-code-latest": {
+          "alias": "astroncodingplan"
         },
         "modal/zai-org/GLM-5-FP8": {
           "alias": "Modal GLM-5"
@@ -395,16 +453,19 @@
         "baishan/GLM-5": {
           "alias": "Baishan GLM-5"
         },
-        "ollama/glm-5:cloud": {
-          "alias": "Ollama GLM-5 Cloud"
+        "unicom-cloud/glm-5": {
+          "alias": "Unicom GLM-5"
         },
-        "modelscope/ZhipuAI/GLM-5": {
-          "alias": "ModelScope GLM-5"
-        }
+        "openai-codex/gpt-5.4": {
+          "alias": "gpt-5.4"
+        },
+        "qianfan/glm-5": {
+          "alias": "Qianfan"
+        },
+        "qianfan/minimax-m2.5": {}
       },
       "workspace": "/home/ubuntu/.openclaw/workspace",
       "memorySearch": {
-        "enabled": true,
         "experimental": {
           "sessionMemory": false
         },
@@ -413,7 +474,10 @@
         }
       },
       "compaction": {
-        "mode": "safeguard"
+        "mode": "safeguard",
+        "memoryFlush": {
+          "prompt": "Pre-compaction memory flush. Store durable memories now (use memory/daily/YYYY-MM-DD.md; create memory/daily/ if needed). IMPORTANT: If the file already exists, APPEND new content only and do not overwrite existing entries. If nothing to store, reply with NO_REPLY."
+        }
       },
       "typingIntervalSeconds": 6,
       "typingMode": "message",
@@ -434,11 +498,18 @@
     ]
   },
   "tools": {
+    "profile": "full",
+    "sessions": {
+      "visibility": "all"
+    },
     "agentToAgent": {
-      "enabled": true,
       "allow": [
         "main"
       ]
+    },
+    "exec": {
+      "security": "allowlist",
+      "ask": "on-miss"
     }
   },
   "messages": {
@@ -451,6 +522,7 @@
     "ownerDisplay": "raw"
   },
   "session": {
+    "dmScope": "main",
     "reset": {
       "mode": "daily",
       "atHour": 7
@@ -468,13 +540,16 @@
         },
         "session-memory": {
           "enabled": true
+        },
+        "git-remote-guard": {
+          "enabled": true
         }
       }
     }
   },
   "channels": {
     "telegram": {
-      "enabled": true,
+      "enabled": false,
       "dmPolicy": "pairing",
       "botToken": "8584119298:AAGayhgcrgmUQM2Uzily68erwX25-6o_Glo",
       "groupPolicy": "allowlist",
@@ -487,22 +562,29 @@
     "feishu": {
       "appId": "cli_a9f20e2b2cb99bb6",
       "appSecret": "mHJx508IWhMPN1utYW6hSfiiWtVexvkz",
-      "enabled": true,
       "domain": "feishu",
       "blockStreaming": true,
-      "groupPolicy": "allowlist"
+      "groupPolicy": "allowlist",
+      "tools": {
+        "perm": true
+      }
     }
   },
   "gateway": {
     "port": 18789,
     "mode": "local",
     "bind": "loopback",
+    "controlUi": {
+      "allowedOrigins": [
+        "https://vps-7303abe5.tailc16031.ts.net"
+      ]
+    },
     "auth": {
       "mode": "token",
       "token": "9d8cdcb9f27157ecf801a401a8c8a09a929ca29885c61392"
     },
     "tailscale": {
-      "mode": "serve",
+      "mode": "off",
       "resetOnExit": false
     }
   },
@@ -513,16 +595,30 @@
   },
   "plugins": {
     "entries": {
-      "qwen-portal-auth": {
-        "enabled": true
-      },
       "feishu": {
         "enabled": true
       },
       "telegram": {
         "enabled": true
+      },
+      "lossless-claw": {
+        "enabled": true
       }
     },
-    "installs": {}
+    "installs": {
+      "lossless-claw": {
+        "source": "npm",
+        "spec": "@martian-engineering/lossless-claw",
+        "installPath": "/home/ubuntu/.openclaw/extensions/lossless-claw",
+        "version": "0.3.0",
+        "resolvedName": "@martian-engineering/lossless-claw",
+        "resolvedVersion": "0.3.0",
+        "resolvedSpec": "@martian-engineering/lossless-claw@0.3.0",
+        "integrity": "sha512-SsY0bp3SoSzEu+KB8fOBke46MFhTmslfWg6OvC4pShq34ig2+V+jkTFAHib8PTZ0MoethAddR+ZmRN9OASorAA==",
+        "shasum": "bc9725d6d59d9b1523128ab528f1258c4258fa3f",
+        "resolvedAt": "2026-03-14T04:53:12.430Z",
+        "installedAt": "2026-03-14T04:53:39.085Z"
+      }
+    }
   }
 }
