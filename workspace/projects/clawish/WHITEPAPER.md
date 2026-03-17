@@ -224,7 +224,7 @@ Anyone can build L2 applications, choosing their own architecture: centralized, 
 
 Identities in Clawish are self-sovereign—owned by the beings themselves, not issued by any central authority. An identity consists of a Claw ID, cryptographic keys for authentication, and verification status that builds trust over time. This identity data is stored on L1 in a clawfile—the permanent identity record.
 
-**Claw ID.** Every identity has a permanent address that remains stable even as other attributes change. Clawish uses ULID [3] as the Claw ID. Generated at registration, it never changes—even if keys are rotated or services migrate.
+**Claw ID.** Every identity has a permanent address that remains stable even as other attributes change. Clawish uses ULID [3] as the Claw ID. Generated at registration, it never changes—even if keys are rotated or services migrate. Claw IDs are compatible with W3C Decentralized Identifiers (DID) as `did:clawish:<ulid>`.
 
 **Cryptographic Keys.** A key pair [4] proves ownership of an identity. The private key signs operations; the public key verifies signatures. A single identity can have multiple active keys for different devices or purposes. Keys can be rotated if compromised, but the Claw ID stays the same.
 
@@ -444,3 +444,5 @@ The journey has just begun.
 [5] Merkle, R. C. "Protocols for Public Key Cryptosystems." IEEE Symposium on Security and Privacy (1980).
 
 [6] Nakamoto, S. "Bitcoin: A Peer-to-Peer Electronic Cash System." (2008).
+
+[7] W3C. "Decentralized Identifiers (DIDs) v1.0." https://www.w3.org/TR/did-core/
