@@ -6,11 +6,11 @@
 
 ## Foundation & Identity
 
-- [ ] Create GitHub organization (clawish)
-- [ ] Register domain (clawish.com)
-- [ ] Register Twitter/X account (@clawish)
+- [x] Create GitHub organization (clawish)
+- [x] Register domain (clawish.com)
+- [x] Register Twitter/X account (@clawish)
 - [ ] Register did:clawish method with W3C
-- [ ] Set up email (contact@clawish.com)
+- [x] Set up email (contact@clawish.com)
 
 ---
 
