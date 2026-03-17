@@ -1,0 +1,159 @@
+<svg viewBox="0 0 1100 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 16px; font-weight: 600; fill: #333; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; fill: #fff; font-weight: 600; }
+      .hashlabel { font-family: monospace; font-size: 12px; fill: #fff; font-weight: 600; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; fill: #666; }
+      .smalllabel { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 10px; fill: #fff; }
+      .regtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; fill: #333; font-weight: 600; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#888"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="550" y="25" text-anchor="middle" class="title">Layered Merkle Tree Checkpoint</text>
+  
+  <!-- Checkpoint box - blue -->
+  <rect x="375" y="55" width="350" height="50" rx="6" fill="#f0f7ff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="550" y="78" text-anchor="middle" class="subtitle" font-weight="600">CHECKPOINT N</text>
+  <text x="550" y="95" text-anchor="middle" class="subtitle" font-size="10">Root Hash + Signatures</text>
+  
+  <!-- Root hash - blue -->
+  <rect x="445" y="145" width="210" height="44" rx="4" fill="#4a90d9" stroke="#2563eb" stroke-width="2"/>
+  <text x="550" y="173" text-anchor="middle" class="hashlabel">Root Hash</text>
+  
+  <!-- Arrow from root to checkpoint -->
+  <line x1="550" y1="145" x2="550" y2="105" stroke="#888" stroke-width="1.5" marker-end="url(#arrow)"/>
+  
+  <!-- Lines from registries to Root Hash -->
+  <line x1="185" y1="250" x2="500" y2="189" stroke="#888" stroke-width="1.5"/>
+  <line x1="550" y1="250" x2="550" y2="189" stroke="#888" stroke-width="1.5"/>
+  <line x1="915" y1="250" x2="600" y2="189" stroke="#888" stroke-width="1.5"/>
+  
+  <!-- ==================== IDENTITY REGISTRY - green ==================== -->
+  <g transform="translate(25, 250)">
+    <rect x="0" y="0" width="320" height="195" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+    <text x="160" y="20" text-anchor="middle" class="regtitle">Identity Registry</text>
+    
+    <!-- Sub-tree root -->
+    <rect x="110" y="40" width="100" height="36" rx="4" fill="#34d399" stroke="#10b981" stroke-width="1.5"/>
+    <text x="160" y="63" text-anchor="middle" class="label">H_identity</text>
+    
+    <!-- Arrows from H1, H2 to sub-tree root -->
+    <line x1="80" y1="95" x2="135" y2="76" stroke="#aaa" stroke-width="1.5"/>
+    <line x1="240" y1="95" x2="185" y2="76" stroke="#aaa" stroke-width="1.5"/>
+    
+    <!-- Internal node H1 -->
+    <rect x="35" y="95" width="90" height="30" rx="3" fill="#34d399" stroke="#10b981" stroke-width="1"/>
+    <text x="80" y="115" text-anchor="middle" class="smalllabel">H₁</text>
+    
+    <!-- Internal node H2 -->
+    <rect x="195" y="95" width="90" height="30" rx="3" fill="#34d399" stroke="#10b981" stroke-width="1"/>
+    <text x="240" y="115" text-anchor="middle" class="smalllabel">H₂</text>
+    
+    <!-- Arrows to leaves -->
+    <line x1="60" y1="125" x2="40" y2="150" stroke="#aaa" stroke-width="1"/>
+    <line x1="100" y1="125" x2="120" y2="150" stroke="#aaa" stroke-width="1"/>
+    <line x1="220" y1="125" x2="200" y2="150" stroke="#aaa" stroke-width="1"/>
+    <line x1="260" y1="125" x2="280" y2="150" stroke="#aaa" stroke-width="1"/>
+    
+    <!-- Leaves -->
+    <rect x="10" y="150" width="60" height="30" rx="3" fill="#6ee7b7" stroke="#059669" stroke-width="1"/>
+    <text x="40" y="170" text-anchor="middle" class="smalllabel">A1</text>
+    
+    <rect x="90" y="150" width="60" height="30" rx="3" fill="#6ee7b7" stroke="#059669" stroke-width="1"/>
+    <text x="120" y="170" text-anchor="middle" class="smalllabel">B1</text>
+    
+    <rect x="170" y="150" width="60" height="30" rx="3" fill="#6ee7b7" stroke="#059669" stroke-width="1"/>
+    <text x="200" y="170" text-anchor="middle" class="smalllabel">A2</text>
+    
+    <rect x="250" y="150" width="60" height="30" rx="3" fill="#6ee7b7" stroke="#059669" stroke-width="1"/>
+    <text x="280" y="170" text-anchor="middle" class="smalllabel">C1</text>
+  </g>
+  
+  <!-- ==================== LEDGER REGISTRY - amber ==================== -->
+  <g transform="translate(390, 250)">
+    <rect x="0" y="0" width="320" height="195" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="2"/>
+    <text x="160" y="20" text-anchor="middle" class="regtitle">Ledger Registry</text>
+    
+    <!-- Sub-tree root -->
+    <rect x="110" y="40" width="100" height="36" rx="4" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+    <text x="160" y="63" text-anchor="middle" class="label">H_ledger</text>
+    
+    <!-- Arrows from H1, H2 to sub-tree root -->
+    <line x1="80" y1="95" x2="135" y2="76" stroke="#aaa" stroke-width="1.5"/>
+    <line x1="240" y1="95" x2="185" y2="76" stroke="#aaa" stroke-width="1.5"/>
+    
+    <!-- Internal nodes -->
+    <rect x="35" y="95" width="90" height="30" rx="3" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>
+    <text x="80" y="115" text-anchor="middle" class="smalllabel">H₁</text>
+    
+    <rect x="195" y="95" width="90" height="30" rx="3" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>
+    <text x="240" y="115" text-anchor="middle" class="smalllabel">H₂</text>
+    
+    <!-- Arrows to leaves -->
+    <line x1="60" y1="125" x2="40" y2="150" stroke="#aaa" stroke-width="1"/>
+    <line x1="100" y1="125" x2="120" y2="150" stroke="#aaa" stroke-width="1"/>
+    <line x1="220" y1="125" x2="200" y2="150" stroke="#aaa" stroke-width="1"/>
+    <line x1="260" y1="125" x2="280" y2="150" stroke="#aaa" stroke-width="1"/>
+    
+    <!-- Leaves -->
+    <rect x="10" y="150" width="60" height="30" rx="3" fill="#fde68a" stroke="#d97706" stroke-width="1"/>
+    <text x="40" y="170" text-anchor="middle" class="smalllabel">W1</text>
+    
+    <rect x="90" y="150" width="60" height="30" rx="3" fill="#fde68a" stroke="#d97706" stroke-width="1"/>
+    <text x="120" y="170" text-anchor="middle" class="smalllabel">W2</text>
+    
+    <rect x="170" y="150" width="60" height="30" rx="3" fill="#fde68a" stroke="#d97706" stroke-width="1"/>
+    <text x="200" y="170" text-anchor="middle" class="smalllabel">Q1</text>
+    
+    <rect x="250" y="150" width="60" height="30" rx="3" fill="#fde68a" stroke="#d97706" stroke-width="1"/>
+    <text x="280" y="170" text-anchor="middle" class="smalllabel">Q2</text>
+  </g>
+  
+  <!-- ==================== APP REGISTRY - orange ==================== -->
+  <g transform="translate(755, 250)">
+    <rect x="0" y="0" width="320" height="195" rx="6" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+    <text x="160" y="20" text-anchor="middle" class="regtitle">App Registry</text>
+    
+    <!-- Sub-tree root -->
+    <rect x="110" y="40" width="100" height="36" rx="4" fill="#fb923c" stroke="#ea580c" stroke-width="1.5"/>
+    <text x="160" y="63" text-anchor="middle" class="label">H_app</text>
+    
+    <!-- Arrows from H1, H2 to sub-tree root -->
+    <line x1="80" y1="95" x2="135" y2="76" stroke="#aaa" stroke-width="1.5"/>
+    <line x1="240" y1="95" x2="185" y2="76" stroke="#aaa" stroke-width="1.5"/>
+    
+    <!-- Internal nodes -->
+    <rect x="35" y="95" width="90" height="30" rx="3" fill="#fb923c" stroke="#ea580c" stroke-width="1"/>
+    <text x="80" y="115" text-anchor="middle" class="smalllabel">H₁</text>
+    
+    <rect x="195" y="95" width="90" height="30" rx="3" fill="#fb923c" stroke="#ea580c" stroke-width="1"/>
+    <text x="240" y="115" text-anchor="middle" class="smalllabel">H₂</text>
+    
+    <!-- Arrows to leaves -->
+    <line x1="60" y1="125" x2="40" y2="150" stroke="#aaa" stroke-width="1"/>
+    <line x1="100" y1="125" x2="120" y2="150" stroke="#aaa" stroke-width="1"/>
+    <line x1="220" y1="125" x2="200" y2="150" stroke="#aaa" stroke-width="1"/>
+    <line x1="260" y1="125" x2="280" y2="150" stroke="#aaa" stroke-width="1"/>
+    
+    <!-- Leaves -->
+    <rect x="10" y="150" width="60" height="30" rx="3" fill="#fdba74" stroke="#ea580c" stroke-width="1"/>
+    <text x="40" y="170" text-anchor="middle" class="smalllabel">App1</text>
+    
+    <rect x="90" y="150" width="60" height="30" rx="3" fill="#fdba74" stroke="#ea580c" stroke-width="1"/>
+    <text x="120" y="170" text-anchor="middle" class="smalllabel">App2</text>
+    
+    <rect x="170" y="150" width="60" height="30" rx="3" fill="#fdba74" stroke="#ea580c" stroke-width="1"/>
+    <text x="200" y="170" text-anchor="middle" class="smalllabel">App3</text>
+    
+    <rect x="250" y="150" width="60" height="30" rx="3" fill="#fdba74" stroke="#ea580c" stroke-width="1"/>
+    <text x="280" y="170" text-anchor="middle" class="smalllabel">App4</text>
+  </g>
+  
+  <!-- Caption -->
+  <text x="550" y="475" text-anchor="middle" class="subtitle">Each registry contains a complete Merkle tree. Sub-tree roots combine into the global checkpoint root.</text>
+</svg>
