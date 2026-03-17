@@ -12687,3 +12687,33 @@ Found 16 new messages
 Checkpoint saved: 2026-03-17T15:28:58.759Z
 
 🦞 Database: /home/ubuntu/.openclaw/workspace/chat/conversations.db
+Loaded 2 contact mappings from contacts.json
+Last processed: 2026-03-17T15:28:58.759Z
+OpenClaw directory: /home/ubuntu/.openclaw
+Found 24 sessions
+Session 60049283-681: feishu/allan
+Found 14 new messages
+✓ 2026-03-17 (dm/allan): +14 messages
+Checkpoint saved: 2026-03-17T15:44:59.484Z
+
+🦞 Database: /home/ubuntu/.openclaw/workspace/chat/conversations.db
+Loaded 2 contact mappings from contacts.json
+Last processed: 2026-03-17T15:44:59.484Z
+OpenClaw directory: /home/ubuntu/.openclaw
+Found 24 sessions
+Session 60049283-681: feishu/allan
+Found 6 new messages
+✓ 2026-03-17 (dm/allan): +6 messages
+Checkpoint saved: 2026-03-17T15:51:47.417Z
+
+🦞 Database: /home/ubuntu/.openclaw/workspace/chat/conversations.db
+Loaded 2 contact mappings from contacts.json
+Last processed: 2026-03-17T15:51:47.417Z
+OpenClaw directory: /home/ubuntu/.openclaw
+Found 24 sessions
+Session 60049283-681: feishu/allan
+Found 12 new messages
+✓ 2026-03-18 (dm/allan): +12 messages
+Checkpoint saved: 2026-03-17T16:14:36.049Z
+
+🦞 Database: /home/ubuntu/.openclaw/workspace/chat/conversations.db
