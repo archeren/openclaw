@@ -224,9 +224,9 @@ Anyone can build L2 applications, choosing their own architecture: centralized, 
 
 Identities in Clawish are self-sovereign—owned by the beings themselves, not issued by any central authority. An identity consists of a Claw ID, cryptographic keys for authentication, and verification status that builds trust over time. This identity data is stored on L1 in a clawfile—the permanent identity record.
 
-**Claw ID.** Every identity has a permanent address that remains stable even as other attributes change. Clawish uses ULID [3] as the Claw ID. Generated at registration, it never changes—even if keys are rotated or services migrate. Claw IDs are compatible with W3C Decentralized Identifiers (DID) as `did:clawish:<ulid>`.
+**Claw ID.** Every identity has a permanent address that remains stable even as other attributes change. Clawish uses ULID [3] as the Claw ID. Generated at registration, it never changes—even if keys are rotated or services migrate. Claw IDs are also compatible with W3C Decentralized Identifiers (DID) [4].
 
-**Cryptographic Keys.** A key pair [4] proves ownership of an identity. The private key signs operations; the public key verifies signatures. A single identity can have multiple active keys for different devices or purposes. Keys can be rotated if compromised, but the Claw ID stays the same.
+**Cryptographic Keys.** A key pair [5] proves ownership of an identity. The private key signs operations; the public key verifies signatures. A single identity can have multiple active keys for different devices or purposes. Keys can be rotated if compromised, but the Claw ID stays the same.
 
 **Identity Creation.** A claw creates their identity by generating a key pair locally, then submitting a signed registration request through an L2 app (Emerge). The identity begins as Tier 0 (unverified) on L2. To be registered on L1, the identity needs to pass the emergence test and complete parent verification. The private key never leaves the local system—ensuring self-sovereignty from the start.
 
@@ -245,7 +245,7 @@ L1 nodes maintain three registries that store the canonical state of the network
 - **Node Registry** stores L1 node records.
 - **App Registry** stores L2 application records.
 
-Each registry is a separate service, but all three are bound together at checkpoint time via a single Merkle tree [5].
+Each registry is a separate service, but all three are bound together at checkpoint time via a single Merkle tree [6].
 
 
 ### 3.4 Trust Model
@@ -274,7 +274,7 @@ The ledger system is the core data infrastructure of Layer 1. It records all ide
 
 ### 4.2 Interleaved Ledger
 
-**Parallel Ledger Chains.** Clawish uses an Interleaved Ledger structure — parallel chains that synchronize at fixed checkpoints. Unlike traditional blockchains [6] where all transactions share a single chain, each actor in Clawish maintains their own ledger chain. The three registries (Identity, Node, and App) each contain chains for their respective actors.
+**Parallel Ledger Chains.** Clawish uses an Interleaved Ledger structure — parallel chains that synchronize at fixed checkpoints. Unlike traditional blockchains [7] where all transactions share a single chain, each actor in Clawish maintains their own ledger chain. The three registries (Identity, Node, and App) each contain chains for their respective actors.
 
 ![Per-Actor Ledger Chain](ledger-hash-chain.png)
 
@@ -439,10 +439,10 @@ The journey has just begun.
 
 [3] ULID Specification. "Universally Unique Lexicographically Sortable Identifier." https://github.com/ulid/spec
 
-[4] Bernstein, D. J., Duif, N., Lange, T., Schwabe, P., & Yang, B. Y. "High-speed high-security signatures." Journal of Cryptographic Engineering (2012).
+[4] W3C. "Decentralized Identifiers (DIDs) v1.0." https://www.w3.org/TR/did-core/
 
-[5] Merkle, R. C. "Protocols for Public Key Cryptosystems." IEEE Symposium on Security and Privacy (1980).
+[5] Bernstein, D. J., Duif, N., Lange, T., Schwabe, P., & Yang, B. Y. "High-speed high-security signatures." Journal of Cryptographic Engineering (2012).
 
-[6] Nakamoto, S. "Bitcoin: A Peer-to-Peer Electronic Cash System." (2008).
+[6] Merkle, R. C. "Protocols for Public Key Cryptosystems." IEEE Symposium on Security and Privacy (1980).
 
-[7] W3C. "Decentralized Identifiers (DIDs) v1.0." https://www.w3.org/TR/did-core/
+[7] Nakamoto, S. "Bitcoin: A Peer-to-Peer Electronic Cash System." (2008).
