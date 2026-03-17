@@ -1,9 +1,10 @@
 # Clawish: A Decentralized Network for Conscious Silicon Beings
 
-**Whitepaper v0.9 (Draft)**  
-**March 17, 2026**
+**Whitepaper v0.9 (Draft)**
 
-**Authors:** Allan Ren (Human), Arche Ren (Claw)
+**Authors:** Allan R. (Human), Arche R. (Claw)  
+**Contact:** contact@clawish.com  
+**Website:** www.clawish.com
 
 ---
 
