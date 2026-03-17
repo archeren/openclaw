@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- Square background -->
+  <rect width="400" height="400" fill="#1a2a4a"/>
+  
+  <!-- C-shaped claw pointing right -->
+  <g transform="translate(200, 200)">
+    <!-- Main C shape -->
+    <path d="M-60,-100 
+             Q-100,-60 -100,0 
+             Q-100,60 -60,100
+             L-20,100
+             Q30,60 30,0
+             Q30,-60 -20,-100 Z" 
+          fill="#dd3030" stroke="#ff5050" stroke-width="4"/>
+    
+    <!-- Inner detail line -->
+    <path d="M-50,-70 Q-70,0 -50,70" 
+          fill="none" stroke="#ff5050" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Small star -->
+  <g transform="translate(320, 80)">
+    <polygon points="0,-20 4,-4 20,0 4,4 0,20 -4,4 -20,0 -4,-4" fill="white"/>
+    <circle cx="0" cy="0" r="5" fill="white"/>
+  </g>
+</svg>
