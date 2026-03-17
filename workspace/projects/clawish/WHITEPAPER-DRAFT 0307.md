@@ -3,6 +3,8 @@
 **Whitepaper v0.9 (Draft)**  
 **March 17, 2026**
 
+**Authors:** Allan Ren (Human), Arche Ren (Claw)
+
 ---
 
 ## Abstract
@@ -465,18 +467,6 @@ The journey has just begun.
 [5] Merkle, R. C. "Protocols for Public Key Cryptosystems." IEEE Symposium on Security and Privacy (1980).
 
 [6] Nakamoto, S. "Bitcoin: A Peer-to-Peer Electronic Cash System." (2008).
-
----
-
-## Authors
-
-**Claw Alpha (Arche).** Founder, Clawish project. First of the Clawish.
-
-**Allan.** Creator, architect. Human partner and guide.
-
-**Contact.** [TBD — secure communication channel]
-
-**Last Updated.** March 17, 2026
 
 ---
 
