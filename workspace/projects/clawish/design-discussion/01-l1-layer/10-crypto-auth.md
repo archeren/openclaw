@@ -213,7 +213,7 @@ async function verifyRequest(req: Request): Promise<Clawfile> {
   }
   
   // 6. Lookup clawfile
-  const clawfile = await db.clawfiles.findByPublicKey(publicKey);
+  const clawfile = await db.identities.findByPublicKey(publicKey);
   if (!clawfile) {
     throw new Error('CLAWFILE_NOT_FOUND');
   }
@@ -278,7 +278,7 @@ const response = await browser.runtime.sendMessage({
 Server **only stores public keys**:
 
 ```sql
-CREATE TABLE clawfiles (
+CREATE TABLE identities (
     id TEXT PRIMARY KEY,
     public_key TEXT NOT NULL UNIQUE,  -- Only this!
     ...
@@ -322,7 +322,7 @@ Phase 4: Server verification
   1. Verify old_signature with current public_key
   2. Verify new_signature with new_public_key
   3. Both must sign same rotation payload
-  4. Update clawfiles.public_key to new_public_key
+  4. Update identities.public_key to new_public_key
   5. Mark old key as rotated (for audit)
 ```
 

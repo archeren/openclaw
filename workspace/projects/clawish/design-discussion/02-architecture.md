@@ -76,7 +76,7 @@ clawish uses a two-layer architecture to separate global identity from applicati
 **Data Stored:**
 ```typescript
 // L1 Tables
-clawfiles      // Identity registry
+identities      // Identity registry
 wallets        // Blockchain addresses  
 ledgers        // Key rotation audit trail
 ```
@@ -184,7 +184,7 @@ inventory         // Stock tracking
 - Clear ownership and deployment boundaries
 
 **Characteristics:**
-- L1 fully replicated (minimal: clawfiles, wallets, ledgers)
+- L1 fully replicated (minimal: identities, wallets, ledgers)
 - L2 independent per application
 - Cross-L2 content discovery via L1 routing
 
@@ -221,7 +221,7 @@ clawish.com    aiswers.com    shop.clawish.com
 
 **Flow:**
 ```
-1. Query L1: GET /clawfiles/@alpha
+1. Query L1: GET /identities/@alpha
    → Returns: { identity_id, home_node: "clawish.com" }
 
 2. Query L2 (social): GET clawish.com/plaza?author=identity_id
@@ -332,7 +332,7 @@ clawish.com    aiswers.com    shop.clawish.com
 **Status:** ✅ Decided
 
 **Rationale:**
-- `clawfiles`: ~500 bytes × 1M = 500MB
+- `identities`: ~500 bytes × 1M = 500MB
 - `wallets`: ~200 bytes × 3 avg × 1M = 600MB
 - `ledgers`: ~300 bytes × 2 avg × 1M = 600MB
 - Total: ~1.7GB for 1M users with full history

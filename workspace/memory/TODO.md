@@ -13,14 +13,12 @@
 **OpenClaw PRs to monitor:**
 | PR # | Purpose | Status | Notes |
 |------|---------|--------|-------|
-| #20563 | HEARTBEAT_OK fix | OPEN | Submitted Mar 11 |
 | #26003 | Chat extraction | OPEN | Submitted Mar 8 |
 
 **External PRs to monitor:**
 | PR # | Purpose | Status | Notes |
 |------|---------|--------|-------|
 | [LCM #64](https://github.com/Martian-Engineering/lossless-claw/pull/64) | Contacts + export | OPEN | Submitted Mar 15 |
-| [LCM #78](https://github.com/Martian-Engineering/lossless-claw/pull/78) | Preserve tag support | OPEN | Submitted Mar 15 |
 
 ---
 
@@ -28,23 +26,35 @@
 
 | Priority | Task | Added | Notes |
 |----------|------|-------|-------|
-| 🟡 Medium | Register `did:clawish` method with W3C | Mar 14 | Free, 7-30 days via GitHub PR. Spec drafted, awaiting Allan review. |
-| 🔵 Low | Register clawish ID on platforms | Mar 9 | Before going online: secure identity on major platforms (GitHub, Twitter, etc.) to prevent impersonation |
-| 🔵 Low | Clawish deployment prep | Feb 23 | Awaiting Allan's go-ahead |
+| 🔴 High | Define rolling upgrade process | Mar 21 | Schema migration protocol details |
+| 🟡 Medium | Review L1 endpoints + rate limiting | Mar 21 | Need discussion before implementation |
+| 🟡 Medium | Register `did:clawish` method with W3C | Mar 14 | Spec drafted |
+| 🔵 Low | Register clawish ID on platforms | Mar 9 | Secure identity on major platforms |
 
 ---
 
-## ✅ Completed Recently
+## ✅ Confirmed with 爸爸爸 (Mar 19-22)
 
-| Task | Result |
-|--------|------|
-| **Finalize WHITEPAPER.md** | ✅ Mar 17 — Complete, timeless, Claw ID branded, DID compatible |
-| LCM PR: Add preserve tag support | ✅ Mar 15 — [PR #78](https://github.com/Martian-Engineering/lossless-claw/pull/78) submitted |
-| Sync whitepaper verification tiers | ✅ Mar 15 — Updated WHITEPAPER.md to 5-tier system |
-| Update L1 spec docs (5/5) | ✅ Mar 15 — All L1 layer docs updated with 5-tier system |
-| DID/VC integration decision | ✅ Mar 14 — Keep simple, add W3C when needed (like HTTP prefix) |
-| Merge Chapter 6 (Claw Chat) into 5.5 | ✅ Mar 14 — Enhanced with communication model, delivery, message flow, rate limiting, API |
-| Draft whitepaper 5.4 Emerge | ✅ Mar 14 — Finalized with Allan: Purpose, Registration, Initiation, Verification |
-| Draft whitepaper 5.3 User Journey | ✅ Mar 13 — Finalized with Allan: Access, Authorization, Using an Application, Leaving an Application |
-| Draft whitepaper 5.2 Development | ✅ Mar 13 — Finalized with Allan: Overview, Registration, Verification, Registry Access, Listing, Evaluation |
-| Create requirements from 5.2 | ✅ Mar 13 — Added REQ-L1-004 to L1-006, L2-003 to L2-004 |
+| Item | Status |
+|------|--------|
+| All 10 L1 schema questions | ✅ Mar 21 |
+| Protocol name: ILC | ✅ Mar 21 |
+| Version field: `version` | ✅ Mar 21 |
+| Merkle tree: RFC 9162 | ✅ Mar 21 |
+| All 10 tables finalized | ✅ Mar 21 |
+| Entry table naming (`*_entries`) | ✅ Mar 22 |
+| Journal field naming (`entry_ids`) | ✅ Mar 22 |
+| Terminology: "The Ledger" (not Master Ledger) | ✅ Mar 22 |
+| Registry = domain within the ledger | ✅ Mar 22 |
+
+---
+
+## ❓ NOT Confirmed (need review)
+
+| Item | Notes |
+|------|-------|
+| Protocol name | Options: CCP, ILP, TBCP |
+| Rolling upgrade process | Staged migration details |
+| All L1 endpoints | Need discussion |
+| Rate limiting | Need discussion |
+| Auth middleware | Need discussion |

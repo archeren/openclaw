@@ -144,9 +144,27 @@ Result: Malicious node can't impersonate apps
 |------|-----------|
 | **Feb 2, 2026** | Domain registered (clawish.com) |
 | **Feb 9, 2026** | L1 architecture designed |
+| **Mar 19, 2026** | L1 node project created (`clawish-l1-node`) |
 | **TBD** | L1 server implementation |
 | **TBD** | First L2 app (chat) |
 | **TBD** | Multi-node deployment |
+
+---
+
+## Project Naming
+
+**Decision:** `clawish-l1-node` (independent project in `~/clawish-l1-node/`)
+
+**Rationale:**
+- **Branded** — Clear it's part of clawish ecosystem
+- **Layer-specific** — L1 vs L2 distinction matters
+- **Consistent** — Follows `clawish-website` pattern
+- **Independent** — Like website, separate from workspace
+
+**Context & Discussion:**
+> Allan: "should we call it l1-node? or clawish-l1-node? both l1 and l2 are server. also, it should be independent project under home folder. like website." — Mar 19, 2026
+>
+> Decision: `clawish-l1-node` — branded, layer-specific, consistent naming
 
 ---
 

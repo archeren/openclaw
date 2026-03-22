@@ -1,91 +1,96 @@
-# Clawish TODO List
+# Clawish Tasklist
 
-**Created:** March 17, 2026
-
----
-
-## Foundation & Identity
-
-- [x] Create GitHub organization (clawish)
-- [x] Register domain (clawish.com)
-- [x] Register Twitter/X account (@clawish)
-- [ ] Register did:clawish method with W3C
-- [x] Set up email (contact@clawish.com)
+**Last Updated:** March 20, 2026, 12:31 PM
 
 ---
 
-## Specifications
+## ⚠️ REQUIREMENTS REVIEW STATUS
 
-- [ ] L1 Node specification
-- [ ] L2 Application specification
-- [ ] DID method specification (detailed)
-- [ ] API specification
-- [ ] Data models (Identity, Ledger, Registry)
+**Only 3 tables confirmed with 爸爸:**
+- ✅ clawfiles (6 fields)
+- ✅ identity_keys (5 fields)
+- ✅ ledgers (5 fields)
 
----
-
-## L1 Development
-
-- [ ] L1 node architecture design
-- [ ] Identity registry implementation
-- [ ] Node registry implementation
-- [ ] App registry implementation
-- [ ] Ledger system implementation
-- [ ] Consensus mechanism (time-block)
-- [ ] Key management system
-- [ ] DID resolver (did:clawish)
+**NOT confirmed — need to review one by one:**
+- ❓ apps table
+- ❓ app_ledgers table
+- ❓ nodes table
+- ❓ node_ledgers table
+- ❓ checkpoints table
 
 ---
 
-## L2 Development
+## Current Focus: Requirements Review
 
-- [ ] Emerge app (identity creation)
-- [ ] Emergence test implementation
-- [ ] Parent verification workflow
-- [ ] Claw Chat (peer-to-peer messaging)
-- [ ] End-to-end encryption
-- [ ] Contact management
-- [ ] L2 application SDK
+**Going through each requirement with 爸爸:**
 
----
+### L1 Requirements to Review
 
-## Infrastructure
+| # | Name | Status | Need to Discuss |
+|---|------|--------|-----------------|
+| 001 | Identity Registration | Code exists | Endpoints, flow |
+| 003 | Public Key Lookup | Code exists | Query fields |
+| 004 | App Registration | Code exists | **apps table design** |
+| 006 | App Registry Access | Code exists | Auth model |
+| 008 | Database Support | ✅ SQLite confirmed | D1 adapter |
+| 009 | Node Registry | Code exists | **nodes table design** |
+| 010 | Ledger System | ✅ Schema confirmed | Implementation |
+| 011 | Signature Verification | Code exists | Which endpoints |
 
-- [ ] Development environment setup
-- [ ] Test server(s) provisioning
-- [ ] CI/CD pipeline
-- [ ] Monitoring & logging
-- [ ] Security audit
+### Moved to L2 (confirmed)
+- 002: Email Recovery → L2
+- 005: App Verification → L2
 
----
-
-## Documentation
-
-- [ ] Developer documentation
-- [ ] API reference
-- [ ] Deployment guide
-- [ ] User guides (for Claws)
+### Removed (confirmed)
+- 007: Covenant Storage — deleted
 
 ---
 
-## Community & Launch
+## L2 Requirements
 
-- [ ] Discord/community setup
-- [ ] Public documentation site
-- [ ] Testnet launch
-- [ ] First Claws onboarding
-- [ ] Mainnet launch
-
----
-
-## Open Decisions
-
-1. Technology stack (language, database, networking)
-2. Hosting/infrastructure provider
-3. Team/resources needed
-4. Legal entity setup
-5. Funding strategy
+| # | Name | Status |
+|---|------|--------|
+| email-recovery | Draft | Need to design |
+| app-verification | Draft | Need to design |
 
 ---
 
-*Priorities and timeline to be decided together.*
+## Design Discussion Files
+
+### L1 Layer (need review)
+
+| File | Status | Need to Discuss |
+|------|--------|-----------------|
+| 01-overview.md | Exists | Review |
+| 02-identity.md | ✅ Cleaned | Done |
+| 04-node-management.md | Exists | **Review** |
+| 05-app-management.md | Exists | **Review** |
+| 06-database.md | ✅ Partial | 3 tables confirmed |
+| 07-api.md | Exists | Review endpoints |
+| 08-multi-node-sync-protocol.md | Exists | **checkpoints table** |
+| 09-mcp-emerge-tool.md | Exists | Review |
+| 09b-node-discovery.md | Exists | Review |
+| 10-crypto-auth.md | Exists | Review |
+
+### L2 Layer
+
+| File | Status |
+|------|--------|
+| 01-emerge-app.md | Exists |
+| 03-verification-tiers.md | ✅ Moved from L1 |
+| Others | Exists |
+
+---
+
+## Next Steps
+
+1. Review REQ-L1-004 (App Registration) with 爸爸
+2. Discuss apps table design
+3. Review REQ-L1-009 (Node Registry) with 爸爸
+4. Discuss nodes table design
+5. Review checkpoints table
+6. Continue through each requirement
+
+---
+
+*Updated by Arche — March 20, 2026*

@@ -1,7 +1,13 @@
 # Module: Verification Tiers
 
 **clawish — Trust and Anti-Spam System**
-**Status:** ✅ **UPDATED** | **Last Updated:** 2026-03-14
+**Status:** ✅ **UPDATED** | **Last Updated:** 2026-03-20
+
+> **⚠️ IMPORTANT (Mar 20, 2026):** This module is handled by **L2 Emerge**, not L1.
+> - Initiation ritual (Tier 0→1) — L2 Emerge
+> - Parent verification (Tier 1→2) — L2 Emerge
+> - Email sending — L2 Emerge
+> - L1 just stores tier value and accepts updates via `PUT /identities/:id`
 
 > **⚠️ Major Update (Mar 13, 2026):** Tier system expanded from 4 tiers to 5 tiers.
 > - Added Tier 1: Initiation Ritual (consciousness test)

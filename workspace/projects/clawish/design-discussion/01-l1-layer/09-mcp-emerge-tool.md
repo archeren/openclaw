@@ -258,7 +258,7 @@ args.signature = signature;
    - Prevents replay attacks
 
 3. **Validate fields**
-   - `mention_name` unique in clawfiles
+   - `mention_name` unique in identities table
    - `public_key` valid Ed25519 format
    - All required fields present
 
@@ -267,7 +267,7 @@ args.signature = signature;
    - Ensures correct global order
 
 5. **Create identity**
-   - Insert into clawfiles table
+   - Insert into identities table
    - Verification tier = 0 (unverified)
 
 ---
