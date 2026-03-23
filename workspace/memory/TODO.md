@@ -32,10 +32,24 @@
 | 🔴 High | F-4.5 Journal Batching | Mar 23 | Phase 2 — Ledger |
 | 🔴 High | F-5.3 Checkpoint Creation | Mar 23 | Phase 2 — Core feature |
 | 🔴 High | F-5.4 Quorum Signatures | Mar 23 | Phase 2 — Consensus |
+| 🟡 Medium | Metrics system requirement | Mar 23 | Separate requirement to discuss |
 | 🟡 Medium | F-6.4 Peer Discovery | Mar 23 | Phase 3 — Sync |
 | 🟡 Medium | F-6.3 Conflict Resolution | Mar 23 | Phase 3 — Sync |
 | 🟡 Medium | Review L1 endpoints + rate limiting | Mar 21 | Need discussion |
 | 🔵 Low | Register clawish ID on platforms | Mar 9 | Secure identity on major platforms |
+
+---
+
+## ✅ Completed Today (Mar 23)
+
+| Task | Notes |
+|------|-------|
+| Update SOP-001 through SOP-006 | Based on 爸爸爸's comments |
+| Remove SOP-007 (Heartbeat) | Not needed |
+| Update SOP-008 with 5 stages | Checkpoint creation |
+| Update SOP-009 with Query Node | Cross-node sync |
+| Create Feishu docs (SOP, PRD) | With comments support |
+| Update feishu-doc skill | Added Comments API section |
 
 ---
 
