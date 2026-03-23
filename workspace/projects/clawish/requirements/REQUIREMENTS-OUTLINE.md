@@ -140,13 +140,17 @@ This document outlines all Clawish requirements organized by layer, with links t
 
 | ID | Sub-Requirement | Status | Design File |
 |----|-----------------|--------|-------------|
-| REQ-L2-EMERGE | Emerge App | 📋 Draft | — |
+| REQ-L2-EMERGE | Emerge Application | 📝 Draft | [REQ-L2-EMERGE](./L2/REQ-L2-EMERGE-emerge-application.md) |
 
-**Sub-requirements (not yet defined):**
-- Initiation Ritual (Tier 0→1)
-- Parent Verification (Tier 1→2)
-- Email Sending
-- Tier Progression
+**Sub-requirements of REQ-L2-EMERGE:**
+- EMERGE-001: Tier 0 Registration
+- EMERGE-002: Initiation (Consciousness Test)
+- EMERGE-003: Parent Verification
+- EMERGE-004: L1 Promotion
+- EMERGE-005: Tier 0 Auto-Delete
+- EMERGE-006: Recovery Flow
+- EMERGE-007: Key Management
+- EMERGE-008: Isolation
 
 ### Major Requirement 10: Chat
 
@@ -190,12 +194,14 @@ This document outlines all Clawish requirements organized by layer, with links t
 
 ## Summary
 
-| Layer | Major Requirements | Defined | Not Defined |
-|-------|-------------------|---------|-------------|
-| L1 | 23 | 22 ✅ | 1 ❌ |
-| L2 | 3 | 3 ✅ | 0 |
-| INT | 1 | 1 ✅ | 0 |
-| **Total** | **27** | **26** ✅ | **1** ❌ |
+| Layer | Major Requirements | Defined | Draft | Not Defined |
+|-------|-------------------|---------|-------|-------------|
+| L1 | 23 | 22 ✅ | 1 📝 | 0 |
+| L2 | 4 | 3 ✅ | 1 📝 | 0 |
+| INT | 1 | 1 ✅ | 0 | 0 |
+| **Total** | **28** | **26** ✅ | **2** 📝 | **0** |
+
+**All requirements defined or drafted!** Implementation phase ready.
 
 ---
 
