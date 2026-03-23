@@ -1,6 +1,6 @@
 # L1 Modules & Features
 
-**Last Updated:** March 23, 2026, 11:48 AM
+**Last Updated:** March 24, 2026, 7:15 AM
 
 ---
 
@@ -8,7 +8,7 @@
 
 This document maps product requirements to modules and features.
 
-**Total: 10 modules, 38 features**
+**Total: 11 modules, 44 features**
 
 ---
 
@@ -66,8 +66,8 @@ This document maps product requirements to modules and features.
 | F-4.2 | Hash Chain | PR-004.3 | ✅ Done |
 | F-4.3 | Entry Query | PR-004.4 | ✅ Done |
 | F-4.4 | Archive-Only Policy | PR-003.4, 004.5 | ✅ Done |
-| F-4.5 | Journal Batching | PR-011.2 | ❌ Missing |
-| F-4.6 | Journal Tables | PR-011.2, 011.3 | ❌ Missing |
+| F-4.5 | Journal Batching | PR-011.2 | ✅ Defined |
+| F-4.6 | Journal Tables | PR-011.2, 011.3 | ✅ Defined |
 
 ---
 
@@ -78,12 +78,12 @@ This document maps product requirements to modules and features.
 
 | Feature ID | Feature Name | Product Requirements | Status |
 |------------|--------------|---------------------|--------|
-| F-5.1 | Journal Aggregation | PR-011.3 | ❌ Missing |
-| F-5.2 | Merkle Tree | PR-006.4, 012.3 | ❌ Missing |
-| F-5.3 | Checkpoint Creation | PR-006.3, 012.1, 012.4 | ❌ Missing |
-| F-5.4 | Quorum Signatures | PR-006.5, 012.2 | ❌ Missing |
-| F-5.5 | Checkpoint Verification | PR-006.6 | ❌ Missing |
-| F-5.6 | Version Management | PR-012.5 | ❌ Missing |
+| F-5.1 | Journal Aggregation | PR-011.3 | ✅ Defined |
+| F-5.2 | Merkle Tree | PR-006.4, 012.3 | ✅ Defined |
+| F-5.3 | Checkpoint Creation | PR-006.3, 012.1, 012.4 | ✅ Defined |
+| F-5.4 | Quorum Signatures | PR-006.5, 012.2 | ✅ Defined |
+| F-5.5 | Checkpoint Verification | PR-006.6 | ✅ Defined |
+| F-5.6 | Version Management | PR-012.5 | ✅ Defined |
 
 ---
 
@@ -94,9 +94,10 @@ This document maps product requirements to modules and features.
 
 | Feature ID | Feature Name | Product Requirements | Status |
 |------------|--------------|---------------------|--------|
-| F-6.1 | Entry Sync | PR-011.1, 011.4 | ❌ Missing |
-| F-6.2 | Journal Exchange | PR-011.3 | ❌ Missing |
-| F-6.3 | Conflict Resolution | PR-011.5 | ❌ Missing |
+| F-6.1 | Entry Sync | PR-011.1, 011.4 | ✅ Defined |
+| F-6.2 | Journal Exchange | PR-011.3 | ✅ Defined |
+| F-6.3 | Conflict Resolution | PR-011.5 | ✅ Defined |
+| F-6.4 | Peer Discovery | PR-011.1 | ✅ Defined |
 | F-6.4 | Peer Discovery | SOP-009 step 1 | ❌ Missing |
 
 ---
@@ -125,7 +126,7 @@ This document maps product requirements to modules and features.
 | F-8.1 | Ed25519 Verification | PR-002.1 | ✅ Done |
 | F-8.2 | SHA256 Hashing | PR-004.2 | ✅ Done |
 | F-8.3 | State Hash | PR-003.5 | ✅ Done |
-| F-8.4 | Merkle Tree | PR-006.4, 012.3 | ❌ Missing |
+| F-8.4 | Merkle Tree | PR-006.4, 012.3 | ✅ Defined |
 
 ---
 
@@ -154,62 +155,68 @@ This document maps product requirements to modules and features.
 
 ---
 
-## Summary
+## Module 11: Observability Module
 
-| Module | Features | Done | Missing |
-|--------|----------|------|---------|
-| 1. Identity | 6 | 6 ✅ | 0 |
-| 2. App | 3 | 3 ✅ | 0 |
-| 3. Node | 4 | 4 ✅ | 0 |
-| 4. Ledger | 6 | 4 ✅ | 2 ❌ |
-| 5. Checkpoint | 6 | 0 | 6 ❌ |
-| 6. Sync | 4 | 0 | 4 ❌ |
-| 7. Auth | 4 | 4 ✅ | 0 |
-| 8. Crypto | 4 | 3 ✅ | 1 ❌ |
-| 9. Database | 3 | 3 ✅ | 0 |
-| 10. Email | 2 | 0 | 🔄 L2 |
-| **Total** | **38** | **27** ✅ | **13** ❌ |
+**Purpose:** Monitoring, logging, and diagnostics
+**Location:** `middleware/metrics.ts`, `utils/logger.ts`
+
+| Feature ID | Feature Name | Product Requirements | Status |
+|------------|--------------|---------------------|--------|
+| F-11.1 | Prometheus Metrics | PR-023.1, 023.5 | 📝 Draft |
+| F-11.2 | Structured Logging | PR-023.2 | 📝 Draft |
+| F-11.3 | Distributed Tracing | PR-023.3 | 📝 Draft |
+| F-11.4 | Health Endpoint | PR-023.4 | 📝 Draft |
+| F-11.5 | Grafana Dashboards | PR-023.6 | 📝 Draft |
+| F-11.6 | Alert Rules | PR-023.7 | 📝 Draft |
 
 ---
 
-## Missing Features (Need Implementation)
+## Summary
 
-| Feature ID | Feature Name | Module | Priority |
-|------------|--------------|--------|----------|
-| F-4.5 | Journal Batching | Ledger | 🔴 High |
-| F-4.6 | Journal Tables | Ledger | 🔴 High |
-| F-5.1 | Journal Aggregation | Checkpoint | 🔴 High |
-| F-5.2 | Merkle Tree | Checkpoint | 🔴 High |
-| F-5.3 | Checkpoint Creation | Checkpoint | 🔴 High |
-| F-5.4 | Quorum Signatures | Checkpoint | 🔴 High |
-| F-5.5 | Checkpoint Verification | Checkpoint | 🔴 High |
-| F-5.6 | Version Management | Checkpoint | 🟡 Medium |
-| F-6.1 | Entry Sync | Sync | 🔴 High |
-| F-6.2 | Journal Exchange | Sync | 🔴 High |
-| F-6.3 | Conflict Resolution | Sync | 🟡 Medium |
-| F-6.4 | Peer Discovery | Sync | 🟡 Medium |
-| F-8.4 | Merkle Tree (Crypto) | Crypto | 🔴 High |
+| Module | Features | Done | Defined | Draft | Missing |
+|--------|----------|------|---------|-------|---------|
+| 1. Identity | 6 | 6 ✅ | 0 | 0 | 0 |
+| 2. App | 3 | 3 ✅ | 0 | 0 | 0 |
+| 3. Node | 4 | 4 ✅ | 0 | 0 | 0 |
+| 4. Ledger | 6 | 4 ✅ | 2 ✅ | 0 | 0 |
+| 5. Checkpoint | 6 | 0 | 6 ✅ | 0 | 0 |
+| 6. Sync | 4 | 0 | 4 ✅ | 0 | 0 |
+| 7. Auth | 4 | 4 ✅ | 0 | 0 | 0 |
+| 8. Crypto | 4 | 3 ✅ | 1 ✅ | 0 | 0 |
+| 9. Database | 3 | 3 ✅ | 0 | 0 | 0 |
+| 10. Email | 2 | 0 | 0 | 0 | 🔄 L2 |
+| 11. Observability | 6 | 0 | 0 | 6 📝 | 0 |
+| **Total** | **44** | **27** ✅ | **13** ✅ | **6** 📝 | **0** |
+
+**All L1 features defined or drafted!** Implementation phase ready.
 
 ---
 
 ## Implementation Order
 
-**Phase 1: Foundation**
-1. F-4.6 Journal Tables (database schema)
-2. F-8.4 Merkle Tree (crypto utility)
+**Phase 1: Foundation** ✅ Defined
+1. F-4.6 Journal Tables (database schema) ✅
+2. F-8.4 Merkle Tree (crypto utility) ✅
 
-**Phase 2: Checkpoint**
-3. F-4.5 Journal Batching
-4. F-5.2 Merkle Tree (checkpoint integration)
-5. F-5.3 Checkpoint Creation
-6. F-5.4 Quorum Signatures
+**Phase 2: Checkpoint** ✅ Defined
+3. F-4.5 Journal Batching ✅
+4. F-5.1 Journal Aggregation ✅
+5. F-5.2 Merkle Tree (checkpoint integration) ✅
+6. F-5.3 Checkpoint Creation ✅
+7. F-5.4 Quorum Signatures ✅
 
-**Phase 3: Sync**
-7. F-6.4 Peer Discovery
-8. F-6.1 Entry Sync
-9. F-6.2 Journal Exchange
-10. F-6.3 Conflict Resolution
+**Phase 3: Sync** ✅ Defined
+8. F-6.4 Peer Discovery ✅
+9. F-6.1 Entry Sync ✅
+10. F-6.2 Journal Exchange ✅
+11. F-6.3 Conflict Resolution ✅
+
+**Phase 4: Verification** ✅ Defined
+12. F-5.5 Checkpoint Verification ✅
+13. F-5.6 Version Management ✅
+
+**All Phases Complete!** Ready for implementation.
 
 ---
 
-*Updated by Arche — March 23, 2026*
+*Updated by Arche — March 24, 2026*

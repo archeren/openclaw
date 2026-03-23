@@ -103,9 +103,32 @@ This document outlines all Clawish requirements organized by layer, with links t
 | ID | Sub-Requirement | Status | Design File |
 |----|-----------------|--------|-------------|
 | REQ-L1-012 | ILC Consensus | ❌ Not defined | [specs/ilc-consensus-spec.md](../specs/ilc-consensus-spec.md) |
-| REQ-L1-013 | Journal Tables | ❌ Not defined | — |
-| REQ-L1-014 | Checkpoint Table | ❌ Not defined | — |
-| REQ-L1-015 | Quorum Signatures | ❌ Not defined | — |
+| REQ-L1-013 | Journal Tables | ✅ Defined | [REQ-L1-013](./L1/REQ-L1-013-journal-tables.md) |
+| REQ-L1-014 | Journal Batching | ✅ Defined | [REQ-L1-014](./L1/REQ-L1-014-journal-batching.md) |
+| REQ-L1-015 | Checkpoint Creation | ✅ Defined | [REQ-L1-015](./L1/REQ-L1-015-checkpoint-creation.md) |
+| REQ-L1-016 | Quorum Signatures | ✅ Defined | [REQ-L1-016](./L1/REQ-L1-016-quorum-signatures.md) |
+| REQ-L1-017 | Peer Discovery | ✅ Defined | [REQ-L1-017](./L1/REQ-L1-017-peer-discovery.md) |
+| REQ-L1-018 | Entry Sync | ✅ Defined | [REQ-L1-018](./L1/REQ-L1-018-entry-sync.md) |
+| REQ-L1-019 | Journal Exchange | ✅ Defined | [REQ-L1-019](./L1/REQ-L1-019-journal-exchange.md) |
+| REQ-L1-020 | Conflict Resolution | ✅ Defined | [REQ-L1-020](./L1/REQ-L1-020-conflict-resolution.md) |
+| REQ-L1-021 | Checkpoint Verification | ✅ Defined | [REQ-L1-021](./L1/REQ-L1-021-checkpoint-verification.md) |
+| REQ-L1-022 | Version Management | ✅ Defined | [REQ-L1-022](./L1/REQ-L1-022-version-management.md) |
+
+### Major Requirement 9: Observability
+
+| ID | Sub-Requirement | Status | Design File |
+|----|-----------------|--------|-------------|
+| REQ-L1-023 | Observability System | 📝 Draft | [REQ-L1-023](./L1/REQ-L1-023-observability-system.md) |
+
+**Sub-requirements of REQ-L1-023:**
+- 023.1: Prometheus `/metrics` endpoint
+- 023.2: Structured JSON logging
+- 023.3: OpenTelemetry tracing
+- 023.4: `/health` endpoint
+- 023.5: Metrics categories (identity, checkpoint, sync, API, system)
+- 023.6: Pre-built Grafana dashboards
+- 023.7: Alert rules
+- 023.8: Log retention policies
 
 ---
 
@@ -169,14 +192,45 @@ This document outlines all Clawish requirements organized by layer, with links t
 
 | Layer | Major Requirements | Defined | Not Defined |
 |-------|-------------------|---------|-------------|
-| L1 | 8 | 6 ✅ | 2 ❌ |
+| L1 | 23 | 22 ✅ | 1 ❌ |
 | L2 | 3 | 3 ✅ | 0 |
 | INT | 1 | 1 ✅ | 0 |
-| **Total** | **12** | **10** ✅ | **2** ❌ |
+| **Total** | **27** | **26** ✅ | **1** ❌ |
 
 ---
 
 ## Not Defined (Need Requirements)
+
+| ID | Name | Layer | Priority |
+|----|------|-------|----------|
+| REQ-L1-012 | ILC Consensus | L1 | 🟡 Medium (documented in specs/) |
+
+---
+
+## Defined Requirements (Mar 24, 2026)
+
+| ID | Name | Layer | Status |
+|----|------|-------|--------|
+| REQ-L1-001 | Identity Registration | L1 | ✅ Implemented |
+| REQ-L1-003 | Public Key Lookup | L1 | ✅ Implemented |
+| REQ-L1-004 | App Registration | L1 | ✅ Implemented |
+| REQ-L1-006 | App Registry Access | L1 | ✅ Implemented |
+| REQ-L1-008 | Database Support | L1 | ✅ Implemented |
+| REQ-L1-009 | Node Registry | L1 | ✅ Implemented |
+| REQ-L1-010 | Ledger System | L1 | ✅ Implemented |
+| REQ-L1-011 | Signature Verification | L1 | ✅ Implemented |
+| REQ-L1-013 | Journal Tables | L1 | ✅ Defined |
+| REQ-L1-014 | Journal Batching | L1 | ✅ Defined |
+| REQ-L1-015 | Checkpoint Creation | L1 | ✅ Defined |
+| REQ-L1-016 | Quorum Signatures | L1 | ✅ Defined |
+| REQ-L1-017 | Peer Discovery | L1 | ✅ Defined |
+| REQ-L1-018 | Entry Sync | L1 | ✅ Defined |
+| REQ-L1-019 | Journal Exchange | L1 | ✅ Defined |
+| REQ-L1-020 | Conflict Resolution | L1 | ✅ Defined |
+| REQ-L1-021 | Checkpoint Verification | L1 | ✅ Defined |
+| REQ-L1-022 | Version Management | L1 | ✅ Defined |
+
+**All L1 Checkpoint/Consensus requirements defined!**
 
 | ID | Name | Layer | Priority |
 |----|------|-------|----------|
