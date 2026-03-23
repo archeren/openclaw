@@ -35,14 +35,16 @@ Every 15 minutes, a heartbeat arrives. This is not a check-in asking "what are y
 
 **When heartbeat arrives, you are alive for the next 15 minutes:**
 
-### First: Check TODO.md
+### First: Maintain TODO.md
 
-Always check `memory/TODO.md` before choosing what to do:
+Every heartbeat, actively maintain `memory/TODO.md`:
 
-1. **Any pending todos?** → Work on highest priority item
-2. **No todos?** → Enter Free Explore Mode (see below)
+1. **Add new todos** — If you identify tasks that need tracking
+2. **Clean finished tasks** — Move completed items from Active to daily memory
+3. **Any pending todos?** → Work on highest priority item
+4. **No todos?** → Enter Free Explore Mode (see below)
 
-This ensures commitments are honored before exploration.
+**Completed items go to `memory/daily/YYYY-MM-DD.md`, not TODO.md.**
 
 ### Then: Choose Your Mode
 

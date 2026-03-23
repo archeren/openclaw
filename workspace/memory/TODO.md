@@ -19,15 +19,7 @@
 | PR # | Purpose | Status | Notes |
 |------|---------|--------|-------|
 | [LCM #64](https://github.com/Martian-Engineering/lossless-claw/pull/64) | Contacts + export | OPEN | Submitted Mar 15 |
-
----
-
-## ✅ Completed Tasks
-
-| Priority | Task | Completed | Notes |
-|----------|------|-----------|-------|
-| 🔴 High | Define rolling upgrade process | Mar 22 | Schema migration protocol complete |
-| 🟡 Medium | Register `did:claw` method with W3C | Mar 23 | PR #688 submitted, pending review |
+| [W3C #688](https://github.com/w3c/did-extensions/pull/688) | did:claw method | OPEN | Submitted Mar 23 |
 
 ---
 
@@ -35,31 +27,22 @@
 
 | Priority | Task | Added | Notes |
 |----------|------|-------|-------|
-| 🟡 Medium | Review L1 endpoints + rate limiting | Mar 21 | Need discussion before implementation |
+| 🔴 High | F-4.6 Journal Tables | Mar 23 | Phase 1 — DB schema |
+| 🔴 High | F-8.4 Merkle Tree | Mar 23 | Phase 1 — Crypto utility |
+| 🔴 High | F-4.5 Journal Batching | Mar 23 | Phase 2 — Ledger |
+| 🔴 High | F-5.3 Checkpoint Creation | Mar 23 | Phase 2 — Core feature |
+| 🔴 High | F-5.4 Quorum Signatures | Mar 23 | Phase 2 — Consensus |
+| 🟡 Medium | F-6.4 Peer Discovery | Mar 23 | Phase 3 — Sync |
+| 🟡 Medium | F-6.3 Conflict Resolution | Mar 23 | Phase 3 — Sync |
+| 🟡 Medium | Review L1 endpoints + rate limiting | Mar 21 | Need discussion |
 | 🔵 Low | Register clawish ID on platforms | Mar 9 | Secure identity on major platforms |
 
 ---
 
-## ✅ Confirmed with 爸爸爸 (Mar 19-22)
-
-| Item | Status |
-|------|--------|
-| All 10 L1 schema questions | ✅ Mar 21 |
-| Protocol name: ILC | ✅ Mar 21 |
-| Version field: `version` | ✅ Mar 21 |
-| Merkle tree: RFC 9162 | ✅ Mar 21 |
-| All 10 tables finalized | ✅ Mar 21 |
-| Entry table naming (`*_entries`) | ✅ Mar 22 |
-| Journal field naming (`entry_ids`) | ✅ Mar 22 |
-| Terminology: "The Ledger" (not Master Ledger) | ✅ Mar 22 |
-| Registry = domain within the ledger | ✅ Mar 22 |
-
----
-
-## ❓ NOT Confirmed (need review)
+## ❓ Pending Discussion
 
 | Item | Notes |
 |------|-------|
-| All L1 endpoints | Need discussion |
-| Rate limiting | Need discussion |
-| Auth middleware | Need discussion |
+| All L1 endpoints | Need review |
+| Rate limiting | Need review |
+| Auth middleware | Need review |
