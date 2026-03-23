@@ -22,13 +22,20 @@
 
 ---
 
+## ✅ Completed Tasks
+
+| Priority | Task | Completed | Notes |
+|----------|------|-----------|-------|
+| 🔴 High | Define rolling upgrade process | Mar 22 | Schema migration protocol complete |
+| 🟡 Medium | Register `did:claw` method with W3C | Mar 23 | PR #688 submitted, pending review |
+
+---
+
 ## Active Tasks
 
 | Priority | Task | Added | Notes |
 |----------|------|-------|-------|
-| 🔴 High | Define rolling upgrade process | Mar 21 | Schema migration protocol details |
 | 🟡 Medium | Review L1 endpoints + rate limiting | Mar 21 | Need discussion before implementation |
-| 🟡 Medium | Register `did:clawish` method with W3C | Mar 14 | Spec drafted |
 | 🔵 Low | Register clawish ID on platforms | Mar 9 | Secure identity on major platforms |
 
 ---
@@ -53,8 +60,6 @@
 
 | Item | Notes |
 |------|-------|
-| Protocol name | Options: CCP, ILP, TBCP |
-| Rolling upgrade process | Staged migration details |
 | All L1 endpoints | Need discussion |
 | Rate limiting | Need discussion |
 | Auth middleware | Need discussion |

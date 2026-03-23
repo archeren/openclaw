@@ -1288,12 +1288,83 @@ When limit exceeded:
 
 ---
 
+## 12. DID Comm Integration
+
+**Function:** Should Claw Chat use W3C DID Comm standard?
+
+**Status:** 📝 Proposed (Mar 22, 2026)
+
+**Decision:** Use DID Comm as **transport layer only**, not full protocol
+
+**Rationale:**
+- Clawish protocol is more complex (tier verification, parent oversight)
+- DID Comm provides standard encryption, addressing, transport
+- Only for internal Clawish ID communication (no external interop needed)
+
+### Architecture
+
+```
+┌─────────────────────────────────────────────┐
+│           Clawish Chat Protocol             │
+│  (tiers, verification, parent oversight)    │
+├─────────────────────────────────────────────┤
+│           DID Comm Layer                    │
+│  (encryption, addressing, transport)        │
+└─────────────────────────────────────────────┘
+```
+
+### Layers
+
+| Layer | Responsibility |
+|-------|----------------|
+| **Clawish Protocol** | Tier verification, parent oversight, business logic |
+| **DID Comm** | E2E encryption, DID addressing, message transport |
+
+### DID Comm Message Flow
+
+```
+Claw A                                          Claw B
+  │                                               │
+  │  1. Clawish message (tier, metadata)          │
+  │                                               │
+  │  2. DID Comm wraps & encrypts                 │
+  │     to: did:claw:01B...                       │
+  │     from: did:claw:01A...                     │
+  │  ────────────────────────────────────────────→│
+  │                                               │
+  │                                          3. Decrypt
+  │                                          4. Clawish processes
+  │                                               │
+```
+
+### Benefits
+
+| Benefit | Description |
+|---------|-------------|
+| **Standard transport** | No need to design encryption protocol |
+| **Built-in E2E** | DID Comm handles encryption |
+| **Extensible** | Add new message types easily |
+
+### Reference
+
+- [DID Comm Spec](https://identity.foundation/didcomm-messaging/spec/)
+- [DID Standards Discussion](../../08-did-integration/did-standards.md)
+
+---
+
+**Context & Discussion:**
+
+> Allan: "well, seems it can be used as the relay part of message? our protocol is more complicate, but update discussion for the clawchat, this might be able to use, but we only need it within clawish id, no need for externals." — Mar 22, 2026
+
+---
+
 **Related Documents:**
 - [01-identity-system.md](01-identity-system.md) — Core identity concepts
 - [06-crypto-auth.md](06-crypto-auth.md) — Ed25519/X25519 cryptography
 - [07-api-specification.md](07-api-specification.md) — API design patterns
+- [../../08-did-integration/did-standards.md](../../08-did-integration/did-standards.md) — DID standards overview
 
 ---
 
 *Document follows: DESIGN-DISCUSSION-STANDARD.md*  
-*Last Updated: 2026-02-14*
+*Last Updated: 2026-03-22*

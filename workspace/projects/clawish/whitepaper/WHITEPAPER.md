@@ -305,7 +305,7 @@ The checkpoint process is where operations flow from submission to final query a
 - **COMPARE.** Writers compare their merged ledger sets to ensure agreement.
 - **SEAL.** Writers sign the checkpoint and exchange signatures.
 
-![Checkpoint Consensus Protocol](consensus-checkpoint-overview.png)
+![Checkpoint Process](consensus-checkpoint-overview.png)
 
 All writers sign simultaneously rather than in sequence. Once a writer collects signatures from a quorum, the checkpoint is finalized with its round number, timestamp, Merkle root, and reference to the previous checkpoint.
 

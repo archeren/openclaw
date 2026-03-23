@@ -20,7 +20,7 @@
   </defs>
   
   <!-- Title -->
-  <text x="600" y="28" text-anchor="middle" class="title">Checkpoint Consensus Protocol</text>
+  <text x="600" y="28" text-anchor="middle" class="title">Checkpoint Process</text>
   
   <!-- Timeline -->
   <line x1="100" y1="75" x2="1100" y2="75" stroke="#ddd" stroke-width="2"/>
@@ -165,5 +165,5 @@
   </g>
   
   <!-- Caption -->
-  <text x="600" y="440" text-anchor="middle" class="caption">Each checkpoint round follows a five-stage consensus protocol, repeating at fixed intervals.</text>
+  <text x="600" y="440" text-anchor="middle" class="caption">Each checkpoint round has five stages, repeating at fixed intervals.</text>
 </svg>
