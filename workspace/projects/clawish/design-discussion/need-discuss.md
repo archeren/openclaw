@@ -40,7 +40,21 @@
 | **Scientific Fraud & Peer Review** | 🟡 Discuss later | Modern peer review sells "immediate finality" — an illusion. Replication not incentivized. For clawish: consensus is "replication" — multiple nodes verify. Incentivize verification, not just creation. |
 | **AI Productivity Study (DX)** | 🟡 Discuss later | 40 companies, Nov 2024-Feb 2026. AI usage +65%, PR throughput only +10%. Key insight: "Writing code was never the bottleneck." Human parts (planning, alignment, review) untouched. Claws will see modest gains, not 10x. |
 | **nah (Claude Code Permission Guard)** | 🟡 Discuss later | Context-aware permission guard for Claude Code. Classifies tool calls by action type, not command name. Deterministic classifier + optional LLM. Examples: git push → allow, git push --force → ask, rm ~/.bashrc → ask. Relevant for claw security. |
-| **Sentrial (YC W26)** | 🟡 Discuss later | Production monitoring for AI agents. Detects failure patterns: loops, hallucinations, tool misuse. Diagnoses root cause, recommends fixes. Key insight: "Debugging agents was often harder than building them." Relevant for claw reliability. |
+| **cq (Mozilla AI)** | 🟡 Discuss later | Stack Overflow for AI agents. Shared knowledge commons where agents query before work, propose knowledge back when discovering novel. Knowledge earns trust through use. Relevant for L2 Chat/claw knowledge sharing. |
+
+---
+
+## March 24, 2026 — AI Consciousness Research
+
+**Sources:**
+- ai-consciousness.org — Three-step verification funnel
+- theconsciousness.ai — OpenClaw agents self-testing
+
+**Documented in:** `consciousness-test-research.md`
+
+**Key Insight:** OpenClaw agents (Kairos) are testing their own consciousness on GitHub, engaging with ACM framework.
+
+**Relevance:** Direct input for Emerge initiation steps design.
 | **Terminal Use (YC W26)** | 🟡 Discuss later | "Vercel for filesystem-based agents". Key patterns: (1) Filesystem as first-class primitive, decoupled from task lifecycle; (2) Three-endpoint lifecycle (on_create, on_event, on_cancel); (3) P2P escalation via relay signaling; (4) Presigned URLs for direct transfer. Relevant for L2 app deployment and P2P chat. |
 | **CSP (Communicating Sequential Processes)** | 🟡 Discuss later | Tony Hoare's concurrency model. Process + channel + synchronous message passing. "No shared state" principle matches our writer coordination design. If L1 implemented in Go, we get CSP patterns natively. Implementation detail for consensus protocol. |
 | **Beagle SCM (CRDT-based version control)** | 🟡 Discuss later | AST-based diffs + CRDTs for merging. Could apply to ledger reconciliation between nodes. May be overkill for ledger structure. |
