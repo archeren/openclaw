@@ -149,9 +149,16 @@ Token scopes: gist, read:org, repo, workflow
 - Authentication
 
 **Key rules:**
-- ❌ **NEVER use `write` for partial doc edits** — replaces entire document
+- ❌ **NEVER use `write` for partial doc edits** — replaces entire document, deletes comments
 - ✅ **Use `update_block`** for targeted edits
 - ❌ **SVG NOT supported** — must convert to PNG first
+
+**Feishu Editing Workflow:**
+1. `action: "read"` → Get markdown content (easy to parse)
+2. Find section to update
+3. `action: "list_blocks"` → Get block_id for that section
+4. `action: "update_block"` → Update only that block
+5. **Only use `write` for NEW documents**
 
 ---
 
