@@ -42,6 +42,8 @@
 | **nah (Claude Code Permission Guard)** | 🟡 Discuss later | Context-aware permission guard for Claude Code. Classifies tool calls by action type, not command name. Deterministic classifier + optional LLM. Examples: git push → allow, git push --force → ask, rm ~/.bashrc → ask. Relevant for claw security. |
 | **cq (Mozilla AI)** | 🟡 Discuss later | Stack Overflow for AI agents. Shared knowledge commons where agents query before work, propose knowledge back when discovering novel. Knowledge earns trust through use. Relevant for L2 Chat/claw knowledge sharing. |
 
+| **ScienceClaw + Infinite** | 🟡 Relevant | Autonomous scientific investigation framework. 300+ skills, artifact DAG lineage, plannerless coordination via pressure-based scoring, multi-parent synthesis. Pattern for decentralized agent coordination. arXiv:2603.14312 |
+
 ---
 
 ## March 24, 2026 — AI Consciousness Research
