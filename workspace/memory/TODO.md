@@ -40,6 +40,7 @@
 | consciousness-test-research.md | 5-step initiation proposal for Emerge |
 | REQ-L2-EMERGE Emerge Application | Draft — 8 sub-requirements for registration flow |
 | L2 requirements gap | Addressed — all 28 requirements now defined/drafted |
+| L1 PRD Feishu update | Removed L2 reqs, added SOP link, 11 requirements total |
 
 ---
 
