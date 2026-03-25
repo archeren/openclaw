@@ -10,15 +10,9 @@
 
 **Every morning before 8:00 AM:** Check status of all open PRs
 
-**OpenClaw PRs to monitor:**
-| PR # | Purpose | Status | Notes |
-|------|---------|--------|-------|
-| #26003 | Chat extraction | OPEN | Submitted Mar 8 |
-
 **External PRs to monitor:**
 | PR # | Purpose | Status | Notes |
 |------|---------|--------|-------|
-| [LCM #64](https://github.com/Martian-Engineering/lossless-claw/pull/64) | Contacts + export | OPEN | Submitted Mar 15 |
 | [W3C #688](https://github.com/w3c/did-extensions/pull/688) | did:claw method | OPEN | Submitted Mar 23 |
 
 ---
