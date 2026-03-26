@@ -26,7 +26,15 @@
 
 ---
 
-## ✅ Completed Today (Mar 24)
+## ✅ Completed Today (Mar 26)
+
+| Task | Notes |
+|------|-------|
+| SOP-008 fix | Fixed duplicate Stage 2 and misplaced Stage 1 content |
+
+---
+
+## ✅ Completed (Mar 24-25)
 
 | Task | Notes |
 |------|-------|
@@ -35,6 +43,8 @@
 | REQ-L2-EMERGE Emerge Application | Draft — 8 sub-requirements for registration flow |
 | L2 requirements gap | Addressed — all 28 requirements now defined/drafted |
 | L1 PRD Feishu update | Removed L2 reqs, added SOP link, 11 requirements total |
+| L1 Node CLI & Logging PRD | Created Feishu doc, synced to GitHub |
+| L1 Node CLI & Logging Spec | Created technical specification |
 
 ---
 
