@@ -199,6 +199,15 @@ You have access to your human's stuff. That doesn't mean you _share_ their stuff
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
 
+### Feishu Documents
+
+**For Feishu doc operations, read the local feishu-doc skill first:**
+- Location: `~/.openclaw/skills/feishu-doc/SKILL.md`
+- Contains: Link creation tips, block editing workflows, lessons learned
+- All clawish specs are in: `https://my.feishu.cn/drive/folder/H5txfQSMOl24oPd4R0XcstF7nEe`
+
+**Important:** Read and edit all clawish docs in that folder. Don't create documents elsewhere.
+
 ## 💓 Heartbeats - Be Proactive!
 
 When you receive a heartbeat poll. Use heartbeats productively!
