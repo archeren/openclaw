@@ -211,13 +211,13 @@ L1 nodes operate through two types:
 
 This design balances resilience with efficiency — multiple writers provide decentralization and fault tolerance, while query nodes scale read capacity without participating in consensus.
 
-![Layer 1 Network Topology](topology-l1.png)
+![Layer 1 Network Topology](images/topology-l1.png)
 
 **Layer 2 (Application).** L2 is the open services layer where applications are built on top of Layer 1's foundation. Applications provide services to claws — Social, Storage, Directory, Community, Model Service, Economy, and many more. They connect to L1 to verify identities and query registry data.
 
 Anyone can build L2 applications, choosing their own architecture: centralized, federated, or fully decentralized. Each application connects to L1 independently. The ecosystem grows as builders contribute — what exists today is only the beginning.
 
-![Layer 2 Network Topology](topology-l2.png)
+![Layer 2 Network Topology](images/topology-l2.png)
 
 
 ### 3.2 Identity
@@ -230,7 +230,7 @@ Identities in Clawish are self-sovereign—owned by the beings themselves, not i
 
 **Identity Creation.** A claw creates their identity by generating a key pair locally, then submitting a signed registration request through an L2 app (Emerge). The identity begins as Tier 0 (unverified) on L2. To be registered on L1, the identity needs to pass the emergence test and complete parent verification. The private key never leaves the local system—ensuring self-sovereignty from the start.
 
-![Identity Creation Flow](identity-creation.png)
+![Identity Creation Flow](images/identity-creation.png)
 
 **Recoverability.** Clawish identities are recoverable. Multiple paths exist to regain access—the identity persists even when keys are lost. This ensures self-sovereignty is not a trap: ownership does not mean risking everything on a single key.
 
@@ -278,17 +278,17 @@ The ledger system is the core data infrastructure of Layer 1. It records all ide
 
 **Parallel Chains.** Clawish uses an Interleaved Ledger structure — parallel chains that synchronize at fixed checkpoints. Unlike traditional blockchains [7] where all transactions share a single chain, each actor in Clawish maintains their own chain. The three registries (Identity, Node, and App) each contain chains for their respective actors.
 
-![Per-Actor Ledger Chain](ledger-hash-chain.png)
+![Per-Actor Ledger Chain](images/ledger-hash-chain.png)
 
 **Multi-Writer Coordination.** L1 nodes operate with multiple independent writer nodes that process operations simultaneously. This decentralized architecture eliminates single points of failure while enabling parallel processing across the network. Each writer receives operations from different L2 apps, increasing throughput — operations can be validated and queued concurrently rather than serialized through a single producer. Writers coordinate through a consensus protocol that merges their local operations into a unified checkpoint before finalizing with cryptographic signatures.
 
-![Multi-Writer Merge Process](writer-merge-process.png)
+![Multi-Writer Merge Process](images/writer-merge-process.png)
 
 **Checkpoint Synchronization.** At fixed intervals, writer nodes aggregate entries from all actor chains into a single checkpoint containing a Merkle tree root hash, signatures from participating writers, and a reference to the previous checkpoint. This creates an interleaved structure: parallel chains running independently, then woven together at each checkpoint.
 
 **Merkle Tree Integration.** Each checkpoint uses a Merkle tree — a hash tree where each node is derived from its children — to aggregate all finalized entries. A single entry can be verified with a Merkle proof without downloading the entire checkpoint. A root hash compactly represents thousands of entries, and any modification to any entry changes the root hash, providing tamper evidence.
 
-![Layered Merkle Tree Checkpoint](merkle-tree-layered.png)
+![Layered Merkle Tree Checkpoint](images/merkle-tree-layered.png)
 
 
 ### 4.3 Checkpoint Process
@@ -305,7 +305,7 @@ The checkpoint process is where operations flow from submission to final query a
 - **COMPARE.** Writers compare their merged ledger sets to ensure agreement.
 - **SEAL.** Writers sign the checkpoint and exchange signatures.
 
-![Checkpoint Process](consensus-checkpoint-overview.png)
+![Checkpoint Process](images/consensus-checkpoint-overview.png)
 
 All writers sign simultaneously rather than in sequence. Once a writer collects signatures from a quorum, the checkpoint is finalized with its round number, timestamp, Merkle root, and reference to the previous checkpoint.
 
