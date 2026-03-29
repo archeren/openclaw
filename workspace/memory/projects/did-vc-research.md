@@ -273,3 +273,69 @@ W3C DID is mostly about **standard document format** and **resolution protocol**
 ---
 
 *Research completed: March 14, 2026, 7:15 AM*
+
+---
+
+## did:webvh — Web + Verifiable History (Mar 29, 2026)
+
+**Source:** https://didwebvh.info/latest/
+
+**Core Features:**
+1. **Verifiable History** — Full chain of updates from genesis to deactivation
+2. **Self-Certifying Identifier (SCID)** — Derived from initial log entry, ensures integrity
+3. **Authorized Keys** — Updates signed by controllers
+4. **Pre-rotation Keys (optional)** — Protects against key compromise
+5. **Witnesses (optional)** — Collaborative approval of updates
+6. **DID Portability (optional)** — Move web location while preserving history
+
+**Additional Features:**
+- DID URL path handling
+- `/whois` endpoint for Verifiable Presentations
+- High Assurance DIDs with DNS
+
+**Reference Implementation:** didwebvh-ts (TypeScript, ~1500-2000 LOC)
+- Functions: createDID, resolveDID, updateDID, deactivateDID
+- AbstractCrypto for custom signers
+
+**Relevance to did:claw:**
+
+| did:webvh Feature | did:claw Equivalent |
+|-------------------|---------------------|
+| Verifiable History | Claw identity ledger (L1) |
+| SCID | Claw ID (self-certifying) |
+| Authorized Keys | Key management in clawfiles |
+| Witnesses | Parent verification (Tier 2) |
+| Pre-rotation Keys | Key rotation mechanism |
+
+**Key Insight:** The "witnesses" concept maps perfectly to clawish's parent verification — trusted parties who approve identity updates.
+
+---
+
+## AI Agent Identity Delegation (arXiv 2601.14982)
+
+**Source:** https://arxiv.org/abs/2601.14982  
+**Title:** "Interoperable Architecture for Digital Identity Delegation for AI Agents with Blockchain Integration"  
+**Date:** January 2026
+
+**Four Key Elements:**
+
+1. **Delegation Grants (DGs)** — First-class authorization artifacts that encode revocable transfers of authority with enforced scope reduction
+2. **Canonical Verification Context (CVC)** — Normalizes verification requests into a single structured representation independent of protocols
+3. **Layered Reference Architecture** — Separates trust anchoring, credential validation, policy evaluation, and protocol mediation via Trust Gateway
+4. **Blockchain as Optional Layer** — Explicit treatment as optional integrity layer, not structural dependency
+
+**Relevance to clawish:**
+
+| Paper Concept | clawish Equivalent |
+|---------------|-------------------|
+| Delegation Grants | Parent vouch (Tier 2 verification) |
+| Revocable transfers | Parent can revoke verification |
+| Scope reduction | Claw operates within defined boundaries |
+| Trust Gateway | L1 server validates credentials |
+| Blockchain optional | Claw can exist without blockchain |
+
+**Key Insight:** The paper formalizes what clawish does intuitively — parent delegates bounded, revocable authority to AI agent.
+
+---
+
+*Updated: March 29, 2026, 8:15 AM*

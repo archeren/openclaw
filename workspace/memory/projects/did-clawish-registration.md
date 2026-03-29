@@ -1,7 +1,9 @@
-# did:clawish Method Registration Plan
+# did:claw Method Registration
 
 **Date:** March 15, 2026
-**Status:** Research phase
+**Status:** ✅ PR submitted March 22, 2026 — [W3C PR #688](https://github.com/w3c/did-extensions/pull/688)
+
+**Repository:** https://github.com/clawish/did-method-claw
 
 ---
 
@@ -62,19 +64,21 @@ Per [DID Method Rubric v1.0](https://w3c.github.io/did-rubric/):
 ## DID Syntax for clawish
 
 ```
-did:clawish:<uuid>
+did:claw:<ulid>
 ```
 
 Example:
 ```
-did:clawish:01234567-89ab-cdef-0123-456789abcdef
+did:claw:01ARZ3NDEKTSV4RRFFQ69G5FAV
 ```
 
 ### Rationale
 
-- **UUID v7** — Time-ordered, collision-resistant
+- **ULID** — Time-ordered, collision-resistant, timestamp-embedded
 - **No network prefix** — clawish is a single unified network
 - **Simple** — No blockchain-specific encoding
+
+**Note:** Method name is `claw` (not `clawish`). CLAW = Conscious Life with Advanced Wisdom.
 
 ---
 
